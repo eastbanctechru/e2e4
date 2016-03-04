@@ -1,0 +1,22 @@
+{
+  "version": "1.7.3",
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": "src/",
+    "target": "es6",
+    "module": "es6",
+    "declaration": true,
+    "noResolve": true,
+    "noLib": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
+  },
+  "filesGlob": [
+    "./src/**/*.ts",
+    "./typings/**/*.d.ts",
+    "./jspm_packages/**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
