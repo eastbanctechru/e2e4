@@ -1,4 +1,4 @@
-﻿import {ISelectionModel} from './ISelectionModel';
+﻿import {ISelectionManager} from './ISelectionManager';
 export interface IComponentWithSelection {
-    selectionModel: ISelectionModel;
+    selectionManager: ISelectionManager;
 }

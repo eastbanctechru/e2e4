@@ -312,14 +312,14 @@ export class BaseComponent {
 }
 ;
 
-export class SelectionModel {
+export class SelectionManager {
     constructor(target, itemsPropertyName) {
         this.selectionsList = new Array();
         this.target = target;
         this.itemsPropertyName = itemsPropertyName;
     }
     static includeIn(target, itemsPropertyName) {
-        target.selectionModel = new SelectionModel(target, itemsPropertyName);
+        target.selectionManager = new SelectionManager(target, itemsPropertyName);
     }
     get itemsSource() {
         return this.target[this.itemsPropertyName];
@@ -332,7 +332,7 @@ export class SelectionModel {
         selectionTuple.item.selected = false;
         if (this.canRecurse(recursive, selectionTuple.item)) {
             /* tslint:disable:no-any */
-            selectionTuple.item.selectionModel.deselectAll(true);
+            selectionTuple.item.selectionManager.deselectAll(true);
         }
         this.lastProcessedIndex = selectionTuple.index;
     }
@@ -354,12 +354,12 @@ export class SelectionModel {
         }
         if (this.canRecurse(recursive, selectionTuple.item)) {
             /* tslint:disable:no-any */
-            selectionTuple.item.selectionModel.selectAll(true);
+            selectionTuple.item.selectionManager.selectAll(true);
         }
         this.lastProcessedIndex = selectionTuple.index;
     }
     canRecurse(recursive, /* tslint:disable:no-any */ item /* tslint:enable:no-any */) {
-        if (recursive && item.selectionModel && item.selectionModel instanceof SelectionModel) {
+        if (recursive && item.selectionManager && item.selectionManager instanceof SelectionManager) {
             return true;
         }
         return false;
@@ -377,7 +377,7 @@ export class SelectionModel {
             item.selected = false;
             if (this.canRecurse(recursive, item)) {
                 /* tslint:disable:no-any */
-                item.selectionModel.deselectAll(true);
+                item.selectionManager.deselectAll(true);
             }
         }
         this.lastProcessedIndex = null;
@@ -399,7 +399,7 @@ export class SelectionModel {
             tuple.item.selected = true;
             if (this.canRecurse(recursive, tuple.item)) {
                 /* tslint:disable:no-any */
-                tuple.item.selectionModel.selectAll(true);
+                tuple.item.selectionManager.selectAll(true);
             }
         }
         this.selectionsList.splice(0, this.selectionsList.length, ...tempData);
@@ -472,7 +472,7 @@ export class SelectionModel {
                 result.push(item);
                 if (this.canRecurse(recursive, item)) {
                     /* tslint:disable:no-any */
-                    result = result.concat(item.selectionModel.getSelections(true));
+                    result = result.concat(item.selectionManager.getSelections(true));
                 }
             }
         }
@@ -553,7 +553,7 @@ export class ListComponent extends BaseComponent {
         ///IRequestCanceller
         ///IComponentWithState
         this.useModelState = true;
-        SelectionModel.includeIn(this, 'items');
+        SelectionManager.includeIn(this, 'items');
         FilterManager.includeIn(this);
         this.listLoadDataSuccessBinded = this.listLoadDataSuccessCallback.bind(this);
         this.listLoadDataFailBinded = this.listLoadDataFailCallback.bind(this);
@@ -569,7 +569,7 @@ export class ListComponent extends BaseComponent {
     }
     clearDataInternal() {
         this.totalCount = 0;
-        this.selectionModel.deselectAll();
+        this.selectionManager.deselectAll();
         Utility.disposeAll(this.items);
     }
     ///IComponent overrides
@@ -840,7 +840,7 @@ export class PagedListComponent extends ListComponent {
         this.pageSizeInternal = pageSize;
     }
     loadData() {
-        this.selectionModel.deselectAll();
+        this.selectionManager.deselectAll();
         const promise = super.loadData.call(this, ...Array.prototype.slice.call(arguments));
         Utility.disposeAll(this.items);
         promise.then(this.pagedLoadDataSuccessBinded);

@@ -142,7 +142,7 @@ declare module 'e2e4' {
         saveRequestState(): void;
         saveLocalState(): void;
         private getRestoredState(params: Object): Object;
-        selectionModel: SelectionModel;
+        selectionManager: SelectionManager;
         filterManager: FilterManager;
         abstract getDataReadPromise(): Promise<Object>;
     }
@@ -181,7 +181,7 @@ declare module 'e2e4' {
         Cancelled = 4,
     }
 
-    export class SelectionModel implements ISelectionModel {
+    export class SelectionManager implements ISelectionManager {
         static includeIn(target: IComponentWithSelection, itemsPropertyName: string): void;
         constructor(target: Object, itemsPropertyName: string);
         private selectionsList;
@@ -248,7 +248,7 @@ declare module 'e2e4' {
     }
 
     export interface IComponentWithSelection {
-        selectionModel: ISelectionModel;
+        selectionManager: ISelectionManager;
     }
 
     export interface IComponentWithState {
@@ -301,7 +301,7 @@ declare module 'e2e4' {
         selected: boolean;
     }
 
-    export interface ISelectionModel {
+    export interface ISelectionManager {
         lastProcessedIndex: number;
         deselectAll(recursive: boolean): void;
         selectAll(recursive: boolean): void;

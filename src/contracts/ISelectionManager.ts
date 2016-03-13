@@ -1,4 +1,4 @@
-﻿export interface ISelectionModel {
+﻿export interface ISelectionManager {
     lastProcessedIndex: number;
     deselectAll(recursive: boolean): void;
     selectAll(recursive: boolean): void;

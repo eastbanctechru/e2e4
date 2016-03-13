@@ -9,7 +9,7 @@ import {IRequestCanceller} from './contracts/IRequestCanceller';
 import {IComponentWithState} from './contracts/IComponentWithState';
 import {IComponentWithSelection} from './contracts/IComponentWithSelection';
 import {IComponentWithFilter} from './contracts/IComponentWithFilter';
-import {SelectionModel} from './selectionModel';
+import {SelectionManager} from './selectionManager';
 import {FilterManager} from './filterManager';
 import {filter} from './filterDecorator';
 import {ProgressState} from './ProgressState';
@@ -31,12 +31,12 @@ export abstract class ListComponent extends BaseComponent implements IListCompon
     private listLoadDataFailBinded: (error: Object) => void;
     private clearDataInternal(): void {
         this.totalCount = 0;
-        this.selectionModel.deselectAll();
+        this.selectionManager.deselectAll();
         Utility.disposeAll(this.items);
     }
     constructor() {
         super();
-        SelectionModel.includeIn(this, 'items');
+        SelectionManager.includeIn(this, 'items');
         FilterManager.includeIn(this);
         this.listLoadDataSuccessBinded = this.listLoadDataSuccessCallback.bind(this);
         this.listLoadDataFailBinded = this.listLoadDataFailCallback.bind(this);
@@ -162,7 +162,7 @@ export abstract class ListComponent extends BaseComponent implements IListCompon
         return this.stateManager.mergeStates(params);
     }
     ///IComponentWithState
-    selectionModel: SelectionModel;
+    selectionManager: SelectionManager;
     filterManager: FilterManager;
     abstract getDataReadPromise(): Promise<Object>;
 }
