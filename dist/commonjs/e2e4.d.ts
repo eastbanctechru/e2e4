@@ -1,5 +1,4 @@
-declare module "e2e4" 
-{
+declare module 'e2e4' {
     export abstract class BaseComponent {
         disposed: boolean;
         inited: boolean;
@@ -258,6 +257,7 @@ declare module "e2e4"
         saveRequestState(): void;
         saveLocalState(): void;
     }
+
     export interface IFilterConfig {
         defaultValue?: Object;
         propertyName?: string;

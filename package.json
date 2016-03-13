@@ -31,7 +31,7 @@
     "devDependencies": {
       "babel": "babel-core@^5.8.24",
       "babel-runtime": "^5.8.24",
-      "core-js": "^2.0.3"
+      "core-js": "^1.1.4"
     }
   },
   "devDependencies": {
@@ -53,11 +53,12 @@
     "gulp-tslint": "^4.2.1",
     "gulp-typedoc": "^1.2.1",
     "gulp-typedoc-extractor": "^0.0.8",
+    "object.assign": "^4.0.3",
     "require-dir": "^0.1.0",
     "run-sequence": "^1.0.2",
+    "through2": "^2.0.0",
     "tslint": "^3.2.0",
     "typescript": "^1.7.3",
-    "through2": "^2.0.0",
     "vinyl": "^0.5.0",
     "vinyl-paths": "^1.0.0",
     "yargs": "^2.1.1"

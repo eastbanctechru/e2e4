@@ -1,4 +1,5 @@
-declare module 'e2e4' {
+declare module "baseComponent" {
+    import { ProgressState } from "ProgressState";
     export abstract class BaseComponent {
         disposed: boolean;
         inited: boolean;
@@ -9,7 +10,9 @@ declare module 'e2e4' {
         init(...args: Object[]): void;
         dispose(): void;
     }
-
+}
+declare module "bufferedListComponent" {
+    import { ListComponent } from "listComponent";
     export abstract class BufferedListComponent extends ListComponent {
         private bufferedLoadDataSuccessBinded;
         private takeRowCountInternal;
@@ -21,7 +24,8 @@ declare module 'e2e4' {
         loadData(): Promise<Object>;
         onSortingsChanged(): void;
     }
-
+}
+declare module "Defaults" {
     export class Defaults {
         static sortAttribute: {
             ascClassName: string;
@@ -60,9 +64,15 @@ declare module 'e2e4' {
             progressDelayInterval: number;
         };
     }
-
+}
+declare module "filterDecorator" {
+    import { IFilterConfig } from "contracts/IFilterConfig";
     export function filter(targetOrNameOrConfig?: string | IFilterConfig | any, key?: string, descriptor?: Object): any;
-
+}
+declare module "filterModel" {
+    import { FilterProperty } from "filterProperty";
+    import { IFilterModel } from "contracts/IFIlterModel";
+    import { IComponentWithFilter } from "contracts/IComponentWithFilter";
     export class FilterModel implements IFilterModel {
         static coerceTypes: {
             'true': boolean;
@@ -76,7 +86,7 @@ declare module 'e2e4' {
         private target;
         private defaultsApplied;
         private targetConfig;
-        private buildValue(/* tslint:disable:no-any */value: any/* tslint:enable:no-any */, config: FilterProperty): Object;
+        private buildValue(value, config);
         dispose(): void;
         resetFilters(): void;
         parseParams(params: Object): void;
@@ -84,7 +94,9 @@ declare module 'e2e4' {
         buildPersistedState(result?: Object): Object;
         constructor(target: Object);
     }
-
+}
+declare module "filterProperty" {
+    import { IFilterConfig } from "contracts/IFilterConfig";
     export class FilterProperty implements IFilterConfig {
         defaultValue: Object;
         propertyName: string;
@@ -99,7 +111,8 @@ declare module 'e2e4' {
         constructor(config: IFilterConfig);
         register(target: Object, descriptor?: Object): void;
     }
-
+}
+declare module "KeyCodes" {
     export enum KeyCodes {
         Enter = 13,
         Shift = 16,
@@ -110,14 +123,25 @@ declare module 'e2e4' {
         ArrowDown = 40,
         A = 65,
     }
-
-    export abstract class ListComponent extends BaseComponent
-        implements IListComponent, ISortableComponent, IRequestCanceller, IComponentWithState, IComponentWithSelection, IComponentWithFilter {
-        private listLoadDataSuccessCallback(result: Object): Object;
-        private listLoadDataFailCallback(): void;
+}
+declare module "listComponent" {
+    import { BaseComponent } from "baseComponent";
+    import { SortParameter } from "SortParameter";
+    import { IStateManager } from "contracts/IStateManager";
+    import { IListComponent } from "contracts/IListComponent";
+    import { ISortableComponent } from "contracts/ISortableComponent";
+    import { IRequestCanceller } from "contracts/IRequestCanceller";
+    import { IComponentWithState } from "contracts/IComponentWithState";
+    import { IComponentWithSelection } from "contracts/IComponentWithSelection";
+    import { IComponentWithFilter } from "contracts/IComponentWithFilter";
+    import { SelectionModel } from "selectionModel";
+    import { FilterModel } from "filterModel";
+    export abstract class ListComponent extends BaseComponent implements IListComponent, ISortableComponent, IRequestCanceller, IComponentWithState, IComponentWithSelection, IComponentWithFilter {
+        private listLoadDataSuccessCallback(result);
+        private listLoadDataFailCallback();
         private listLoadDataSuccessBinded;
         private listLoadDataFailBinded;
-        private clearDataInternal(): void;
+        private clearDataInternal();
         constructor();
         init(queryParams?: Object): void;
         dispose(): void;
@@ -141,24 +165,27 @@ declare module 'e2e4' {
         stateManagerKey: string;
         saveRequestState(): void;
         saveLocalState(): void;
-        private getRestoredState(params: Object): Object;
+        private getRestoredState(params);
         selectionModel: SelectionModel;
         filterModel: FilterModel;
         abstract getDataReadPromise(): Promise<Object>;
     }
-
+}
+declare module "MouseButtons" {
     export enum MouseButtons {
         None = 0,
         Left = 1,
         Middle = 2,
         Right = 3,
     }
-
+}
+declare module "pagedListComponent" {
+    import { ListComponent } from "listComponent";
     export abstract class PagedListComponent extends ListComponent {
         private pageSizeInternal;
         private pageNumberInternal;
         private pagedLoadDataSuccessBinded;
-        private pagedLoadDataSuccessCallback(result: Object): Object;
+        private pagedLoadDataSuccessCallback(result);
         displayFrom: number;
         displayTo: number;
         constructor();
@@ -172,7 +199,8 @@ declare module 'e2e4' {
         goToNextPage(): void;
         goToLastPage(): void;
     }
-
+}
+declare module "ProgressState" {
     export enum ProgressState {
         Initial = 0,
         Done = 1,
@@ -180,7 +208,11 @@ declare module 'e2e4' {
         Fail = 3,
         Cancelled = 4,
     }
-
+}
+declare module "selectionModel" {
+    import { ISelectable } from "contracts/ISelectable";
+    import { ISelectionModel } from "contracts/ISelectionModel";
+    import { IComponentWithSelection } from "contracts/IComponentWithSelection";
     export class SelectionModel implements ISelectionModel {
         static includeIn(target: IComponentWithSelection, itemsPropertyName: string): void;
         constructor(target: Object, itemsPropertyName: string);
@@ -189,10 +221,10 @@ declare module 'e2e4' {
         private itemsPropertyName;
         lastProcessedIndex: number;
         itemsSource: Array<ISelectable>;
-        private deselectItem(selectionTuple: ISelectionTuple, recursive?: boolean): void;
-        private selectItem(selectionTuple: ISelectionTuple, savePrevious?: boolean, recursive?: boolean): void;
-        private canRecurse(recursive: boolean, /* tslint:disable:no-any */item: any/* tslint:enable:no-any */): boolean;
-        private getSelectionTuple(index: number): ISelectionTuple;
+        private deselectItem(selectionTuple, recursive?);
+        private selectItem(selectionTuple, savePrevious?, recursive?);
+        private canRecurse(recursive, item);
+        private getSelectionTuple(index);
         deselectAll(recursive?: boolean): void;
         selectAll(recursive?: boolean): void;
         selectRange(fromIndex: number, toIndex: number, recursive?: boolean): void;
@@ -207,12 +239,15 @@ declare module 'e2e4' {
         toggleSelection(index: number, savePrevious?: boolean, recursive?: boolean): void;
         getSelections(recursive?: boolean): Array<Object>;
     }
-
+}
+declare module "SortDirection" {
     export enum SortDirection {
         Asc = 0,
         Desc = 1,
     }
-
+}
+declare module "SortParameter" {
+    import { SortDirection } from "SortDirection";
     export class SortParameter {
         constructor(fieldName: string, direction?: SortDirection);
         direction: SortDirection;
@@ -220,7 +255,9 @@ declare module 'e2e4' {
         toggleDirection(): void;
         toRequest(): Object;
     }
-
+}
+declare module "StatusModel" {
+    import { ProgressState } from "ProgressState";
     export class StatusModel {
         sid: number;
         status: ProgressState;
@@ -228,7 +265,10 @@ declare module 'e2e4' {
         constructor(status: ProgressState, title: string);
         className: string;
     }
-
+}
+declare module "statusTracker" {
+    import { StatusModel } from "StatusModel";
+    import { ProgressState } from "ProgressState";
     export class StatusTracker {
         static status: ProgressState;
         static modalDisplayed: boolean;
@@ -238,19 +278,26 @@ declare module 'e2e4' {
         static trackStatus(title: string): number;
         static resolveStatus(sid: number, status: ProgressState): void;
     }
-
+}
+declare module "Utility" {
     export class Utility {
         static disposeAll(collection: any[], async?: boolean): void;
     }
-
+}
+declare module "contracts/IComponentWithFilter" {
+    import { IFilterModel } from "contracts/IFIlterModel";
     export interface IComponentWithFilter {
         filterModel: IFilterModel;
     }
-
+}
+declare module "contracts/IComponentWithSelection" {
+    import { ISelectionModel } from "contracts/ISelectionModel";
     export interface IComponentWithSelection {
         selectionModel: ISelectionModel;
     }
-
+}
+declare module "contracts/IComponentWithState" {
+    import { IStateManager } from "contracts/IStateManager";
     export interface IComponentWithState {
         stateManager: IStateManager;
         useModelState: boolean;
@@ -258,7 +305,8 @@ declare module 'e2e4' {
         saveRequestState(): void;
         saveLocalState(): void;
     }
-
+}
+declare module "contracts/IFilterConfig" {
     export interface IFilterConfig {
         defaultValue?: Object;
         propertyName?: string;
@@ -270,7 +318,8 @@ declare module 'e2e4' {
         valueSerializer?: (value: Object) => Object;
         valueParser?: (rawValue: Object, allValues?: Object) => Object;
     }
-
+}
+declare module "contracts/IFIlterModel" {
     export interface IFilterModel {
         dispose(): void;
         resetFilters(): void;
@@ -278,7 +327,8 @@ declare module 'e2e4' {
         buildRequest(result?: Object): Object;
         buildPersistedState(result?: Object): Object;
     }
-
+}
+declare module "contracts/IListComponent" {
     export interface IListComponent {
         items: Object[];
         totalCount: number;
@@ -287,20 +337,25 @@ declare module 'e2e4' {
         reloadData(): void;
         toRequest(): any;
     }
-
+}
+declare module "contracts/IListRequest" {
+    import { SortParameter } from "SortParameter";
     export interface IListRequest {
         sort: Array<SortParameter>;
     }
-
+}
+declare module "contracts/IRequestCanceller" {
     export interface IRequestCanceller {
         addToCancellationSequence(promise: Promise<Object>): void;
         cancelRequests(): void;
     }
-
+}
+declare module "contracts/ISelectable" {
     export interface ISelectable {
         selected: boolean;
     }
-
+}
+declare module "contracts/ISelectionModel" {
     export interface ISelectionModel {
         lastProcessedIndex: number;
         deselectAll(recursive: boolean): void;
@@ -317,19 +372,24 @@ declare module 'e2e4' {
         toggleSelection(index: number, savePrevious: boolean, recursive: boolean): void;
         getSelections(recursive: boolean): Array<Object>;
     }
-
+}
+declare module "contracts/ISelectionTuple" {
+    import { ISelectable } from "contracts/ISelectable";
     export interface ISelectionTuple {
         index: number;
         item: ISelectable;
     }
-
+}
+declare module "contracts/ISortableComponent" {
+    import { SortParameter } from "SortParameter";
     export interface ISortableComponent {
         sortings: Array<SortParameter>;
         defaultSortings: SortParameter[];
         setSort(fieldName: string, savePrevious: boolean): void;
         onSortingsChanged(): void;
     }
-
+}
+declare module "contracts/IStateManager" {
     export interface IStateManager {
         flushRequestState(state: Object): void;
         persistLocalState(state: Object): void;
