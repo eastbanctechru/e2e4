@@ -2,7 +2,7 @@
   "name": "e2e4",
   "version": "0.0.1",
   "description": "Set of base classes and utilities to build unobtrusive list models",
-  "main": "dist/e2e4.js",  
+  "main": "dist/e2e4.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fshchudlo/e2e4.git"
@@ -17,9 +17,8 @@
     "url": "https://github.com/fshchudlo/e2e4/issues"
   },
   "homepage": "https://github.com/fshchudlo/e2e4#readme",
- 
   "jspm": {
-    "registry": "github",
+    "registry": "npm",
     "main": "e2e4",
     "format": "amd",
     "directories": {

@@ -1,2 +1,4 @@
 jspm_packages
-bower_components
+node_modules
+transpiled
+typings
