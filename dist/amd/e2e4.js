@@ -182,37 +182,37 @@ define(['exports', 'lodash'], function (exports, _lodash) {
 
     exports.Utility = Utility;
 
-    var FilterModel = (function () {
-        function FilterModel(target) {
+    var FilterManager = (function () {
+        function FilterManager(target) {
             var _this = this;
 
-            _classCallCheck(this, FilterModel);
+            _classCallCheck(this, FilterManager);
 
             this.defaultsApplied = false;
             this.targetConfig = new Array();
             this.target = target;
-            FilterModel.filterPropertiesMap.forEach((function (typeConfig, type) {
+            FilterManager.filterPropertiesMap.forEach((function (typeConfig, type) {
                 if (target instanceof type) {
                     _this.targetConfig = _this.targetConfig.concat(_lodash.cloneDeep(typeConfig));
                 }
             }).bind(this));
         }
 
-        FilterModel.registerFilter = function registerFilter(targetType, propertyConfig) {
-            var typeConfigs = FilterModel.filterPropertiesMap.has(targetType) ? FilterModel.filterPropertiesMap.get(targetType) : new Array();
+        FilterManager.registerFilter = function registerFilter(targetType, propertyConfig) {
+            var typeConfigs = FilterManager.filterPropertiesMap.has(targetType) ? FilterManager.filterPropertiesMap.get(targetType) : new Array();
             typeConfigs.push(propertyConfig);
-            FilterModel.filterPropertiesMap.set(targetType, typeConfigs);
+            FilterManager.filterPropertiesMap.set(targetType, typeConfigs);
         };
 
-        FilterModel.includeIn = function includeIn(target) {
-            target.filterModel = new FilterModel(target);
+        FilterManager.includeIn = function includeIn(target) {
+            target.filterManager = new FilterManager(target);
         };
 
-        FilterModel.coerceValue = function coerceValue(value) {
+        FilterManager.coerceValue = function coerceValue(value) {
             if (typeof value === 'object' || Array.isArray(value)) {
                 for (var index in value) {
                     if (value.hasOwnProperty(index)) {
-                        value[index] = FilterModel.coerceValue(value[index]);
+                        value[index] = FilterManager.coerceValue(value[index]);
                     }
                 }
             }
@@ -220,13 +220,13 @@ define(['exports', 'lodash'], function (exports, _lodash) {
                 value = +value;
             } else if (value === 'undefined') {
                 value = undefined;
-            } else if (FilterModel.coerceTypes[value] !== undefined) {
-                value = FilterModel.coerceTypes[value];
+            } else if (FilterManager.coerceTypes[value] !== undefined) {
+                value = FilterManager.coerceTypes[value];
             }
             return value;
         };
 
-        FilterModel.prototype.buildValue = function buildValue(value, config) {
+        FilterManager.prototype.buildValue = function buildValue(value, config) {
             if (config && config.valueSerializer) {
                 return config.valueSerializer.call(this.target, value);
             }
@@ -244,13 +244,13 @@ define(['exports', 'lodash'], function (exports, _lodash) {
             return value;
         };
 
-        FilterModel.prototype.dispose = function dispose() {
+        FilterManager.prototype.dispose = function dispose() {
             this.targetConfig.length = 0;
             delete this.target;
             delete this.targetConfig;
         };
 
-        FilterModel.prototype.resetFilters = function resetFilters() {
+        FilterManager.prototype.resetFilters = function resetFilters() {
             for (var i = 0; i < this.targetConfig.length; i++) {
                 var config = this.targetConfig[i];
                 var defaultValue = typeof config.defaultValue === 'function' ? config.defaultValue.call(this.target) : config.defaultValue;
@@ -259,7 +259,7 @@ define(['exports', 'lodash'], function (exports, _lodash) {
             }
         };
 
-        FilterModel.prototype.parseParams = function parseParams(params) {
+        FilterManager.prototype.parseParams = function parseParams(params) {
             for (var i = 0; i < this.targetConfig.length; i++) {
                 var config = this.targetConfig[i];
                 if (false === this.defaultsApplied && config.defaultValue === undefined) {
@@ -267,14 +267,14 @@ define(['exports', 'lodash'], function (exports, _lodash) {
                 }
                 if (params && params[config.parameterName] !== undefined && false === config.ignoreOnAutoMap) {
                     var proposedVal = config.emptyIsNull ? params[config.parameterName] || null : params[config.parameterName];
-                    proposedVal = config.coerce ? FilterModel.coerceValue(proposedVal) : proposedVal;
+                    proposedVal = config.coerce ? FilterManager.coerceValue(proposedVal) : proposedVal;
                     this.target[config.propertyName] = config.valueParser ? config.valueParser.call(this.target, proposedVal, params) : proposedVal;
                 }
             }
             this.defaultsApplied = true;
         };
 
-        FilterModel.prototype.buildRequest = function buildRequest(result) {
+        FilterManager.prototype.buildRequest = function buildRequest(result) {
             result = result || {};
             for (var i = 0; i < this.targetConfig.length; i++) {
                 var config = this.targetConfig[i];
@@ -284,7 +284,7 @@ define(['exports', 'lodash'], function (exports, _lodash) {
             return result;
         };
 
-        FilterModel.prototype.buildPersistedState = function buildPersistedState(result) {
+        FilterManager.prototype.buildPersistedState = function buildPersistedState(result) {
             result = result || {};
             for (var i = 0; i < this.targetConfig.length; i++) {
                 var config = this.targetConfig[i];
@@ -300,13 +300,13 @@ define(['exports', 'lodash'], function (exports, _lodash) {
             return result;
         };
 
-        return FilterModel;
+        return FilterManager;
     })();
 
-    exports.FilterModel = FilterModel;
+    exports.FilterManager = FilterManager;
 
-    FilterModel.coerceTypes = { 'true': !0, 'false': !1, 'null': null };
-    FilterModel.filterPropertiesMap = new Map();
+    FilterManager.coerceTypes = { 'true': !0, 'false': !1, 'null': null };
+    FilterManager.filterPropertiesMap = new Map();
 
     var FilterProperty = (function () {
         function FilterProperty(config) {
@@ -317,7 +317,7 @@ define(['exports', 'lodash'], function (exports, _lodash) {
 
         FilterProperty.prototype.register = function register(target, descriptor) {
             this.descriptor = descriptor || undefined;
-            FilterModel.registerFilter(target, this);
+            FilterManager.registerFilter(target, this);
         };
 
         return FilterProperty;
@@ -703,7 +703,7 @@ define(['exports', 'lodash'], function (exports, _lodash) {
 
             this.useModelState = true;
             SelectionModel.includeIn(this, 'items');
-            FilterModel.includeIn(this);
+            FilterManager.includeIn(this);
             this.listLoadDataSuccessBinded = this.listLoadDataSuccessCallback.bind(this);
             this.listLoadDataFailBinded = this.listLoadDataFailCallback.bind(this);
         }
@@ -728,7 +728,7 @@ define(['exports', 'lodash'], function (exports, _lodash) {
         ListComponent.prototype.init = function init(queryParams) {
             _BaseComponent.prototype.init.call(this);
             var restoredState = this.getRestoredState(queryParams);
-            this.filterModel.parseParams(restoredState);
+            this.filterManager.parseParams(restoredState);
         };
 
         ListComponent.prototype.dispose = function dispose() {
@@ -738,7 +738,7 @@ define(['exports', 'lodash'], function (exports, _lodash) {
             delete this.defaultSortings;
             this.sortings.length = 0;
             this.clearDataInternal();
-            this.filterModel.dispose();
+            this.filterManager.dispose();
         };
 
         ListComponent.prototype.setSort = function setSort(fieldName, savePrevious) {
@@ -767,11 +767,11 @@ define(['exports', 'lodash'], function (exports, _lodash) {
         };
 
         ListComponent.prototype.toRequest = function toRequest() {
-            return this.filterModel.buildRequest(null);
+            return this.filterManager.buildRequest(null);
         };
 
         ListComponent.prototype.getLocalState = function getLocalState() {
-            return this.filterModel.buildPersistedState(null);
+            return this.filterManager.buildPersistedState(null);
         };
 
         ListComponent.prototype.loadData = function loadData() {

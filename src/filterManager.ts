@@ -1,24 +1,24 @@
 import * as _ from 'lodash';
 import {FilterProperty} from './filterProperty';
-import {IFilterModel} from './contracts/IFilterModel';
+import {IFilterManager} from './contracts/IFilterManager';
 import {IComponentWithFilter} from './contracts/IComponentWithFilter';
 
-export class FilterModel implements IFilterModel {
+export class FilterManager implements IFilterManager {
     static coerceTypes = { 'true': !0, 'false': !1, 'null': null };
     static filterPropertiesMap = new Map<Object, Array<FilterProperty>>();
     static registerFilter(targetType: Object, propertyConfig: FilterProperty): void {
-        const typeConfigs = FilterModel.filterPropertiesMap.has(targetType) ? FilterModel.filterPropertiesMap.get(targetType) : new Array<FilterProperty>();
+        const typeConfigs = FilterManager.filterPropertiesMap.has(targetType) ? FilterManager.filterPropertiesMap.get(targetType) : new Array<FilterProperty>();
         typeConfigs.push(propertyConfig);
-        FilterModel.filterPropertiesMap.set(targetType, typeConfigs);
+        FilterManager.filterPropertiesMap.set(targetType, typeConfigs);
     }
     static includeIn(target: IComponentWithFilter): void {
-        target.filterModel = new FilterModel(target);
+        target.filterManager = new FilterManager(target);
     }
     static coerceValue(/* tslint:disable:no-any */value: any/* tslint:enable:no-any */): Object {
         if (typeof value === 'object' || Array.isArray(value)) {
             for (let index in value) {
                 if (value.hasOwnProperty(index)) {
-                    value[index] = FilterModel.coerceValue(value[index]);
+                    value[index] = FilterManager.coerceValue(value[index]);
                 }
             }
         }
@@ -26,8 +26,8 @@ export class FilterModel implements IFilterModel {
             value = +value;
         } else if (value === 'undefined') {
             value = undefined;
-        } else if (FilterModel.coerceTypes[value] !== undefined) {
-            value = FilterModel.coerceTypes[value];
+        } else if (FilterManager.coerceTypes[value] !== undefined) {
+            value = FilterManager.coerceTypes[value];
         }
         return value;
     }
@@ -76,7 +76,7 @@ export class FilterModel implements IFilterModel {
 
             if (params && params[config.parameterName] !== undefined && false === config.ignoreOnAutoMap) {
                 let proposedVal = config.emptyIsNull ? params[config.parameterName] || null : params[config.parameterName];
-                proposedVal = config.coerce ? FilterModel.coerceValue(proposedVal) : proposedVal;
+                proposedVal = config.coerce ? FilterManager.coerceValue(proposedVal) : proposedVal;
                 this.target[config.propertyName] = config.valueParser ? config.valueParser.call(this.target, proposedVal, params) : proposedVal;
             }
         }
@@ -110,7 +110,7 @@ export class FilterModel implements IFilterModel {
 
     constructor(target: Object) {
         this.target = target;
-        FilterModel.filterPropertiesMap.forEach(((typeConfig, type) => {
+        FilterManager.filterPropertiesMap.forEach(((typeConfig, type) => {
             if (target instanceof type) {
                 this.targetConfig = this.targetConfig.concat(_.cloneDeep(typeConfig));
             }

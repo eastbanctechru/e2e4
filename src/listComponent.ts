@@ -10,7 +10,7 @@ import {IComponentWithState} from './contracts/IComponentWithState';
 import {IComponentWithSelection} from './contracts/IComponentWithSelection';
 import {IComponentWithFilter} from './contracts/IComponentWithFilter';
 import {SelectionModel} from './selectionModel';
-import {FilterModel} from './filterModel';
+import {FilterManager} from './filterManager';
 import {filter} from './filterDecorator';
 import {ProgressState} from './ProgressState';
 import {IFilterConfig} from './contracts/IFilterConfig';
@@ -37,7 +37,7 @@ export abstract class ListComponent extends BaseComponent implements IListCompon
     constructor() {
         super();
         SelectionModel.includeIn(this, 'items');
-        FilterModel.includeIn(this);
+        FilterManager.includeIn(this);
         this.listLoadDataSuccessBinded = this.listLoadDataSuccessCallback.bind(this);
         this.listLoadDataFailBinded = this.listLoadDataFailCallback.bind(this);
     }
@@ -45,7 +45,7 @@ export abstract class ListComponent extends BaseComponent implements IListCompon
     init(queryParams?: Object): void {
         super.init();
         const restoredState = this.getRestoredState(queryParams);
-        this.filterModel.parseParams(restoredState);
+        this.filterManager.parseParams(restoredState);
     }
     dispose(): void {
         super.dispose();
@@ -54,7 +54,7 @@ export abstract class ListComponent extends BaseComponent implements IListCompon
         delete this.defaultSortings;
         this.sortings.length = 0;
         this.clearDataInternal();
-        this.filterModel.dispose();
+        this.filterManager.dispose();
     }
     ///IComponent overrides
 
@@ -108,10 +108,10 @@ export abstract class ListComponent extends BaseComponent implements IListCompon
     totalCount = 0;
     loadedCount = 0;
     toRequest(): any {
-        return this.filterModel.buildRequest(null);
+        return this.filterManager.buildRequest(null);
     }
     getLocalState(): Object {
-        return this.filterModel.buildPersistedState(null);
+        return this.filterManager.buildPersistedState(null);
     }
 
     loadData(): Promise<Object> {
@@ -163,6 +163,6 @@ export abstract class ListComponent extends BaseComponent implements IListCompon
     }
     ///IComponentWithState
     selectionModel: SelectionModel;
-    filterModel: FilterModel;
+    filterManager: FilterManager;
     abstract getDataReadPromise(): Promise<Object>;
 }

@@ -136,30 +136,30 @@ export class Utility {
     }
 }
 
-export class FilterModel {
+export class FilterManager {
     constructor(target) {
         this.defaultsApplied = false;
         this.targetConfig = new Array();
         this.target = target;
-        FilterModel.filterPropertiesMap.forEach(((typeConfig, type) => {
+        FilterManager.filterPropertiesMap.forEach(((typeConfig, type) => {
             if (target instanceof type) {
                 this.targetConfig = this.targetConfig.concat(_.cloneDeep(typeConfig));
             }
         }).bind(this));
     }
     static registerFilter(targetType, propertyConfig) {
-        const typeConfigs = FilterModel.filterPropertiesMap.has(targetType) ? FilterModel.filterPropertiesMap.get(targetType) : new Array();
+        const typeConfigs = FilterManager.filterPropertiesMap.has(targetType) ? FilterManager.filterPropertiesMap.get(targetType) : new Array();
         typeConfigs.push(propertyConfig);
-        FilterModel.filterPropertiesMap.set(targetType, typeConfigs);
+        FilterManager.filterPropertiesMap.set(targetType, typeConfigs);
     }
     static includeIn(target) {
-        target.filterModel = new FilterModel(target);
+        target.filterManager = new FilterManager(target);
     }
     static coerceValue(/* tslint:disable:no-any */ value /* tslint:enable:no-any */) {
         if (typeof value === 'object' || Array.isArray(value)) {
             for (let index in value) {
                 if (value.hasOwnProperty(index)) {
-                    value[index] = FilterModel.coerceValue(value[index]);
+                    value[index] = FilterManager.coerceValue(value[index]);
                 }
             }
         }
@@ -169,8 +169,8 @@ export class FilterModel {
         else if (value === 'undefined') {
             value = undefined;
         }
-        else if (FilterModel.coerceTypes[value] !== undefined) {
-            value = FilterModel.coerceTypes[value];
+        else if (FilterManager.coerceTypes[value] !== undefined) {
+            value = FilterManager.coerceTypes[value];
         }
         return value;
     }
@@ -212,7 +212,7 @@ export class FilterModel {
             }
             if (params && params[config.parameterName] !== undefined && false === config.ignoreOnAutoMap) {
                 let proposedVal = config.emptyIsNull ? params[config.parameterName] || null : params[config.parameterName];
-                proposedVal = config.coerce ? FilterModel.coerceValue(proposedVal) : proposedVal;
+                proposedVal = config.coerce ? FilterManager.coerceValue(proposedVal) : proposedVal;
                 this.target[config.propertyName] = config.valueParser ? config.valueParser.call(this.target, proposedVal, params) : proposedVal;
             }
         }
@@ -244,8 +244,8 @@ export class FilterModel {
         return result;
     }
 }
-FilterModel.coerceTypes = { 'true': !0, 'false': !1, 'null': null };
-FilterModel.filterPropertiesMap = new Map();
+FilterManager.coerceTypes = { 'true': !0, 'false': !1, 'null': null };
+FilterManager.filterPropertiesMap = new Map();
 
 export class FilterProperty {
     constructor(config) {
@@ -253,7 +253,7 @@ export class FilterProperty {
     }
     register(target, descriptor) {
         this.descriptor = descriptor || undefined;
-        FilterModel.registerFilter(target, this);
+        FilterManager.registerFilter(target, this);
     }
 }
 
@@ -554,7 +554,7 @@ export class ListComponent extends BaseComponent {
         ///IComponentWithState
         this.useModelState = true;
         SelectionModel.includeIn(this, 'items');
-        FilterModel.includeIn(this);
+        FilterManager.includeIn(this);
         this.listLoadDataSuccessBinded = this.listLoadDataSuccessCallback.bind(this);
         this.listLoadDataFailBinded = this.listLoadDataFailCallback.bind(this);
     }
@@ -576,7 +576,7 @@ export class ListComponent extends BaseComponent {
     init(queryParams) {
         super.init();
         const restoredState = this.getRestoredState(queryParams);
-        this.filterModel.parseParams(restoredState);
+        this.filterManager.parseParams(restoredState);
     }
     dispose() {
         super.dispose();
@@ -585,7 +585,7 @@ export class ListComponent extends BaseComponent {
         delete this.defaultSortings;
         this.sortings.length = 0;
         this.clearDataInternal();
-        this.filterModel.dispose();
+        this.filterManager.dispose();
     }
     get defaultSortings() {
         return this.defaultSortingsPrivate;
@@ -621,10 +621,10 @@ export class ListComponent extends BaseComponent {
         }
     }
     toRequest() {
-        return this.filterModel.buildRequest(null);
+        return this.filterManager.buildRequest(null);
     }
     getLocalState() {
-        return this.filterModel.buildPersistedState(null);
+        return this.filterManager.buildPersistedState(null);
     }
     loadData() {
         if (!this.inited) {

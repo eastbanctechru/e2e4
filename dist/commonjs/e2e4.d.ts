@@ -63,7 +63,7 @@ declare module 'e2e4' {
 
     export function filter(targetOrNameOrConfig?: string | IFilterConfig | any, key?: string, descriptor?: Object): any;
 
-    export class FilterModel implements IFilterModel {
+    export class FilterManager implements IFilterManager {
         static coerceTypes: {
             'true': boolean;
             'false': boolean;
@@ -76,7 +76,7 @@ declare module 'e2e4' {
         private target;
         private defaultsApplied;
         private targetConfig;
-        private buildValue(value, config);
+        private buildValue(/* tslint:disable:no-any */value: any/* tslint:enable:no-any */, config: FilterProperty): Object;
         dispose(): void;
         resetFilters(): void;
         parseParams(params: Object): void;
@@ -111,12 +111,13 @@ declare module 'e2e4' {
         A = 65,
     }
 
-    export abstract class ListComponent extends BaseComponent implements IListComponent, ISortableComponent, IRequestCanceller, IComponentWithState, IComponentWithSelection, IComponentWithFilter {
-        private listLoadDataSuccessCallback(result);
-        private listLoadDataFailCallback();
+    export abstract class ListComponent extends BaseComponent
+        implements IListComponent, ISortableComponent, IRequestCanceller, IComponentWithState, IComponentWithSelection, IComponentWithFilter {
+        private listLoadDataSuccessCallback(result: Object): Object;
+        private listLoadDataFailCallback(): void;
         private listLoadDataSuccessBinded;
         private listLoadDataFailBinded;
-        private clearDataInternal();
+        private clearDataInternal(): void;
         constructor();
         init(queryParams?: Object): void;
         dispose(): void;
@@ -140,9 +141,9 @@ declare module 'e2e4' {
         stateManagerKey: string;
         saveRequestState(): void;
         saveLocalState(): void;
-        private getRestoredState(params);
+        private getRestoredState(params: Object): Object;
         selectionModel: SelectionModel;
-        filterModel: FilterModel;
+        filterManager: FilterManager;
         abstract getDataReadPromise(): Promise<Object>;
     }
 
@@ -157,7 +158,7 @@ declare module 'e2e4' {
         private pageSizeInternal;
         private pageNumberInternal;
         private pagedLoadDataSuccessBinded;
-        private pagedLoadDataSuccessCallback(result);
+        private pagedLoadDataSuccessCallback(result: Object): Object;
         displayFrom: number;
         displayTo: number;
         constructor();
@@ -188,10 +189,10 @@ declare module 'e2e4' {
         private itemsPropertyName;
         lastProcessedIndex: number;
         itemsSource: Array<ISelectable>;
-        private deselectItem(selectionTuple, recursive?);
-        private selectItem(selectionTuple, savePrevious?, recursive?);
-        private canRecurse(recursive, item);
-        private getSelectionTuple(index);
+        private deselectItem(selectionTuple: ISelectionTuple, recursive?: boolean): void;
+        private selectItem(selectionTuple: ISelectionTuple, savePrevious?: boolean, recursive?: boolean): void;
+        private canRecurse(recursive: boolean, /* tslint:disable:no-any */item: any/* tslint:enable:no-any */): boolean;
+        private getSelectionTuple(index: number): ISelectionTuple;
         deselectAll(recursive?: boolean): void;
         selectAll(recursive?: boolean): void;
         selectRange(fromIndex: number, toIndex: number, recursive?: boolean): void;
@@ -243,7 +244,7 @@ declare module 'e2e4' {
     }
 
     export interface IComponentWithFilter {
-        filterModel: IFilterModel;
+        filterManager: IFilterManager;
     }
 
     export interface IComponentWithSelection {
@@ -270,7 +271,7 @@ declare module 'e2e4' {
         valueParser?: (rawValue: Object, allValues?: Object) => Object;
     }
 
-    export interface IFilterModel {
+    export interface IFilterManager {
         dispose(): void;
         resetFilters(): void;
         parseParams(params: Object): void;

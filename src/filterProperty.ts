@@ -1,5 +1,5 @@
 import {IFilterConfig} from './contracts/IFilterConfig';
-import {FilterModel} from './filterModel';
+import {FilterManager} from './filterManager';
 
 export class FilterProperty implements IFilterConfig {
     defaultValue: Object;
@@ -17,6 +17,6 @@ export class FilterProperty implements IFilterConfig {
     }
     register(target: Object, descriptor?: Object): void {
         this.descriptor = descriptor || undefined;
-        FilterModel.registerFilter(target, this);
+        FilterManager.registerFilter(target, this);
     }
 }

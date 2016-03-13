@@ -63,7 +63,7 @@ declare module 'e2e4' {
 
     export function filter(targetOrNameOrConfig?: string | IFilterConfig | any, key?: string, descriptor?: Object): any;
 
-    export class FilterModel implements IFilterModel {
+    export class FilterManager implements IFilterManager {
         static coerceTypes: {
             'true': boolean;
             'false': boolean;
@@ -143,7 +143,7 @@ declare module 'e2e4' {
         saveLocalState(): void;
         private getRestoredState(params: Object): Object;
         selectionModel: SelectionModel;
-        filterModel: FilterModel;
+        filterManager: FilterManager;
         abstract getDataReadPromise(): Promise<Object>;
     }
 
@@ -244,7 +244,7 @@ declare module 'e2e4' {
     }
 
     export interface IComponentWithFilter {
-        filterModel: IFilterModel;
+        filterManager: IFilterManager;
     }
 
     export interface IComponentWithSelection {
@@ -271,7 +271,7 @@ declare module 'e2e4' {
         valueParser?: (rawValue: Object, allValues?: Object) => Object;
     }
 
-    export interface IFilterModel {
+    export interface IFilterManager {
         dispose(): void;
         resetFilters(): void;
         parseParams(params: Object): void;

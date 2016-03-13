@@ -1,4 +1,5 @@
-﻿import {IFilterModel} from './IFilterModel';
+﻿import {IFilterManager} from './IFilterManager';
+
 export interface IComponentWithFilter {
-    filterModel: IFilterModel;
+    filterManager: IFilterManager;
 }

@@ -33,7 +33,7 @@ gulp.task('build-index', function () {
     'SortParameter.js',
     'StatusModel.js',
     'Utility.js',
-    'filterModel.js',
+    'filterManager.js',
     'filterProperty.js',
     'filterDecorator.js',
     'baseComponent.js',

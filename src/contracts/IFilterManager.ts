@@ -1,6 +1,6 @@
 ﻿import {IFilterConfig} from './IFilterConfig';
 
-export interface IFilterModel {
+export interface IFilterManager {
     dispose(): void;
     resetFilters(): void;
     parseParams(params: Object): void;
