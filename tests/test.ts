@@ -1,7 +1,6 @@
-import * as chai from 'chai';
-const { expect } = chai;
+import { expect } from 'chai';
 
-describe('config', () => {
+describe('Demo test', () => {
     it('should run', () => {
         expect(true).eql(true);
     });

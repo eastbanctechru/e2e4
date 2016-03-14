@@ -16,7 +16,7 @@ module.exports = function (config) {
             // add webpack as preprocessor
             'tests/**/*.ts': [ 'webpack', 'sourcemap' ]
         },
-        reporters: [ 'dots' ], //report results in this format
+        reporters: [ 'spec' ], //report results in this format
         webpack: {
             devtool: 'inline-source-map', //just do inline source maps instead of the default
             module: {
