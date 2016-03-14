@@ -288,10 +288,6 @@ declare module 'e2e4' {
         toRequest(): any;
     }
 
-    export interface IListRequest {
-        sort: Array<SortParameter>;
-    }
-
     export interface IRequestCanceller {
         addToCancellationSequence(promise: Promise<Object>): void;
         cancelRequests(): void;
