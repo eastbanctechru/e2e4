@@ -16,7 +16,7 @@ describe('Utility', () => {
         const collection = [{dispose: disposeSpy}];
 
         Utility.disposeAll(collection);
-        setTimeout(()=>{
+        setTimeout(() => {
             expect(disposeSpy.calledOnce).eql(true);
             done();
         }, 0);

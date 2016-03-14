@@ -8,4 +8,6 @@ before_install:
 node_js:
   - "4"
 script:
-  - tsd install && npm run ci
+  - tsd install
+  - gulp tslint
+  - gulp test
