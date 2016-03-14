@@ -73,10 +73,10 @@ declare module 'e2e4' {
         static registerFilter(targetType: Object, propertyConfig: FilterProperty): void;
         static includeIn(target: IComponentWithFilter): void;
         static coerceValue(value: any): Object;
+        static buildFilterValue(target: Object,/* tslint:disable:no-any */value: any/* tslint:enable:no-any */, config: FilterProperty): Object;
         private target;
         private defaultsApplied;
         private targetConfig;
-        private buildValue(/* tslint:disable:no-any */value: any/* tslint:enable:no-any */, config: FilterProperty): Object;
         dispose(): void;
         resetFilters(): void;
         parseParams(params: Object): void;
@@ -286,10 +286,6 @@ declare module 'e2e4' {
         clearData(): void;
         reloadData(): void;
         toRequest(): any;
-    }
-
-    export interface IListRequest {
-        sort: Array<SortParameter>;
     }
 
     export interface IRequestCanceller {

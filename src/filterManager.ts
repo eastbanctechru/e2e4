@@ -31,12 +31,9 @@ export class FilterManager implements IFilterManager {
         }
         return value;
     }
-    private target: Object;
-    private defaultsApplied = false;
-    private targetConfig = new Array<FilterProperty>();
-    private buildValue(/* tslint:disable:no-any */value: any/* tslint:enable:no-any */, config: FilterProperty): Object {
+    static buildFilterValue(target: Object, /* tslint:disable:no-any */value: any/* tslint:enable:no-any */, config: FilterProperty): Object {
         if (config && config.valueSerializer) {
-            return config.valueSerializer.call(this.target, value);
+            return config.valueSerializer.call(target, value);
         }
 
         value = config && config.emptyIsNull ? value || null : value;
@@ -47,12 +44,15 @@ export class FilterManager implements IFilterManager {
         if (Array.isArray(value)) {
             const temp = [];
             for (let i = 0; i < value.length; i++) {
-                temp[i] = this.buildValue(value[i], null);
+                temp[i] = FilterManager.buildFilterValue(target, value[i], null);
             }
             return temp;
         }
         return value;
     }
+    private target: Object;
+    private defaultsApplied = false;
+    private targetConfig = new Array<FilterProperty>();
 
     dispose(): void {
         this.targetConfig.length = 0;
@@ -87,7 +87,7 @@ export class FilterManager implements IFilterManager {
         for (let i = 0; i < this.targetConfig.length; i++) {
             const config = this.targetConfig[i];
             const proposedVal = this.target[config.propertyName];
-            result[config.parameterName] = this.buildValue(proposedVal, config);
+            result[config.parameterName] = FilterManager.buildFilterValue(this.target, proposedVal, config);
         }
         return result;
     }

@@ -226,9 +226,9 @@ define(['exports', 'lodash'], function (exports, _lodash) {
             return value;
         };
 
-        FilterManager.prototype.buildValue = function buildValue(value, config) {
+        FilterManager.buildFilterValue = function buildFilterValue(target, value, config) {
             if (config && config.valueSerializer) {
-                return config.valueSerializer.call(this.target, value);
+                return config.valueSerializer.call(target, value);
             }
             value = config && config.emptyIsNull ? value || null : value;
             if (value && value.toRequest) {
@@ -237,7 +237,7 @@ define(['exports', 'lodash'], function (exports, _lodash) {
             if (Array.isArray(value)) {
                 var temp = [];
                 for (var i = 0; i < value.length; i++) {
-                    temp[i] = this.buildValue(value[i], null);
+                    temp[i] = FilterManager.buildFilterValue(target, value[i], null);
                 }
                 return temp;
             }
@@ -279,7 +279,7 @@ define(['exports', 'lodash'], function (exports, _lodash) {
             for (var i = 0; i < this.targetConfig.length; i++) {
                 var config = this.targetConfig[i];
                 var proposedVal = this.target[config.propertyName];
-                result[config.parameterName] = this.buildValue(proposedVal, config);
+                result[config.parameterName] = FilterManager.buildFilterValue(this.target, proposedVal, config);
             }
             return result;
         };

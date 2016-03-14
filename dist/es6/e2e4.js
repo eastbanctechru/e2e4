@@ -174,9 +174,9 @@ export class FilterManager {
         }
         return value;
     }
-    buildValue(/* tslint:disable:no-any */ value /* tslint:enable:no-any */, config) {
+    static buildFilterValue(target, /* tslint:disable:no-any */ value /* tslint:enable:no-any */, config) {
         if (config && config.valueSerializer) {
-            return config.valueSerializer.call(this.target, value);
+            return config.valueSerializer.call(target, value);
         }
         value = config && config.emptyIsNull ? value || null : value;
         if (value && value.toRequest) {
@@ -185,7 +185,7 @@ export class FilterManager {
         if (Array.isArray(value)) {
             const temp = [];
             for (let i = 0; i < value.length; i++) {
-                temp[i] = this.buildValue(value[i], null);
+                temp[i] = FilterManager.buildFilterValue(target, value[i], null);
             }
             return temp;
         }
@@ -223,7 +223,7 @@ export class FilterManager {
         for (let i = 0; i < this.targetConfig.length; i++) {
             const config = this.targetConfig[i];
             const proposedVal = this.target[config.propertyName];
-            result[config.parameterName] = this.buildValue(proposedVal, config);
+            result[config.parameterName] = FilterManager.buildFilterValue(this.target, proposedVal, config);
         }
         return result;
     }
