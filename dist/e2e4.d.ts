@@ -69,19 +69,19 @@ declare module 'e2e4' {
             'false': boolean;
             'null': any;
         };
-        static filterPropertiesMap: Map<Object, FilterProperty[]>;
+        static filterPropertiesMap: Map<any, FilterProperty[]>;
         static registerFilter(targetType: Object, propertyConfig: FilterProperty): void;
         static includeIn(target: IComponentWithFilter): void;
         static coerceValue(value: any): Object;
-        static buildFilterValue(target: Object,/* tslint:disable:no-any */value: any/* tslint:enable:no-any */, config: FilterProperty): Object;
-        private target;
+        static buildFilterValue(target: Object, value: any, config: FilterProperty): Object;
         private defaultsApplied;
-        private targetConfig;
+        private appliedFiltersMap;
         dispose(): void;
         resetFilters(): void;
         parseParams(params: Object): void;
         buildRequest(result?: Object): Object;
         buildPersistedState(result?: Object): Object;
+        registerFilterTarget(target: Object): void;
         constructor(target: Object);
     }
 

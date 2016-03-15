@@ -5,7 +5,7 @@ import {IComponentWithFilter} from './contracts/IComponentWithFilter';
 
 export class FilterManager implements IFilterManager {
     static coerceTypes = { 'true': !0, 'false': !1, 'null': null };
-    static filterPropertiesMap = new Map<Object, Array<FilterProperty>>();
+    static filterPropertiesMap = new Map<any, Array<FilterProperty>>();
     static registerFilter(targetType: Object, propertyConfig: FilterProperty): void {
         const typeConfigs = FilterManager.filterPropertiesMap.has(targetType) ? FilterManager.filterPropertiesMap.get(targetType) : new Array<FilterProperty>();
         typeConfigs.push(propertyConfig);
@@ -50,70 +50,84 @@ export class FilterManager implements IFilterManager {
         }
         return value;
     }
-    private target: Object;
+
     private defaultsApplied = false;
-    private targetConfig = new Array<FilterProperty>();
+    private appliedFiltersMap = new Map<Object, Array<FilterProperty>>();
 
     dispose(): void {
-        this.targetConfig.length = 0;
-        delete this.target;
-        delete this.targetConfig;
+        this.appliedFiltersMap.clear();
+        delete this.appliedFiltersMap;
     }
     resetFilters(): void {
-        for (let i = 0; i < this.targetConfig.length; i++) {
-            const config = this.targetConfig[i];
-            const defaultValue = (typeof config.defaultValue === 'function') ? (config.defaultValue as Function).call(this.target) : config.defaultValue;
-            const clonedObject = _.cloneDeep({ defaultValue: defaultValue });
-            this.target[config.propertyName] = clonedObject.defaultValue;
-        }
+        this.appliedFiltersMap.forEach((targetConfig, target) => {
+            for (let i = 0; i < targetConfig.length; i++) {
+                const config = targetConfig[i];
+                const defaultValue = (typeof config.defaultValue === 'function') ? (config.defaultValue as Function).call(target) : config.defaultValue;
+                const clonedObject = _.cloneDeep({ defaultValue: defaultValue });
+                target[config.propertyName] = clonedObject.defaultValue;
+            }
+        });
     }
     parseParams(params: Object): void {
-        for (let i = 0; i < this.targetConfig.length; i++) {
-            const config = this.targetConfig[i];
-            if (false === this.defaultsApplied && config.defaultValue === undefined) {
-                config.defaultValue = _.cloneDeep({ defaultValue: this.target[config.propertyName] }).defaultValue;
-            }
+        this.appliedFiltersMap.forEach((targetConfig, target) => {
+            for (let i = 0; i < targetConfig.length; i++) {
+                const config = targetConfig[i];
+                if (false === this.defaultsApplied && config.defaultValue === undefined) {
+                    config.defaultValue = _.cloneDeep({ defaultValue: target[config.propertyName] }).defaultValue;
+                }
 
-            if (params && params[config.parameterName] !== undefined && false === config.ignoreOnAutoMap) {
-                let proposedVal = config.emptyIsNull ? params[config.parameterName] || null : params[config.parameterName];
-                proposedVal = config.coerce ? FilterManager.coerceValue(proposedVal) : proposedVal;
-                this.target[config.propertyName] = config.valueParser ? config.valueParser.call(this.target, proposedVal, params) : proposedVal;
+                if (params && params[config.parameterName] !== undefined && false === config.ignoreOnAutoMap) {
+                    let proposedVal = config.emptyIsNull ? params[config.parameterName] || null : params[config.parameterName];
+                    proposedVal = config.coerce ? FilterManager.coerceValue(proposedVal) : proposedVal;
+                    target[config.propertyName] = config.valueParser ? config.valueParser.call(target, proposedVal, params) : proposedVal;
+                }
             }
-        }
+        });
         this.defaultsApplied = true;
     }
     buildRequest(result?: Object): Object {
         result = result || {};
-        for (let i = 0; i < this.targetConfig.length; i++) {
-            const config = this.targetConfig[i];
-            const proposedVal = this.target[config.propertyName];
-            result[config.parameterName] = FilterManager.buildFilterValue(this.target, proposedVal, config);
-        }
+        this.appliedFiltersMap.forEach((targetConfig, target) => {
+            for (let i = 0; i < targetConfig.length; i++) {
+                const config = targetConfig[i];
+                const proposedVal = target[config.propertyName];
+                result[config.parameterName] = FilterManager.buildFilterValue(target, proposedVal, config);
+            }
+        });
         return result;
     }
     buildPersistedState(result?: Object): Object {
         result = result || {};
-        for (let i = 0; i < this.targetConfig.length; i++) {
-            const config = this.targetConfig[i];
-            if (!config.persisted) {
-                continue;
+        this.appliedFiltersMap.forEach((targetConfig, target) => {
+            for (let i = 0; i < targetConfig.length; i++) {
+                const config = targetConfig[i];
+                if (!config.persisted) {
+                    continue;
+                }
+                let proposedVal = target[config.propertyName];
+                if (proposedVal && proposedVal.toRequest) {
+                    proposedVal = proposedVal.toRequest();
+                }
+                result[config.parameterName] = config.valueSerializer
+                    ? config.valueSerializer.call(target, proposedVal) : (config.emptyIsNull ? proposedVal || null : proposedVal);
             }
-            let proposedVal = this.target[config.propertyName];
-            if (proposedVal && proposedVal.toRequest) {
-                proposedVal = proposedVal.toRequest();
-            }
-            result[config.parameterName] = config.valueSerializer
-                ? config.valueSerializer.call(this.target, proposedVal) : (config.emptyIsNull ? proposedVal || null : proposedVal);
-        }
+        });
         return result;
     }
-
-    constructor(target: Object) {
-        this.target = target;
-        FilterManager.filterPropertiesMap.forEach(((typeConfig, type) => {
+    registerFilterTarget(target: Object): void {
+        let targetConfig = this.appliedFiltersMap.has(target) ? this.appliedFiltersMap.get(target) : new Array<FilterProperty>();
+        FilterManager.filterPropertiesMap.forEach((typeConfig, type) => {
             if (target instanceof type) {
-                this.targetConfig = this.targetConfig.concat(_.cloneDeep(typeConfig));
+                targetConfig = targetConfig.concat(_.cloneDeep(typeConfig));
             }
-        }).bind(this));
+        });
+        if (targetConfig.length > 0) {
+            this.appliedFiltersMap.set(target, targetConfig);
+        } else {
+            this.appliedFiltersMap.delete(target);
+        }
+    }
+    constructor(target: Object) {
+        this.registerFilterTarget(target);
     }
 }

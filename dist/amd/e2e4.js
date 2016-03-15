@@ -184,18 +184,11 @@ define(['exports', 'lodash'], function (exports, _lodash) {
 
     var FilterManager = (function () {
         function FilterManager(target) {
-            var _this = this;
-
             _classCallCheck(this, FilterManager);
 
             this.defaultsApplied = false;
-            this.targetConfig = new Array();
-            this.target = target;
-            FilterManager.filterPropertiesMap.forEach((function (typeConfig, type) {
-                if (target instanceof type) {
-                    _this.targetConfig = _this.targetConfig.concat(_lodash.cloneDeep(typeConfig));
-                }
-            }).bind(this));
+            this.appliedFiltersMap = new Map();
+            this.registerFilterTarget(target);
         }
 
         FilterManager.registerFilter = function registerFilter(targetType, propertyConfig) {
@@ -245,59 +238,82 @@ define(['exports', 'lodash'], function (exports, _lodash) {
         };
 
         FilterManager.prototype.dispose = function dispose() {
-            this.targetConfig.length = 0;
-            delete this.target;
-            delete this.targetConfig;
+            this.appliedFiltersMap.clear();
+            delete this.appliedFiltersMap;
         };
 
         FilterManager.prototype.resetFilters = function resetFilters() {
-            for (var i = 0; i < this.targetConfig.length; i++) {
-                var config = this.targetConfig[i];
-                var defaultValue = typeof config.defaultValue === 'function' ? config.defaultValue.call(this.target) : config.defaultValue;
-                var clonedObject = _lodash.cloneDeep({ defaultValue: defaultValue });
-                this.target[config.propertyName] = clonedObject.defaultValue;
-            }
+            this.appliedFiltersMap.forEach(function (targetConfig, target) {
+                for (var i = 0; i < targetConfig.length; i++) {
+                    var config = targetConfig[i];
+                    var defaultValue = typeof config.defaultValue === 'function' ? config.defaultValue.call(target) : config.defaultValue;
+                    var clonedObject = _lodash.cloneDeep({ defaultValue: defaultValue });
+                    target[config.propertyName] = clonedObject.defaultValue;
+                }
+            });
         };
 
         FilterManager.prototype.parseParams = function parseParams(params) {
-            for (var i = 0; i < this.targetConfig.length; i++) {
-                var config = this.targetConfig[i];
-                if (false === this.defaultsApplied && config.defaultValue === undefined) {
-                    config.defaultValue = _lodash.cloneDeep({ defaultValue: this.target[config.propertyName] }).defaultValue;
+            var _this = this;
+
+            this.appliedFiltersMap.forEach(function (targetConfig, target) {
+                for (var i = 0; i < targetConfig.length; i++) {
+                    var config = targetConfig[i];
+                    if (false === _this.defaultsApplied && config.defaultValue === undefined) {
+                        config.defaultValue = _lodash.cloneDeep({ defaultValue: target[config.propertyName] }).defaultValue;
+                    }
+                    if (params && params[config.parameterName] !== undefined && false === config.ignoreOnAutoMap) {
+                        var proposedVal = config.emptyIsNull ? params[config.parameterName] || null : params[config.parameterName];
+                        proposedVal = config.coerce ? FilterManager.coerceValue(proposedVal) : proposedVal;
+                        target[config.propertyName] = config.valueParser ? config.valueParser.call(target, proposedVal, params) : proposedVal;
+                    }
                 }
-                if (params && params[config.parameterName] !== undefined && false === config.ignoreOnAutoMap) {
-                    var proposedVal = config.emptyIsNull ? params[config.parameterName] || null : params[config.parameterName];
-                    proposedVal = config.coerce ? FilterManager.coerceValue(proposedVal) : proposedVal;
-                    this.target[config.propertyName] = config.valueParser ? config.valueParser.call(this.target, proposedVal, params) : proposedVal;
-                }
-            }
+            });
             this.defaultsApplied = true;
         };
 
         FilterManager.prototype.buildRequest = function buildRequest(result) {
             result = result || {};
-            for (var i = 0; i < this.targetConfig.length; i++) {
-                var config = this.targetConfig[i];
-                var proposedVal = this.target[config.propertyName];
-                result[config.parameterName] = FilterManager.buildFilterValue(this.target, proposedVal, config);
-            }
+            this.appliedFiltersMap.forEach(function (targetConfig, target) {
+                for (var i = 0; i < targetConfig.length; i++) {
+                    var config = targetConfig[i];
+                    var proposedVal = target[config.propertyName];
+                    result[config.parameterName] = FilterManager.buildFilterValue(target, proposedVal, config);
+                }
+            });
             return result;
         };
 
         FilterManager.prototype.buildPersistedState = function buildPersistedState(result) {
             result = result || {};
-            for (var i = 0; i < this.targetConfig.length; i++) {
-                var config = this.targetConfig[i];
-                if (!config.persisted) {
-                    continue;
+            this.appliedFiltersMap.forEach(function (targetConfig, target) {
+                for (var i = 0; i < targetConfig.length; i++) {
+                    var config = targetConfig[i];
+                    if (!config.persisted) {
+                        continue;
+                    }
+                    var proposedVal = target[config.propertyName];
+                    if (proposedVal && proposedVal.toRequest) {
+                        proposedVal = proposedVal.toRequest();
+                    }
+                    result[config.parameterName] = config.valueSerializer ? config.valueSerializer.call(target, proposedVal) : config.emptyIsNull ? proposedVal || null : proposedVal;
                 }
-                var proposedVal = this.target[config.propertyName];
-                if (proposedVal && proposedVal.toRequest) {
-                    proposedVal = proposedVal.toRequest();
-                }
-                result[config.parameterName] = config.valueSerializer ? config.valueSerializer.call(this.target, proposedVal) : config.emptyIsNull ? proposedVal || null : proposedVal;
-            }
+            });
             return result;
+        };
+
+        FilterManager.prototype.registerFilterTarget = function registerFilterTarget(target) {
+            var targetConfig = this.appliedFiltersMap.has(target) ? this.appliedFiltersMap.get(target) : new Array();
+            FilterManager.filterPropertiesMap.forEach(function (typeConfig, type) {
+                if (target instanceof type) {
+                    targetConfig = targetConfig.concat(_lodash.cloneDeep(typeConfig));
+                }
+            });
+            if (targetConfig.length > 0) {
+                this.appliedFiltersMap.set(target, targetConfig);
+            } else {
+                this.appliedFiltersMap['delete'](target);
+            }
         };
 
         return FilterManager;

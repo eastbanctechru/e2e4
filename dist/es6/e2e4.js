@@ -139,13 +139,8 @@ export class Utility {
 export class FilterManager {
     constructor(target) {
         this.defaultsApplied = false;
-        this.targetConfig = new Array();
-        this.target = target;
-        FilterManager.filterPropertiesMap.forEach(((typeConfig, type) => {
-            if (target instanceof type) {
-                this.targetConfig = this.targetConfig.concat(_.cloneDeep(typeConfig));
-            }
-        }).bind(this));
+        this.appliedFiltersMap = new Map();
+        this.registerFilterTarget(target);
     }
     static registerFilter(targetType, propertyConfig) {
         const typeConfigs = FilterManager.filterPropertiesMap.has(targetType) ? FilterManager.filterPropertiesMap.get(targetType) : new Array();
@@ -192,56 +187,77 @@ export class FilterManager {
         return value;
     }
     dispose() {
-        this.targetConfig.length = 0;
-        delete this.target;
-        delete this.targetConfig;
+        this.appliedFiltersMap.clear();
+        delete this.appliedFiltersMap;
     }
     resetFilters() {
-        for (let i = 0; i < this.targetConfig.length; i++) {
-            const config = this.targetConfig[i];
-            const defaultValue = (typeof config.defaultValue === 'function') ? config.defaultValue.call(this.target) : config.defaultValue;
-            const clonedObject = _.cloneDeep({ defaultValue: defaultValue });
-            this.target[config.propertyName] = clonedObject.defaultValue;
-        }
+        this.appliedFiltersMap.forEach((targetConfig, target) => {
+            for (let i = 0; i < targetConfig.length; i++) {
+                const config = targetConfig[i];
+                const defaultValue = (typeof config.defaultValue === 'function') ? config.defaultValue.call(target) : config.defaultValue;
+                const clonedObject = _.cloneDeep({ defaultValue: defaultValue });
+                target[config.propertyName] = clonedObject.defaultValue;
+            }
+        });
     }
     parseParams(params) {
-        for (let i = 0; i < this.targetConfig.length; i++) {
-            const config = this.targetConfig[i];
-            if (false === this.defaultsApplied && config.defaultValue === undefined) {
-                config.defaultValue = _.cloneDeep({ defaultValue: this.target[config.propertyName] }).defaultValue;
+        this.appliedFiltersMap.forEach((targetConfig, target) => {
+            for (let i = 0; i < targetConfig.length; i++) {
+                const config = targetConfig[i];
+                if (false === this.defaultsApplied && config.defaultValue === undefined) {
+                    config.defaultValue = _.cloneDeep({ defaultValue: target[config.propertyName] }).defaultValue;
+                }
+                if (params && params[config.parameterName] !== undefined && false === config.ignoreOnAutoMap) {
+                    let proposedVal = config.emptyIsNull ? params[config.parameterName] || null : params[config.parameterName];
+                    proposedVal = config.coerce ? FilterManager.coerceValue(proposedVal) : proposedVal;
+                    target[config.propertyName] = config.valueParser ? config.valueParser.call(target, proposedVal, params) : proposedVal;
+                }
             }
-            if (params && params[config.parameterName] !== undefined && false === config.ignoreOnAutoMap) {
-                let proposedVal = config.emptyIsNull ? params[config.parameterName] || null : params[config.parameterName];
-                proposedVal = config.coerce ? FilterManager.coerceValue(proposedVal) : proposedVal;
-                this.target[config.propertyName] = config.valueParser ? config.valueParser.call(this.target, proposedVal, params) : proposedVal;
-            }
-        }
+        });
         this.defaultsApplied = true;
     }
     buildRequest(result) {
         result = result || {};
-        for (let i = 0; i < this.targetConfig.length; i++) {
-            const config = this.targetConfig[i];
-            const proposedVal = this.target[config.propertyName];
-            result[config.parameterName] = FilterManager.buildFilterValue(this.target, proposedVal, config);
-        }
+        this.appliedFiltersMap.forEach((targetConfig, target) => {
+            for (let i = 0; i < targetConfig.length; i++) {
+                const config = targetConfig[i];
+                const proposedVal = target[config.propertyName];
+                result[config.parameterName] = FilterManager.buildFilterValue(target, proposedVal, config);
+            }
+        });
         return result;
     }
     buildPersistedState(result) {
         result = result || {};
-        for (let i = 0; i < this.targetConfig.length; i++) {
-            const config = this.targetConfig[i];
-            if (!config.persisted) {
-                continue;
+        this.appliedFiltersMap.forEach((targetConfig, target) => {
+            for (let i = 0; i < targetConfig.length; i++) {
+                const config = targetConfig[i];
+                if (!config.persisted) {
+                    continue;
+                }
+                let proposedVal = target[config.propertyName];
+                if (proposedVal && proposedVal.toRequest) {
+                    proposedVal = proposedVal.toRequest();
+                }
+                result[config.parameterName] = config.valueSerializer
+                    ? config.valueSerializer.call(target, proposedVal) : (config.emptyIsNull ? proposedVal || null : proposedVal);
             }
-            let proposedVal = this.target[config.propertyName];
-            if (proposedVal && proposedVal.toRequest) {
-                proposedVal = proposedVal.toRequest();
-            }
-            result[config.parameterName] = config.valueSerializer
-                ? config.valueSerializer.call(this.target, proposedVal) : (config.emptyIsNull ? proposedVal || null : proposedVal);
-        }
+        });
         return result;
+    }
+    registerFilterTarget(target) {
+        let targetConfig = this.appliedFiltersMap.has(target) ? this.appliedFiltersMap.get(target) : new Array();
+        FilterManager.filterPropertiesMap.forEach((typeConfig, type) => {
+            if (target instanceof type) {
+                targetConfig = targetConfig.concat(_.cloneDeep(typeConfig));
+            }
+        });
+        if (targetConfig.length > 0) {
+            this.appliedFiltersMap.set(target, targetConfig);
+        }
+        else {
+            this.appliedFiltersMap.delete(target);
+        }
     }
 }
 FilterManager.coerceTypes = { 'true': !0, 'false': !1, 'null': null };
