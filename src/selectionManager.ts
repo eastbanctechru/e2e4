@@ -13,6 +13,11 @@ export class SelectionManager implements ISelectionManager {
     private selectionsList = new Array<ISelectionTuple>();
     private target: Object;
     private itemsPropertyName: string;
+    dispose(): void {
+        this.selectionsList.length = 0;
+        delete this.selectionsList;
+        delete this.target;
+    }
 
     lastProcessedIndex: number;
     get itemsSource(): Array<ISelectable> {

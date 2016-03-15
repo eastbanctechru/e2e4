@@ -426,6 +426,12 @@ System.register(['lodash'], function (_export) {
                     target.selectionManager = new SelectionManager(target, itemsPropertyName);
                 };
 
+                SelectionManager.prototype.dispose = function dispose() {
+                    this.selectionsList.length = 0;
+                    delete this.selectionsList;
+                    delete this.target;
+                };
+
                 SelectionManager.prototype.deselectItem = function deselectItem(selectionTuple) {
                     var recursive = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
 
@@ -761,6 +767,7 @@ System.register(['lodash'], function (_export) {
                     this.sortings.length = 0;
                     this.clearDataInternal();
                     this.filterManager.dispose();
+                    this.selectionManager.dispose();
                 };
 
                 ListComponent.prototype.setSort = function setSort(fieldName, savePrevious) {

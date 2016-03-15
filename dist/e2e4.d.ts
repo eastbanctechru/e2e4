@@ -206,6 +206,7 @@ declare module 'e2e4' {
         deselectIndex(index: number, recursive?: boolean): void;
         toggleSelection(index: number, savePrevious?: boolean, recursive?: boolean): void;
         getSelections(recursive?: boolean): Array<Object>;
+        dispose(): void;
     }
 
     export enum SortDirection {
@@ -312,6 +313,7 @@ declare module 'e2e4' {
         deselectIndex(index: number, recursive: boolean): void;
         toggleSelection(index: number, savePrevious: boolean, recursive: boolean): void;
         getSelections(recursive: boolean): Array<Object>;
+        dispose(): void;
     }
 
     export interface ISelectionTuple {

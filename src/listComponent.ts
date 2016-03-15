@@ -55,6 +55,7 @@ export abstract class ListComponent extends BaseComponent implements IListCompon
         this.sortings.length = 0;
         this.clearDataInternal();
         this.filterManager.dispose();
+        this.selectionManager.dispose();
     }
     ///IComponent overrides
 

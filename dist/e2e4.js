@@ -337,6 +337,11 @@ export class SelectionManager {
     static includeIn(target, itemsPropertyName) {
         target.selectionManager = new SelectionManager(target, itemsPropertyName);
     }
+    dispose() {
+        this.selectionsList.length = 0;
+        delete this.selectionsList;
+        delete this.target;
+    }
     get itemsSource() {
         return this.target[this.itemsPropertyName];
     }
@@ -602,6 +607,7 @@ export class ListComponent extends BaseComponent {
         this.sortings.length = 0;
         this.clearDataInternal();
         this.filterManager.dispose();
+        this.selectionManager.dispose();
     }
     get defaultSortings() {
         return this.defaultSortingsPrivate;
