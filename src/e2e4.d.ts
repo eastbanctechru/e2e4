@@ -138,7 +138,6 @@ declare module 'e2e4' {
         cancelRequests(): void;
         useModelState: boolean;
         stateManager: IStateManager;
-        stateManagerKey: string;
         saveRequestState(): void;
         saveLocalState(): void;
         private getRestoredState(params: Object): Object;
@@ -254,7 +253,6 @@ declare module 'e2e4' {
     export interface IComponentWithState {
         stateManager: IStateManager;
         useModelState: boolean;
-        stateManagerKey: string;
         saveRequestState(): void;
         saveLocalState(): void;
     }

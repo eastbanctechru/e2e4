@@ -148,7 +148,6 @@ export abstract class ListComponent extends BaseComponent implements IListCompon
     ///IComponentWithState
     useModelState = true;
     stateManager: IStateManager;
-    stateManagerKey: string;
     saveRequestState(): void {
         this.stateManager.flushRequestState(this.toRequest());
     };
