@@ -71,9 +71,9 @@ export abstract class BufferedListComponent extends ListComponent {
         promise.then(this.bufferedLoadDataSuccessBinded);
         return promise;
     }
-    onSortingsChanged(): void {
+    onSortChangesCompleted(): void {
         this.takeRowCount = Defaults.bufferedListComponent.defaultTakeRowCount;
         this.skip = 0;
-        super.onSortingsChanged();
+        super.onSortChangesCompleted();
     }
 }

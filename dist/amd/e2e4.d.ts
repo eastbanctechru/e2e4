@@ -19,7 +19,7 @@ declare module 'e2e4' {
         dispose(): void;
         bufferedLoadDataSuccess(result: Object): Object;
         loadData(): Promise<Object>;
-        onSortingsChanged(): void;
+        onSortChangesCompleted(): void;
     }
 
     export class Defaults {
@@ -125,7 +125,7 @@ declare module 'e2e4' {
         private defaultSortingsPrivate;
         defaultSortings: SortParameter[];
         setSort(fieldName: string, savePrevious: boolean): void;
-        onSortingsChanged(): void;
+        onSortChangesCompleted(): void;
         items: Object[];
         totalCount: number;
         loadedCount: number;
@@ -323,7 +323,7 @@ declare module 'e2e4' {
         sortings: Array<SortParameter>;
         defaultSortings: SortParameter[];
         setSort(fieldName: string, savePrevious: boolean): void;
-        onSortingsChanged(): void;
+        onSortChangesCompleted(): void;
     }
 
     export interface IStateManager {

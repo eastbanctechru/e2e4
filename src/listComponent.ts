@@ -97,7 +97,7 @@ export abstract class ListComponent extends BaseComponent implements IListCompon
             this.sortings.push(newSort);
         }
     }
-    onSortingsChanged(): void {
+    onSortChangesCompleted(): void {
         if (this.ready) {
             this.clearDataInternal();
             this.loadData();

@@ -636,7 +636,7 @@ export class ListComponent extends BaseComponent {
             this.sortings.push(newSort);
         }
     }
-    onSortingsChanged() {
+    onSortChangesCompleted() {
         if (this.ready) {
             this.clearDataInternal();
             this.loadData();
@@ -759,10 +759,10 @@ export class BufferedListComponent extends ListComponent {
         promise.then(this.bufferedLoadDataSuccessBinded);
         return promise;
     }
-    onSortingsChanged() {
+    onSortChangesCompleted() {
         this.takeRowCount = Defaults.bufferedListComponent.defaultTakeRowCount;
         this.skip = 0;
-        super.onSortingsChanged();
+        super.onSortChangesCompleted();
     }
 }
 __decorate([

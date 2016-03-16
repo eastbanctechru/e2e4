@@ -782,7 +782,7 @@ define(['exports', 'lodash'], function (exports, _lodash) {
             }
         };
 
-        ListComponent.prototype.onSortingsChanged = function onSortingsChanged() {
+        ListComponent.prototype.onSortChangesCompleted = function onSortChangesCompleted() {
             if (this.ready) {
                 this.clearDataInternal();
                 this.loadData();
@@ -921,10 +921,10 @@ define(['exports', 'lodash'], function (exports, _lodash) {
             return promise;
         };
 
-        BufferedListComponent.prototype.onSortingsChanged = function onSortingsChanged() {
+        BufferedListComponent.prototype.onSortChangesCompleted = function onSortChangesCompleted() {
             this.takeRowCount = Defaults.bufferedListComponent.defaultTakeRowCount;
             this.skip = 0;
-            _ListComponent.prototype.onSortingsChanged.call(this);
+            _ListComponent.prototype.onSortChangesCompleted.call(this);
         };
 
         _createClass(BufferedListComponent, [{
