@@ -11,7 +11,7 @@ import {IComponentWithSelection} from './contracts/IComponentWithSelection';
 import {IComponentWithFilter} from './contracts/IComponentWithFilter';
 import {SelectionManager} from './selectionManager';
 import {FilterManager} from './filterManager';
-import {filter} from './filterDecorator';
+import {filter} from './filterAnnotation';
 import {ProgressState} from './ProgressState';
 import {IFilterConfig} from './contracts/IFilterConfig';
 import * as _ from 'lodash';

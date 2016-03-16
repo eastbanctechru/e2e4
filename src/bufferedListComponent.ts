@@ -1,6 +1,6 @@
 import {ListComponent} from './listComponent';
 import {Defaults} from './Defaults';
-import {filter} from './filterDecorator';
+import {filter} from './filterAnnotation';
 import {IFilterConfig} from './contracts/IFilterConfig';
 
 export abstract class BufferedListComponent extends ListComponent {

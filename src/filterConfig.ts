@@ -1,7 +1,7 @@
 import {IFilterConfig} from './contracts/IFilterConfig';
 import {FilterManager} from './filterManager';
 
-export class FilterProperty implements IFilterConfig {
+export class FilterConfig implements IFilterConfig {
     defaultValue: Object;
     propertyName: string;
     parameterName: string;

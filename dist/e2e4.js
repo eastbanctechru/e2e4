@@ -263,7 +263,7 @@ export class FilterManager {
 FilterManager.coerceTypes = { 'true': !0, 'false': !1, 'null': null };
 FilterManager.filterPropertiesMap = new Map();
 
-export class FilterProperty {
+export class FilterConfig {
     constructor(config) {
         Object.assign(this, config);
     }
@@ -296,7 +296,7 @@ export function filter(targetOrNameOrConfig, key, descriptor) {
         else {
             Object.assign(config, targetOrNameOrConfig);
         }
-        return new FilterProperty(config).register(actualTarget, descriptor2);
+        return new FilterConfig(config).register(actualTarget, descriptor2);
     };
     if (key) {
         const targetTemp = targetOrNameOrConfig;

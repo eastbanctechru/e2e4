@@ -1,7 +1,7 @@
 import {ListComponent} from './listComponent';
 import {Utility} from './Utility';
 import {Defaults} from './Defaults';
-import {filter} from './filterDecorator';
+import {filter} from './filterAnnotation';
 import {IFilterConfig} from './contracts/IFilterConfig';
 
 export abstract class PagedListComponent extends ListComponent {

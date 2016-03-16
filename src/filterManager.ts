@@ -1,13 +1,13 @@
 import * as _ from 'lodash';
-import {FilterProperty} from './filterProperty';
+import {FilterConfig} from './filterConfig';
 import {IFilterManager} from './contracts/IFilterManager';
 import {IComponentWithFilter} from './contracts/IComponentWithFilter';
 
 export class FilterManager implements IFilterManager {
     static coerceTypes = { 'true': !0, 'false': !1, 'null': null };
-    static filterPropertiesMap = new Map<any, Array<FilterProperty>>();
-    static registerFilter(targetType: Object, propertyConfig: FilterProperty): void {
-        const typeConfigs = FilterManager.filterPropertiesMap.has(targetType) ? FilterManager.filterPropertiesMap.get(targetType) : new Array<FilterProperty>();
+    static filterPropertiesMap = new Map<any, Array<FilterConfig>>();
+    static registerFilter(targetType: Object, propertyConfig: FilterConfig): void {
+        const typeConfigs = FilterManager.filterPropertiesMap.has(targetType) ? FilterManager.filterPropertiesMap.get(targetType) : new Array<FilterConfig>();
         typeConfigs.push(propertyConfig);
         FilterManager.filterPropertiesMap.set(targetType, typeConfigs);
     }
@@ -31,7 +31,7 @@ export class FilterManager implements IFilterManager {
         }
         return value;
     }
-    static buildFilterValue(target: Object, /* tslint:disable:no-any */value: any/* tslint:enable:no-any */, config: FilterProperty): Object {
+    static buildFilterValue(target: Object, /* tslint:disable:no-any */value: any/* tslint:enable:no-any */, config: FilterConfig): Object {
         if (config && config.valueSerializer) {
             return config.valueSerializer.call(target, value);
         }
@@ -52,7 +52,7 @@ export class FilterManager implements IFilterManager {
     }
 
     private defaultsApplied = false;
-    private appliedFiltersMap = new Map<Object, Array<FilterProperty>>();
+    private appliedFiltersMap = new Map<Object, Array<FilterConfig>>();
 
     dispose(): void {
         this.appliedFiltersMap.clear();
@@ -115,7 +115,7 @@ export class FilterManager implements IFilterManager {
         return result;
     }
     registerFilterTarget(target: Object): void {
-        let targetConfig = this.appliedFiltersMap.has(target) ? this.appliedFiltersMap.get(target) : new Array<FilterProperty>();
+        let targetConfig = this.appliedFiltersMap.has(target) ? this.appliedFiltersMap.get(target) : new Array<FilterConfig>();
         FilterManager.filterPropertiesMap.forEach((typeConfig, type) => {
             if (target instanceof type) {
                 targetConfig = targetConfig.concat(_.cloneDeep(typeConfig));

@@ -69,11 +69,11 @@ declare module 'e2e4' {
             'false': boolean;
             'null': any;
         };
-        static filterPropertiesMap: Map<any, FilterProperty[]>;
-        static registerFilter(targetType: Object, propertyConfig: FilterProperty): void;
+        static filterPropertiesMap: Map<any, FilterConfig[]>;
+        static registerFilter(targetType: Object, propertyConfig: FilterConfig): void;
         static includeIn(target: IComponentWithFilter): void;
         static coerceValue(value: any): Object;
-        static buildFilterValue(target: Object, value: any, config: FilterProperty): Object;
+        static buildFilterValue(target: Object, value: any, config: FilterConfig): Object;
         private defaultsApplied;
         private appliedFiltersMap;
         dispose(): void;
@@ -85,7 +85,7 @@ declare module 'e2e4' {
         constructor(target: Object);
     }
 
-    export class FilterProperty implements IFilterConfig {
+    export class FilterConfig implements IFilterConfig {
         defaultValue: Object;
         propertyName: string;
         parameterName: string;
@@ -138,7 +138,6 @@ declare module 'e2e4' {
         cancelRequests(): void;
         useModelState: boolean;
         stateManager: IStateManager;
-        stateManagerKey: string;
         saveRequestState(): void;
         saveLocalState(): void;
         private getRestoredState(params: Object): Object;
@@ -255,7 +254,6 @@ declare module 'e2e4' {
     export interface IComponentWithState {
         stateManager: IStateManager;
         useModelState: boolean;
-        stateManagerKey: string;
         saveRequestState(): void;
         saveLocalState(): void;
     }

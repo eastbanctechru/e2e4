@@ -1,7 +1,7 @@
 System.register(['lodash'], function (_export) {
     'use strict';
 
-    var _, Defaults, KeyCodes, MouseButtons, ProgressState, SortDirection, SortParameter, StatusModel, Utility, FilterManager, FilterProperty, BaseComponent, SelectionManager, StatusTracker, __decorate, __metadata, ListComponent, __decorate, __metadata, BufferedListComponent, __decorate, __metadata, PagedListComponent;
+    var _, Defaults, KeyCodes, MouseButtons, ProgressState, SortDirection, SortParameter, StatusModel, Utility, FilterManager, FilterConfig, BaseComponent, SelectionManager, StatusTracker, __decorate, __metadata, ListComponent, __decorate, __metadata, BufferedListComponent, __decorate, __metadata, PagedListComponent;
 
     var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -31,7 +31,7 @@ System.register(['lodash'], function (_export) {
             } else {
                 Object.assign(config, targetOrNameOrConfig);
             }
-            return new FilterProperty(config).register(actualTarget, descriptor2);
+            return new FilterConfig(config).register(actualTarget, descriptor2);
         };
         if (key) {
             var targetTemp = targetOrNameOrConfig;
@@ -359,22 +359,22 @@ System.register(['lodash'], function (_export) {
             FilterManager.coerceTypes = { 'true': !0, 'false': !1, 'null': null };
             FilterManager.filterPropertiesMap = new Map();
 
-            FilterProperty = (function () {
-                function FilterProperty(config) {
-                    _classCallCheck(this, FilterProperty);
+            FilterConfig = (function () {
+                function FilterConfig(config) {
+                    _classCallCheck(this, FilterConfig);
 
                     Object.assign(this, config);
                 }
 
-                FilterProperty.prototype.register = function register(target, descriptor) {
+                FilterConfig.prototype.register = function register(target, descriptor) {
                     this.descriptor = descriptor || undefined;
                     FilterManager.registerFilter(target, this);
                 };
 
-                return FilterProperty;
+                return FilterConfig;
             })();
 
-            _export('FilterProperty', FilterProperty);
+            _export('FilterConfig', FilterConfig);
 
             BaseComponent = (function () {
                 function BaseComponent() {

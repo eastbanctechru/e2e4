@@ -1,4 +1,4 @@
-import {FilterProperty} from './filterProperty';
+import {FilterConfig} from './filterConfig';
 import {IFilterConfig} from './contracts/IFilterConfig';
 /* tslint:disable:no-any */
 export function filter(targetOrNameOrConfig?: string | IFilterConfig | any, key?: string, descriptor?: Object): any {
@@ -23,7 +23,7 @@ export function filter(targetOrNameOrConfig?: string | IFilterConfig | any, key?
         } else {
             Object.assign(config, targetOrNameOrConfig);
         }
-        return new FilterProperty(config).register(actualTarget, descriptor2);
+        return new FilterConfig(config).register(actualTarget, descriptor2);
     };
 
     if (key) {

@@ -329,22 +329,22 @@ exports.FilterManager = FilterManager;
 FilterManager.coerceTypes = { 'true': !0, 'false': !1, 'null': null };
 FilterManager.filterPropertiesMap = new Map();
 
-var FilterProperty = (function () {
-    function FilterProperty(config) {
-        _classCallCheck(this, FilterProperty);
+var FilterConfig = (function () {
+    function FilterConfig(config) {
+        _classCallCheck(this, FilterConfig);
 
         Object.assign(this, config);
     }
 
-    FilterProperty.prototype.register = function register(target, descriptor) {
+    FilterConfig.prototype.register = function register(target, descriptor) {
         this.descriptor = descriptor || undefined;
         FilterManager.registerFilter(target, this);
     };
 
-    return FilterProperty;
+    return FilterConfig;
 })();
 
-exports.FilterProperty = FilterProperty;
+exports.FilterConfig = FilterConfig;
 
 function filter(targetOrNameOrConfig, key, descriptor) {
     var configurableDecorate = function configurableDecorate(target, key2, descriptor2) {
@@ -366,7 +366,7 @@ function filter(targetOrNameOrConfig, key, descriptor) {
         } else {
             Object.assign(config, targetOrNameOrConfig);
         }
-        return new FilterProperty(config).register(actualTarget, descriptor2);
+        return new FilterConfig(config).register(actualTarget, descriptor2);
     };
     if (key) {
         var targetTemp = targetOrNameOrConfig;
