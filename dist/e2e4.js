@@ -345,12 +345,24 @@ export class SelectionManager {
     get itemsSource() {
         return this.target[this.itemsPropertyName];
     }
+    processSelection(item, selected) {
+        item.selected = selected;
+        if (item.onSelectionChanged !== undefined) {
+            item.onSelectionChanged(selected);
+        }
+        if (selected === true && item.onSelected !== undefined) {
+            item.onSelected();
+        }
+        if (selected === false && item.onDeselected !== undefined) {
+            item.onDeselected();
+        }
+    }
     deselectItem(selectionTuple, recursive = false) {
         const index = this.selectionsList.findIndex(selectedItem => (selectedItem.item === selectionTuple.item));
         if (index !== -1) {
             this.selectionsList.splice(index, 1);
         }
-        selectionTuple.item.selected = false;
+        this.processSelection(selectionTuple.item, false);
         if (this.canRecurse(recursive, selectionTuple.item)) {
             /* tslint:disable:no-any */
             selectionTuple.item.selectionManager.deselectAll(true);
@@ -361,17 +373,17 @@ export class SelectionManager {
         if (savePrevious) {
             const index = this.selectionsList.findIndex(selectedItem => (selectedItem.item === selectionTuple.item));
             if (index !== -1) {
-                selectionTuple.item.selected = false;
+                this.processSelection(selectionTuple.item, false);
                 this.selectionsList.splice(index, 1);
             }
             this.selectionsList.push(selectionTuple);
-            selectionTuple.item.selected = true;
+            this.processSelection(selectionTuple.item, true);
         }
         else {
             const list = this.selectionsList.splice(0, this.selectionsList.length);
-            list.forEach(selectedItem => { selectedItem.item.selected = false; });
+            list.forEach(selectedItem => { this.processSelection(selectedItem.item, false); });
             this.selectionsList.push(selectionTuple);
-            selectionTuple.item.selected = true;
+            this.processSelection(selectionTuple.item, true);
         }
         if (this.canRecurse(recursive, selectionTuple.item)) {
             /* tslint:disable:no-any */
@@ -395,7 +407,7 @@ export class SelectionManager {
         const list = this.selectionsList.splice(0, this.selectionsList.length);
         for (let i = 0; i < list.length; i++) {
             const item = list[i].item;
-            item.selected = false;
+            this.processSelection(item, false);
             if (this.canRecurse(recursive, item)) {
                 /* tslint:disable:no-any */
                 item.selectionManager.deselectAll(true);
@@ -417,7 +429,7 @@ export class SelectionManager {
         for (let i = startIndex; i <= endIndex; i++) {
             const tuple = this.getSelectionTuple(i);
             tempData.push(tuple);
-            tuple.item.selected = true;
+            this.processSelection(tuple.item, true);
             if (this.canRecurse(recursive, tuple.item)) {
                 /* tslint:disable:no-any */
                 tuple.item.selectionManager.selectAll(true);

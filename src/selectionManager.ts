@@ -23,12 +23,24 @@ export class SelectionManager implements ISelectionManager {
     get itemsSource(): Array<ISelectable> {
         return this.target[this.itemsPropertyName];
     }
+    private processSelection(item: ISelectable, selected: boolean): void {
+        item.selected = selected;
+        if (item.onSelectionChanged !== undefined) {
+            item.onSelectionChanged(selected);
+        }
+        if (selected === true && item.onSelected !== undefined) {
+            item.onSelected();
+        }
+        if (selected === false && item.onDeselected !== undefined) {
+            item.onDeselected();
+        }
+    }
     private deselectItem(selectionTuple: ISelectionTuple, recursive: boolean = false): void {
         const index = this.selectionsList.findIndex(selectedItem => (selectedItem.item === selectionTuple.item));
         if (index !== -1) {
             this.selectionsList.splice(index, 1);
         }
-        selectionTuple.item.selected = false;
+        this.processSelection(selectionTuple.item, false);
         if (this.canRecurse(recursive, selectionTuple.item)) {
             /* tslint:disable:no-any */
             ((selectionTuple.item as any) as IComponentWithSelection).selectionManager.deselectAll(true);
@@ -40,16 +52,16 @@ export class SelectionManager implements ISelectionManager {
         if (savePrevious) {
             const index = this.selectionsList.findIndex(selectedItem => (selectedItem.item === selectionTuple.item));
             if (index !== -1) {
-                selectionTuple.item.selected = false;
+                this.processSelection(selectionTuple.item, false);
                 this.selectionsList.splice(index, 1);
             }
             this.selectionsList.push(selectionTuple);
-            selectionTuple.item.selected = true;
+            this.processSelection(selectionTuple.item, true);
         } else {
             const list = this.selectionsList.splice(0, this.selectionsList.length);
-            list.forEach(selectedItem => { selectedItem.item.selected = false; });
+            list.forEach(selectedItem => { this.processSelection(selectedItem.item, false); });
             this.selectionsList.push(selectionTuple);
-            selectionTuple.item.selected = true;
+            this.processSelection(selectionTuple.item, true);
         }
         if (this.canRecurse(recursive, selectionTuple.item)) {
             /* tslint:disable:no-any */
@@ -74,7 +86,7 @@ export class SelectionManager implements ISelectionManager {
         const list = this.selectionsList.splice(0, this.selectionsList.length);
         for (let i = 0; i < list.length; i++) {
             const item = list[i].item;
-            item.selected = false;
+            this.processSelection(item, false);
             if (this.canRecurse(recursive, item)) {
                 /* tslint:disable:no-any */
                 ((item as any) as IComponentWithSelection).selectionManager.deselectAll(true);
@@ -97,7 +109,7 @@ export class SelectionManager implements ISelectionManager {
         for (let i = startIndex; i <= endIndex; i++) {
             const tuple = this.getSelectionTuple(i);
             tempData.push(tuple);
-            tuple.item.selected = true;
+            this.processSelection(tuple.item, true);
             if (this.canRecurse(recursive, tuple.item)) {
                 /* tslint:disable:no-any */
                 ((tuple.item as any) as IComponentWithSelection).selectionManager.selectAll(true);

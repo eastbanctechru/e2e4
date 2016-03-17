@@ -192,6 +192,7 @@ declare module 'e2e4' {
         private selectItem(selectionTuple: ISelectionTuple, savePrevious?: boolean, recursive?: boolean): void;
         private canRecurse(recursive: boolean, /* tslint:disable:no-any */item: any/* tslint:enable:no-any */): boolean;
         private getSelectionTuple(index: number): ISelectionTuple;
+        private processSelection(item: ISelectable, selected: boolean): void;
         deselectAll(recursive?: boolean): void;
         selectAll(recursive?: boolean): void;
         selectRange(fromIndex: number, toIndex: number, recursive?: boolean): void;
@@ -294,6 +295,9 @@ declare module 'e2e4' {
 
     export interface ISelectable {
         selected: boolean;
+        onSelected?(): void;
+        onDeselected?(): void;
+        onSelectionChanged?(selected: boolean): void;
     }
 
     export interface ISelectionManager {
