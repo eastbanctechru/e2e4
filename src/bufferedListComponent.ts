@@ -1,5 +1,5 @@
 import {ListComponent} from './listComponent';
-import {Defaults} from './Defaults';
+import {Defaults} from './common/Defaults';
 import {filter} from './filterAnnotation';
 import {IFilterConfig} from './contracts/IFilterConfig';
 

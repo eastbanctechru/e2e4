@@ -1,7 +1,7 @@
 import {BaseComponent} from './baseComponent';
-import {SortParameter} from './SortParameter';
-import {Defaults} from './Defaults';
-import {Utility} from './Utility';
+import {SortParameter} from './common/SortParameter';
+import {Defaults} from './common/Defaults';
+import {Utility} from './common/Utility';
 import {IStateManager} from './contracts/IStateManager';
 import {IListComponent} from './contracts/IListComponent';
 import {ISortableComponent} from './contracts/ISortableComponent';
@@ -12,7 +12,7 @@ import {IComponentWithFilter} from './contracts/IComponentWithFilter';
 import {SelectionManager} from './selectionManager';
 import {FilterManager} from './filterManager';
 import {filter} from './filterAnnotation';
-import {ProgressState} from './ProgressState';
+import {ProgressState} from './common/ProgressState';
 import {IFilterConfig} from './contracts/IFilterConfig';
 import * as _ from 'lodash';
 

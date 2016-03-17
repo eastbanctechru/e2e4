@@ -1,6 +1,6 @@
 import {ListComponent} from './listComponent';
-import {Utility} from './Utility';
-import {Defaults} from './Defaults';
+import {Utility} from './common/Utility';
+import {Defaults} from './common/Defaults';
 import {filter} from './filterAnnotation';
 import {IFilterConfig} from './contracts/IFilterConfig';
 
