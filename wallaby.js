@@ -5,6 +5,7 @@ var webpackPostprocessor = wallabyWebpack({});
 module.exports = function (wallaby) {
     return {
         files: [
+            { pattern: 'node_modules/babel-core/browser-polyfill.js', instrument: false, load: true},
             { pattern: 'src/**/*.ts', load: false },
             { pattern: 'src/**/*.d.ts', ignore: true }
         ],

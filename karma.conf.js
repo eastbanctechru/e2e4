@@ -7,6 +7,8 @@ module.exports = function (config) {
         singleRun: true, //just run once by default
         frameworks: ['mocha'], //use the mocha test framework
         files: [
+            //polyfill
+            'node_modules/babel-core/browser-polyfill.js',
             // all files in "test"
             'tests/**/*.ts'
             // each file acts as entry point for the webpack configuration

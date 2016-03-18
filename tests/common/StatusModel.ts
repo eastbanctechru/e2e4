@@ -1,0 +1,31 @@
+import { expect } from 'chai';
+import * as sinon from 'sinon';
+import {StatusModel} from '../../src/common/StatusModel';
+import {ProgressState} from '../../src/common/ProgressState';
+
+describe('StatusModel', () => {
+    it('creates new model', () => {
+        const model = new StatusModel(ProgressState.Initial, 'title');
+
+        expect(model.status).eql(ProgressState.Initial);
+        expect(model.title).eql('title');
+    });
+
+    it('expect model return proper classNames', () => {
+        const model = new StatusModel(ProgressState.Initial, 'title');
+        expect(model.className).eql('');
+
+        model.status = ProgressState.Done;
+        expect(model.className).eql('status status-resolved');
+
+        model.status = ProgressState.Fail;
+        expect(model.className).eql('status status-fail');
+
+        model.status = ProgressState.Progress;
+        expect(model.className).eql('status status-progress');
+
+        model.status = ProgressState.Cancelled;
+        expect(model.className).eql('');
+    });
+
+});
