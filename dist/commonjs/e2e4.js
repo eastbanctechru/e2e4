@@ -762,7 +762,7 @@ var StatusTracker = (function () {
             var undone = StatusTracker.statusList.find(function (item) {
                 return item.status === ProgressState.Progress;
             });
-            if (undone === null) {
+            if (undone === undefined) {
                 StatusTracker.statusList.length = 0;
                 StatusTracker.status = ProgressState.Done;
             } else {
