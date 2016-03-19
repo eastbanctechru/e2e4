@@ -732,7 +732,7 @@ System.register(['lodash'], function (_export) {
             ListComponent = (function (_BaseComponent) {
                 _inherits(ListComponent, _BaseComponent);
 
-                function ListComponent() {
+                function ListComponent(stateManager) {
                     _classCallCheck(this, ListComponent);
 
                     _BaseComponent.call(this);
@@ -745,6 +745,7 @@ System.register(['lodash'], function (_export) {
                     this.loadedCount = 0;
 
                     this.useModelState = true;
+                    this.stateManager = stateManager;
                     SelectionManager.includeIn(this, 'items');
                     FilterManager.includeIn(this);
                     this.listLoadDataSuccessBinded = this.listLoadDataSuccessCallback.bind(this);
@@ -910,10 +911,10 @@ System.register(['lodash'], function (_export) {
             BufferedListComponent = (function (_ListComponent) {
                 _inherits(BufferedListComponent, _ListComponent);
 
-                function BufferedListComponent() {
+                function BufferedListComponent(stateManager) {
                     _classCallCheck(this, BufferedListComponent);
 
-                    _ListComponent.call(this);
+                    _ListComponent.call(this, stateManager);
                     this.takeRowCountInternal = Defaults.bufferedListComponent.defaultTakeRowCount;
                     this.skip = 0;
                     this.bufferedLoadDataSuccessBinded = this.bufferedLoadDataSuccess.bind(this);
@@ -1010,10 +1011,10 @@ System.register(['lodash'], function (_export) {
             PagedListComponent = (function (_ListComponent2) {
                 _inherits(PagedListComponent, _ListComponent2);
 
-                function PagedListComponent() {
+                function PagedListComponent(stateManager) {
                     _classCallCheck(this, PagedListComponent);
 
-                    _ListComponent2.call(this);
+                    _ListComponent2.call(this, stateManager);
                     this.pageSizeInternal = Defaults.pagedListComponent.defaultPageSize;
                     this.pageNumberInternal = 1;
                     this.displayFrom = 1;

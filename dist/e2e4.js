@@ -572,7 +572,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 export class ListComponent extends BaseComponent {
-    constructor() {
+    constructor(stateManager) {
         super();
         ///IComponent overrides
         ///ISortableComponent
@@ -586,6 +586,7 @@ export class ListComponent extends BaseComponent {
         ///IRequestCanceller
         ///IComponentWithState
         this.useModelState = true;
+        this.stateManager = stateManager;
         SelectionManager.includeIn(this, 'items');
         FilterManager.includeIn(this);
         this.listLoadDataSuccessBinded = this.listLoadDataSuccessCallback.bind(this);
@@ -727,8 +728,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 export class BufferedListComponent extends ListComponent {
-    constructor() {
-        super();
+    constructor(stateManager) {
+        super(stateManager);
         this.takeRowCountInternal = Defaults.bufferedListComponent.defaultTakeRowCount;
         this.skip = 0;
         this.bufferedLoadDataSuccessBinded = this.bufferedLoadDataSuccess.bind(this);
@@ -809,8 +810,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 export class PagedListComponent extends ListComponent {
-    constructor() {
-        super();
+    constructor(stateManager) {
+        super(stateManager);
         this.pageSizeInternal = Defaults.pagedListComponent.defaultPageSize;
         this.pageNumberInternal = 1;
         this.displayFrom = 1;

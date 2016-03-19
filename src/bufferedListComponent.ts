@@ -1,4 +1,5 @@
 import {ListComponent} from './listComponent';
+import {IStateManager} from './contracts/IStateManager';
 import {Defaults} from './common/Defaults';
 import {filter} from './filterAnnotation';
 import {IFilterConfig} from './contracts/IFilterConfig';
@@ -45,8 +46,8 @@ export abstract class BufferedListComponent extends ListComponent {
         this.takeRowCountInternal = rowCount;
     }
 
-    constructor() {
-        super();
+    constructor(stateManager: IStateManager) {
+        super(stateManager);
         this.bufferedLoadDataSuccessBinded = this.bufferedLoadDataSuccess.bind(this);
     }
 

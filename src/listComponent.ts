@@ -2,22 +2,16 @@ import {BaseComponent} from './baseComponent';
 import {SortParameter} from './common/SortParameter';
 import {Defaults} from './common/Defaults';
 import {Utility} from './common/Utility';
-import {IStateManager} from './contracts/IStateManager';
-import {IListComponent} from './contracts/IListComponent';
-import {ISortableComponent} from './contracts/ISortableComponent';
-import {IRequestCanceller} from './contracts/IRequestCanceller';
-import {IComponentWithState} from './contracts/IComponentWithState';
-import {IComponentWithSelection} from './contracts/IComponentWithSelection';
-import {IComponentWithFilter} from './contracts/IComponentWithFilter';
 import {SelectionManager} from './selectionManager';
 import {FilterManager} from './filterManager';
 import {filter} from './filterAnnotation';
 import {ProgressState} from './common/ProgressState';
+import {IStateManager} from './contracts/IStateManager';
+import {IListComponent} from './contracts/IListComponent';
 import {IFilterConfig} from './contracts/IFilterConfig';
 import * as _ from 'lodash';
 
-export abstract class ListComponent extends BaseComponent implements IListComponent,
-    ISortableComponent, IRequestCanceller, IComponentWithState, IComponentWithSelection, IComponentWithFilter {
+export abstract class ListComponent extends BaseComponent implements IListComponent {
     private listLoadDataSuccessCallback(result: Object): Object {
         this.loadedCount = result[Defaults.listComponent.loadedCountParameterName];
         this.totalCount = result[Defaults.listComponent.totalCountParameterName] || 0;
@@ -34,8 +28,9 @@ export abstract class ListComponent extends BaseComponent implements IListCompon
         this.selectionManager.deselectAll();
         Utility.disposeAll(this.items);
     }
-    constructor() {
+    constructor(stateManager: IStateManager) {
         super();
+        this.stateManager = stateManager;
         SelectionManager.includeIn(this, 'items');
         FilterManager.includeIn(this);
         this.listLoadDataSuccessBinded = this.listLoadDataSuccessCallback.bind(this);

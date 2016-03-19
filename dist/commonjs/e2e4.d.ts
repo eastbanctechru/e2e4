@@ -15,7 +15,7 @@ declare module 'e2e4' {
         private takeRowCountInternal;
         skip: number;
         takeRowCount: number;
-        constructor();
+        constructor(stateManager: IStateManager);
         dispose(): void;
         bufferedLoadDataSuccess(result: Object): Object;
         loadData(): Promise<Object>;
@@ -112,13 +112,13 @@ declare module 'e2e4' {
     }
 
     export abstract class ListComponent extends BaseComponent
-        implements IListComponent, ISortableComponent, IRequestCanceller, IComponentWithState, IComponentWithSelection, IComponentWithFilter {
+        implements IListComponent {
         private listLoadDataSuccessCallback(result: Object): Object;
         private listLoadDataFailCallback(): void;
         private listLoadDataSuccessBinded;
         private listLoadDataFailBinded;
         private clearDataInternal(): void;
-        constructor();
+        constructor(stateManager: IStateManager);
         init(queryParams?: Object): void;
         dispose(): void;
         sortings: SortParameter[];
@@ -160,7 +160,7 @@ declare module 'e2e4' {
         private pagedLoadDataSuccessCallback(result: Object): Object;
         displayFrom: number;
         displayTo: number;
-        constructor();
+        constructor(stateManager: IStateManager);
         dispose(): void;
         pageCount: number;
         pageNumber: number;
@@ -279,7 +279,8 @@ declare module 'e2e4' {
         buildPersistedState(result?: Object): Object;
     }
 
-    export interface IListComponent {
+    export interface IListComponent extends IComponentWithState, IComponentWithSelection, IComponentWithFilter,
+    ISortableComponent, IRequestCanceller {
         items: Object[];
         totalCount: number;
         loadedCount: number;

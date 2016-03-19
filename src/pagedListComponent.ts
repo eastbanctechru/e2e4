@@ -3,6 +3,7 @@ import {Utility} from './common/Utility';
 import {Defaults} from './common/Defaults';
 import {filter} from './filterAnnotation';
 import {IFilterConfig} from './contracts/IFilterConfig';
+import {IStateManager} from './contracts/IStateManager';
 
 export abstract class PagedListComponent extends ListComponent {
     private pageSizeInternal = Defaults.pagedListComponent.defaultPageSize;
@@ -19,8 +20,8 @@ export abstract class PagedListComponent extends ListComponent {
     displayFrom = 1;
     displayTo = 1;
 
-    constructor() {
-        super();
+    constructor(stateManager: IStateManager) {
+        super(stateManager);
         this.pagedLoadDataSuccessBinded = this.pagedLoadDataSuccessCallback.bind(this);
     }
 
