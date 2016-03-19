@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { StatusTracker } from '../src/StatusTracker';
+import { StatusTracker } from '../src/statusTracker';
 import { Defaults } from '../src/common/defaults';
 import { ProgressState } from '../src/common/progressState';
 
