@@ -52,7 +52,6 @@ describe('StatusTracker', () => {
                 expect(StatusTracker.status).eql(ProgressState.Done);
             })
             .then(() => done());
-
     });
 
     it('resolves one of several status. Tracked status stays Progress', function(done: Function): void {

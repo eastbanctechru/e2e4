@@ -39,7 +39,7 @@ export class StatusTracker {
             const undone = StatusTracker.statusList.find(item => {
                 return item.status === ProgressState.Progress;
             });
-            if (undone === null || undone === undefined) {
+            if (undone === undefined) {
                 StatusTracker.statusList.length = 0;
                 StatusTracker.status = ProgressState.Done;
             } else {
