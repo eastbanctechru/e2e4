@@ -1,4 +1,4 @@
-﻿import {ProgressState} from './ProgressState';
+﻿import {ProgressState} from './progressState';
 export class StatusModel {
     sid: number;
     status: ProgressState;

@@ -1,4 +1,4 @@
-﻿import {SortDirection} from './SortDirection';
+﻿import {SortDirection} from './sortDirection';
 export class SortParameter {
     constructor(fieldName: string, direction: SortDirection = SortDirection.Asc) {
         this.fieldName = fieldName;
