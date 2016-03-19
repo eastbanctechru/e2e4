@@ -11,4 +11,5 @@ export interface IListComponent extends IComponentWithState, IComponentWithSelec
     clearData(): void;
     reloadData(): void;
     toRequest(): any;
+    onSortChangesCompleted(): void;
 }
