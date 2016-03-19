@@ -1,6 +1,6 @@
-﻿import {StatusModel} from './common/StatusModel';
-import {Defaults} from './common/Defaults';
-import {ProgressState} from './common/ProgressState';
+﻿import {StatusModel} from './common/statusModel';
+import {Defaults} from './common/defaults';
+import {ProgressState} from './common/progressState';
 import * as _ from 'lodash';
 
 export class StatusTracker {

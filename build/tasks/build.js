@@ -25,14 +25,14 @@ gulp.task('transpile', function () {
 gulp.task('build-index', function () {
   var importsToAdd = [];
   var files = [
-    'common/Defaults.js',
-    'common/KeyCodes.js',
-    'common/MouseButtons.js',
-    'common/ProgressState.js',
-    'common/SortDirection.js',
-    'common/SortParameter.js',
-    'common/StatusModel.js',
-    'common/Utility.js',
+    'common/defaults.js',
+    'common/keyCodes.js',
+    'common/mouseButtons.js',
+    'common/progressState.js',
+    'common/sortDirection.js',
+    'common/sortParameter.js',
+    'common/statusModel.js',
+    'common/utility.js',
     'filterManager.js',
     'filterConfig.js',
     'filterAnnotation.js',

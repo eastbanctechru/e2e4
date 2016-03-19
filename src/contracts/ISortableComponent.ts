@@ -1,4 +1,4 @@
-﻿import {SortParameter} from '../common/SortParameter';
+﻿import {SortParameter} from '../common/sortParameter';
 export interface ISortableComponent {
     sortings: Array<SortParameter>;
     defaultSortings: SortParameter[];

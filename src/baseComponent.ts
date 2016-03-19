@@ -1,4 +1,4 @@
-import {ProgressState} from './common/ProgressState';
+import {ProgressState} from './common/progressState';
 export abstract class BaseComponent {
     disposed = false;
     inited = false;

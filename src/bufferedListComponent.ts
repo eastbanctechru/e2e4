@@ -1,6 +1,6 @@
 import {ListComponent} from './listComponent';
 import {IStateManager} from './contracts/IStateManager';
-import {Defaults} from './common/Defaults';
+import {Defaults} from './common/defaults';
 import {filter} from './filterAnnotation';
 import {IFilterConfig} from './contracts/IFilterConfig';
 
