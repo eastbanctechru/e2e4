@@ -1,7 +1,7 @@
-﻿import {SortParameter} from '../common/sortParameter';
-export interface ISortableComponent {
+import {SortParameter} from '../common/sortParameter';
+export interface ISortManager {
     sortings: Array<SortParameter>;
     defaultSortings: SortParameter[];
     setSort(fieldName: string, savePrevious: boolean): void;
-    onSortChangesCompleted(): void;
+    dispose(): void;
 }

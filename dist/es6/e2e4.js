@@ -562,23 +562,9 @@ StatusTracker.status = ProgressState.Done;
 StatusTracker.modalDisplayed = false;
 StatusTracker.statusList = new Array();
 
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 export class ListComponent extends BaseComponent {
     constructor(stateManager) {
         super();
-        ///IComponent overrides
-        ///ISortableComponent
-        this.sortings = new Array();
-        this.defaultSortingsPrivate = null;
-        ///ISortableComponent
         ///IListComponent
         this.items = [];
         this.totalCount = 0;
@@ -589,6 +575,8 @@ export class ListComponent extends BaseComponent {
         this.stateManager = stateManager;
         SelectionManager.includeIn(this, 'items');
         FilterManager.includeIn(this);
+        SortManager.includeIn(this);
+        this.filterManager.registerFilterTarget(this.sortManager);
         this.listLoadDataSuccessBinded = this.listLoadDataSuccessCallback.bind(this);
         this.listLoadDataFailBinded = this.listLoadDataFailCallback.bind(this);
     }
@@ -616,39 +604,12 @@ export class ListComponent extends BaseComponent {
         super.dispose();
         delete this.listLoadDataSuccessBinded;
         delete this.listLoadDataFailBinded;
-        delete this.defaultSortings;
-        this.sortings.length = 0;
         this.clearDataInternal();
+        this.sortManager.dispose();
         this.filterManager.dispose();
         this.selectionManager.dispose();
     }
-    get defaultSortings() {
-        return this.defaultSortingsPrivate;
-    }
-    set defaultSortings(value) {
-        this.defaultSortingsPrivate = value;
-        if (this.sortings === null || this.sortings.length === 0) {
-            this.sortings = _.cloneDeep(this.defaultSortingsPrivate);
-        }
-    }
-    setSort(fieldName, savePrevious) {
-        let newSort = new SortParameter(fieldName);
-        for (let i = 0; i < this.sortings.length; i++) {
-            if (this.sortings[i].fieldName === fieldName) {
-                const existedSort = this.sortings.splice(i, 1)[0];
-                newSort = new SortParameter(existedSort.fieldName, existedSort.direction);
-                newSort.toggleDirection();
-                break;
-            }
-        }
-        if (savePrevious) {
-            this.sortings.push(newSort);
-        }
-        else {
-            this.sortings.length = 0;
-            this.sortings.push(newSort);
-        }
-    }
+    ///IComponent overrides
     onSortChangesCompleted() {
         if (this.ready) {
             this.clearDataInternal();
@@ -706,17 +667,6 @@ export class ListComponent extends BaseComponent {
         return this.stateManager.mergeStates(params);
     }
 }
-__decorate([
-    filter({
-        defaultValue: function () { return this.defaultSortings ? _.cloneDeep(this.defaultSortings) : []; },
-        parameterName: Defaults.listComponent.sortParameterName,
-        parseFormatter: (proposedValue) => {
-            return Array.isArray(proposedValue) ? proposedValue.map((sort) => { return new SortParameter(sort.fieldName, sort.direction * 1); }) : [];
-        },
-        persisted: Defaults.listComponent.persistSortings
-    }), 
-    __metadata('design:type', Object)
-], ListComponent.prototype, "sortings", void 0);
 
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;

@@ -8,7 +8,11 @@ import {filter} from './filterAnnotation';
 import {ProgressState} from './common/progressState';
 import {IStateManager} from './contracts/IStateManager';
 import {IListComponent} from './contracts/IListComponent';
+import {ISortManager} from './contracts/ISortManager';
+import {SortManager} from './sortManager';
 import {IFilterConfig} from './contracts/IFilterConfig';
+import {IFilterManager} from './contracts/IFilterManager';
+import {ISelectionManager} from './contracts/ISelectionManager';
 import * as _ from 'lodash';
 
 export abstract class ListComponent extends BaseComponent implements IListComponent {
@@ -33,6 +37,8 @@ export abstract class ListComponent extends BaseComponent implements IListCompon
         this.stateManager = stateManager;
         SelectionManager.includeIn(this, 'items');
         FilterManager.includeIn(this);
+        SortManager.includeIn(this);
+        this.filterManager.registerFilterTarget(this.sortManager);
         this.listLoadDataSuccessBinded = this.listLoadDataSuccessCallback.bind(this);
         this.listLoadDataFailBinded = this.listLoadDataFailCallback.bind(this);
     }
@@ -46,59 +52,18 @@ export abstract class ListComponent extends BaseComponent implements IListCompon
         super.dispose();
         delete this.listLoadDataSuccessBinded;
         delete this.listLoadDataFailBinded;
-        delete this.defaultSortings;
-        this.sortings.length = 0;
         this.clearDataInternal();
+        this.sortManager.dispose();
         this.filterManager.dispose();
         this.selectionManager.dispose();
     }
     ///IComponent overrides
-
-    ///ISortableComponent
-    @filter({
-        defaultValue: function(): Array<SortParameter> { return this.defaultSortings ? _.cloneDeep(this.defaultSortings) : []; },
-        parameterName: Defaults.listComponent.sortParameterName,
-        parseFormatter: (proposedValue): Array<Object> => {
-            return Array.isArray(proposedValue) ? proposedValue.map((sort) => { return new SortParameter(sort.fieldName, sort.direction * 1); }) : [];
-        },
-        persisted: Defaults.listComponent.persistSortings
-    } as IFilterConfig)
-    sortings = new Array<SortParameter>();
-
-    private defaultSortingsPrivate: SortParameter[] = null;
-    get defaultSortings(): SortParameter[] {
-        return this.defaultSortingsPrivate;
-    }
-    set defaultSortings(value: Array<SortParameter>) {
-        this.defaultSortingsPrivate = value;
-        if (this.sortings === null || this.sortings.length === 0) {
-            this.sortings = _.cloneDeep(this.defaultSortingsPrivate);
-        }
-    }
-    setSort(fieldName: string, savePrevious: boolean): void {
-        let newSort = new SortParameter(fieldName);
-        for (let i = 0; i < this.sortings.length; i++) {
-            if (this.sortings[i].fieldName === fieldName) {
-                const existedSort = this.sortings.splice(i, 1)[0];
-                newSort = new SortParameter(existedSort.fieldName, existedSort.direction);
-                newSort.toggleDirection();
-                break;
-            }
-        }
-        if (savePrevious) {
-            this.sortings.push(newSort);
-        } else {
-            this.sortings.length = 0;
-            this.sortings.push(newSort);
-        }
-    }
     onSortChangesCompleted(): void {
         if (this.ready) {
             this.clearDataInternal();
             this.loadData();
         }
     }
-    ///ISortableComponent
     ///IListComponent
     items: Object[] = [];
     totalCount = 0;
@@ -157,7 +122,8 @@ export abstract class ListComponent extends BaseComponent implements IListCompon
         return this.stateManager.mergeStates(params);
     }
     ///IComponentWithState
-    selectionManager: SelectionManager;
-    filterManager: FilterManager;
+    selectionManager: ISelectionManager;
+    filterManager: IFilterManager;
+    sortManager: ISortManager;
     abstract getDataReadPromise(): Promise<Object>;
 }

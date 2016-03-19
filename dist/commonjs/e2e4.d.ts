@@ -22,6 +22,143 @@ declare module 'e2e4' {
         onSortChangesCompleted(): void;
     }
 
+    export function filter(targetOrNameOrConfig?: string | IFilterConfig | any, key?: string, descriptor?: Object): any;
+
+    export class FilterConfig implements IFilterConfig {
+        defaultValue: Object;
+        propertyName: string;
+        parameterName: string;
+        ignoreOnAutoMap: boolean;
+        emptyIsNull: boolean;
+        persisted: boolean;
+        coerce: boolean;
+        valueSerializer: (value: Object) => Object;
+        valueParser: (rawValue: Object, allValues?: Object) => Object;
+        descriptor: Object;
+        constructor(config: IFilterConfig);
+        register(target: Object, descriptor?: Object): void;
+    }
+
+    export class FilterManager implements IFilterManager {
+        static coerceTypes: {
+            'true': boolean;
+            'false': boolean;
+            'null': any;
+        };
+        static filterPropertiesMap: Map<any, FilterConfig[]>;
+        static registerFilter(targetType: Object, propertyConfig: FilterConfig): void;
+        static includeIn(target: IComponentWithFilter): void;
+        static coerceValue(value: any): Object;
+        static buildFilterValue(target: Object, value: any, config: FilterConfig): Object;
+        private defaultsApplied;
+        private appliedFiltersMap;
+        dispose(): void;
+        resetFilters(): void;
+        parseParams(params: Object): void;
+        buildRequest(result?: Object): Object;
+        buildPersistedState(result?: Object): Object;
+        registerFilterTarget(target: Object): void;
+        constructor(target: Object);
+    }
+
+    export abstract class ListComponent extends BaseComponent implements IListComponent {
+        private listLoadDataSuccessCallback(result: Object): Object;
+        private listLoadDataFailCallback(): void;
+        private listLoadDataSuccessBinded;
+        private listLoadDataFailBinded;
+        private clearDataInternal(): void;
+        constructor(stateManager: IStateManager);
+        init(queryParams?: Object): void;
+        dispose(): void;
+        onSortChangesCompleted(): void;
+        items: Object[];
+        totalCount: number;
+        loadedCount: number;
+        toRequest(): any;
+        getLocalState(): Object;
+        loadData(): Promise<Object>;
+        clearData(): void;
+        reloadData(): void;
+        addToCancellationSequence(promise: Promise<Object>): void;
+        cancelRequests(): void;
+        useModelState: boolean;
+        stateManager: IStateManager;
+        saveRequestState(): void;
+        saveLocalState(): void;
+        private getRestoredState(params: Object): Object;
+        selectionManager: ISelectionManager;
+        filterManager: IFilterManager;
+        sortManager: ISortManager;
+        abstract getDataReadPromise(): Promise<Object>;
+    }
+
+    export abstract class PagedListComponent extends ListComponent {
+        private pageSizeInternal;
+        private pageNumberInternal;
+        private pagedLoadDataSuccessBinded;
+        private pagedLoadDataSuccessCallback(result: Object): Object;
+        displayFrom: number;
+        displayTo: number;
+        constructor(stateManager: IStateManager);
+        dispose(): void;
+        pageCount: number;
+        pageNumber: number;
+        pageSize: number;
+        loadData(): Promise<Object>;
+        goToFirstPage(): void;
+        goToPreviousPage(): void;
+        goToNextPage(): void;
+        goToLastPage(): void;
+    }
+
+    export class SelectionManager implements ISelectionManager {
+        static includeIn(target: IComponentWithSelection, itemsPropertyName: string): void;
+        constructor(target: Object, itemsPropertyName: string);
+        private selectionsList;
+        private target;
+        private itemsPropertyName;
+        dispose(): void;
+        lastProcessedIndex: number;
+        itemsSource: Array<ISelectable>;
+        private processSelection(item: ISelectable, selected: boolean): void;
+        private deselectItem(selectionTuple: ISelectionTuple, recursive?: boolean): void;
+        private selectItem(selectionTuple: ISelectionTuple, savePrevious?: boolean, recursive?: boolean): void;
+        private canRecurse(recursive: boolean, /* tslint:disable:no-any */item: any/* tslint:enable:no-any */): boolean;
+        private getSelectionTuple(index: number): ISelectionTuple;
+        deselectAll(recursive?: boolean): void;
+        selectAll(recursive?: boolean): void;
+        selectRange(fromIndex: number, toIndex: number, recursive?: boolean): void;
+        hasSelections(): boolean;
+        isIndexSelected(index: number): boolean;
+        getMinSelectedIndex(): number;
+        getMaxSelectedIndex(): number;
+        selectFirst(): void;
+        selectLast(): void;
+        selectIndex(index: number, savePrevious?: boolean, recursive?: boolean): void;
+        deselectIndex(index: number, recursive?: boolean): void;
+        toggleSelection(index: number, savePrevious?: boolean, recursive?: boolean): void;
+        getSelections(recursive?: boolean): Array<Object>;
+    }
+
+    export class SortManager implements ISortManager {
+        static includeIn(target: any): void;
+        sortings: SortParameter[];
+        private defaultSortingsPrivate;
+        defaultSortings: SortParameter[];
+        setSort(fieldName: string, savePrevious: boolean): void;
+        dispose(): void;
+    }
+
+    export class StatusTracker {
+        static status: ProgressState;
+        static modalDisplayed: boolean;
+        static statusList: StatusModel[];
+        static statusDisplayed: boolean;
+        static isActive: boolean;
+        static trackStatus(title: string): number;
+        static resolveStatus(sid: number, status: ProgressState): void;
+    }
+
     export class Defaults {
         static sortAttribute: {
             ascClassName: string;
@@ -61,45 +198,6 @@ declare module 'e2e4' {
         };
     }
 
-    export function filter(targetOrNameOrConfig?: string | IFilterConfig | any, key?: string, descriptor?: Object): any;
-
-    export class FilterManager implements IFilterManager {
-        static coerceTypes: {
-            'true': boolean;
-            'false': boolean;
-            'null': any;
-        };
-        static filterPropertiesMap: Map<any, FilterConfig[]>;
-        static registerFilter(targetType: Object, propertyConfig: FilterConfig): void;
-        static includeIn(target: IComponentWithFilter): void;
-        static coerceValue(value: any): Object;
-        static buildFilterValue(target: Object, value: any, config: FilterConfig): Object;
-        private defaultsApplied;
-        private appliedFiltersMap;
-        dispose(): void;
-        resetFilters(): void;
-        parseParams(params: Object): void;
-        buildRequest(result?: Object): Object;
-        buildPersistedState(result?: Object): Object;
-        registerFilterTarget(target: Object): void;
-        constructor(target: Object);
-    }
-
-    export class FilterConfig implements IFilterConfig {
-        defaultValue: Object;
-        propertyName: string;
-        parameterName: string;
-        ignoreOnAutoMap: boolean;
-        emptyIsNull: boolean;
-        persisted: boolean;
-        coerce: boolean;
-        valueSerializer: (value: Object) => Object;
-        valueParser: (rawValue: Object, allValues?: Object) => Object;
-        descriptor: Object;
-        constructor(config: IFilterConfig);
-        register(target: Object, descriptor?: Object): void;
-    }
-
     export enum KeyCodes {
         Enter = 13,
         Shift = 16,
@@ -111,65 +209,11 @@ declare module 'e2e4' {
         A = 65,
     }
 
-    export abstract class ListComponent extends BaseComponent
-        implements IListComponent {
-        private listLoadDataSuccessCallback(result: Object): Object;
-        private listLoadDataFailCallback(): void;
-        private listLoadDataSuccessBinded;
-        private listLoadDataFailBinded;
-        private clearDataInternal(): void;
-        constructor(stateManager: IStateManager);
-        init(queryParams?: Object): void;
-        dispose(): void;
-        sortings: SortParameter[];
-        private defaultSortingsPrivate;
-        defaultSortings: SortParameter[];
-        setSort(fieldName: string, savePrevious: boolean): void;
-        onSortChangesCompleted(): void;
-        items: Object[];
-        totalCount: number;
-        loadedCount: number;
-        toRequest(): any;
-        getLocalState(): Object;
-        loadData(): Promise<Object>;
-        clearData(): void;
-        reloadData(): void;
-        addToCancellationSequence(promise: Promise<Object>): void;
-        cancelRequests(): void;
-        useModelState: boolean;
-        stateManager: IStateManager;
-        saveRequestState(): void;
-        saveLocalState(): void;
-        private getRestoredState(params: Object): Object;
-        selectionManager: SelectionManager;
-        filterManager: FilterManager;
-        abstract getDataReadPromise(): Promise<Object>;
-    }
-
     export enum MouseButtons {
         None = 0,
         Left = 1,
         Middle = 2,
         Right = 3,
-    }
-
-    export abstract class PagedListComponent extends ListComponent {
-        private pageSizeInternal;
-        private pageNumberInternal;
-        private pagedLoadDataSuccessBinded;
-        private pagedLoadDataSuccessCallback(result: Object): Object;
-        displayFrom: number;
-        displayTo: number;
-        constructor(stateManager: IStateManager);
-        dispose(): void;
-        pageCount: number;
-        pageNumber: number;
-        pageSize: number;
-        loadData(): Promise<Object>;
-        goToFirstPage(): void;
-        goToPreviousPage(): void;
-        goToNextPage(): void;
-        goToLastPage(): void;
     }
 
     export enum ProgressState {
@@ -178,35 +222,6 @@ declare module 'e2e4' {
         Progress = 2,
         Fail = 3,
         Cancelled = 4,
-    }
-
-    export class SelectionManager implements ISelectionManager {
-        static includeIn(target: IComponentWithSelection, itemsPropertyName: string): void;
-        constructor(target: Object, itemsPropertyName: string);
-        private selectionsList;
-        private target;
-        private itemsPropertyName;
-        lastProcessedIndex: number;
-        itemsSource: Array<ISelectable>;
-        private deselectItem(selectionTuple: ISelectionTuple, recursive?: boolean): void;
-        private selectItem(selectionTuple: ISelectionTuple, savePrevious?: boolean, recursive?: boolean): void;
-        private canRecurse(recursive: boolean, /* tslint:disable:no-any */item: any/* tslint:enable:no-any */): boolean;
-        private getSelectionTuple(index: number): ISelectionTuple;
-        private processSelection(item: ISelectable, selected: boolean): void;
-        deselectAll(recursive?: boolean): void;
-        selectAll(recursive?: boolean): void;
-        selectRange(fromIndex: number, toIndex: number, recursive?: boolean): void;
-        hasSelections(): boolean;
-        isIndexSelected(index: number): boolean;
-        getMinSelectedIndex(): number;
-        getMaxSelectedIndex(): number;
-        selectFirst(): void;
-        selectLast(): void;
-        selectIndex(index: number, savePrevious?: boolean, recursive?: boolean): void;
-        deselectIndex(index: number, recursive?: boolean): void;
-        toggleSelection(index: number, savePrevious?: boolean, recursive?: boolean): void;
-        getSelections(recursive?: boolean): Array<Object>;
-        dispose(): void;
     }
 
     export enum SortDirection {
@@ -230,16 +245,6 @@ declare module 'e2e4' {
         className: string;
     }
 
-    export class StatusTracker {
-        static status: ProgressState;
-        static modalDisplayed: boolean;
-        static statusList: StatusModel[];
-        static statusDisplayed: boolean;
-        static isActive: boolean;
-        static trackStatus(title: string): number;
-        static resolveStatus(sid: number, status: ProgressState): void;
-    }
-
     export class Utility {
         static disposeAll(collection: any[], async?: boolean): void;
     }
@@ -250,6 +255,10 @@ declare module 'e2e4' {
 
     export interface IComponentWithSelection {
         selectionManager: ISelectionManager;
+    }
+
+    export interface IComponentWithSort {
+        sortManager: ISortManager;
     }
 
     export interface IComponentWithState {
@@ -277,10 +286,10 @@ declare module 'e2e4' {
         parseParams(params: Object): void;
         buildRequest(result?: Object): Object;
         buildPersistedState(result?: Object): Object;
+        registerFilterTarget(target: Object): void;
     }
 
-    export interface IListComponent extends IComponentWithState, IComponentWithSelection, IComponentWithFilter,
-    ISortableComponent, IRequestCanceller {
+    export interface IListComponent extends IComponentWithState, IComponentWithSelection, IComponentWithFilter, IComponentWithSort, IRequestCanceller {
         items: Object[];
         totalCount: number;
         loadedCount: number;
@@ -303,19 +312,19 @@ declare module 'e2e4' {
 
     export interface ISelectionManager {
         lastProcessedIndex: number;
-        deselectAll(recursive: boolean): void;
-        selectAll(recursive: boolean): void;
-        selectRange(fromIndex: number, toIndex: number, recursive: boolean): void;
+        deselectAll(recursive?: boolean): void;
+        selectAll(recursive?: boolean): void;
+        selectRange(fromIndex: number, toIndex: number, recursive?: boolean): void;
         hasSelections(): boolean;
         isIndexSelected(index: number): boolean;
         getMinSelectedIndex(): number;
         getMaxSelectedIndex(): number;
         selectFirst(): void;
         selectLast(): void;
-        selectIndex(index: number, savePrevious: boolean, recursive: boolean): void;
-        deselectIndex(index: number, recursive: boolean): void;
-        toggleSelection(index: number, savePrevious: boolean, recursive: boolean): void;
-        getSelections(recursive: boolean): Array<Object>;
+        selectIndex(index: number, savePrevious: boolean, recursive?: boolean): void;
+        deselectIndex(index: number, recursive?: boolean): void;
+        toggleSelection(index: number, savePrevious: boolean, recursive?: boolean): void;
+        getSelections(recursive?: boolean): Array<Object>;
         dispose(): void;
     }
 
@@ -324,11 +333,11 @@ declare module 'e2e4' {
         item: ISelectable;
     }
 
-    export interface ISortableComponent {
+    export interface ISortManager {
         sortings: Array<SortParameter>;
         defaultSortings: SortParameter[];
         setSort(fieldName: string, savePrevious: boolean): void;
-        onSortChangesCompleted(): void;
+        dispose(): void;
     }
 
     export interface IStateManager {

@@ -2,9 +2,9 @@
 import {IComponentWithSelection} from './contracts/IComponentWithSelection';
 import {IComponentWithFilter} from './contracts/IComponentWithFilter';
 import {IRequestCanceller} from './contracts/IRequestCanceller';
-import {ISortableComponent} from './contracts/ISortableComponent';
+import {IComponentWithSort} from './contracts/IComponentWithSort';
 export interface IListComponent extends IComponentWithState, IComponentWithSelection, IComponentWithFilter,
-    ISortableComponent, IRequestCanceller {
+    IComponentWithSort, IRequestCanceller {
     items: Object[];
     totalCount: number;
     loadedCount: number;
