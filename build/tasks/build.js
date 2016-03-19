@@ -37,6 +37,7 @@ gulp.task('build-index', function () {
     'filterConfig.js',
     'filterAnnotation.js',
     'baseComponent.js',
+    'sortManager.js',
     'selectionManager.js',
     'statusTracker.js',
     'listComponent.js',

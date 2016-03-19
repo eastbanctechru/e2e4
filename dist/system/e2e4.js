@@ -1,7 +1,7 @@
 System.register(['lodash'], function (_export) {
     'use strict';
 
-    var _, Defaults, KeyCodes, MouseButtons, ProgressState, SortDirection, SortParameter, StatusModel, Utility, FilterManager, FilterConfig, BaseComponent, SelectionManager, StatusTracker, ListComponent, __decorate, __metadata, BufferedListComponent, __decorate, __metadata, PagedListComponent;
+    var _, Defaults, KeyCodes, MouseButtons, ProgressState, SortDirection, SortParameter, StatusModel, Utility, FilterManager, FilterConfig, BaseComponent, __decorate, __metadata, SortManager, SelectionManager, StatusTracker, ListComponent, __decorate, __metadata, BufferedListComponent, __decorate, __metadata, PagedListComponent;
 
     var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -412,6 +412,84 @@ System.register(['lodash'], function (_export) {
             _export('BaseComponent', BaseComponent);
 
             ;
+
+            __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
+                var c = arguments.length,
+                    r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+                    d;
+                if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+                return c > 3 && r && Object.defineProperty(target, key, r), r;
+            };
+
+            __metadata = undefined && undefined.__metadata || function (k, v) {
+                if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+            };
+
+            SortManager = (function () {
+                function SortManager() {
+                    _classCallCheck(this, SortManager);
+
+                    this.sortings = new Array();
+                    this.defaultSortingsPrivate = null;
+                }
+
+                SortManager.includeIn = function includeIn(target) {
+                    target.sortManager = new SortManager();
+                };
+
+                SortManager.prototype.setSort = function setSort(fieldName, savePrevious) {
+                    var newSort = new SortParameter(fieldName);
+                    for (var i = 0; i < this.sortings.length; i++) {
+                        if (this.sortings[i].fieldName === fieldName) {
+                            var existedSort = this.sortings.splice(i, 1)[0];
+                            newSort = new SortParameter(existedSort.fieldName, existedSort.direction);
+                            newSort.toggleDirection();
+                            break;
+                        }
+                    }
+                    if (savePrevious) {
+                        this.sortings.push(newSort);
+                    } else {
+                        this.sortings.length = 0;
+                        this.sortings.push(newSort);
+                    }
+                };
+
+                SortManager.prototype.dispose = function dispose() {
+                    delete this.defaultSortings;
+                    this.sortings.length = 0;
+                };
+
+                _createClass(SortManager, [{
+                    key: 'defaultSortings',
+                    get: function get() {
+                        return this.defaultSortingsPrivate;
+                    },
+                    set: function set(value) {
+                        this.defaultSortingsPrivate = value;
+                        if (this.sortings === null || this.sortings.length === 0) {
+                            this.sortings = _.cloneDeep(this.defaultSortingsPrivate);
+                        }
+                    }
+                }]);
+
+                return SortManager;
+            })();
+
+            _export('SortManager', SortManager);
+
+            __decorate([filter({
+                defaultValue: function defaultValue() {
+                    return this.defaultSortings ? _.cloneDeep(this.defaultSortings) : [];
+                },
+                parameterName: Defaults.listComponent.sortParameterName,
+                parseFormatter: function parseFormatter(proposedValue) {
+                    return Array.isArray(proposedValue) ? proposedValue.map(function (sort) {
+                        return new SortParameter(sort.fieldName, sort.direction * 1);
+                    }) : [];
+                },
+                persisted: Defaults.listComponent.persistSortings
+            }), __metadata('design:type', Object)], SortManager.prototype, "sortings", void 0);
 
             SelectionManager = (function () {
                 function SelectionManager(target, itemsPropertyName) {

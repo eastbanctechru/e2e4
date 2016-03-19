@@ -296,6 +296,7 @@ declare module 'e2e4' {
         clearData(): void;
         reloadData(): void;
         toRequest(): any;
+        onSortChangesCompleted(): void;
     }
 
     export interface IRequestCanceller {
