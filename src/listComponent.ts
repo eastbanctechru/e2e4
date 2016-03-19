@@ -1,19 +1,15 @@
 import {BaseComponent} from './baseComponent';
-import {SortParameter} from './common/sortParameter';
 import {Defaults} from './common/defaults';
 import {Utility} from './common/utility';
 import {SelectionManager} from './selectionManager';
 import {FilterManager} from './filterManager';
-import {filter} from './filterAnnotation';
 import {ProgressState} from './common/progressState';
 import {IStateManager} from './contracts/IStateManager';
 import {IListComponent} from './contracts/IListComponent';
 import {ISortManager} from './contracts/ISortManager';
 import {SortManager} from './sortManager';
-import {IFilterConfig} from './contracts/IFilterConfig';
 import {IFilterManager} from './contracts/IFilterManager';
 import {ISelectionManager} from './contracts/ISelectionManager';
-import * as _ from 'lodash';
 
 export abstract class ListComponent extends BaseComponent implements IListComponent {
     private listLoadDataSuccessCallback(result: Object): Object {
