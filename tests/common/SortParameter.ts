@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
-import {SortParameter} from '../../src/common/SortParameter';
-import {SortDirection} from '../../src/common/SortDirection';
+import { SortParameter } from '../../src/common/sortParameter';
+import { SortDirection } from '../../src/common/sortDirection';
 
 describe('SortParameter', () => {
     it('creates new SortParameter with default ASC direction', () => {

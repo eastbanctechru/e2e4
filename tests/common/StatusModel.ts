@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
-import {StatusModel} from '../../src/common/StatusModel';
-import {ProgressState} from '../../src/common/ProgressState';
+import { StatusModel } from '../../src/common/statusModel';
+import { ProgressState } from '../../src/common/progressState';
 
 describe('StatusModel', () => {
     it('creates new model', () => {

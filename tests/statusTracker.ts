@@ -1,8 +1,8 @@
 import { expect } from 'chai';
-import * as sinon from 'sinon';
+
 import { StatusTracker } from '../src/StatusTracker';
-import { Defaults } from '../src/common/Defaults';
-import {ProgressState} from '../src/common/ProgressState';
+import { Defaults } from '../src/common/defaults';
+import { ProgressState } from '../src/common/progressState';
 
 function wait(time: number): Promise<{}> {
     return new Promise(function(resolve: Function, reject: Function): void {
