@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
-import {Utility} from '../src/common/utility';
+import { Utility } from '../../src/common/utility';
 
 describe('Utility', () => {
     it('disposeAll sync', () => {

@@ -1,7 +1,7 @@
 import {ISortManager} from './contracts/ISortManager';
 import {Defaults} from './common/defaults';
 import {IFilterConfig} from './contracts/IFilterConfig';
-import {SortParameter} from './common/SortParameter';
+import {SortParameter} from './common/sortParameter';
 import {filter} from './filterAnnotation';
 
 export class SortManager implements ISortManager {
