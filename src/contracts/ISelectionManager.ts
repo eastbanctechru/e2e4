@@ -9,9 +9,9 @@
     getMaxSelectedIndex(): number;
     selectFirst(): void;
     selectLast(): void;
-    selectIndex(index: number, savePrevious: boolean, recursive?: boolean): void;
+    selectIndex(index: number, savePrevious?: boolean, recursive?: boolean): void;
     deselectIndex(index: number, recursive?: boolean): void;
-    toggleSelection(index: number, savePrevious: boolean, recursive?: boolean): void;
+    toggleSelection(index: number, savePrevious?: boolean, recursive?: boolean): void;
     getSelections(recursive?: boolean): Array<Object>;
     dispose(): void;
 }
