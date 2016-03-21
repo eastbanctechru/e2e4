@@ -158,7 +158,7 @@ export class FilterManager {
                 }
             }
         }
-        if (value && !isNaN(value)) {
+        else if (value && !isNaN(value)) {
             value = +value;
         }
         else if (value === 'undefined') {

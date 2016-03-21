@@ -1,6 +1,6 @@
 {
   "name": "e2e4",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Set of base classes and utilities to build unobtrusive list models",
   "main": "dist/e2e4.js",
   "repository": {

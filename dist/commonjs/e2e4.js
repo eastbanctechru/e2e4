@@ -213,8 +213,7 @@ var FilterManager = (function () {
                     value[index] = FilterManager.coerceValue(value[index]);
                 }
             }
-        }
-        if (value && !isNaN(value)) {
+        } else if (value && !isNaN(value)) {
             value = +value;
         } else if (value === 'undefined') {
             value = undefined;
