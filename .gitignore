@@ -2,6 +2,7 @@ node_modules
 jspm_packages
 transpiled
 typings
+.vscode
 
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio
