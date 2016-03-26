@@ -1,31 +1,26 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.PagedListComponent = exports.BufferedListComponent = exports.ListComponent = exports.StatusTracker = exports.SelectionManager = exports.SortManager = exports.BaseComponent = exports.FilterConfig = exports.FilterManager = exports.Utility = exports.StatusModel = exports.SortParameter = exports.SortDirection = exports.ProgressState = exports.MouseButtons = exports.KeyCodes = exports.Defaults = undefined;
+exports.__esModule = true;
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 exports.filter = filter;
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 var _lodash = require('lodash');
 
 var _ = _interopRequireWildcard(_lodash);
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Defaults = exports.Defaults = function Defaults() {
+var Defaults = function Defaults() {
     _classCallCheck(this, Defaults);
 };
+
+exports.Defaults = Defaults;
 
 Defaults.sortAttribute = {
     ascClassName: 'arrow-up',
@@ -64,7 +59,8 @@ Defaults.uiSettings = {
     progressDelayInterval: 500
 };
 
-var KeyCodes = exports.KeyCodes = undefined;
+var KeyCodes;
+exports.KeyCodes = KeyCodes;
 (function (KeyCodes) {
     KeyCodes[KeyCodes["Enter"] = 13] = "Enter";
     KeyCodes[KeyCodes["Shift"] = 16] = "Shift";
@@ -76,7 +72,8 @@ var KeyCodes = exports.KeyCodes = undefined;
     KeyCodes[KeyCodes["A"] = 65] = "A";
 })(KeyCodes || (exports.KeyCodes = KeyCodes = {}));
 
-var MouseButtons = exports.MouseButtons = undefined;
+var MouseButtons;
+exports.MouseButtons = MouseButtons;
 (function (MouseButtons) {
     MouseButtons[MouseButtons["None"] = 0] = "None";
     MouseButtons[MouseButtons["Left"] = 1] = "Left";
@@ -84,7 +81,8 @@ var MouseButtons = exports.MouseButtons = undefined;
     MouseButtons[MouseButtons["Right"] = 3] = "Right";
 })(MouseButtons || (exports.MouseButtons = MouseButtons = {}));
 
-var ProgressState = exports.ProgressState = undefined;
+var ProgressState;
+exports.ProgressState = ProgressState;
 (function (ProgressState) {
     ProgressState[ProgressState["Initial"] = 0] = "Initial";
     ProgressState[ProgressState["Done"] = 1] = "Done";
@@ -93,13 +91,14 @@ var ProgressState = exports.ProgressState = undefined;
     ProgressState[ProgressState["Cancelled"] = 4] = "Cancelled";
 })(ProgressState || (exports.ProgressState = ProgressState = {}));
 
-var SortDirection = exports.SortDirection = undefined;
+var SortDirection;
+exports.SortDirection = SortDirection;
 (function (SortDirection) {
     SortDirection[SortDirection["Asc"] = 0] = "Asc";
     SortDirection[SortDirection["Desc"] = 1] = "Desc";
 })(SortDirection || (exports.SortDirection = SortDirection = {}));
 
-var SortParameter = exports.SortParameter = function () {
+var SortParameter = (function () {
     function SortParameter(fieldName) {
         var direction = arguments.length <= 1 || arguments[1] === undefined ? SortDirection.Asc : arguments[1];
 
@@ -119,9 +118,11 @@ var SortParameter = exports.SortParameter = function () {
     };
 
     return SortParameter;
-}();
+})();
 
-var StatusModel = exports.StatusModel = function () {
+exports.SortParameter = SortParameter;
+
+var StatusModel = (function () {
     function StatusModel(status, title) {
         _classCallCheck(this, StatusModel);
 
@@ -146,9 +147,11 @@ var StatusModel = exports.StatusModel = function () {
     }]);
 
     return StatusModel;
-}();
+})();
 
-var Utility = exports.Utility = function () {
+exports.StatusModel = StatusModel;
+
+var Utility = (function () {
     function Utility() {
         _classCallCheck(this, Utility);
     }
@@ -180,9 +183,11 @@ var Utility = exports.Utility = function () {
     };
 
     return Utility;
-}();
+})();
 
-var FilterManager = exports.FilterManager = function () {
+exports.Utility = Utility;
+
+var FilterManager = (function () {
     function FilterManager(target) {
         _classCallCheck(this, FilterManager);
 
@@ -202,7 +207,7 @@ var FilterManager = exports.FilterManager = function () {
     };
 
     FilterManager.coerceValue = function coerceValue(value) {
-        if ((typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object' || Array.isArray(value)) {
+        if (typeof value === 'object' || Array.isArray(value)) {
             for (var index in value) {
                 if (value.hasOwnProperty(index)) {
                     value[index] = FilterManager.coerceValue(value[index]);
@@ -311,17 +316,19 @@ var FilterManager = exports.FilterManager = function () {
         if (targetConfig.length > 0) {
             this.appliedFiltersMap.set(target, targetConfig);
         } else {
-            this.appliedFiltersMap.delete(target);
+            this.appliedFiltersMap['delete'](target);
         }
     };
 
     return FilterManager;
-}();
+})();
+
+exports.FilterManager = FilterManager;
 
 FilterManager.coerceTypes = { 'true': !0, 'false': !1, 'null': null };
 FilterManager.filterPropertiesMap = new Map();
 
-var FilterConfig = exports.FilterConfig = function () {
+var FilterConfig = (function () {
     function FilterConfig(config) {
         _classCallCheck(this, FilterConfig);
 
@@ -334,7 +341,9 @@ var FilterConfig = exports.FilterConfig = function () {
     };
 
     return FilterConfig;
-}();
+})();
+
+exports.FilterConfig = FilterConfig;
 
 function filter(targetOrNameOrConfig, key, descriptor) {
     var configurableDecorate = function configurableDecorate(target, key2, descriptor2) {
@@ -366,7 +375,7 @@ function filter(targetOrNameOrConfig, key, descriptor) {
     return configurableDecorate;
 }
 
-var BaseComponent = exports.BaseComponent = function () {
+var BaseComponent = (function () {
     function BaseComponent() {
         _classCallCheck(this, BaseComponent);
 
@@ -397,7 +406,9 @@ var BaseComponent = exports.BaseComponent = function () {
     }]);
 
     return BaseComponent;
-}();
+})();
+
+exports.BaseComponent = BaseComponent;
 
 ;
 
@@ -405,15 +416,14 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if ((typeof Reflect === 'undefined' ? 'undefined' : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if ((typeof Reflect === 'undefined' ? 'undefined' : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
-var SortManager = exports.SortManager = function () {
+var SortManager = (function () {
     function SortManager() {
         _classCallCheck(this, SortManager);
 
@@ -462,7 +472,9 @@ var SortManager = exports.SortManager = function () {
     }]);
 
     return SortManager;
-}();
+})();
+
+exports.SortManager = SortManager;
 
 __decorate([filter({
     defaultValue: function defaultValue() {
@@ -477,7 +489,7 @@ __decorate([filter({
     persisted: Defaults.listComponent.persistSortings
 }), __metadata('design:type', Object)], SortManager.prototype, "sortings", void 0);
 
-var SelectionManager = exports.SelectionManager = function () {
+var SelectionManager = (function () {
     function SelectionManager(target, itemsPropertyName) {
         _classCallCheck(this, SelectionManager);
 
@@ -714,9 +726,11 @@ var SelectionManager = exports.SelectionManager = function () {
     }]);
 
     return SelectionManager;
-}();
+})();
 
-var StatusTracker = exports.StatusTracker = function () {
+exports.SelectionManager = SelectionManager;
+
+var StatusTracker = (function () {
     function StatusTracker() {
         _classCallCheck(this, StatusTracker);
     }
@@ -771,33 +785,34 @@ var StatusTracker = exports.StatusTracker = function () {
     }]);
 
     return StatusTracker;
-}();
+})();
+
+exports.StatusTracker = StatusTracker;
 
 StatusTracker.status = ProgressState.Done;
 StatusTracker.modalDisplayed = false;
 StatusTracker.statusList = new Array();
 
-var ListComponent = exports.ListComponent = function (_BaseComponent) {
+var ListComponent = (function (_BaseComponent) {
     _inherits(ListComponent, _BaseComponent);
 
     function ListComponent(stateManager) {
         _classCallCheck(this, ListComponent);
 
-        var _this3 = _possibleConstructorReturn(this, _BaseComponent.call(this));
+        _BaseComponent.call(this);
 
-        _this3.items = [];
-        _this3.totalCount = 0;
-        _this3.loadedCount = 0;
+        this.items = [];
+        this.totalCount = 0;
+        this.loadedCount = 0;
 
-        _this3.useModelState = true;
-        _this3.stateManager = stateManager;
-        SelectionManager.includeIn(_this3, 'items');
-        FilterManager.includeIn(_this3);
-        SortManager.includeIn(_this3);
-        _this3.filterManager.registerFilterTarget(_this3.sortManager);
-        _this3.listLoadDataSuccessBinded = _this3.listLoadDataSuccessCallback.bind(_this3);
-        _this3.listLoadDataFailBinded = _this3.listLoadDataFailCallback.bind(_this3);
-        return _this3;
+        this.useModelState = true;
+        this.stateManager = stateManager;
+        SelectionManager.includeIn(this, 'items');
+        FilterManager.includeIn(this);
+        SortManager.includeIn(this);
+        this.filterManager.registerFilterTarget(this.sortManager);
+        this.listLoadDataSuccessBinded = this.listLoadDataSuccessCallback.bind(this);
+        this.listLoadDataFailBinded = this.listLoadDataFailCallback.bind(this);
     }
 
     ListComponent.prototype.listLoadDataSuccessCallback = function listLoadDataSuccessCallback(result) {
@@ -895,32 +910,31 @@ var ListComponent = exports.ListComponent = function (_BaseComponent) {
     };
 
     return ListComponent;
-}(BaseComponent);
+})(BaseComponent);
+
+exports.ListComponent = ListComponent;
 
 var __decorate = undefined && undefined.__decorate || function (decorators, target, key, desc) {
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if ((typeof Reflect === 'undefined' ? 'undefined' : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if ((typeof Reflect === 'undefined' ? 'undefined' : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
-var BufferedListComponent = exports.BufferedListComponent = function (_ListComponent) {
+var BufferedListComponent = (function (_ListComponent) {
     _inherits(BufferedListComponent, _ListComponent);
 
     function BufferedListComponent(stateManager) {
         _classCallCheck(this, BufferedListComponent);
 
-        var _this4 = _possibleConstructorReturn(this, _ListComponent.call(this, stateManager));
-
-        _this4.takeRowCountInternal = Defaults.bufferedListComponent.defaultTakeRowCount;
-        _this4.skip = 0;
-        _this4.bufferedLoadDataSuccessBinded = _this4.bufferedLoadDataSuccess.bind(_this4);
-        return _this4;
+        _ListComponent.call(this, stateManager);
+        this.takeRowCountInternal = Defaults.bufferedListComponent.defaultTakeRowCount;
+        this.skip = 0;
+        this.bufferedLoadDataSuccessBinded = this.bufferedLoadDataSuccess.bind(this);
     }
 
     BufferedListComponent.prototype.dispose = function dispose() {
@@ -940,9 +954,9 @@ var BufferedListComponent = exports.BufferedListComponent = function (_ListCompo
     };
 
     BufferedListComponent.prototype.loadData = function loadData() {
-        var _ListComponent$protot;
+        var _ListComponent$prototype$loadData;
 
-        var promise = (_ListComponent$protot = _ListComponent.prototype.loadData).call.apply(_ListComponent$protot, [this].concat(Array.prototype.slice.call(arguments)));
+        var promise = (_ListComponent$prototype$loadData = _ListComponent.prototype.loadData).call.apply(_ListComponent$prototype$loadData, [this].concat(Array.prototype.slice.call(arguments)));
         promise.then(this.bufferedLoadDataSuccessBinded);
         return promise;
     };
@@ -977,7 +991,9 @@ var BufferedListComponent = exports.BufferedListComponent = function (_ListCompo
     }]);
 
     return BufferedListComponent;
-}(ListComponent);
+})(ListComponent);
+
+exports.BufferedListComponent = BufferedListComponent;
 
 __decorate([filter({
     defaultValue: 0,
@@ -1001,28 +1017,25 @@ var __decorate = undefined && undefined.__decorate || function (decorators, targ
     var c = arguments.length,
         r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
         d;
-    if ((typeof Reflect === 'undefined' ? 'undefined' : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
-        if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    }return c > 3 && r && Object.defineProperty(target, key, r), r;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var __metadata = undefined && undefined.__metadata || function (k, v) {
-    if ((typeof Reflect === 'undefined' ? 'undefined' : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
-var PagedListComponent = exports.PagedListComponent = function (_ListComponent2) {
+var PagedListComponent = (function (_ListComponent2) {
     _inherits(PagedListComponent, _ListComponent2);
 
     function PagedListComponent(stateManager) {
         _classCallCheck(this, PagedListComponent);
 
-        var _this5 = _possibleConstructorReturn(this, _ListComponent2.call(this, stateManager));
-
-        _this5.pageSizeInternal = Defaults.pagedListComponent.defaultPageSize;
-        _this5.pageNumberInternal = 1;
-        _this5.displayFrom = 1;
-        _this5.displayTo = 1;
-        _this5.pagedLoadDataSuccessBinded = _this5.pagedLoadDataSuccessCallback.bind(_this5);
-        return _this5;
+        _ListComponent2.call(this, stateManager);
+        this.pageSizeInternal = Defaults.pagedListComponent.defaultPageSize;
+        this.pageNumberInternal = 1;
+        this.displayFrom = 1;
+        this.displayTo = 1;
+        this.pagedLoadDataSuccessBinded = this.pagedLoadDataSuccessCallback.bind(this);
     }
 
     PagedListComponent.prototype.pagedLoadDataSuccessCallback = function pagedLoadDataSuccessCallback(result) {
@@ -1039,10 +1052,10 @@ var PagedListComponent = exports.PagedListComponent = function (_ListComponent2)
     };
 
     PagedListComponent.prototype.loadData = function loadData() {
-        var _ListComponent2$proto;
+        var _ListComponent2$prototype$loadData;
 
         this.selectionManager.deselectAll();
-        var promise = (_ListComponent2$proto = _ListComponent2.prototype.loadData).call.apply(_ListComponent2$proto, [this].concat(Array.prototype.slice.call(arguments)));
+        var promise = (_ListComponent2$prototype$loadData = _ListComponent2.prototype.loadData).call.apply(_ListComponent2$prototype$loadData, [this].concat(Array.prototype.slice.call(arguments)));
         Utility.disposeAll(this.items);
         promise.then(this.pagedLoadDataSuccessBinded);
         return promise;
@@ -1130,7 +1143,9 @@ var PagedListComponent = exports.PagedListComponent = function (_ListComponent2)
     }]);
 
     return PagedListComponent;
-}(ListComponent);
+})(ListComponent);
+
+exports.PagedListComponent = PagedListComponent;
 
 __decorate([filter({ defaultValue: 1, parameterName: Defaults.pagedListComponent.pageNumberParameterName }), __metadata('design:type', Number)], PagedListComponent.prototype, "pageNumber", null);
 __decorate([filter({
