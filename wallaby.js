@@ -1,11 +1,10 @@
-var babel = require('babel');
 var wallabyWebpack = require('wallaby-webpack');
 var webpackPostprocessor = wallabyWebpack({});
 
-module.exports = function (wallaby) {
+module.exports = function(wallaby) {
     return {
         files: [
-            { pattern: 'node_modules/babel-core/browser-polyfill.js', instrument: false, load: true},
+            { pattern: 'node_modules/babel-es6-polyfill/browser-polyfill.js', instrument: false, load: true },
             { pattern: 'src/**/*.ts', load: false },
             { pattern: 'src/**/*.d.ts', ignore: true }
         ],
@@ -33,7 +32,7 @@ module.exports = function (wallaby) {
 
         testFramework: 'mocha@2.2.4',
 
-        bootstrap: function () {
+        bootstrap: function() {
             window.__moduleBundler.loadTests();
         },
         debug: true

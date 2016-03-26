@@ -1,44 +1,36 @@
-System.register(['lodash'], function (_export) {
-    'use strict';
+'use strict';
 
-    var _, Defaults, KeyCodes, MouseButtons, ProgressState, SortDirection, SortParameter, StatusModel, Utility, FilterManager, FilterConfig, BaseComponent, __decorate, __metadata, SortManager, SelectionManager, StatusTracker, ListComponent, __decorate, __metadata, BufferedListComponent, __decorate, __metadata, PagedListComponent;
+System.register(['lodash'], function (_export, _context) {
+    var _, _typeof, _createClass, Defaults, KeyCodes, MouseButtons, ProgressState, SortDirection, SortParameter, StatusModel, Utility, FilterManager, FilterConfig, BaseComponent, __decorate, __metadata, SortManager, SelectionManager, StatusTracker, ListComponent, __decorate, __metadata, BufferedListComponent, __decorate, __metadata, PagedListComponent;
 
-    var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-    _export('filter', filter);
-
-    function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-    function filter(targetOrNameOrConfig, key, descriptor) {
-        var configurableDecorate = function configurableDecorate(target, key2, descriptor2) {
-            var actualTarget = key2 ? target.constructor : target;
-            var config = {
-                coerce: true,
-                defaultValue: undefined,
-                descriptor: undefined,
-                emptyIsNull: false,
-                ignoreOnAutoMap: false,
-                parameterName: key2,
-                persisted: false,
-                propertyName: key2,
-                valueParser: undefined,
-                valueSerializer: undefined
-            };
-            if (typeof targetOrNameOrConfig === 'string') {
-                config.parameterName = targetOrNameOrConfig;
-            } else {
-                Object.assign(config, targetOrNameOrConfig);
-            }
-            return new FilterConfig(config).register(actualTarget, descriptor2);
-        };
-        if (key) {
-            var targetTemp = targetOrNameOrConfig;
-            targetOrNameOrConfig = null;
-            return configurableDecorate(targetTemp, key, descriptor);
+    function _possibleConstructorReturn(self, call) {
+        if (!self) {
+            throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
         }
-        return configurableDecorate;
+
+        return call && (typeof call === "object" || typeof call === "function") ? call : self;
+    }
+
+    function _inherits(subClass, superClass) {
+        if (typeof superClass !== "function" && superClass !== null) {
+            throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+        }
+
+        subClass.prototype = Object.create(superClass && superClass.prototype, {
+            constructor: {
+                value: subClass,
+                enumerable: false,
+                writable: true,
+                configurable: true
+            }
+        });
+        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+    }
+
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
     }
 
     return {
@@ -46,9 +38,33 @@ System.register(['lodash'], function (_export) {
             _ = _lodash;
         }],
         execute: function () {
-            Defaults = function Defaults() {
-                _classCallCheck(this, Defaults);
+            _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+                return typeof obj;
+            } : function (obj) {
+                return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
             };
+
+            _createClass = function () {
+                function defineProperties(target, props) {
+                    for (var i = 0; i < props.length; i++) {
+                        var descriptor = props[i];
+                        descriptor.enumerable = descriptor.enumerable || false;
+                        descriptor.configurable = true;
+                        if ("value" in descriptor) descriptor.writable = true;
+                        Object.defineProperty(target, descriptor.key, descriptor);
+                    }
+                }
+
+                return function (Constructor, protoProps, staticProps) {
+                    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+                    if (staticProps) defineProperties(Constructor, staticProps);
+                    return Constructor;
+                };
+            }();
+
+            _export('Defaults', Defaults = function Defaults() {
+                _classCallCheck(this, Defaults);
+            });
 
             _export('Defaults', Defaults);
 
@@ -128,7 +144,7 @@ System.register(['lodash'], function (_export) {
                 SortDirection[SortDirection["Desc"] = 1] = "Desc";
             })(SortDirection || _export('SortDirection', SortDirection = {}));
 
-            SortParameter = (function () {
+            _export('SortParameter', SortParameter = function () {
                 function SortParameter(fieldName) {
                     var direction = arguments.length <= 1 || arguments[1] === undefined ? SortDirection.Asc : arguments[1];
 
@@ -148,11 +164,11 @@ System.register(['lodash'], function (_export) {
                 };
 
                 return SortParameter;
-            })();
+            }());
 
             _export('SortParameter', SortParameter);
 
-            StatusModel = (function () {
+            _export('StatusModel', StatusModel = function () {
                 function StatusModel(status, title) {
                     _classCallCheck(this, StatusModel);
 
@@ -177,11 +193,11 @@ System.register(['lodash'], function (_export) {
                 }]);
 
                 return StatusModel;
-            })();
+            }());
 
             _export('StatusModel', StatusModel);
 
-            Utility = (function () {
+            _export('Utility', Utility = function () {
                 function Utility() {
                     _classCallCheck(this, Utility);
                 }
@@ -213,11 +229,11 @@ System.register(['lodash'], function (_export) {
                 };
 
                 return Utility;
-            })();
+            }());
 
             _export('Utility', Utility);
 
-            FilterManager = (function () {
+            _export('FilterManager', FilterManager = function () {
                 function FilterManager(target) {
                     _classCallCheck(this, FilterManager);
 
@@ -237,7 +253,7 @@ System.register(['lodash'], function (_export) {
                 };
 
                 FilterManager.coerceValue = function coerceValue(value) {
-                    if (typeof value === 'object' || Array.isArray(value)) {
+                    if ((typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object' || Array.isArray(value)) {
                         for (var index in value) {
                             if (value.hasOwnProperty(index)) {
                                 value[index] = FilterManager.coerceValue(value[index]);
@@ -346,19 +362,19 @@ System.register(['lodash'], function (_export) {
                     if (targetConfig.length > 0) {
                         this.appliedFiltersMap.set(target, targetConfig);
                     } else {
-                        this.appliedFiltersMap['delete'](target);
+                        this.appliedFiltersMap.delete(target);
                     }
                 };
 
                 return FilterManager;
-            })();
+            }());
 
             _export('FilterManager', FilterManager);
 
             FilterManager.coerceTypes = { 'true': !0, 'false': !1, 'null': null };
             FilterManager.filterPropertiesMap = new Map();
 
-            FilterConfig = (function () {
+            _export('FilterConfig', FilterConfig = function () {
                 function FilterConfig(config) {
                     _classCallCheck(this, FilterConfig);
 
@@ -371,11 +387,43 @@ System.register(['lodash'], function (_export) {
                 };
 
                 return FilterConfig;
-            })();
+            }());
 
             _export('FilterConfig', FilterConfig);
 
-            BaseComponent = (function () {
+            function filter(targetOrNameOrConfig, key, descriptor) {
+                var configurableDecorate = function configurableDecorate(target, key2, descriptor2) {
+                    var actualTarget = key2 ? target.constructor : target;
+                    var config = {
+                        coerce: true,
+                        defaultValue: undefined,
+                        descriptor: undefined,
+                        emptyIsNull: false,
+                        ignoreOnAutoMap: false,
+                        parameterName: key2,
+                        persisted: false,
+                        propertyName: key2,
+                        valueParser: undefined,
+                        valueSerializer: undefined
+                    };
+                    if (typeof targetOrNameOrConfig === 'string') {
+                        config.parameterName = targetOrNameOrConfig;
+                    } else {
+                        Object.assign(config, targetOrNameOrConfig);
+                    }
+                    return new FilterConfig(config).register(actualTarget, descriptor2);
+                };
+                if (key) {
+                    var targetTemp = targetOrNameOrConfig;
+                    targetOrNameOrConfig = null;
+                    return configurableDecorate(targetTemp, key, descriptor);
+                }
+                return configurableDecorate;
+            }
+
+            _export('filter', filter);
+
+            _export('BaseComponent', BaseComponent = function () {
                 function BaseComponent() {
                     _classCallCheck(this, BaseComponent);
 
@@ -406,7 +454,7 @@ System.register(['lodash'], function (_export) {
                 }]);
 
                 return BaseComponent;
-            })();
+            }());
 
             _export('BaseComponent', BaseComponent);
 
@@ -416,15 +464,16 @@ System.register(['lodash'], function (_export) {
                 var c = arguments.length,
                     r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
                     d;
-                if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-                return c > 3 && r && Object.defineProperty(target, key, r), r;
+                if ((typeof Reflect === 'undefined' ? 'undefined' : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+                    if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+                }return c > 3 && r && Object.defineProperty(target, key, r), r;
             };
 
             __metadata = undefined && undefined.__metadata || function (k, v) {
-                if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+                if ((typeof Reflect === 'undefined' ? 'undefined' : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
             };
 
-            SortManager = (function () {
+            _export('SortManager', SortManager = function () {
                 function SortManager() {
                     _classCallCheck(this, SortManager);
 
@@ -473,7 +522,7 @@ System.register(['lodash'], function (_export) {
                 }]);
 
                 return SortManager;
-            })();
+            }());
 
             _export('SortManager', SortManager);
 
@@ -490,7 +539,7 @@ System.register(['lodash'], function (_export) {
                 persisted: Defaults.listComponent.persistSortings
             }), __metadata('design:type', Object)], SortManager.prototype, "sortings", void 0);
 
-            SelectionManager = (function () {
+            _export('SelectionManager', SelectionManager = function () {
                 function SelectionManager(target, itemsPropertyName) {
                     _classCallCheck(this, SelectionManager);
 
@@ -727,11 +776,11 @@ System.register(['lodash'], function (_export) {
                 }]);
 
                 return SelectionManager;
-            })();
+            }());
 
             _export('SelectionManager', SelectionManager);
 
-            StatusTracker = (function () {
+            _export('StatusTracker', StatusTracker = function () {
                 function StatusTracker() {
                     _classCallCheck(this, StatusTracker);
                 }
@@ -786,7 +835,7 @@ System.register(['lodash'], function (_export) {
                 }]);
 
                 return StatusTracker;
-            })();
+            }());
 
             _export('StatusTracker', StatusTracker);
 
@@ -794,26 +843,27 @@ System.register(['lodash'], function (_export) {
             StatusTracker.modalDisplayed = false;
             StatusTracker.statusList = new Array();
 
-            ListComponent = (function (_BaseComponent) {
+            _export('ListComponent', ListComponent = function (_BaseComponent) {
                 _inherits(ListComponent, _BaseComponent);
 
                 function ListComponent(stateManager) {
                     _classCallCheck(this, ListComponent);
 
-                    _BaseComponent.call(this);
+                    var _this3 = _possibleConstructorReturn(this, _BaseComponent.call(this));
 
-                    this.items = [];
-                    this.totalCount = 0;
-                    this.loadedCount = 0;
+                    _this3.items = [];
+                    _this3.totalCount = 0;
+                    _this3.loadedCount = 0;
 
-                    this.useModelState = true;
-                    this.stateManager = stateManager;
-                    SelectionManager.includeIn(this, 'items');
-                    FilterManager.includeIn(this);
-                    SortManager.includeIn(this);
-                    this.filterManager.registerFilterTarget(this.sortManager);
-                    this.listLoadDataSuccessBinded = this.listLoadDataSuccessCallback.bind(this);
-                    this.listLoadDataFailBinded = this.listLoadDataFailCallback.bind(this);
+                    _this3.useModelState = true;
+                    _this3.stateManager = stateManager;
+                    SelectionManager.includeIn(_this3, 'items');
+                    FilterManager.includeIn(_this3);
+                    SortManager.includeIn(_this3);
+                    _this3.filterManager.registerFilterTarget(_this3.sortManager);
+                    _this3.listLoadDataSuccessBinded = _this3.listLoadDataSuccessCallback.bind(_this3);
+                    _this3.listLoadDataFailBinded = _this3.listLoadDataFailCallback.bind(_this3);
+                    return _this3;
                 }
 
                 ListComponent.prototype.listLoadDataSuccessCallback = function listLoadDataSuccessCallback(result) {
@@ -911,7 +961,7 @@ System.register(['lodash'], function (_export) {
                 };
 
                 return ListComponent;
-            })(BaseComponent);
+            }(BaseComponent));
 
             _export('ListComponent', ListComponent);
 
@@ -919,24 +969,27 @@ System.register(['lodash'], function (_export) {
                 var c = arguments.length,
                     r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
                     d;
-                if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-                return c > 3 && r && Object.defineProperty(target, key, r), r;
+                if ((typeof Reflect === 'undefined' ? 'undefined' : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+                    if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+                }return c > 3 && r && Object.defineProperty(target, key, r), r;
             };
 
             __metadata = undefined && undefined.__metadata || function (k, v) {
-                if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+                if ((typeof Reflect === 'undefined' ? 'undefined' : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
             };
 
-            BufferedListComponent = (function (_ListComponent) {
+            _export('BufferedListComponent', BufferedListComponent = function (_ListComponent) {
                 _inherits(BufferedListComponent, _ListComponent);
 
                 function BufferedListComponent(stateManager) {
                     _classCallCheck(this, BufferedListComponent);
 
-                    _ListComponent.call(this, stateManager);
-                    this.takeRowCountInternal = Defaults.bufferedListComponent.defaultTakeRowCount;
-                    this.skip = 0;
-                    this.bufferedLoadDataSuccessBinded = this.bufferedLoadDataSuccess.bind(this);
+                    var _this4 = _possibleConstructorReturn(this, _ListComponent.call(this, stateManager));
+
+                    _this4.takeRowCountInternal = Defaults.bufferedListComponent.defaultTakeRowCount;
+                    _this4.skip = 0;
+                    _this4.bufferedLoadDataSuccessBinded = _this4.bufferedLoadDataSuccess.bind(_this4);
+                    return _this4;
                 }
 
                 BufferedListComponent.prototype.dispose = function dispose() {
@@ -956,9 +1009,9 @@ System.register(['lodash'], function (_export) {
                 };
 
                 BufferedListComponent.prototype.loadData = function loadData() {
-                    var _ListComponent$prototype$loadData;
+                    var _ListComponent$protot;
 
-                    var promise = (_ListComponent$prototype$loadData = _ListComponent.prototype.loadData).call.apply(_ListComponent$prototype$loadData, [this].concat(Array.prototype.slice.call(arguments)));
+                    var promise = (_ListComponent$protot = _ListComponent.prototype.loadData).call.apply(_ListComponent$protot, [this].concat(Array.prototype.slice.call(arguments)));
                     promise.then(this.bufferedLoadDataSuccessBinded);
                     return promise;
                 };
@@ -993,7 +1046,7 @@ System.register(['lodash'], function (_export) {
                 }]);
 
                 return BufferedListComponent;
-            })(ListComponent);
+            }(ListComponent));
 
             _export('BufferedListComponent', BufferedListComponent);
 
@@ -1019,26 +1072,29 @@ System.register(['lodash'], function (_export) {
                 var c = arguments.length,
                     r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
                     d;
-                if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-                return c > 3 && r && Object.defineProperty(target, key, r), r;
+                if ((typeof Reflect === 'undefined' ? 'undefined' : _typeof(Reflect)) === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) {
+                    if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+                }return c > 3 && r && Object.defineProperty(target, key, r), r;
             };
 
             __metadata = undefined && undefined.__metadata || function (k, v) {
-                if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+                if ((typeof Reflect === 'undefined' ? 'undefined' : _typeof(Reflect)) === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
             };
 
-            PagedListComponent = (function (_ListComponent2) {
+            _export('PagedListComponent', PagedListComponent = function (_ListComponent2) {
                 _inherits(PagedListComponent, _ListComponent2);
 
                 function PagedListComponent(stateManager) {
                     _classCallCheck(this, PagedListComponent);
 
-                    _ListComponent2.call(this, stateManager);
-                    this.pageSizeInternal = Defaults.pagedListComponent.defaultPageSize;
-                    this.pageNumberInternal = 1;
-                    this.displayFrom = 1;
-                    this.displayTo = 1;
-                    this.pagedLoadDataSuccessBinded = this.pagedLoadDataSuccessCallback.bind(this);
+                    var _this5 = _possibleConstructorReturn(this, _ListComponent2.call(this, stateManager));
+
+                    _this5.pageSizeInternal = Defaults.pagedListComponent.defaultPageSize;
+                    _this5.pageNumberInternal = 1;
+                    _this5.displayFrom = 1;
+                    _this5.displayTo = 1;
+                    _this5.pagedLoadDataSuccessBinded = _this5.pagedLoadDataSuccessCallback.bind(_this5);
+                    return _this5;
                 }
 
                 PagedListComponent.prototype.pagedLoadDataSuccessCallback = function pagedLoadDataSuccessCallback(result) {
@@ -1055,10 +1111,10 @@ System.register(['lodash'], function (_export) {
                 };
 
                 PagedListComponent.prototype.loadData = function loadData() {
-                    var _ListComponent2$prototype$loadData;
+                    var _ListComponent2$proto;
 
                     this.selectionManager.deselectAll();
-                    var promise = (_ListComponent2$prototype$loadData = _ListComponent2.prototype.loadData).call.apply(_ListComponent2$prototype$loadData, [this].concat(Array.prototype.slice.call(arguments)));
+                    var promise = (_ListComponent2$proto = _ListComponent2.prototype.loadData).call.apply(_ListComponent2$proto, [this].concat(Array.prototype.slice.call(arguments)));
                     Utility.disposeAll(this.items);
                     promise.then(this.pagedLoadDataSuccessBinded);
                     return promise;
@@ -1146,7 +1202,7 @@ System.register(['lodash'], function (_export) {
                 }]);
 
                 return PagedListComponent;
-            })(ListComponent);
+            }(ListComponent));
 
             _export('PagedListComponent', PagedListComponent);
 

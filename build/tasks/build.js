@@ -62,7 +62,7 @@ gulp.task('build-index', function () {
 
 gulp.task('build-amd', function () {
   return gulp.src(paths.output + jsName)
-    .pipe(to5(assign({}, compilerOptions, { modules: 'amd' })))
+    .pipe(to5(assign({}, compilerOptions.amd())))
     .pipe(gulp.dest(paths.output + 'amd'));
 });
 
@@ -73,13 +73,13 @@ gulp.task('build-es6', function () {
 
 gulp.task('build-commonjs', function () {
   return gulp.src(paths.output + jsName)
-    .pipe(to5(assign({}, compilerOptions, {modules:'common'})))
+    .pipe(to5(assign({}, compilerOptions.commonjs())))
     .pipe(gulp.dest(paths.output + 'commonjs'));
 });
 
 gulp.task('build-system', function () {
   return gulp.src(paths.output + jsName)
-    .pipe(to5(assign({}, compilerOptions, {modules:'system'})))
+    .pipe(to5(assign({}, compilerOptions.system())))
     .pipe(gulp.dest(paths.output + 'system'));
 });
 
