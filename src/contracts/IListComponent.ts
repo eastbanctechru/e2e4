@@ -1,8 +1,8 @@
-﻿import {IComponentWithState} from './contracts/IComponentWithState';
-import {IComponentWithSelection} from './contracts/IComponentWithSelection';
-import {IComponentWithFilter} from './contracts/IComponentWithFilter';
-import {IRequestCanceller} from './contracts/IRequestCanceller';
-import {IComponentWithSort} from './contracts/IComponentWithSort';
+﻿import {IComponentWithState} from './IComponentWithState';
+import {IComponentWithSelection} from './IComponentWithSelection';
+import {IComponentWithFilter} from './IComponentWithFilter';
+import {IRequestCanceller} from './IRequestCanceller';
+import {IComponentWithSort} from './IComponentWithSort';
 export interface IListComponent extends IComponentWithState, IComponentWithSelection, IComponentWithFilter,
     IComponentWithSort, IRequestCanceller {
     items: Object[];
