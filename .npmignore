@@ -1,6 +1,7 @@
+.vscode
 jspm_packages
 node_modules
 transpiled
 typings
-test
+tests
 build
