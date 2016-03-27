@@ -34,7 +34,7 @@
         "devDependencies": {
             "babel": "babel-core@^5.8.24",
             "babel-runtime": "^5.8.24",
-            "core-js": "^1.1.4"-
+            "core-js": "^1.1.4"
         }
     },
     "dependencies": {
