@@ -3,7 +3,7 @@ import {Defaults} from './common/defaults';
 import {IFilterConfig} from './contracts/IFilterConfig';
 import {SortParameter} from './common/sortParameter';
 import {filter} from './filterAnnotation';
-import * as lodash from 'lodash';
+import * as _ from 'lodash';
 
 export class SortManager implements ISortManager {
     static includeIn(target: any): void {
