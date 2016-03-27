@@ -1,61 +1,78 @@
 {
-  "name": "e2e4",
-  "version": "0.0.10",
-  "description": "Set of base classes and utilities to build unobtrusive list models",
-  "main": "dist/e2e4.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/fshchudlo/e2e4.git"
-  },
-  "keywords": [
-    "Lists",
-    "MVC-frameworks"
-  ],
-  "author": "Fedor Shchudlo",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/fshchudlo/e2e4/issues"
-  },
-  "homepage": "https://github.com/fshchudlo/e2e4#readme",
-  "scripts": {
-    "ci": "gulp test"
-  },
-  "dependencies": {
-    "core-js": "^2.2.1",
-    "lodash": "^4.5.1"
-  },
-  "devDependencies": {
-    "babel": "5.8.35",
-    "babel-core": "5.8.35",
-    "babel-loader": "5.3.3",
-    "chai": "3.5.0",
-    "del": "^2.2.0",
-    "gulp": "^3.8.10",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-tslint": "^4.2.1",
-    "gulp-typescript": "^2.12.1",
-    "gulp-concat": "^2.6.0",
-    "karma": "0.13.22",
-    "karma-mocha": "0.2.2",
-    "karma-phantomjs-launcher": "1.0.0",
-    "karma-sourcemap-loader": "0.3.7",
-    "karma-spec-reporter": "0.0.24",
-    "karma-webpack": "1.7.0",
-    "lodash": "^4.6.1",
-    "merge2": "^1.0.1",
-    "mocha": "2.4.5",
-    "object.assign": "^4.0.3",
-    "phantomjs-prebuilt": "2.1.7",
-    "require-dir": "^0.3.0",
-    "run-sequence": "^1.0.2",
-    "sinon": "2.0.0-pre",
-    "ts-loader": "0.8.1",
-    "tslint": "^3.2.0",
-    "typescript": "^1.8.9",
-    "vinyl": "^1.1.1",
-    "vinyl-paths": "^2.1.0",
-    "wallaby-webpack": "0.0.21",
-    "webpack": "1.12.14",
-    "yargs": "^4.3.2"
-  }
+    "name": "e2e4",
+    "version": "0.0.11",
+    "description": "Set of base classes and utilities to build unobtrusive list models",
+    "main": "dist/e2e4.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/fshchudlo/e2e4.git"
+    },
+    "keywords": [
+        "Lists",
+        "MVC-frameworks"
+    ],
+    "author": "Fedor Shchudlo",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/fshchudlo/e2e4/issues"
+    },
+    "homepage": "https://github.com/fshchudlo/e2e4#readme",
+    "scripts": {
+        "ci": "gulp test"
+    },
+    "jspm": {
+        "registry": "npm",
+        "main": "e2e4",
+        "format": "amd",
+        "directories": {
+            "dist": "dist/amd",
+            "lib": "dist/amd"
+        },
+        "dependencies": {
+            "lodash": "^4.5.1"
+        },
+        "devDependencies": {
+            "babel": "babel-core@^5.8.24",
+            "babel-runtime": "^5.8.24",
+            "core-js": "^1.1.4"-
+        }
+    },
+    "dependencies": {
+        "core-js": "^2.2.1",
+        "lodash": "^4.5.1"
+    },
+    "devDependencies": {
+        "babel": "5.8.35",
+        "babel-core": "5.8.35",
+        "babel-loader": "5.3.3",
+        "chai": "3.5.0",
+        "del": "^2.2.0",
+        "gulp": "^3.8.10",
+        "gulp-sourcemaps": "^1.6.0",
+        "gulp-tslint": "^4.2.1",
+        "gulp-typescript": "^2.12.1",
+        "gulp-concat": "^2.6.0",
+        "karma": "0.13.22",
+        "karma-mocha": "0.2.2",
+        "karma-phantomjs-launcher": "1.0.0",
+        "karma-sourcemap-loader": "0.3.7",
+        "karma-spec-reporter": "0.0.24",
+        "karma-webpack": "1.7.0",
+        "lodash": "^4.6.1",
+        "merge2": "^1.0.1",
+        "mocha": "2.4.5",
+        "object.assign": "^4.0.3",
+        "phantomjs-prebuilt": "2.1.7",
+        "require-dir": "^0.3.0",
+        "run-sequence": "^1.0.2",
+        "sinon": "2.0.0-pre",
+        "ts-loader": "0.8.1",
+        "tslint": "^3.2.0",
+        "typescript": "^1.8.9",
+        "vinyl": "^1.1.1",
+        "vinyl-paths": "^2.1.0",
+        "wallaby-webpack": "0.0.21",
+        "webpack": "1.12.14",
+        "yargs": "^4.3.2"
+    }
 }
