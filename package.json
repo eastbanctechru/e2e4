@@ -41,7 +41,6 @@
     "babel-eslint": "^4.1.1",
     "babel-loader": "5.3.3",
     "chai": "3.5.0",
-    "conventional-changelog": "1.1.0",
     "del": "^2.2.0",
     "gulp": "^3.8.10",
     "gulp-babel": "^5.2.1",
