@@ -1,0 +1,36 @@
+import { BaseComponent } from './baseComponent';
+import { IStateManager } from './contracts/IStateManager';
+import { IListComponent } from './contracts/IListComponent';
+import { ISortManager } from './contracts/ISortManager';
+import { IFilterManager } from './contracts/IFilterManager';
+import { ISelectionManager } from './contracts/ISelectionManager';
+export declare abstract class ListComponent extends BaseComponent implements IListComponent {
+    private listLoadDataSuccessCallback(result);
+    private listLoadDataFailCallback();
+    private listLoadDataSuccessBinded;
+    private listLoadDataFailBinded;
+    private clearDataInternal();
+    constructor(stateManager: IStateManager);
+    init(queryParams?: Object): void;
+    dispose(): void;
+    onSortChangesCompleted(): void;
+    items: Object[];
+    totalCount: number;
+    loadedCount: number;
+    toRequest(): any;
+    getLocalState(): Object;
+    loadData(): Promise<Object>;
+    clearData(): void;
+    reloadData(): void;
+    addToCancellationSequence(promise: Promise<Object>): void;
+    cancelRequests(): void;
+    useModelState: boolean;
+    stateManager: IStateManager;
+    saveRequestState(): void;
+    saveLocalState(): void;
+    private getRestoredState(params);
+    selectionManager: ISelectionManager;
+    filterManager: IFilterManager;
+    sortManager: ISortManager;
+    abstract getDataReadPromise(): Promise<Object>;
+}
