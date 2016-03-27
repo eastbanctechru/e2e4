@@ -15,7 +15,6 @@ module.exports = {
   output: 'dist/',
   packageName: pkg.name,
   dtsSrc: [
-    'typings/**/*.ts',
-    './jspm_packages/**/*.d.ts'
+    'typings/**/*.ts'
   ]
 };
