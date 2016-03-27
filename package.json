@@ -17,6 +17,9 @@
     "url": "https://github.com/fshchudlo/e2e4/issues"
   },
   "homepage": "https://github.com/fshchudlo/e2e4#readme",
+  "scripts": {
+    "ci": "gulp test"
+  },
   "jspm": {
     "registry": "npm",
     "main": "e2e4",
@@ -74,8 +77,5 @@
     "wallaby-webpack": "0.0.21",
     "webpack": "1.12.14",
     "yargs": "^4.3.2"
-  },
-  "scripts": {
-    "ci": "gulp test"
   }
 }
