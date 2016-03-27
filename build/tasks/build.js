@@ -4,14 +4,9 @@ var runSequence = require('run-sequence');
 var paths = require('../paths');
 var typescript = require('gulp-typescript');
 var concat = require('gulp-concat');
-var insert = require('gulp-insert');
-var through2 = require('through2');
-var to5 = require('gulp-babel');
 var compilerOptions = require('../babel-options');
 var assign = Object.assign || require('object.assign');
 var merge = require('merge2');
-
-var jsName = paths.packageName + '.js';
 
 gulp.task('build-amd', function() {
     var options = require('../../tsconfig.json').compilerOptions;
