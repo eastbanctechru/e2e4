@@ -84,4 +84,3 @@ System.register(['./common/defaults', './common/sortParameter', './filterAnnotat
         }
     }
 });
-//# sourceMappingURL=sortManager.js.map

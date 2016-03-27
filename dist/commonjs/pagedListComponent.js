@@ -142,4 +142,3 @@ var PagedListComponent = (function (_super) {
     return PagedListComponent;
 }(listComponent_1.ListComponent));
 exports.PagedListComponent = PagedListComponent;
-//# sourceMappingURL=pagedListComponent.js.map

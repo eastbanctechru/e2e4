@@ -24,4 +24,3 @@ var StatusModel = (function () {
     return StatusModel;
 }());
 exports.StatusModel = StatusModel;
-//# sourceMappingURL=statusModel.js.map

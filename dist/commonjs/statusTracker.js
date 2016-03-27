@@ -63,4 +63,3 @@ var StatusTracker = (function () {
     return StatusTracker;
 }());
 exports.StatusTracker = StatusTracker;
-//# sourceMappingURL=statusTracker.js.map

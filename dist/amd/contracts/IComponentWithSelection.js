@@ -1,4 +1,5 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
 });
-//# sourceMappingURL=IComponentWithSelection.js.map
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJjb250cmFjdHMvSUNvbXBvbmVudFdpdGhTZWxlY3Rpb24uanMiLCJzb3VyY2VzQ29udGVudCI6W10sInNvdXJjZVJvb3QiOiIvc291cmNlLyJ9

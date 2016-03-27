@@ -119,4 +119,3 @@ var ListComponent = (function (_super) {
     return ListComponent;
 }(baseComponent_1.BaseComponent));
 exports.ListComponent = ListComponent;
-//# sourceMappingURL=listComponent.js.map

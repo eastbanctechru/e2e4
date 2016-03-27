@@ -32,4 +32,3 @@ var Utility = (function () {
     return Utility;
 }());
 exports.Utility = Utility;
-//# sourceMappingURL=utility.js.map

@@ -23,4 +23,3 @@ System.register(['./filterManager'], function(exports_1, context_1) {
         }
     }
 });
-//# sourceMappingURL=filterConfig.js.map

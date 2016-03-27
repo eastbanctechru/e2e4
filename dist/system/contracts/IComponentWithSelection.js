@@ -7,4 +7,3 @@ System.register([], function(exports_1, context_1) {
         }
     }
 });
-//# sourceMappingURL=IComponentWithSelection.js.map

@@ -143,4 +143,3 @@ System.register(['./baseComponent', './common/defaults', './common/utility', './
         }
     }
 });
-//# sourceMappingURL=listComponent.js.map

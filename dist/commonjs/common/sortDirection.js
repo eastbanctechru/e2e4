@@ -4,4 +4,3 @@
     SortDirection[SortDirection["Desc"] = 1] = "Desc";
 })(exports.SortDirection || (exports.SortDirection = {}));
 var SortDirection = exports.SortDirection;
-//# sourceMappingURL=sortDirection.js.map

@@ -6,4 +6,3 @@
     MouseButtons[MouseButtons["Right"] = 3] = "Right";
 })(exports.MouseButtons || (exports.MouseButtons = {}));
 var MouseButtons = exports.MouseButtons;
-//# sourceMappingURL=mouseButtons.js.map

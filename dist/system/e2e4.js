@@ -68,4 +68,3 @@ System.register(['./common/defaults', './common/keyCodes', './common/mouseButton
         }
     }
 });
-//# sourceMappingURL=e2e4.js.map

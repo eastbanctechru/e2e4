@@ -36,4 +36,3 @@ System.register(['./progressState'], function(exports_1, context_1) {
         }
     }
 });
-//# sourceMappingURL=statusModel.js.map

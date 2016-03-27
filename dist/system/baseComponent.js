@@ -47,4 +47,3 @@ System.register(['./common/progressState'], function(exports_1, context_1) {
         }
     }
 });
-//# sourceMappingURL=baseComponent.js.map

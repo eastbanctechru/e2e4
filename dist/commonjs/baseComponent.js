@@ -35,4 +35,3 @@ var BaseComponent = (function () {
 }());
 exports.BaseComponent = BaseComponent;
 ;
-//# sourceMappingURL=baseComponent.js.map

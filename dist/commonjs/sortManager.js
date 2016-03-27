@@ -68,4 +68,3 @@ var SortManager = (function () {
     return SortManager;
 }());
 exports.SortManager = SortManager;
-//# sourceMappingURL=sortManager.js.map

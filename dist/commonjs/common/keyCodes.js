@@ -10,4 +10,3 @@
     KeyCodes[KeyCodes["A"] = 65] = "A";
 })(exports.KeyCodes || (exports.KeyCodes = {}));
 var KeyCodes = exports.KeyCodes;
-//# sourceMappingURL=keyCodes.js.map

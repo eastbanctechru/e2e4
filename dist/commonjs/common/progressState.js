@@ -7,4 +7,3 @@
     ProgressState[ProgressState["Cancelled"] = 4] = "Cancelled";
 })(exports.ProgressState || (exports.ProgressState = {}));
 var ProgressState = exports.ProgressState;
-//# sourceMappingURL=progressState.js.map

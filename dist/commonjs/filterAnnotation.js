@@ -33,4 +33,3 @@ function filter(targetOrNameOrConfig, key, descriptor) {
     return configurableDecorate;
 }
 exports.filter = filter;
-//# sourceMappingURL=filterAnnotation.js.map

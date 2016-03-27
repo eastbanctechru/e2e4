@@ -129,4 +129,3 @@ var FilterManager = (function () {
     return FilterManager;
 }());
 exports.FilterManager = FilterManager;
-//# sourceMappingURL=filterManager.js.map

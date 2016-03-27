@@ -16,4 +16,3 @@ var SortParameter = (function () {
     return SortParameter;
 }());
 exports.SortParameter = SortParameter;
-//# sourceMappingURL=sortParameter.js.map

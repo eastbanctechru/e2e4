@@ -203,4 +203,3 @@ var SelectionManager = (function () {
     return SelectionManager;
 }());
 exports.SelectionManager = SelectionManager;
-//# sourceMappingURL=selectionManager.js.map

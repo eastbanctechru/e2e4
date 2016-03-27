@@ -81,4 +81,3 @@ System.register(['./common/statusModel', './common/defaults', './common/progress
         }
     }
 });
-//# sourceMappingURL=statusTracker.js.map

@@ -11,4 +11,3 @@ var FilterConfig = (function () {
     return FilterConfig;
 }());
 exports.FilterConfig = FilterConfig;
-//# sourceMappingURL=filterConfig.js.map

@@ -160,4 +160,3 @@ System.register(['./listComponent', './common/utility', './common/defaults', './
         }
     }
 });
-//# sourceMappingURL=pagedListComponent.js.map

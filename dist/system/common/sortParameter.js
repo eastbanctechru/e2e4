@@ -28,4 +28,3 @@ System.register(['./sortDirection'], function(exports_1, context_1) {
         }
     }
 });
-//# sourceMappingURL=sortParameter.js.map

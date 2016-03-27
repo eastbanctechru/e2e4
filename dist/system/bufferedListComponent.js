@@ -112,4 +112,3 @@ System.register(['./listComponent', './common/defaults', './filterAnnotation'], 
         }
     }
 });
-//# sourceMappingURL=bufferedListComponent.js.map
