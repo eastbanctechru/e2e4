@@ -1,4 +1,4 @@
-System.register(['./common/defaults', './common/keyCodes', './common/mouseButtons', './common/progressState', './common/sortDirection', './common/sortParameter', './common/statusModel', './common/utility', './baseComponent', './bufferedListComponent', './filterAnnotation', './filterConfig', './filterManager', './listComponent', './pagedListComponent', './selectionManager', './sortManager', './statusTracker'], function(exports_1, context_1) {
+System.register(['./src/common/defaults', './src/common/keyCodes', './src/common/mouseButtons', './src/common/progressState', './src/common/sortDirection', './src/common/sortParameter', './src/common/statusModel', './src/common/utility', './src/baseComponent', './src/bufferedListComponent', './src/filterAnnotation', './src/filterConfig', './src/filterManager', './src/listComponent', './src/pagedListComponent', './src/selectionManager', './src/sortManager', './src/statusTracker'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     function exportStar_1(m) {

@@ -1,7 +1,6 @@
 {
     "compileOnSave": false,
     "compilerOptions": {
-        "rootDir": "src/",
         "target": "es5",
         "module": "commonjs",
         "declaration": true,
@@ -9,11 +8,6 @@
         "experimentalDecorators": true,
         "sourceMap": true
     },
-    "filesGlob": [
-        "./src/**/*.ts",
-        "./typings/**/*.d.ts",
-        "./jspm_packages/**/*.d.ts"
-    ],
     "exclude": [
         "node_modules",
         "dist"

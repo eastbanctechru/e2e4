@@ -11,6 +11,7 @@ module.exports = {
   root: appRoot,
   transpiled: 'transpiled/',
   source: appRoot + tsGlob,
+  bundleFile: 'e2e4.ts',
   tests: testsRoot + tsGlob,
   output: 'dist/',
   packageName: pkg.name,
