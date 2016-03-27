@@ -21,7 +21,8 @@
     "ci": "gulp test"
   },
   "dependencies": {
-      "lodash": "^4.5.1"
+    "core-js": "^2.2.1",
+    "lodash": "^4.5.1"
   },
   "devDependencies": {
     "babel": "5.8.35",
