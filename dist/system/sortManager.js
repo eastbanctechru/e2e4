@@ -1,4 +1,4 @@
-System.register(['./common/defaults', './common/sortParameter', './filterAnnotation'], function(exports_1, context_1) {
+System.register(['./common/defaults', './common/sortParameter', './filterAnnotation', 'lodash'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['./common/defaults', './common/sortParameter', './filterAnnotat
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var defaults_1, sortParameter_1, filterAnnotation_1;
+    var defaults_1, sortParameter_1, filterAnnotation_1, _;
     var SortManager;
     return {
         setters:[
@@ -22,6 +22,9 @@ System.register(['./common/defaults', './common/sortParameter', './filterAnnotat
             },
             function (filterAnnotation_1_1) {
                 filterAnnotation_1 = filterAnnotation_1_1;
+            },
+            function (_1) {
+                _ = _1;
             }],
         execute: function() {
             SortManager = (function () {

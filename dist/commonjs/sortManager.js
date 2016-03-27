@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var defaults_1 = require('./common/defaults');
 var sortParameter_1 = require('./common/sortParameter');
 var filterAnnotation_1 = require('./filterAnnotation');
+var _ = require('lodash');
 var SortManager = (function () {
     function SortManager() {
         this.sortings = new Array();
