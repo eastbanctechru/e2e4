@@ -27,8 +27,6 @@
   "devDependencies": {
     "babel": "5.8.35",
     "babel-core": "5.8.35",
-    "babel-dts-generator": "^0.2.17",
-    "babel-eslint": "^4.1.1",
     "babel-loader": "5.3.3",
     "chai": "3.5.0",
     "del": "^2.2.0",
