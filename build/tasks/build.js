@@ -6,7 +6,6 @@ var typescript = require('gulp-tsb');
 var concat = require('gulp-concat');
 var insert = require('gulp-insert');
 var through2 = require('through2');
-var tools = require('aurelia-tools');
 var to5 = require('gulp-babel');
 var compilerOptions = require('../babel-options');
 var assign = Object.assign || require('object.assign');
