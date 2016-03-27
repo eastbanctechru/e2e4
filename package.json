@@ -20,22 +20,8 @@
   "scripts": {
     "ci": "gulp test"
   },
-  "jspm": {
-    "registry": "npm",
-    "main": "e2e4",
-    "format": "amd",
-    "directories": {
-      "dist": "dist/amd",
-      "lib": "dist/amd"
-    },
-    "dependencies": {
+  "dependencies": {
       "lodash": "^4.5.1"
-    },
-    "devDependencies": {
-      "babel": "babel-core@^5.8.24",
-      "babel-runtime": "^5.8.24",
-      "core-js": "^1.1.4"
-    }
   },
   "devDependencies": {
     "babel": "5.8.35",
