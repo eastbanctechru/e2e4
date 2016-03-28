@@ -4,7 +4,6 @@ var runSequence = require('run-sequence');
 var paths = require('../paths');
 var typescript = require('gulp-typescript');
 var concat = require('gulp-concat');
-var compilerOptions = require('../babel-options');
 var assign = Object.assign || require('object.assign');
 var merge = require('merge2');
 

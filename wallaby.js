@@ -1,11 +1,10 @@
-var babel = require('babel');
 var wallabyWebpack = require('wallaby-webpack');
 var webpackPostprocessor = wallabyWebpack({});
 
 module.exports = function (wallaby) {
     return {
         files: [
-            { pattern: 'node_modules/babel-core/browser-polyfill.js', instrument: false, load: true},
+            { pattern: 'node_modules/core-js/client/core.js', instrument: false, load: true},
             { pattern: 'src/**/*.ts', load: false },
             { pattern: 'src/**/*.d.ts', ignore: true }
         ],
@@ -13,14 +12,6 @@ module.exports = function (wallaby) {
         tests: [
             { pattern: 'tests/**/*.ts', load: false }
         ],
-
-        preprocessors: {
-            '**/*.js*': function(file) { return babel.transform(file.content, {stage: 2, loose: "all",
-                optional: [
-                    "es7.decorators",
-                    "es7.classProperties"
-                ]}) }
-        },
 
         postprocessor: webpackPostprocessor,
         env: {

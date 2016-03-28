@@ -8,7 +8,7 @@ module.exports = function (config) {
         frameworks: ['mocha'], //use the mocha test framework
         files: [
             //polyfill
-            'node_modules/babel-core/browser-polyfill.js',
+            'node_modules/core-js/client/core.js',
             // all files in "test"
             'tests/**/*.ts'
             // each file acts as entry point for the webpack configuration
@@ -25,7 +25,7 @@ module.exports = function (config) {
                 loaders: [
                     {
                         test: /.*(?!\.d\.ts)|(\.ts)$/,
-                        loader: 'babel?stage=2&optional[]=es7.decorators&optional[]=es7.classProperties&loose[]=all!ts-loader',
+                        loader: 'ts-loader',
                         include: [
                             path.resolve(__dirname, 'src'),
                             path.resolve(__dirname, 'tests')

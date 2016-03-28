@@ -16,6 +16,6 @@ module.exports = {
   output: 'dist/',
   packageName: pkg.name,
   dtsSrc: [
-    'typings/**/*.ts'
+    'typings/browser.d.ts'
   ]
 };

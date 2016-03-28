@@ -6,10 +6,13 @@
         "declaration": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "sourceMap": true
+        "sourceMap": true,
+        "diagnostics": true
     },
     "exclude": [
         "node_modules",
-        "dist"
+        "dist",
+        "typings/main",
+        "typings/main.d.ts"
     ]
 }
