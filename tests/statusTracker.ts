@@ -1,18 +1,18 @@
 import { expect } from 'chai';
+import * as sinon from 'sinon';
 
 import { StatusTracker } from '../src/statusTracker';
 import { Defaults } from '../src/common/defaults';
 import { ProgressState } from '../src/common/progressState';
 
-function wait(time: number): Promise<{}> {
-    return new Promise(function(resolve: Function, reject: Function): void {
-        setTimeout(resolve, time);
-    });
-}
-
 describe('StatusTracker', () => {
+    let clock;
+    beforeEach(() => {
+        clock = sinon.useFakeTimers();
+    });
     afterEach(() => {
         StatusTracker.statusList = [];
+        clock.restore();
     });
 
     it('tracks if status is displayed', () => {
@@ -23,55 +23,45 @@ describe('StatusTracker', () => {
         expect(StatusTracker.isActive).eq(false);
     });
 
-    it('async switches to Progress, when tracking status', (done: Function) => {
+    it('async switches to Progress, when tracking status', () => {
         const sid = StatusTracker.trackStatus('new status');
         expect(StatusTracker.statusList.length).eq(0);
-
-        setTimeout(() => {
-            expect(StatusTracker.isActive).eq(true);
-            expect(StatusTracker.statusList.length).eq(1);
-            done();
-        }, Defaults.uiSettings.progressDelayInterval);
-
+        // To the future;
+        clock.tick(Defaults.uiSettings.progressDelayInterval);
+        expect(StatusTracker.isActive).eq(true);
+        expect(StatusTracker.statusList.length).eq(1);
     });
 
-    it('resolves single status. Tracked status becomes Done', function(done: Function): void {
+    it('resolves single status. Tracked status becomes Done', function(): void {
 
         const sid = StatusTracker.trackStatus('new status 1');
         expect(StatusTracker.statusList.length).eq(0);
+        // Get to the time maschine!
+        clock.tick(Defaults.uiSettings.progressDelayInterval);
+        expect(StatusTracker.isActive).eq(true);
+        expect(StatusTracker.statusList.length).eq(1);
+        StatusTracker.resolveStatus(sid, ProgressState.Done);
+        // One more time travel
+        clock.tick(Defaults.uiSettings.elementVisibilityInterval);
+        expect(StatusTracker.statusList.length).eq(0);
+        expect(StatusTracker.status).eql(ProgressState.Done);
 
-        wait(Defaults.uiSettings.progressDelayInterval)
-            .then(() => {
-                expect(StatusTracker.isActive).eq(true);
-                expect(StatusTracker.statusList.length).eq(1);
-                StatusTracker.resolveStatus(sid, ProgressState.Done);
-            })
-            .then(() => wait(Defaults.uiSettings.elementVisibilityInterval))
-            .then(() => {
-                expect(StatusTracker.statusList.length).eq(0);
-                expect(StatusTracker.status).eql(ProgressState.Done);
-            })
-            .then(() => done());
     });
 
-    it('resolves one of several status. Tracked status stays Progress', function(done: Function): void {
+    it('resolves one of several status. Tracked status stays Progress', function(): void {
 
         const sid = StatusTracker.trackStatus('new status 1');
         StatusTracker.trackStatus('new status 2');
         expect(StatusTracker.statusList.length).eq(0);
 
-        wait(Defaults.uiSettings.progressDelayInterval)
-            .then(() => {
-                expect(StatusTracker.isActive).eq(true);
-                expect(StatusTracker.statusList.length).eq(2);
-                StatusTracker.resolveStatus(sid, ProgressState.Done);
-            })
-            .then(() => wait(Defaults.uiSettings.elementVisibilityInterval))
-            .then(() => {
-                expect(StatusTracker.statusList.length).eq(1);
-                expect(StatusTracker.status).eql(ProgressState.Progress);
-            })
-            .then(() => done());
+        clock.tick(Defaults.uiSettings.progressDelayInterval);
 
+        expect(StatusTracker.isActive).eq(true);
+        expect(StatusTracker.statusList.length).eq(2);
+        StatusTracker.resolveStatus(sid, ProgressState.Done);
+
+        clock.tick(Defaults.uiSettings.elementVisibilityInterval);
+        expect(StatusTracker.statusList.length).eq(1);
+        expect(StatusTracker.status).eql(ProgressState.Progress);
     });
 });
