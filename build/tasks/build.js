@@ -7,9 +7,23 @@ var concat = require('gulp-concat');
 var assign = Object.assign || require('object.assign');
 var merge = require('merge2');
 
+gulp.task('build-es6', function() {
+    var options = require('../../tsconfig.json').compilerOptions;
+    options['target'] = 'es6';
+    options['module'] = 'es6';
+    var tsResult = gulp.src(paths.es6dtsSrc.concat(paths.source))
+        .pipe(sourcemaps.init())
+        .pipe(typescript(options));
+    return merge([
+        tsResult.dts.pipe(gulp.dest(paths.output + 'es6')),
+        tsResult.js.pipe(sourcemaps.write()).pipe(gulp.dest(paths.output + 'es6'))
+    ]);
+});
+
 gulp.task('build-amd', function() {
     var options = require('../../tsconfig.json').compilerOptions;
     options['module'] = 'amd';
+    options['target'] = 'es5';
     var tsResult = gulp.src(paths.dtsSrc.concat(paths.source))
         .pipe(sourcemaps.init())
         .pipe(typescript(options));
@@ -22,6 +36,7 @@ gulp.task('build-amd', function() {
 gulp.task('build-commonjs', function() {
     var options = require('../../tsconfig.json').compilerOptions;
     options['module'] = 'commonjs';
+    options['target'] = 'es5';
     var tsResult = gulp.src(paths.dtsSrc.concat(paths.source))
         .pipe(typescript(options));
     return merge([
@@ -33,6 +48,7 @@ gulp.task('build-commonjs', function() {
 gulp.task('build-system', function() {
     var options = require('../../tsconfig.json').compilerOptions;
     options['module'] = 'system';
+    options['target'] = 'es5';
     var tsResult = gulp.src(paths.dtsSrc.concat(paths.source))
         .pipe(typescript(options));
     return merge([
@@ -44,6 +60,7 @@ gulp.task('build-system', function() {
 gulp.task('build-bundled', function() {
     var options = require('../../tsconfig.json').compilerOptions;
     options['module'] = 'system';
+    options['target'] = 'es5';
     var tsResult = gulp.src(paths.dtsSrc.concat(paths.bundleFile))
         .pipe(typescript(options));
     return merge([
@@ -59,7 +76,8 @@ gulp.task('build', function(callback) {
             'build-bundled',
             'build-amd',
             'build-commonjs',
-            'build-system'
+            'build-system',
+            'build-es6'
         ],
         callback
     );
