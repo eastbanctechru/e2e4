@@ -1,0 +1,12 @@
+{
+  "name": "e2e4",
+  "version": false,
+  "ambientDependencies": {
+    "lodash": "github:DefinitelyTyped/DefinitelyTyped/lodash/lodash.d.ts#163a4277199c3d896d9efffe24ea84c85f55c8ac",
+    "assertion-error": "github:DefinitelyTyped/DefinitelyTyped/assertion-error/assertion-error.d.ts#0cd5f0a1482dc3149f5446b1d885ef6ac7c57720",
+    "mocha": "github:DefinitelyTyped/DefinitelyTyped/mocha/mocha.d.ts#0cd5f0a1482dc3149f5446b1d885ef6ac7c57720",
+    "chai": "github:DefinitelyTyped/DefinitelyTyped/chai/chai.d.ts#0cd5f0a1482dc3149f5446b1d885ef6ac7c57720",
+    "sinon": "github:DefinitelyTyped/DefinitelyTyped/sinon/sinon.d.ts#0cd5f0a1482dc3149f5446b1d885ef6ac7c57720",
+    "core-js": "github:DefinitelyTyped/DefinitelyTyped/core-js/core-js.d.ts#299b5caa22876ef27dc8e9a5b7fd7bf93457b6f4"
+  }
+}
