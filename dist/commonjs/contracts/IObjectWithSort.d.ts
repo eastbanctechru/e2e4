@@ -1,4 +1,4 @@
 import { ISortManager } from './ISortManager';
-export interface IComponentWithSort {
+export interface IObjectWithSort {
     sortManager: ISortManager;
 }

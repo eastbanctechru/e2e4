@@ -15,7 +15,7 @@ var List = (function () {
         this.totalCount = 0;
         this.loadedCount = 0;
         ///IRequestCanceller
-        ///IComponentWithState
+        ///IObjectWithState
         this.useModelState = true;
         this.stateManager = stateManager;
         selectionManager_1.SelectionManager.includeIn(this, 'items');

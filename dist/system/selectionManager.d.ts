@@ -1,8 +1,8 @@
 import { ISelectable } from './contracts/ISelectable';
 import { ISelectionManager } from './contracts/ISelectionManager';
-import { IComponentWithSelection } from './contracts/IComponentWithSelection';
+import { IObjectWithSelection } from './contracts/IObjectWithSelection';
 export declare class SelectionManager implements ISelectionManager {
-    static includeIn(target: IComponentWithSelection, itemsPropertyName: string): void;
+    static includeIn(target: IObjectWithSelection, itemsPropertyName: string): void;
     constructor(target: Object, itemsPropertyName: string);
     private selectionsList;
     private target;

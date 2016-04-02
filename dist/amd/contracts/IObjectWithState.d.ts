@@ -1,5 +1,5 @@
 import { IStateManager } from './IStateManager';
-export interface IComponentWithState {
+export interface IObjectWithState {
     stateManager: IStateManager;
     useModelState: boolean;
     saveRequestState(): void;

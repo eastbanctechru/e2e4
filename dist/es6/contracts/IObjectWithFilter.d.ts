@@ -1,4 +1,4 @@
 import { IFilterManager } from './IFilterManager';
-export interface IComponentWithFilter {
+export interface IObjectWithFilter {
     filterManager: IFilterManager;
 }
