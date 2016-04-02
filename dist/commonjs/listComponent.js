@@ -10,7 +10,7 @@ var ListComponent = (function () {
         this.disposed = false;
         this.inited = false;
         this.state = null;
-        ///IListComponent
+        ///IList
         this.items = [];
         this.totalCount = 0;
         this.loadedCount = 0;
@@ -105,7 +105,7 @@ var ListComponent = (function () {
             this.loadData();
         }
     };
-    ///IListComponent
+    ///IList
     ///IRequestCanceller
     ListComponent.prototype.addToCancellationSequence = function (promise) { };
     ;

@@ -12,7 +12,7 @@ export * from './contracts/IComponentWithSort';
 export * from './contracts/IComponentWithState';
 export * from './contracts/IFilterConfig';
 export * from './contracts/IFilterManager';
-export * from './contracts/IListComponent';
+export * from './contracts/IList';
 export * from './contracts/IRequestCanceller';
 export * from './contracts/ISelectable';
 export * from './contracts/ISelectionManager';

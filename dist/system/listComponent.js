@@ -29,7 +29,7 @@ System.register(['./common/defaults', './common/utility', './selectionManager', 
                     this.disposed = false;
                     this.inited = false;
                     this.state = null;
-                    ///IListComponent
+                    ///IList
                     this.items = [];
                     this.totalCount = 0;
                     this.loadedCount = 0;
@@ -124,7 +124,7 @@ System.register(['./common/defaults', './common/utility', './selectionManager', 
                         this.loadData();
                     }
                 };
-                ///IListComponent
+                ///IList
                 ///IRequestCanceller
                 ListComponent.prototype.addToCancellationSequence = function (promise) { };
                 ;

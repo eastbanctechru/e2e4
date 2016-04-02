@@ -3,7 +3,7 @@ import { IComponentWithSelection } from './IComponentWithSelection';
 import { IComponentWithFilter } from './IComponentWithFilter';
 import { IRequestCanceller } from './IRequestCanceller';
 import { IComponentWithSort } from './IComponentWithSort';
-export interface IListComponent extends IComponentWithState, IComponentWithSelection, IComponentWithFilter, IComponentWithSort, IRequestCanceller {
+export interface IList extends IComponentWithState, IComponentWithSelection, IComponentWithFilter, IComponentWithSort, IRequestCanceller {
     items: Object[];
     totalCount: number;
     loadedCount: number;

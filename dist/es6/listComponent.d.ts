@@ -1,10 +1,10 @@
 import { ProgressState } from './common/progressState';
 import { IStateManager } from './contracts/IStateManager';
-import { IListComponent } from './contracts/IListComponent';
+import { IList } from './contracts/IList';
 import { ISortManager } from './contracts/ISortManager';
 import { IFilterManager } from './contracts/IFilterManager';
 import { ISelectionManager } from './contracts/ISelectionManager';
-export declare abstract class ListComponent implements IListComponent {
+export declare abstract class ListComponent implements IList {
     private listLoadDataSuccessCallback(result);
     private listLoadDataFailCallback();
     private listLoadDataSuccessBinded;

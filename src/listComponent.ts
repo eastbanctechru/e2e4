@@ -4,13 +4,13 @@ import {SelectionManager} from './selectionManager';
 import {FilterManager} from './filterManager';
 import {ProgressState} from './common/progressState';
 import {IStateManager} from './contracts/IStateManager';
-import {IListComponent} from './contracts/IListComponent';
+import {IList} from './contracts/IList';
 import {ISortManager} from './contracts/ISortManager';
 import {SortManager} from './sortManager';
 import {IFilterManager} from './contracts/IFilterManager';
 import {ISelectionManager} from './contracts/ISelectionManager';
 
-export abstract class ListComponent implements IListComponent {
+export abstract class ListComponent implements IList {
     private listLoadDataSuccessCallback(result: Object): Object {
         this.loadedCount = result[Defaults.listComponent.loadedCountParameterName];
         this.totalCount = result[Defaults.listComponent.totalCountParameterName] || 0;
@@ -70,7 +70,7 @@ export abstract class ListComponent implements IListComponent {
             this.loadData();
         }
     }
-    ///IListComponent
+    ///IList
     items: Object[] = [];
     totalCount = 0;
     loadedCount = 0;
@@ -106,7 +106,7 @@ export abstract class ListComponent implements IListComponent {
             this.loadData();
         }
     }
-    ///IListComponent
+    ///IList
 
     ///IRequestCanceller
     addToCancellationSequence(promise: Promise<Object>): void { };
