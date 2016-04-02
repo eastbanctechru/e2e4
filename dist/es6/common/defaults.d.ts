@@ -11,7 +11,7 @@ export declare class Defaults {
         sortParameterName: string;
         totalCountParameterName: string;
     };
-    static bufferedListComponent: {
+    static bufferedListSettings: {
         defaultTakeRowCount: number;
         maxRowCount: number;
         minRowCount: number;

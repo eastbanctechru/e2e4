@@ -13,7 +13,7 @@
         sortParameterName: 'sort',
         totalCountParameterName: 'totalCount'
     };
-    static bufferedListComponent =
+    static bufferedListSettings =
     {
         defaultTakeRowCount: 20,
         maxRowCount: 200,

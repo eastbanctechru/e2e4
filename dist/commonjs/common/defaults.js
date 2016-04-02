@@ -14,7 +14,7 @@ var Defaults = (function () {
         sortParameterName: 'sort',
         totalCountParameterName: 'totalCount'
     };
-    Defaults.bufferedListComponent = {
+    Defaults.bufferedListSettings = {
         defaultTakeRowCount: 20,
         maxRowCount: 200,
         minRowCount: 0,

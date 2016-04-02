@@ -20,7 +20,7 @@ System.register([], function(exports_1, context_1) {
                     sortParameterName: 'sort',
                     totalCountParameterName: 'totalCount'
                 };
-                Defaults.bufferedListComponent = {
+                Defaults.bufferedListSettings = {
                     defaultTakeRowCount: 20,
                     maxRowCount: 200,
                     minRowCount: 0,

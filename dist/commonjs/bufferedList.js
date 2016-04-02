@@ -16,26 +16,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var list_1 = require('./list');
 var defaults_1 = require('./common/defaults');
 var filterAnnotation_1 = require('./filterAnnotation');
-var BufferedListComponent = (function (_super) {
-    __extends(BufferedListComponent, _super);
-    function BufferedListComponent(stateManager) {
+var BufferedList = (function (_super) {
+    __extends(BufferedList, _super);
+    function BufferedList(stateManager) {
         _super.call(this, stateManager);
-        this.takeRowCountInternal = defaults_1.Defaults.bufferedListComponent.defaultTakeRowCount;
+        this.takeRowCountInternal = defaults_1.Defaults.bufferedListSettings.defaultTakeRowCount;
         this.skip = 0;
         this.bufferedLoadDataSuccessBinded = this.bufferedLoadDataSuccess.bind(this);
     }
-    Object.defineProperty(BufferedListComponent.prototype, "takeRowCount", {
+    Object.defineProperty(BufferedList.prototype, "takeRowCount", {
         get: function () {
             return this.takeRowCountInternal;
         },
         set: function (value) {
             var valueStr = (value + '').replace(/[^0-9\.]/g, '');
-            var rowCount = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : defaults_1.Defaults.bufferedListComponent.defaultTakeRowCount;
-            if (rowCount < defaults_1.Defaults.bufferedListComponent.minRowCount) {
-                rowCount = defaults_1.Defaults.bufferedListComponent.defaultTakeRowCount;
+            var rowCount = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : defaults_1.Defaults.bufferedListSettings.defaultTakeRowCount;
+            if (rowCount < defaults_1.Defaults.bufferedListSettings.minRowCount) {
+                rowCount = defaults_1.Defaults.bufferedListSettings.defaultTakeRowCount;
             }
-            if (rowCount > defaults_1.Defaults.bufferedListComponent.maxRowCount) {
-                rowCount = defaults_1.Defaults.bufferedListComponent.maxRowCount;
+            if (rowCount > defaults_1.Defaults.bufferedListSettings.maxRowCount) {
+                rowCount = defaults_1.Defaults.bufferedListSettings.maxRowCount;
             }
             if (this.totalCount !== 0) {
                 if (this.skip + rowCount > this.totalCount) {
@@ -47,11 +47,11 @@ var BufferedListComponent = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    BufferedListComponent.prototype.dispose = function () {
+    BufferedList.prototype.dispose = function () {
         _super.prototype.dispose.call(this);
         delete this.bufferedLoadDataSuccessBinded;
     };
-    BufferedListComponent.prototype.bufferedLoadDataSuccess = function (result) {
+    BufferedList.prototype.bufferedLoadDataSuccess = function (result) {
         this.loadedCount = this.skip + result[defaults_1.Defaults.listSettings.loadedCountParameterName];
         this.skip += result[defaults_1.Defaults.listSettings.loadedCountParameterName];
         this.loadedCount = this.skip;
@@ -61,38 +61,38 @@ var BufferedListComponent = (function (_super) {
         }
         return result;
     };
-    BufferedListComponent.prototype.loadData = function () {
+    BufferedList.prototype.loadData = function () {
         var promise = (_a = _super.prototype.loadData).call.apply(_a, [this].concat(Array.prototype.slice.call(arguments)));
         promise.then(this.bufferedLoadDataSuccessBinded);
         return promise;
         var _a;
     };
-    BufferedListComponent.prototype.onSortChangesCompleted = function () {
-        this.takeRowCount = defaults_1.Defaults.bufferedListComponent.defaultTakeRowCount;
+    BufferedList.prototype.onSortChangesCompleted = function () {
+        this.takeRowCount = defaults_1.Defaults.bufferedListSettings.defaultTakeRowCount;
         this.skip = 0;
         _super.prototype.onSortChangesCompleted.call(this);
     };
     __decorate([
         filterAnnotation_1.filter({
             defaultValue: 0,
-            parameterName: defaults_1.Defaults.bufferedListComponent.skipRowCountParameterName,
+            parameterName: defaults_1.Defaults.bufferedListSettings.skipRowCountParameterName,
             parseFormatter: function () { return 0; }
         }), 
         __metadata('design:type', Object)
-    ], BufferedListComponent.prototype, "skip", void 0);
+    ], BufferedList.prototype, "skip", void 0);
     __decorate([
         filterAnnotation_1.filter({
-            defaultValue: defaults_1.Defaults.bufferedListComponent.defaultTakeRowCount,
-            parameterName: defaults_1.Defaults.bufferedListComponent.takeRowCountParameterName,
+            defaultValue: defaults_1.Defaults.bufferedListSettings.defaultTakeRowCount,
+            parameterName: defaults_1.Defaults.bufferedListSettings.takeRowCountParameterName,
             parseFormatter: function (proposedParam, allParams) {
                 if (allParams && allParams.skip !== undefined && allParams.take !== undefined) {
                     return allParams.skip + allParams.take;
                 }
-                return defaults_1.Defaults.bufferedListComponent.defaultTakeRowCount;
+                return defaults_1.Defaults.bufferedListSettings.defaultTakeRowCount;
             }
         }), 
         __metadata('design:type', Number)
-    ], BufferedListComponent.prototype, "takeRowCount", null);
-    return BufferedListComponent;
+    ], BufferedList.prototype, "takeRowCount", null);
+    return BufferedList;
 }(list_1.List));
-exports.BufferedListComponent = BufferedListComponent;
+exports.BufferedList = BufferedList;

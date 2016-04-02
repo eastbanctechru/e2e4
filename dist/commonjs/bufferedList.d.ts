@@ -1,6 +1,6 @@
 import { List } from './list';
 import { IStateManager } from './contracts/IStateManager';
-export declare abstract class BufferedListComponent extends List {
+export declare abstract class BufferedList extends List {
     private bufferedLoadDataSuccessBinded;
     private takeRowCountInternal;
     skip: number;

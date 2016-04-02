@@ -4,25 +4,25 @@ import {Defaults} from './common/defaults';
 import {filter} from './filterAnnotation';
 import {IFilterConfig} from './contracts/IFilterConfig';
 
-export abstract class BufferedListComponent extends List {
+export abstract class BufferedList extends List {
     private bufferedLoadDataSuccessBinded: (result: Object) => Object;
-    private takeRowCountInternal = Defaults.bufferedListComponent.defaultTakeRowCount;
+    private takeRowCountInternal = Defaults.bufferedListSettings.defaultTakeRowCount;
 
     @filter({
         defaultValue: 0,
-        parameterName: Defaults.bufferedListComponent.skipRowCountParameterName,
+        parameterName: Defaults.bufferedListSettings.skipRowCountParameterName,
         parseFormatter: (): number => { return 0; }
     } as IFilterConfig)
     skip = 0;
 
     @filter({
-        defaultValue: Defaults.bufferedListComponent.defaultTakeRowCount,
-        parameterName: Defaults.bufferedListComponent.takeRowCountParameterName,
+        defaultValue: Defaults.bufferedListSettings.defaultTakeRowCount,
+        parameterName: Defaults.bufferedListSettings.takeRowCountParameterName,
         parseFormatter: (proposedParam, allParams): number => {
             if (allParams && allParams.skip !== undefined && allParams.take !== undefined) {
                 return allParams.skip + allParams.take;
             }
-            return Defaults.bufferedListComponent.defaultTakeRowCount;
+            return Defaults.bufferedListSettings.defaultTakeRowCount;
         }
     } as IFilterConfig)
     get takeRowCount(): number {
@@ -31,12 +31,12 @@ export abstract class BufferedListComponent extends List {
 
     set takeRowCount(value: number) {
         const valueStr = (value + '').replace(/[^0-9\.]/g, '');
-        let rowCount = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : Defaults.bufferedListComponent.defaultTakeRowCount;
-        if (rowCount < Defaults.bufferedListComponent.minRowCount) {
-            rowCount = Defaults.bufferedListComponent.defaultTakeRowCount;
+        let rowCount = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : Defaults.bufferedListSettings.defaultTakeRowCount;
+        if (rowCount < Defaults.bufferedListSettings.minRowCount) {
+            rowCount = Defaults.bufferedListSettings.defaultTakeRowCount;
         }
-        if (rowCount > Defaults.bufferedListComponent.maxRowCount) {
-            rowCount = Defaults.bufferedListComponent.maxRowCount;
+        if (rowCount > Defaults.bufferedListSettings.maxRowCount) {
+            rowCount = Defaults.bufferedListSettings.maxRowCount;
         }
         if (this.totalCount !== 0) {
             if (this.skip + rowCount > this.totalCount) {
@@ -73,7 +73,7 @@ export abstract class BufferedListComponent extends List {
         return promise;
     }
     onSortChangesCompleted(): void {
-        this.takeRowCount = Defaults.bufferedListComponent.defaultTakeRowCount;
+        this.takeRowCount = Defaults.bufferedListSettings.defaultTakeRowCount;
         this.skip = 0;
         super.onSortChangesCompleted();
     }
