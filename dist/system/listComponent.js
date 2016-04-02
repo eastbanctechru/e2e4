@@ -1,18 +1,10 @@
-System.register(['./baseComponent', './common/defaults', './common/utility', './selectionManager', './filterManager', './common/progressState', './sortManager'], function(exports_1, context_1) {
+System.register(['./common/defaults', './common/utility', './selectionManager', './filterManager', './common/progressState', './sortManager'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var __extends = (this && this.__extends) || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-    var baseComponent_1, defaults_1, utility_1, selectionManager_1, filterManager_1, progressState_1, sortManager_1;
+    var defaults_1, utility_1, selectionManager_1, filterManager_1, progressState_1, sortManager_1;
     var ListComponent;
     return {
         setters:[
-            function (baseComponent_1_1) {
-                baseComponent_1 = baseComponent_1_1;
-            },
             function (defaults_1_1) {
                 defaults_1 = defaults_1_1;
             },
@@ -32,10 +24,11 @@ System.register(['./baseComponent', './common/defaults', './common/utility', './
                 sortManager_1 = sortManager_1_1;
             }],
         execute: function() {
-            ListComponent = (function (_super) {
-                __extends(ListComponent, _super);
+            ListComponent = (function () {
                 function ListComponent(stateManager) {
-                    _super.call(this);
+                    this.disposed = false;
+                    this.inited = false;
+                    this.state = null;
                     ///IListComponent
                     this.items = [];
                     this.totalCount = 0;
@@ -65,14 +58,28 @@ System.register(['./baseComponent', './common/defaults', './common/utility', './
                     this.selectionManager.deselectAll();
                     utility_1.Utility.disposeAll(this.items);
                 };
+                Object.defineProperty(ListComponent.prototype, "busy", {
+                    get: function () {
+                        return this.state === progressState_1.ProgressState.Progress;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(ListComponent.prototype, "ready", {
+                    get: function () {
+                        return this.state !== progressState_1.ProgressState.Progress;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
                 ///IComponent overrides
                 ListComponent.prototype.init = function (queryParams) {
-                    _super.prototype.init.call(this);
+                    this.inited = true;
                     var restoredState = this.getRestoredState(queryParams);
                     this.filterManager.parseParams(restoredState);
                 };
                 ListComponent.prototype.dispose = function () {
-                    _super.prototype.dispose.call(this);
+                    this.disposed = true;
                     delete this.listLoadDataSuccessBinded;
                     delete this.listLoadDataFailBinded;
                     this.clearDataInternal();
@@ -138,7 +145,7 @@ System.register(['./baseComponent', './common/defaults', './common/utility', './
                     return this.stateManager.mergeStates(params);
                 };
                 return ListComponent;
-            }(baseComponent_1.BaseComponent));
+            }());
             exports_1("ListComponent", ListComponent);
         }
     }

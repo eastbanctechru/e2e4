@@ -1,4 +1,4 @@
-System.register(['./common/defaults', './common/keyCodes', './common/mouseButtons', './common/progressState', './common/sortDirection', './common/sortParameter', './common/statusModel', './common/utility', './baseComponent', './bufferedListComponent', './filterAnnotation', './filterConfig', './filterManager', './listComponent', './pagedListComponent', './selectionManager', './sortManager', './statusTracker'], function(exports_1, context_1) {
+System.register(['./common/defaults', './common/keyCodes', './common/mouseButtons', './common/progressState', './common/sortDirection', './common/sortParameter', './common/statusModel', './common/utility', './bufferedListComponent', './filterAnnotation', './filterConfig', './filterManager', './listComponent', './pagedListComponent', './selectionManager', './sortManager', './statusTracker'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     function exportStar_1(m) {
@@ -33,9 +33,6 @@ System.register(['./common/defaults', './common/keyCodes', './common/mouseButton
             },
             function (utility_1_1) {
                 exportStar_1(utility_1_1);
-            },
-            function (baseComponent_1_1) {
-                exportStar_1(baseComponent_1_1);
             },
             function (bufferedListComponent_1_1) {
                 exportStar_1(bufferedListComponent_1_1);

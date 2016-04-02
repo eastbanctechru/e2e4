@@ -1,4 +1,3 @@
-import {BaseComponent} from './baseComponent';
 import {Defaults} from './common/defaults';
 import {Utility} from './common/utility';
 import {SelectionManager} from './selectionManager';
@@ -11,7 +10,7 @@ import {SortManager} from './sortManager';
 import {IFilterManager} from './contracts/IFilterManager';
 import {ISelectionManager} from './contracts/ISelectionManager';
 
-export abstract class ListComponent extends BaseComponent implements IListComponent {
+export abstract class ListComponent implements IListComponent {
     private listLoadDataSuccessCallback(result: Object): Object {
         this.loadedCount = result[Defaults.listComponent.loadedCountParameterName];
         this.totalCount = result[Defaults.listComponent.totalCountParameterName] || 0;
@@ -29,7 +28,6 @@ export abstract class ListComponent extends BaseComponent implements IListCompon
         Utility.disposeAll(this.items);
     }
     constructor(stateManager: IStateManager) {
-        super();
         this.stateManager = stateManager;
         SelectionManager.includeIn(this, 'items');
         FilterManager.includeIn(this);
@@ -38,14 +36,26 @@ export abstract class ListComponent extends BaseComponent implements IListCompon
         this.listLoadDataSuccessBinded = this.listLoadDataSuccessCallback.bind(this);
         this.listLoadDataFailBinded = this.listLoadDataFailCallback.bind(this);
     }
+    disposed = false;
+    inited = false;
+    state: ProgressState = null;
+
+    get busy(): boolean {
+        return this.state === ProgressState.Progress;
+    }
+
+    get ready(): boolean {
+        return this.state !== ProgressState.Progress;
+    }
+
     ///IComponent overrides
     init(queryParams?: Object): void {
-        super.init();
+        this.inited = true;
         const restoredState = this.getRestoredState(queryParams);
         this.filterManager.parseParams(restoredState);
     }
     dispose(): void {
-        super.dispose();
+        this.disposed = true;
         delete this.listLoadDataSuccessBinded;
         delete this.listLoadDataFailBinded;
         this.clearDataInternal();

@@ -19,7 +19,6 @@ export * from './src/contracts/ISelectionManager';
 export * from './src/contracts/ISelectionTuple';
 export * from './src/contracts/ISortManager';
 export * from './src/contracts/IStateManager';
-export * from './src/baseComponent';
 export * from './src/bufferedListComponent';
 export * from './src/filterAnnotation';
 export * from './src/filterConfig';

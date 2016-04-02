@@ -1,20 +1,15 @@
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var baseComponent_1 = require('./baseComponent');
 var defaults_1 = require('./common/defaults');
 var utility_1 = require('./common/utility');
 var selectionManager_1 = require('./selectionManager');
 var filterManager_1 = require('./filterManager');
 var progressState_1 = require('./common/progressState');
 var sortManager_1 = require('./sortManager');
-var ListComponent = (function (_super) {
-    __extends(ListComponent, _super);
+var ListComponent = (function () {
     function ListComponent(stateManager) {
-        _super.call(this);
+        this.disposed = false;
+        this.inited = false;
+        this.state = null;
         ///IListComponent
         this.items = [];
         this.totalCount = 0;
@@ -44,14 +39,28 @@ var ListComponent = (function (_super) {
         this.selectionManager.deselectAll();
         utility_1.Utility.disposeAll(this.items);
     };
+    Object.defineProperty(ListComponent.prototype, "busy", {
+        get: function () {
+            return this.state === progressState_1.ProgressState.Progress;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ListComponent.prototype, "ready", {
+        get: function () {
+            return this.state !== progressState_1.ProgressState.Progress;
+        },
+        enumerable: true,
+        configurable: true
+    });
     ///IComponent overrides
     ListComponent.prototype.init = function (queryParams) {
-        _super.prototype.init.call(this);
+        this.inited = true;
         var restoredState = this.getRestoredState(queryParams);
         this.filterManager.parseParams(restoredState);
     };
     ListComponent.prototype.dispose = function () {
-        _super.prototype.dispose.call(this);
+        this.disposed = true;
         delete this.listLoadDataSuccessBinded;
         delete this.listLoadDataFailBinded;
         this.clearDataInternal();
@@ -117,5 +126,5 @@ var ListComponent = (function (_super) {
         return this.stateManager.mergeStates(params);
     };
     return ListComponent;
-}(baseComponent_1.BaseComponent));
+}());
 exports.ListComponent = ListComponent;

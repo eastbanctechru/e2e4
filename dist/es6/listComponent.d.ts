@@ -1,16 +1,21 @@
-import { BaseComponent } from './baseComponent';
+import { ProgressState } from './common/progressState';
 import { IStateManager } from './contracts/IStateManager';
 import { IListComponent } from './contracts/IListComponent';
 import { ISortManager } from './contracts/ISortManager';
 import { IFilterManager } from './contracts/IFilterManager';
 import { ISelectionManager } from './contracts/ISelectionManager';
-export declare abstract class ListComponent extends BaseComponent implements IListComponent {
+export declare abstract class ListComponent implements IListComponent {
     private listLoadDataSuccessCallback(result);
     private listLoadDataFailCallback();
     private listLoadDataSuccessBinded;
     private listLoadDataFailBinded;
     private clearDataInternal();
     constructor(stateManager: IStateManager);
+    disposed: boolean;
+    inited: boolean;
+    state: ProgressState;
+    busy: boolean;
+    ready: boolean;
     init(queryParams?: Object): void;
     dispose(): void;
     onSortChangesCompleted(): void;

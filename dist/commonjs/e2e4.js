@@ -10,7 +10,6 @@ __export(require('./common/sortDirection'));
 __export(require('./common/sortParameter'));
 __export(require('./common/statusModel'));
 __export(require('./common/utility'));
-__export(require('./baseComponent'));
 __export(require('./bufferedListComponent'));
 __export(require('./filterAnnotation'));
 __export(require('./filterConfig'));
