@@ -57,23 +57,10 @@ gulp.task('build-system', function() {
     ]);
 });
 
-gulp.task('build-bundled', function() {
-    var options = require('../../tsconfig.json').compilerOptions;
-    options['module'] = 'system';
-    options['target'] = 'es5';
-    var tsResult = gulp.src(paths.dtsSrc.concat(paths.bundleFile))
-        .pipe(typescript(options));
-    return merge([
-        tsResult.dts.pipe(gulp.dest('')),
-        tsResult.js.pipe(gulp.dest(''))
-    ]);
-});
-
 gulp.task('build', function(callback) {
     return runSequence(
         'clean',
         [
-            'build-bundled',
             'build-amd',
             'build-commonjs',
             'build-system',
