@@ -21,7 +21,7 @@
         skipRowCountParameterName: 'skip',
         takeRowCountParameterName: 'take'
     };
-    static pagedListComponent =
+    static pagedListSettings =
     {
         defaultPageSize: 20,
         displayFromParameterName: 'displayFrom',

@@ -16,7 +16,7 @@ System.register(['./list', './common/utility', './common/defaults', './filterAnn
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var list_1, utility_1, defaults_1, filterAnnotation_1;
-    var PagedListComponent;
+    var PagedList;
     return {
         setters:[
             function (list_1_1) {
@@ -32,35 +32,35 @@ System.register(['./list', './common/utility', './common/defaults', './filterAnn
                 filterAnnotation_1 = filterAnnotation_1_1;
             }],
         execute: function() {
-            PagedListComponent = (function (_super) {
-                __extends(PagedListComponent, _super);
-                function PagedListComponent(stateManager) {
+            PagedList = (function (_super) {
+                __extends(PagedList, _super);
+                function PagedList(stateManager) {
                     _super.call(this, stateManager);
-                    this.pageSizeInternal = defaults_1.Defaults.pagedListComponent.defaultPageSize;
+                    this.pageSizeInternal = defaults_1.Defaults.pagedListSettings.defaultPageSize;
                     this.pageNumberInternal = 1;
                     this.displayFrom = 1;
                     this.displayTo = 1;
                     this.pagedLoadDataSuccessBinded = this.pagedLoadDataSuccessCallback.bind(this);
                 }
-                PagedListComponent.prototype.pagedLoadDataSuccessCallback = function (result) {
+                PagedList.prototype.pagedLoadDataSuccessCallback = function (result) {
                     this.loadedCount = result[defaults_1.Defaults.listSettings.loadedCountParameterName];
                     this.totalCount = result[defaults_1.Defaults.listSettings.totalCountParameterName] || 0;
-                    this.displayFrom = result[defaults_1.Defaults.pagedListComponent.displayFromParameterName] || 1;
-                    this.displayTo = result[defaults_1.Defaults.pagedListComponent.displayToParameterName] || 1;
+                    this.displayFrom = result[defaults_1.Defaults.pagedListSettings.displayFromParameterName] || 1;
+                    this.displayTo = result[defaults_1.Defaults.pagedListSettings.displayToParameterName] || 1;
                     return result;
                 };
-                PagedListComponent.prototype.dispose = function () {
+                PagedList.prototype.dispose = function () {
                     _super.prototype.dispose.call(this);
                     delete this.pagedLoadDataSuccessBinded;
                 };
-                Object.defineProperty(PagedListComponent.prototype, "pageCount", {
+                Object.defineProperty(PagedList.prototype, "pageCount", {
                     get: function () {
                         return Math.ceil(this.totalCount / this.pageSizeInternal);
                     },
                     enumerable: true,
                     configurable: true
                 });
-                Object.defineProperty(PagedListComponent.prototype, "pageNumber", {
+                Object.defineProperty(PagedList.prototype, "pageNumber", {
                     get: function () {
                         return this.pageNumberInternal;
                     },
@@ -78,15 +78,15 @@ System.register(['./list', './common/utility', './common/defaults', './filterAnn
                     enumerable: true,
                     configurable: true
                 });
-                Object.defineProperty(PagedListComponent.prototype, "pageSize", {
+                Object.defineProperty(PagedList.prototype, "pageSize", {
                     get: function () {
                         return this.pageSizeInternal;
                     },
                     set: function (value) {
                         var valueStr = (value + '').replace(/[^0-9\.]/g, '');
-                        var pageSize = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : defaults_1.Defaults.pagedListComponent.defaultPageSize;
-                        if (pageSize > defaults_1.Defaults.pagedListComponent.maxPageSize) {
-                            pageSize = defaults_1.Defaults.pagedListComponent.maxPageSize;
+                        var pageSize = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : defaults_1.Defaults.pagedListSettings.defaultPageSize;
+                        if (pageSize > defaults_1.Defaults.pagedListSettings.maxPageSize) {
+                            pageSize = defaults_1.Defaults.pagedListSettings.maxPageSize;
                         }
                         if (this.totalCount !== 0) {
                             if (pageSize > this.totalCount) {
@@ -94,13 +94,13 @@ System.register(['./list', './common/utility', './common/defaults', './filterAnn
                             }
                             if (this.pageNumber * pageSize > this.totalCount) {
                                 pageSize = Math.ceil(this.totalCount / this.pageNumber);
-                                if (pageSize > defaults_1.Defaults.pagedListComponent.maxPageSize) {
-                                    pageSize = defaults_1.Defaults.pagedListComponent.maxPageSize;
+                                if (pageSize > defaults_1.Defaults.pagedListSettings.maxPageSize) {
+                                    pageSize = defaults_1.Defaults.pagedListSettings.maxPageSize;
                                 }
                             }
                         }
-                        if (pageSize < defaults_1.Defaults.pagedListComponent.minPageSize || pageSize === 0) {
-                            pageSize = defaults_1.Defaults.pagedListComponent.defaultPageSize;
+                        if (pageSize < defaults_1.Defaults.pagedListSettings.minPageSize || pageSize === 0) {
+                            pageSize = defaults_1.Defaults.pagedListSettings.defaultPageSize;
                         }
                         if (this.pageNumber === this.pageCount && pageSize > this.pageSizeInternal) {
                             pageSize = this.pageSizeInternal;
@@ -110,7 +110,7 @@ System.register(['./list', './common/utility', './common/defaults', './filterAnn
                     enumerable: true,
                     configurable: true
                 });
-                PagedListComponent.prototype.loadData = function () {
+                PagedList.prototype.loadData = function () {
                     this.selectionManager.deselectAll();
                     var promise = (_a = _super.prototype.loadData).call.apply(_a, [this].concat(Array.prototype.slice.call(arguments)));
                     utility_1.Utility.disposeAll(this.items);
@@ -118,45 +118,45 @@ System.register(['./list', './common/utility', './common/defaults', './filterAnn
                     return promise;
                     var _a;
                 };
-                PagedListComponent.prototype.goToFirstPage = function () {
+                PagedList.prototype.goToFirstPage = function () {
                     if (this.pageNumber > 1) {
                         this.pageNumber = 1;
                         this.loadData();
                     }
                 };
-                PagedListComponent.prototype.goToPreviousPage = function () {
+                PagedList.prototype.goToPreviousPage = function () {
                     if (this.pageNumber > 1) {
                         this.pageNumber -= 1;
                         this.loadData();
                     }
                 };
-                PagedListComponent.prototype.goToNextPage = function () {
+                PagedList.prototype.goToNextPage = function () {
                     if (this.pageNumber < this.pageCount) {
                         this.pageNumber += 1;
                         this.loadData();
                     }
                 };
-                PagedListComponent.prototype.goToLastPage = function () {
+                PagedList.prototype.goToLastPage = function () {
                     if (this.pageNumber < this.pageCount) {
                         this.pageNumber = this.pageCount;
                         this.loadData();
                     }
                 };
                 __decorate([
-                    filterAnnotation_1.filter({ defaultValue: 1, parameterName: defaults_1.Defaults.pagedListComponent.pageNumberParameterName }), 
+                    filterAnnotation_1.filter({ defaultValue: 1, parameterName: defaults_1.Defaults.pagedListSettings.pageNumberParameterName }), 
                     __metadata('design:type', Number)
-                ], PagedListComponent.prototype, "pageNumber", null);
+                ], PagedList.prototype, "pageNumber", null);
                 __decorate([
                     filterAnnotation_1.filter({
-                        defaultValue: defaults_1.Defaults.pagedListComponent.defaultPageSize,
-                        parameterName: defaults_1.Defaults.pagedListComponent.pageSizeParameterName,
-                        persisted: defaults_1.Defaults.pagedListComponent.persistPageSize
+                        defaultValue: defaults_1.Defaults.pagedListSettings.defaultPageSize,
+                        parameterName: defaults_1.Defaults.pagedListSettings.pageSizeParameterName,
+                        persisted: defaults_1.Defaults.pagedListSettings.persistPageSize
                     }), 
                     __metadata('design:type', Number)
-                ], PagedListComponent.prototype, "pageSize", null);
-                return PagedListComponent;
+                ], PagedList.prototype, "pageSize", null);
+                return PagedList;
             }(list_1.List));
-            exports_1("PagedListComponent", PagedListComponent);
+            exports_1("PagedList", PagedList);
         }
     }
 });

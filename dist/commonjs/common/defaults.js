@@ -21,7 +21,7 @@ var Defaults = (function () {
         skipRowCountParameterName: 'skip',
         takeRowCountParameterName: 'take'
     };
-    Defaults.pagedListComponent = {
+    Defaults.pagedListSettings = {
         defaultPageSize: 20,
         displayFromParameterName: 'displayFrom',
         displayToParameterName: 'displayTo',

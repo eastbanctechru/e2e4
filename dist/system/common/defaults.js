@@ -27,7 +27,7 @@ System.register([], function(exports_1, context_1) {
                     skipRowCountParameterName: 'skip',
                     takeRowCountParameterName: 'take'
                 };
-                Defaults.pagedListComponent = {
+                Defaults.pagedListSettings = {
                     defaultPageSize: 20,
                     displayFromParameterName: 'displayFrom',
                     displayToParameterName: 'displayTo',

@@ -18,7 +18,7 @@ export declare class Defaults {
         skipRowCountParameterName: string;
         takeRowCountParameterName: string;
     };
-    static pagedListComponent: {
+    static pagedListSettings: {
         defaultPageSize: number;
         displayFromParameterName: string;
         displayToParameterName: string;
