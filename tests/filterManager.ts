@@ -1,11 +1,11 @@
 import { expect, assert } from 'chai';
 
-import { IComponentWithFilter } from '../src/contracts/IComponentWithFilter';
+import { IObjectWithFilter } from '../src/contracts/IObjectWithFilter';
 
 import { FilterManager } from '../src/filterManager';
 import { filter } from '../src/filterAnnotation';
 
-interface IComponent extends IComponentWithFilter {
+interface IFilterableObject extends IObjectWithFilter {
     items: IItem[];
 }
 
@@ -13,18 +13,18 @@ interface IItem {
     name: string;
 }
 function toItem(name: string): IItem {
-    return {name};
+    return { name };
 }
 
-class Component implements IComponent {
+class FilterableObject implements IFilterableObject {
     filterManager = null;
 
-    @filter({defaultValue: 'first'})
+    @filter({ defaultValue: 'first' })
     items = ['first', 'second', 'third'].map(toItem);
 }
 
-function toTarget(): IComponent {
-    return new Component();
+function toTarget(): IFilterableObject {
+    return new FilterableObject();
 }
 
 describe('FilterManager', () => {

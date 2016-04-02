@@ -112,7 +112,7 @@ export abstract class List implements IList {
     addToCancellationSequence(promise: Promise<Object>): void { };
     cancelRequests(): void { };
     ///IRequestCanceller
-    ///IComponentWithState
+    ///IObjectWithState
     useModelState = true;
     stateManager: IStateManager;
     saveRequestState(): void {
@@ -127,7 +127,7 @@ export abstract class List implements IList {
         }
         return this.stateManager.mergeStates(params);
     }
-    ///IComponentWithState
+    ///IObjectWithState
     selectionManager: ISelectionManager;
     filterManager: IFilterManager;
     sortManager: ISortManager;

@@ -1,21 +1,21 @@
 import { expect, assert } from 'chai';
 
-import { IComponentWithSort } from '../src/contracts/IComponentWithSort';
+import { IObjectWithSort } from '../src/contracts/IObjectWithSort';
 import { SortParameter } from '../src/common/sortParameter';
 import { SortDirection } from '../src/common/sortDirection';
 import { SortManager } from '../src/sortManager';
 
-interface IComponent extends IComponentWithSort {
+interface ISortableObject extends IObjectWithSort {
 }
 
-class Component implements IComponent {
+class SortableObject implements ISortableObject {
     sortManager = null;
     constructor () {
         SortManager.includeIn(this);
     }
 }
 
-class ComponentWithDefault implements IComponent {
+class ComponentWithDefault implements ISortableObject {
     sortManager = null;
     constructor () {
         SortManager.includeIn(this);
@@ -26,11 +26,11 @@ class ComponentWithDefault implements IComponent {
     }
 }
 
-function toTarget(): IComponent {
-    return new Component();
+function toTarget(): ISortableObject {
+    return new SortableObject();
 }
 
-function toTargetWithDefault(): IComponent {
+function toTargetWithDefault(): ISortableObject {
     return new ComponentWithDefault();
 }
 

@@ -1,7 +1,7 @@
 import { expect, assert } from 'chai';
 
 import { ISelectable } from '../src/contracts/ISelectable';
-import { IComponentWithSelection } from '../src/contracts/IComponentWithSelection';
+import { IObjectWithSelection } from '../src/contracts/IObjectWithSelection';
 
 import { SelectionManager } from '../src/selectionManager';
 
@@ -11,7 +11,7 @@ const doNotSavePrevious = false;
 const recursive = true;
 const nonRecursive = false;
 
-interface IComponent extends IComponentWithSelection {
+interface IComponent extends IObjectWithSelection {
     items: IItem[];
 }
 

@@ -1,9 +1,9 @@
 import {ISelectable} from './contracts/ISelectable';
 import {ISelectionManager} from './contracts/ISelectionManager';
 import {ISelectionTuple} from './contracts/ISelectionTuple';
-import {IComponentWithSelection} from './contracts/IComponentWithSelection';
+import {IObjectWithSelection} from './contracts/IObjectWithSelection';
 export class SelectionManager implements ISelectionManager {
-    static includeIn(target: IComponentWithSelection, itemsPropertyName: string): void {
+    static includeIn(target: IObjectWithSelection, itemsPropertyName: string): void {
         target.selectionManager = new SelectionManager(target, itemsPropertyName);
     }
     constructor(target: Object, itemsPropertyName: string) {
@@ -43,7 +43,7 @@ export class SelectionManager implements ISelectionManager {
         this.processSelection(selectionTuple.item, false);
         if (this.canRecurse(recursive, selectionTuple.item)) {
             /* tslint:disable:no-any */
-            ((selectionTuple.item as any) as IComponentWithSelection).selectionManager.deselectAll(true);
+            ((selectionTuple.item as any) as IObjectWithSelection).selectionManager.deselectAll(true);
             /* tslint:enable:no-any */
         }
         this.lastProcessedIndex = selectionTuple.index;
@@ -65,7 +65,7 @@ export class SelectionManager implements ISelectionManager {
         }
         if (this.canRecurse(recursive, selectionTuple.item)) {
             /* tslint:disable:no-any */
-            ((selectionTuple.item as any) as IComponentWithSelection).selectionManager.selectAll(true);
+            ((selectionTuple.item as any) as IObjectWithSelection).selectionManager.selectAll(true);
             /* tslint:enable:no-any */
         }
         this.lastProcessedIndex = selectionTuple.index;
@@ -89,7 +89,7 @@ export class SelectionManager implements ISelectionManager {
             this.processSelection(item, false);
             if (this.canRecurse(recursive, item)) {
                 /* tslint:disable:no-any */
-                ((item as any) as IComponentWithSelection).selectionManager.deselectAll(true);
+                ((item as any) as IObjectWithSelection).selectionManager.deselectAll(true);
                 /* tslint:enable:no-any */
             }
         }
@@ -112,7 +112,7 @@ export class SelectionManager implements ISelectionManager {
             this.processSelection(tuple.item, true);
             if (this.canRecurse(recursive, tuple.item)) {
                 /* tslint:disable:no-any */
-                ((tuple.item as any) as IComponentWithSelection).selectionManager.selectAll(true);
+                ((tuple.item as any) as IObjectWithSelection).selectionManager.selectAll(true);
                 /* tslint:enable:no-any */
             }
         }
@@ -189,7 +189,7 @@ export class SelectionManager implements ISelectionManager {
                 result.push(item);
                 if (this.canRecurse(recursive, item)) {
                     /* tslint:disable:no-any */
-                    result = result.concat(((item as any) as IComponentWithSelection).selectionManager.getSelections(true));
+                    result = result.concat(((item as any) as IObjectWithSelection).selectionManager.getSelections(true));
                     /* tslint:enable:no-any */
                 }
             }
