@@ -10,10 +10,10 @@ import {SortManager} from './sortManager';
 import {IFilterManager} from './contracts/IFilterManager';
 import {ISelectionManager} from './contracts/ISelectionManager';
 
-export abstract class ListComponent implements IList {
+export abstract class List implements IList {
     private listLoadDataSuccessCallback(result: Object): Object {
-        this.loadedCount = result[Defaults.listComponent.loadedCountParameterName];
-        this.totalCount = result[Defaults.listComponent.totalCountParameterName] || 0;
+        this.loadedCount = result[Defaults.listSettings.loadedCountParameterName];
+        this.totalCount = result[Defaults.listSettings.totalCountParameterName] || 0;
         this.state = ProgressState.Done;
         return result;
     }

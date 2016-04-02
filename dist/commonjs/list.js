@@ -5,8 +5,8 @@ var selectionManager_1 = require('./selectionManager');
 var filterManager_1 = require('./filterManager');
 var progressState_1 = require('./common/progressState');
 var sortManager_1 = require('./sortManager');
-var ListComponent = (function () {
-    function ListComponent(stateManager) {
+var List = (function () {
+    function List(stateManager) {
         this.disposed = false;
         this.inited = false;
         this.state = null;
@@ -25,28 +25,28 @@ var ListComponent = (function () {
         this.listLoadDataSuccessBinded = this.listLoadDataSuccessCallback.bind(this);
         this.listLoadDataFailBinded = this.listLoadDataFailCallback.bind(this);
     }
-    ListComponent.prototype.listLoadDataSuccessCallback = function (result) {
-        this.loadedCount = result[defaults_1.Defaults.listComponent.loadedCountParameterName];
-        this.totalCount = result[defaults_1.Defaults.listComponent.totalCountParameterName] || 0;
+    List.prototype.listLoadDataSuccessCallback = function (result) {
+        this.loadedCount = result[defaults_1.Defaults.listSettings.loadedCountParameterName];
+        this.totalCount = result[defaults_1.Defaults.listSettings.totalCountParameterName] || 0;
         this.state = progressState_1.ProgressState.Done;
         return result;
     };
-    ListComponent.prototype.listLoadDataFailCallback = function () {
+    List.prototype.listLoadDataFailCallback = function () {
         this.state = progressState_1.ProgressState.Fail;
     };
-    ListComponent.prototype.clearDataInternal = function () {
+    List.prototype.clearDataInternal = function () {
         this.totalCount = 0;
         this.selectionManager.deselectAll();
         utility_1.Utility.disposeAll(this.items);
     };
-    Object.defineProperty(ListComponent.prototype, "busy", {
+    Object.defineProperty(List.prototype, "busy", {
         get: function () {
             return this.state === progressState_1.ProgressState.Progress;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(ListComponent.prototype, "ready", {
+    Object.defineProperty(List.prototype, "ready", {
         get: function () {
             return this.state !== progressState_1.ProgressState.Progress;
         },
@@ -54,12 +54,12 @@ var ListComponent = (function () {
         configurable: true
     });
     ///IComponent overrides
-    ListComponent.prototype.init = function (queryParams) {
+    List.prototype.init = function (queryParams) {
         this.inited = true;
         var restoredState = this.getRestoredState(queryParams);
         this.filterManager.parseParams(restoredState);
     };
-    ListComponent.prototype.dispose = function () {
+    List.prototype.dispose = function () {
         this.disposed = true;
         delete this.listLoadDataSuccessBinded;
         delete this.listLoadDataFailBinded;
@@ -69,19 +69,19 @@ var ListComponent = (function () {
         this.selectionManager.dispose();
     };
     ///IComponent overrides
-    ListComponent.prototype.onSortChangesCompleted = function () {
+    List.prototype.onSortChangesCompleted = function () {
         if (this.ready) {
             this.clearDataInternal();
             this.loadData();
         }
     };
-    ListComponent.prototype.toRequest = function () {
+    List.prototype.toRequest = function () {
         return this.filterManager.buildRequest(null);
     };
-    ListComponent.prototype.getLocalState = function () {
+    List.prototype.getLocalState = function () {
         return this.filterManager.buildPersistedState(null);
     };
-    ListComponent.prototype.loadData = function () {
+    List.prototype.loadData = function () {
         if (!this.inited) {
             throw new Error('loadData can be called only after activation.');
         }
@@ -96,10 +96,10 @@ var ListComponent = (function () {
         }
         return promise;
     };
-    ListComponent.prototype.clearData = function () {
+    List.prototype.clearData = function () {
         this.clearDataInternal();
     };
-    ListComponent.prototype.reloadData = function () {
+    List.prototype.reloadData = function () {
         if (this.ready) {
             this.clearData();
             this.loadData();
@@ -107,24 +107,24 @@ var ListComponent = (function () {
     };
     ///IList
     ///IRequestCanceller
-    ListComponent.prototype.addToCancellationSequence = function (promise) { };
+    List.prototype.addToCancellationSequence = function (promise) { };
     ;
-    ListComponent.prototype.cancelRequests = function () { };
+    List.prototype.cancelRequests = function () { };
     ;
-    ListComponent.prototype.saveRequestState = function () {
+    List.prototype.saveRequestState = function () {
         this.stateManager.flushRequestState(this.toRequest());
     };
     ;
-    ListComponent.prototype.saveLocalState = function () {
+    List.prototype.saveLocalState = function () {
         this.stateManager.persistLocalState(this.getLocalState());
     };
     ;
-    ListComponent.prototype.getRestoredState = function (params) {
+    List.prototype.getRestoredState = function (params) {
         if (this.useModelState === false) {
             return params;
         }
         return this.stateManager.mergeStates(params);
     };
-    return ListComponent;
+    return List;
 }());
-exports.ListComponent = ListComponent;
+exports.List = List;

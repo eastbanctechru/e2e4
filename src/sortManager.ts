@@ -11,11 +11,11 @@ export class SortManager implements ISortManager {
     }
     @filter({
         defaultValue: function(): Array<SortParameter> { return this.defaultSortings ? _.cloneDeep(this.defaultSortings) : []; },
-        parameterName: Defaults.listComponent.sortParameterName,
+        parameterName: Defaults.listSettings.sortParameterName,
         parseFormatter: (proposedValue): Array<Object> => {
             return Array.isArray(proposedValue) ? proposedValue.map((sort) => { return new SortParameter(sort.fieldName, sort.direction * 1); }) : [];
         },
-        persisted: Defaults.listComponent.persistSortings
+        persisted: Defaults.listSettings.persistSortings
     } as IFilterConfig)
     sortings = new Array<SortParameter>();
 

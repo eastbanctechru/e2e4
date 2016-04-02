@@ -14,7 +14,7 @@ __export(require('./bufferedListComponent'));
 __export(require('./filterAnnotation'));
 __export(require('./filterConfig'));
 __export(require('./filterManager'));
-__export(require('./listComponent'));
+__export(require('./list'));
 __export(require('./pagedListComponent'));
 __export(require('./selectionManager'));
 __export(require('./sortManager'));

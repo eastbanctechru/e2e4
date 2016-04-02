@@ -4,7 +4,7 @@ import { IList } from './contracts/IList';
 import { ISortManager } from './contracts/ISortManager';
 import { IFilterManager } from './contracts/IFilterManager';
 import { ISelectionManager } from './contracts/ISelectionManager';
-export declare abstract class ListComponent implements IList {
+export declare abstract class List implements IList {
     private listLoadDataSuccessCallback(result);
     private listLoadDataFailCallback();
     private listLoadDataSuccessBinded;

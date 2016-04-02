@@ -13,7 +13,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var listComponent_1 = require('./listComponent');
+var list_1 = require('./list');
 var defaults_1 = require('./common/defaults');
 var filterAnnotation_1 = require('./filterAnnotation');
 var BufferedListComponent = (function (_super) {
@@ -52,11 +52,11 @@ var BufferedListComponent = (function (_super) {
         delete this.bufferedLoadDataSuccessBinded;
     };
     BufferedListComponent.prototype.bufferedLoadDataSuccess = function (result) {
-        this.loadedCount = this.skip + result[defaults_1.Defaults.listComponent.loadedCountParameterName];
-        this.skip += result[defaults_1.Defaults.listComponent.loadedCountParameterName];
+        this.loadedCount = this.skip + result[defaults_1.Defaults.listSettings.loadedCountParameterName];
+        this.skip += result[defaults_1.Defaults.listSettings.loadedCountParameterName];
         this.loadedCount = this.skip;
         // In case when filter changed from last request and theres no data now
-        if ((result[defaults_1.Defaults.listComponent.totalCountParameterName] || 0) === 0) {
+        if ((result[defaults_1.Defaults.listSettings.totalCountParameterName] || 0) === 0) {
             this.clearData();
         }
         return result;
@@ -94,5 +94,5 @@ var BufferedListComponent = (function (_super) {
         __metadata('design:type', Number)
     ], BufferedListComponent.prototype, "takeRowCount", null);
     return BufferedListComponent;
-}(listComponent_1.ListComponent));
+}(list_1.List));
 exports.BufferedListComponent = BufferedListComponent;

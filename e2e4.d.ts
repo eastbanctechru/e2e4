@@ -23,7 +23,7 @@ export * from './src/bufferedListComponent';
 export * from './src/filterAnnotation';
 export * from './src/filterConfig';
 export * from './src/filterManager';
-export * from './src/listComponent';
+export * from './src/list';
 export * from './src/pagedListComponent';
 export * from './src/selectionManager';
 export * from './src/sortManager';

@@ -5,7 +5,7 @@
         descClassName: 'arrow-down',
         sortableClassName: 'sortable'
     };
-    static listComponent =
+    static listSettings =
     {
         contextAreaSelector: '#contextMenu',
         loadedCountParameterName: 'loadedCount',

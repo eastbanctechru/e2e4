@@ -4,7 +4,7 @@ export declare class Defaults {
         descClassName: string;
         sortableClassName: string;
     };
-    static listComponent: {
+    static listSettings: {
         contextAreaSelector: string;
         loadedCountParameterName: string;
         persistSortings: boolean;

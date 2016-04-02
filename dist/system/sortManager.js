@@ -73,11 +73,11 @@ System.register(['./common/defaults', './common/sortParameter', './filterAnnotat
                 __decorate([
                     filterAnnotation_1.filter({
                         defaultValue: function () { return this.defaultSortings ? _.cloneDeep(this.defaultSortings) : []; },
-                        parameterName: defaults_1.Defaults.listComponent.sortParameterName,
+                        parameterName: defaults_1.Defaults.listSettings.sortParameterName,
                         parseFormatter: function (proposedValue) {
                             return Array.isArray(proposedValue) ? proposedValue.map(function (sort) { return new sortParameter_1.SortParameter(sort.fieldName, sort.direction * 1); }) : [];
                         },
-                        persisted: defaults_1.Defaults.listComponent.persistSortings
+                        persisted: defaults_1.Defaults.listSettings.persistSortings
                     }), 
                     __metadata('design:type', Object)
                 ], SortManager.prototype, "sortings", void 0);

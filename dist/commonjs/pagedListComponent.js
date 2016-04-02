@@ -13,7 +13,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var listComponent_1 = require('./listComponent');
+var list_1 = require('./list');
 var utility_1 = require('./common/utility');
 var defaults_1 = require('./common/defaults');
 var filterAnnotation_1 = require('./filterAnnotation');
@@ -28,8 +28,8 @@ var PagedListComponent = (function (_super) {
         this.pagedLoadDataSuccessBinded = this.pagedLoadDataSuccessCallback.bind(this);
     }
     PagedListComponent.prototype.pagedLoadDataSuccessCallback = function (result) {
-        this.loadedCount = result[defaults_1.Defaults.listComponent.loadedCountParameterName];
-        this.totalCount = result[defaults_1.Defaults.listComponent.totalCountParameterName] || 0;
+        this.loadedCount = result[defaults_1.Defaults.listSettings.loadedCountParameterName];
+        this.totalCount = result[defaults_1.Defaults.listSettings.totalCountParameterName] || 0;
         this.displayFrom = result[defaults_1.Defaults.pagedListComponent.displayFromParameterName] || 1;
         this.displayTo = result[defaults_1.Defaults.pagedListComponent.displayToParameterName] || 1;
         return result;
@@ -140,5 +140,5 @@ var PagedListComponent = (function (_super) {
         __metadata('design:type', Number)
     ], PagedListComponent.prototype, "pageSize", null);
     return PagedListComponent;
-}(listComponent_1.ListComponent));
+}(list_1.List));
 exports.PagedListComponent = PagedListComponent;

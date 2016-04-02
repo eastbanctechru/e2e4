@@ -13,7 +13,7 @@ System.register([], function(exports_1, context_1) {
                     descClassName: 'arrow-down',
                     sortableClassName: 'sortable'
                 };
-                Defaults.listComponent = {
+                Defaults.listSettings = {
                     contextAreaSelector: '#contextMenu',
                     loadedCountParameterName: 'loadedCount',
                     persistSortings: true,

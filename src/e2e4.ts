@@ -25,7 +25,7 @@ export * from './bufferedListComponent';
 export * from './filterAnnotation';
 export * from './filterConfig';
 export * from './filterManager';
-export * from './listComponent';
+export * from './list';
 export * from './pagedListComponent';
 export * from './selectionManager';
 export * from './sortManager';

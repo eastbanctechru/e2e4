@@ -1,6 +1,6 @@
-import { ListComponent } from './listComponent';
+import { List } from './list';
 import { IStateManager } from './contracts/IStateManager';
-export declare abstract class PagedListComponent extends ListComponent {
+export declare abstract class PagedListComponent extends List {
     private pageSizeInternal;
     private pageNumberInternal;
     private pagedLoadDataSuccessBinded;

@@ -1,4 +1,4 @@
-System.register(['./listComponent', './common/utility', './common/defaults', './filterAnnotation'], function(exports_1, context_1) {
+System.register(['./list', './common/utility', './common/defaults', './filterAnnotation'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -15,12 +15,12 @@ System.register(['./listComponent', './common/utility', './common/defaults', './
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var listComponent_1, utility_1, defaults_1, filterAnnotation_1;
+    var list_1, utility_1, defaults_1, filterAnnotation_1;
     var PagedListComponent;
     return {
         setters:[
-            function (listComponent_1_1) {
-                listComponent_1 = listComponent_1_1;
+            function (list_1_1) {
+                list_1 = list_1_1;
             },
             function (utility_1_1) {
                 utility_1 = utility_1_1;
@@ -43,8 +43,8 @@ System.register(['./listComponent', './common/utility', './common/defaults', './
                     this.pagedLoadDataSuccessBinded = this.pagedLoadDataSuccessCallback.bind(this);
                 }
                 PagedListComponent.prototype.pagedLoadDataSuccessCallback = function (result) {
-                    this.loadedCount = result[defaults_1.Defaults.listComponent.loadedCountParameterName];
-                    this.totalCount = result[defaults_1.Defaults.listComponent.totalCountParameterName] || 0;
+                    this.loadedCount = result[defaults_1.Defaults.listSettings.loadedCountParameterName];
+                    this.totalCount = result[defaults_1.Defaults.listSettings.totalCountParameterName] || 0;
                     this.displayFrom = result[defaults_1.Defaults.pagedListComponent.displayFromParameterName] || 1;
                     this.displayTo = result[defaults_1.Defaults.pagedListComponent.displayToParameterName] || 1;
                     return result;
@@ -155,7 +155,7 @@ System.register(['./listComponent', './common/utility', './common/defaults', './
                     __metadata('design:type', Number)
                 ], PagedListComponent.prototype, "pageSize", null);
                 return PagedListComponent;
-            }(listComponent_1.ListComponent));
+            }(list_1.List));
             exports_1("PagedListComponent", PagedListComponent);
         }
     }

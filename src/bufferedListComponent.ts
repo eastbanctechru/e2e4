@@ -1,10 +1,10 @@
-import {ListComponent} from './listComponent';
+import {List} from './list';
 import {IStateManager} from './contracts/IStateManager';
 import {Defaults} from './common/defaults';
 import {filter} from './filterAnnotation';
 import {IFilterConfig} from './contracts/IFilterConfig';
 
-export abstract class BufferedListComponent extends ListComponent {
+export abstract class BufferedListComponent extends List {
     private bufferedLoadDataSuccessBinded: (result: Object) => Object;
     private takeRowCountInternal = Defaults.bufferedListComponent.defaultTakeRowCount;
 
@@ -57,11 +57,11 @@ export abstract class BufferedListComponent extends ListComponent {
     }
 
     bufferedLoadDataSuccess(result: Object): Object {
-        this.loadedCount = this.skip + result[Defaults.listComponent.loadedCountParameterName];
-        this.skip += result[Defaults.listComponent.loadedCountParameterName];
+        this.loadedCount = this.skip + result[Defaults.listSettings.loadedCountParameterName];
+        this.skip += result[Defaults.listSettings.loadedCountParameterName];
         this.loadedCount = this.skip;
         // In case when filter changed from last request and theres no data now
-        if ((result[Defaults.listComponent.totalCountParameterName] || 0) === 0) {
+        if ((result[Defaults.listSettings.totalCountParameterName] || 0) === 0) {
             this.clearData();
         }
         return result;

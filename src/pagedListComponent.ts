@@ -1,17 +1,17 @@
-import {ListComponent} from './listComponent';
+import {List} from './list';
 import {Utility} from './common/utility';
 import {Defaults} from './common/defaults';
 import {filter} from './filterAnnotation';
 import {IFilterConfig} from './contracts/IFilterConfig';
 import {IStateManager} from './contracts/IStateManager';
 
-export abstract class PagedListComponent extends ListComponent {
+export abstract class PagedListComponent extends List {
     private pageSizeInternal = Defaults.pagedListComponent.defaultPageSize;
     private pageNumberInternal = 1;
     private pagedLoadDataSuccessBinded: (result: Object) => Object;
     private pagedLoadDataSuccessCallback(result: Object): Object {
-        this.loadedCount = result[Defaults.listComponent.loadedCountParameterName];
-        this.totalCount = result[Defaults.listComponent.totalCountParameterName] || 0;
+        this.loadedCount = result[Defaults.listSettings.loadedCountParameterName];
+        this.totalCount = result[Defaults.listSettings.totalCountParameterName] || 0;
 
         this.displayFrom = result[Defaults.pagedListComponent.displayFromParameterName] || 1;
         this.displayTo = result[Defaults.pagedListComponent.displayToParameterName] || 1;

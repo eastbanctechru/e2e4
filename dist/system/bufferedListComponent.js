@@ -1,4 +1,4 @@
-System.register(['./listComponent', './common/defaults', './filterAnnotation'], function(exports_1, context_1) {
+System.register(['./list', './common/defaults', './filterAnnotation'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -15,12 +15,12 @@ System.register(['./listComponent', './common/defaults', './filterAnnotation'], 
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var listComponent_1, defaults_1, filterAnnotation_1;
+    var list_1, defaults_1, filterAnnotation_1;
     var BufferedListComponent;
     return {
         setters:[
-            function (listComponent_1_1) {
-                listComponent_1 = listComponent_1_1;
+            function (list_1_1) {
+                list_1 = list_1_1;
             },
             function (defaults_1_1) {
                 defaults_1 = defaults_1_1;
@@ -65,11 +65,11 @@ System.register(['./listComponent', './common/defaults', './filterAnnotation'], 
                     delete this.bufferedLoadDataSuccessBinded;
                 };
                 BufferedListComponent.prototype.bufferedLoadDataSuccess = function (result) {
-                    this.loadedCount = this.skip + result[defaults_1.Defaults.listComponent.loadedCountParameterName];
-                    this.skip += result[defaults_1.Defaults.listComponent.loadedCountParameterName];
+                    this.loadedCount = this.skip + result[defaults_1.Defaults.listSettings.loadedCountParameterName];
+                    this.skip += result[defaults_1.Defaults.listSettings.loadedCountParameterName];
                     this.loadedCount = this.skip;
                     // In case when filter changed from last request and theres no data now
-                    if ((result[defaults_1.Defaults.listComponent.totalCountParameterName] || 0) === 0) {
+                    if ((result[defaults_1.Defaults.listSettings.totalCountParameterName] || 0) === 0) {
                         this.clearData();
                     }
                     return result;
@@ -107,7 +107,7 @@ System.register(['./listComponent', './common/defaults', './filterAnnotation'], 
                     __metadata('design:type', Number)
                 ], BufferedListComponent.prototype, "takeRowCount", null);
                 return BufferedListComponent;
-            }(listComponent_1.ListComponent));
+            }(list_1.List));
             exports_1("BufferedListComponent", BufferedListComponent);
         }
     }

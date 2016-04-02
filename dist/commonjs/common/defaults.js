@@ -7,7 +7,7 @@ var Defaults = (function () {
         descClassName: 'arrow-down',
         sortableClassName: 'sortable'
     };
-    Defaults.listComponent = {
+    Defaults.listSettings = {
         contextAreaSelector: '#contextMenu',
         loadedCountParameterName: 'loadedCount',
         persistSortings: true,
