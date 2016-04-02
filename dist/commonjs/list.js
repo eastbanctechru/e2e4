@@ -53,7 +53,6 @@ var List = (function () {
         enumerable: true,
         configurable: true
     });
-    ///IComponent overrides
     List.prototype.init = function (queryParams) {
         this.inited = true;
         var restoredState = this.getRestoredState(queryParams);
@@ -68,7 +67,6 @@ var List = (function () {
         this.filterManager.dispose();
         this.selectionManager.dispose();
     };
-    ///IComponent overrides
     List.prototype.onSortChangesCompleted = function () {
         if (this.ready) {
             this.clearDataInternal();

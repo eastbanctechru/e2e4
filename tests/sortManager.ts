@@ -15,7 +15,7 @@ class SortableObject implements ISortableObject {
     }
 }
 
-class ComponentWithDefault implements ISortableObject {
+class ObjectWithDefaultSortings implements ISortableObject {
     sortManager = null;
     constructor () {
         SortManager.includeIn(this);
@@ -31,7 +31,7 @@ function toTarget(): ISortableObject {
 }
 
 function toTargetWithDefault(): ISortableObject {
-    return new ComponentWithDefault();
+    return new ObjectWithDefaultSortings();
 }
 
 const savePrevious = true;

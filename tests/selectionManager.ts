@@ -11,7 +11,7 @@ const doNotSavePrevious = false;
 const recursive = true;
 const nonRecursive = false;
 
-interface IComponent extends IObjectWithSelection {
+interface ISelectionableObject extends IObjectWithSelection {
     items: IItem[];
 }
 
@@ -22,14 +22,14 @@ function toItem(name: string): IItem {
     return {name, selected: false};
 }
 
-function toTarget(): IComponent {
+function toTarget(): ISelectionableObject {
     return {
         items: ['first', 'second', 'third'].map(toItem),
         selectionManager: null
     };
 }
 
-function toEmptyTarget(): IComponent {
+function toEmptyTarget(): ISelectionableObject {
     return {
         items: [],
         selectionManager: null

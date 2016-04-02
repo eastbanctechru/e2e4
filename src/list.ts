@@ -48,7 +48,6 @@ export abstract class List implements IList {
         return this.state !== ProgressState.Progress;
     }
 
-    ///IComponent overrides
     init(queryParams?: Object): void {
         this.inited = true;
         const restoredState = this.getRestoredState(queryParams);
@@ -63,7 +62,6 @@ export abstract class List implements IList {
         this.filterManager.dispose();
         this.selectionManager.dispose();
     }
-    ///IComponent overrides
     onSortChangesCompleted(): void {
         if (this.ready) {
             this.clearDataInternal();

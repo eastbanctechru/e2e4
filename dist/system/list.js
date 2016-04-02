@@ -72,7 +72,6 @@ System.register(['./common/defaults', './common/utility', './selectionManager', 
                     enumerable: true,
                     configurable: true
                 });
-                ///IComponent overrides
                 List.prototype.init = function (queryParams) {
                     this.inited = true;
                     var restoredState = this.getRestoredState(queryParams);
@@ -87,7 +86,6 @@ System.register(['./common/defaults', './common/utility', './selectionManager', 
                     this.filterManager.dispose();
                     this.selectionManager.dispose();
                 };
-                ///IComponent overrides
                 List.prototype.onSortChangesCompleted = function () {
                     if (this.ready) {
                         this.clearDataInternal();
