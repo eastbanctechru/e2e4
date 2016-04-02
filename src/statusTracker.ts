@@ -1,4 +1,4 @@
-﻿import {StatusModel} from './common/statusModel';
+﻿import {Status} from './common/status';
 import {Defaults} from './common/defaults';
 import {ProgressState} from './common/progressState';
 import * as _ from 'lodash';
@@ -6,7 +6,7 @@ import * as _ from 'lodash';
 export class StatusTracker {
     static status = ProgressState.Done;
     static modalDisplayed = false;
-    static statusList = new Array<StatusModel>();
+    static statusList = new Array<Status>();
 
     static get statusDisplayed(): boolean {
         return StatusTracker.status !== ProgressState.Done;
@@ -18,9 +18,9 @@ export class StatusTracker {
         const sid = setTimeout(() => {
             StatusTracker.status = ProgressState.Progress;
             if (title) {
-                const statusModel = new StatusModel(ProgressState.Progress, title);
-                statusModel.sid = sid;
-                StatusTracker.statusList.push(statusModel);
+                const status = new Status(ProgressState.Progress, title);
+                status.sid = sid;
+                StatusTracker.statusList.push(status);
             }
         }, Defaults.uiSettings.progressDelayInterval);
         return sid;

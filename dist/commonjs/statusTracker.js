@@ -1,5 +1,5 @@
 "use strict";
-var statusModel_1 = require('./common/statusModel');
+var status_1 = require('./common/status');
 var defaults_1 = require('./common/defaults');
 var progressState_1 = require('./common/progressState');
 var _ = require('lodash');
@@ -24,9 +24,9 @@ var StatusTracker = (function () {
         var sid = setTimeout(function () {
             StatusTracker.status = progressState_1.ProgressState.Progress;
             if (title) {
-                var statusModel = new statusModel_1.StatusModel(progressState_1.ProgressState.Progress, title);
-                statusModel.sid = sid;
-                StatusTracker.statusList.push(statusModel);
+                var status_2 = new status_1.Status(progressState_1.ProgressState.Progress, title);
+                status_2.sid = sid;
+                StatusTracker.statusList.push(status_2);
             }
         }, defaults_1.Defaults.uiSettings.progressDelayInterval);
         return sid;

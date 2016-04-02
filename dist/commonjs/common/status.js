@@ -1,11 +1,11 @@
 "use strict";
 var progressState_1 = require('./progressState');
-var StatusModel = (function () {
-    function StatusModel(status, title) {
+var Status = (function () {
+    function Status(status, title) {
         this.status = status;
         this.title = title;
     }
-    Object.defineProperty(StatusModel.prototype, "className", {
+    Object.defineProperty(Status.prototype, "className", {
         get: function () {
             switch (this.status) {
                 case progressState_1.ProgressState.Done:
@@ -21,6 +21,6 @@ var StatusModel = (function () {
         enumerable: true,
         configurable: true
     });
-    return StatusModel;
+    return Status;
 }());
-exports.StatusModel = StatusModel;
+exports.Status = Status;

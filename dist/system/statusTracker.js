@@ -1,12 +1,12 @@
-System.register(['./common/statusModel', './common/defaults', './common/progressState', 'lodash'], function(exports_1, context_1) {
+System.register(['./common/status', './common/defaults', './common/progressState', 'lodash'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var statusModel_1, defaults_1, progressState_1, _;
+    var status_1, defaults_1, progressState_1, _;
     var StatusTracker;
     return {
         setters:[
-            function (statusModel_1_1) {
-                statusModel_1 = statusModel_1_1;
+            function (status_1_1) {
+                status_1 = status_1_1;
             },
             function (defaults_1_1) {
                 defaults_1 = defaults_1_1;
@@ -39,9 +39,9 @@ System.register(['./common/statusModel', './common/defaults', './common/progress
                     var sid = setTimeout(function () {
                         StatusTracker.status = progressState_1.ProgressState.Progress;
                         if (title) {
-                            var statusModel = new statusModel_1.StatusModel(progressState_1.ProgressState.Progress, title);
-                            statusModel.sid = sid;
-                            StatusTracker.statusList.push(statusModel);
+                            var status_2 = new status_1.Status(progressState_1.ProgressState.Progress, title);
+                            status_2.sid = sid;
+                            StatusTracker.statusList.push(status_2);
                         }
                     }, defaults_1.Defaults.uiSettings.progressDelayInterval);
                     return sid;

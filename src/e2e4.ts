@@ -4,7 +4,7 @@ export * from './common/mouseButtons';
 export * from './common/progressState';
 export * from './common/sortDirection';
 export * from './common/sortParameter';
-export * from './common/statusModel';
+export * from './common/status';
 export * from './common/utility';
 
 export * from './contracts/IComponentWithFilter';

@@ -1,4 +1,4 @@
-System.register(['./src/common/defaults', './src/common/keyCodes', './src/common/mouseButtons', './src/common/progressState', './src/common/sortDirection', './src/common/sortParameter', './src/common/statusModel', './src/common/utility', './src/bufferedListComponent', './src/filterAnnotation', './src/filterConfig', './src/filterManager', './src/listComponent', './src/pagedListComponent', './src/selectionManager', './src/sortManager', './src/statusTracker'], function(exports_1, context_1) {
+System.register(['./src/common/defaults', './src/common/keyCodes', './src/common/mouseButtons', './src/common/progressState', './src/common/sortDirection', './src/common/sortParameter', './src/common/status', './src/common/utility', './src/bufferedListComponent', './src/filterAnnotation', './src/filterConfig', './src/filterManager', './src/listComponent', './src/pagedListComponent', './src/selectionManager', './src/sortManager', './src/statusTracker'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     function exportStar_1(m) {
@@ -28,8 +28,8 @@ System.register(['./src/common/defaults', './src/common/keyCodes', './src/common
             function (sortParameter_1_1) {
                 exportStar_1(sortParameter_1_1);
             },
-            function (statusModel_1_1) {
-                exportStar_1(statusModel_1_1);
+            function (status_1_1) {
+                exportStar_1(status_1_1);
             },
             function (utility_1_1) {
                 exportStar_1(utility_1_1);

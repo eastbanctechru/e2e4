@@ -2,19 +2,19 @@ System.register(['./progressState'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var progressState_1;
-    var StatusModel;
+    var Status;
     return {
         setters:[
             function (progressState_1_1) {
                 progressState_1 = progressState_1_1;
             }],
         execute: function() {
-            StatusModel = (function () {
-                function StatusModel(status, title) {
+            Status = (function () {
+                function Status(status, title) {
                     this.status = status;
                     this.title = title;
                 }
-                Object.defineProperty(StatusModel.prototype, "className", {
+                Object.defineProperty(Status.prototype, "className", {
                     get: function () {
                         switch (this.status) {
                             case progressState_1.ProgressState.Done:
@@ -30,9 +30,9 @@ System.register(['./progressState'], function(exports_1, context_1) {
                     enumerable: true,
                     configurable: true
                 });
-                return StatusModel;
+                return Status;
             }());
-            exports_1("StatusModel", StatusModel);
+            exports_1("Status", Status);
         }
     }
 });

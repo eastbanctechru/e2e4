@@ -1,18 +1,18 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
-import { StatusModel } from '../../src/common/statusModel';
+import { Status } from '../../src/common/status';
 import { ProgressState } from '../../src/common/progressState';
 
-describe('StatusModel', () => {
+describe('Status', () => {
     it('creates new model', () => {
-        const model = new StatusModel(ProgressState.Initial, 'title');
+        const model = new Status(ProgressState.Initial, 'title');
 
         expect(model.status).eql(ProgressState.Initial);
         expect(model.title).eql('title');
     });
 
     it('expect model return proper classNames', () => {
-        const model = new StatusModel(ProgressState.Initial, 'title');
+        const model = new Status(ProgressState.Initial, 'title');
         expect(model.className).eql('');
 
         model.status = ProgressState.Done;

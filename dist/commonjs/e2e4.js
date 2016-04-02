@@ -8,7 +8,7 @@ __export(require('./common/mouseButtons'));
 __export(require('./common/progressState'));
 __export(require('./common/sortDirection'));
 __export(require('./common/sortParameter'));
-__export(require('./common/statusModel'));
+__export(require('./common/status'));
 __export(require('./common/utility'));
 __export(require('./bufferedListComponent'));
 __export(require('./filterAnnotation'));

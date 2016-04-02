@@ -1,5 +1,5 @@
 import { ProgressState } from './progressState';
-export declare class StatusModel {
+export declare class Status {
     sid: number;
     status: ProgressState;
     title: string;
