@@ -29,12 +29,12 @@
       "lib": "dist/amd"
     },
     "dependencies": {
-      "lodash": "^4.7.0"
+      "lodash": "^4.8.2"
     }
   },
   "dependencies": {
-    "core-js": "^2.2.1",
-    "lodash": "^4.7.0"
+    "core-js": "^2.2.2",
+    "lodash": "^4.8.2"
   },
   "devDependencies": {
     "chai": "3.5.0",
@@ -43,14 +43,14 @@
     "gulp-concat": "^2.6.0",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-tslint": "^4.3.4",
-    "gulp-typescript": "^2.12.1",
+    "gulp-typescript": "^2.12.2",
     "karma": "0.13.22",
     "karma-mocha": "0.2.2",
     "karma-phantomjs-launcher": "1.0.0",
     "karma-sourcemap-loader": "0.3.7",
-    "karma-spec-reporter": "0.0.25",
+    "karma-spec-reporter": "0.0.26",
     "karma-webpack": "1.7.0",
-    "lodash": "^4.7.0",
+    "lodash": "^4.8.2",
     "merge2": "^1.0.2",
     "mocha": "2.4.5",
     "object.assign": "^4.0.3",
@@ -59,12 +59,12 @@
     "run-sequence": "^1.1.5",
     "sinon": "2.0.0-pre",
     "ts-loader": "0.8.1",
-    "tslint": "^3.6.0",
+    "tslint": "^3.7.1",
     "typescript": "^1.8.9",
     "vinyl": "^1.1.1",
     "vinyl-paths": "^2.1.0",
     "wallaby-webpack": "0.0.21",
     "webpack": "1.12.14",
-    "yargs": "^4.4.0"
+    "yargs": "^4.5.0"
   }
 }
