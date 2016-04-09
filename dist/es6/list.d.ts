@@ -37,5 +37,5 @@ export declare abstract class List implements IList {
     selectionManager: ISelectionManager;
     filterManager: IFilterManager;
     sortManager: ISortManager;
-    abstract getDataReadPromise(): Promise<Object>;
+    abstract getDataReadPromise(requestParams: any): Promise<Object>;
 }

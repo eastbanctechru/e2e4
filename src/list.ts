@@ -86,7 +86,7 @@ export abstract class List implements IList {
 
         this.totalCount = 0;
         this.state = ProgressState.Progress;
-        const promise = this.getDataReadPromise();
+        const promise = this.getDataReadPromise(this.toRequest());
         this.addToCancellationSequence(promise);
         promise.then(this.listLoadDataSuccessBinded, this.listLoadDataFailBinded);
         if (this.useModelState) {
@@ -129,5 +129,5 @@ export abstract class List implements IList {
     selectionManager: ISelectionManager;
     filterManager: IFilterManager;
     sortManager: ISortManager;
-    abstract getDataReadPromise(): Promise<Object>;
+    abstract getDataReadPromise(requestParams: any): Promise<Object>;
 }

@@ -85,7 +85,7 @@ var List = (function () {
         }
         this.totalCount = 0;
         this.state = progressState_1.ProgressState.Progress;
-        var promise = this.getDataReadPromise();
+        var promise = this.getDataReadPromise(this.toRequest());
         this.addToCancellationSequence(promise);
         promise.then(this.listLoadDataSuccessBinded, this.listLoadDataFailBinded);
         if (this.useModelState) {
