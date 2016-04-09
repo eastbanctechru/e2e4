@@ -1,9 +1,4 @@
 export declare class Defaults {
-    static sortAttribute: {
-        ascClassName: string;
-        descClassName: string;
-        sortableClassName: string;
-    };
     static listSettings: {
         contextAreaSelector: string;
         loadedCountParameterName: string;
@@ -27,9 +22,6 @@ export declare class Defaults {
         pageNumberParameterName: string;
         pageSizeParameterName: string;
         persistPageSize: boolean;
-    };
-    static eventNames: {
-        selectableItemClicked: string;
     };
     static uiSettings: {
         elementVisibilityInterval: number;

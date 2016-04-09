@@ -8,11 +8,6 @@ System.register([], function(exports_1, context_1) {
             Defaults = (function () {
                 function Defaults() {
                 }
-                Defaults.sortAttribute = {
-                    ascClassName: 'arrow-up',
-                    descClassName: 'arrow-down',
-                    sortableClassName: 'sortable'
-                };
                 Defaults.listSettings = {
                     contextAreaSelector: '#contextMenu',
                     loadedCountParameterName: 'loadedCount',
@@ -36,9 +31,6 @@ System.register([], function(exports_1, context_1) {
                     pageNumberParameterName: 'pageNumber',
                     pageSizeParameterName: 'pageSize',
                     persistPageSize: true
-                };
-                Defaults.eventNames = {
-                    selectableItemClicked: 'selectable-item-clicked'
                 };
                 Defaults.uiSettings = {
                     elementVisibilityInterval: 500,

@@ -1,10 +1,4 @@
 ﻿export class Defaults {
-    static sortAttribute =
-    {
-        ascClassName: 'arrow-up',
-        descClassName: 'arrow-down',
-        sortableClassName: 'sortable'
-    };
     static listSettings =
     {
         contextAreaSelector: '#contextMenu',
@@ -31,9 +25,6 @@
         pageNumberParameterName: 'pageNumber',
         pageSizeParameterName: 'pageSize',
         persistPageSize: true
-    };
-    static eventNames = {
-        selectableItemClicked: 'selectable-item-clicked'
     };
     static uiSettings = {
         elementVisibilityInterval: 500,

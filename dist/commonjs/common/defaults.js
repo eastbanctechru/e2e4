@@ -2,11 +2,6 @@
 var Defaults = (function () {
     function Defaults() {
     }
-    Defaults.sortAttribute = {
-        ascClassName: 'arrow-up',
-        descClassName: 'arrow-down',
-        sortableClassName: 'sortable'
-    };
     Defaults.listSettings = {
         contextAreaSelector: '#contextMenu',
         loadedCountParameterName: 'loadedCount',
@@ -30,9 +25,6 @@ var Defaults = (function () {
         pageNumberParameterName: 'pageNumber',
         pageSizeParameterName: 'pageSize',
         persistPageSize: true
-    };
-    Defaults.eventNames = {
-        selectableItemClicked: 'selectable-item-clicked'
     };
     Defaults.uiSettings = {
         elementVisibilityInterval: 500,
