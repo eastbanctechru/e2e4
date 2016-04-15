@@ -17,7 +17,7 @@ export class KeyboardSelectionEventsHelper {
             this.selectionManager.selectFirst();
             evt.stopPropagation();
             evt.preventDefault();
-        } else if (this.selectionManager.lastProcessedIndex === null) {
+        } else if (this.selectionManager.lastProcessedIndex === null || this.selectionManager.lastProcessedIndex === undefined) {
             this.selectionManager.selectFirst();
             evt.stopPropagation();
             evt.preventDefault();
