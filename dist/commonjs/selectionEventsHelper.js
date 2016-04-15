@@ -1,18 +1,18 @@
 "use strict";
 var keyCodes_1 = require('./common/keyCodes');
 var MouseButtons_1 = require('./common/MouseButtons');
-var KeyboardSelectionEventsHelper = (function () {
-    function KeyboardSelectionEventsHelper(selectionManager) {
+var SelectionEventsHelper = (function () {
+    function SelectionEventsHelper(selectionManager) {
         this.selectionManager = selectionManager;
     }
-    KeyboardSelectionEventsHelper.prototype.trySelectAll = function (evt) {
+    SelectionEventsHelper.prototype.trySelectAll = function (evt) {
         if (evt.ctrlKey) {
             this.selectionManager.selectAll();
             evt.stopPropagation();
             evt.preventDefault();
         }
     };
-    KeyboardSelectionEventsHelper.prototype.onArrowUp = function (evt, allowMultipleSelection) {
+    SelectionEventsHelper.prototype.onArrowUp = function (evt, allowMultipleSelection) {
         if (evt.ctrlKey) {
             this.selectionManager.selectFirst();
             evt.stopPropagation();
@@ -35,7 +35,7 @@ var KeyboardSelectionEventsHelper = (function () {
             evt.preventDefault();
         }
     };
-    KeyboardSelectionEventsHelper.prototype.onArrowDown = function (evt, allowMultipleSelection) {
+    SelectionEventsHelper.prototype.onArrowDown = function (evt, allowMultipleSelection) {
         if (evt.ctrlKey) {
             this.selectionManager.selectLast();
             evt.stopPropagation();
@@ -58,7 +58,7 @@ var KeyboardSelectionEventsHelper = (function () {
             evt.preventDefault();
         }
     };
-    KeyboardSelectionEventsHelper.prototype.keyDownHandler = function (evt, allowMultipleSelection) {
+    SelectionEventsHelper.prototype.keyDownHandler = function (evt, allowMultipleSelection) {
         switch (evt.keyCode) {
             case keyCodes_1.KeyCodes.ArrowUp:
                 this.onArrowUp(evt, allowMultipleSelection);
@@ -73,7 +73,7 @@ var KeyboardSelectionEventsHelper = (function () {
                 break;
         }
     };
-    KeyboardSelectionEventsHelper.prototype.onMouseUp = function (eventArgs, toggleOnly, allowMultipleSelection) {
+    SelectionEventsHelper.prototype.onMouseUp = function (eventArgs, toggleOnly, allowMultipleSelection) {
         var isItemSelected = this.selectionManager.isIndexSelected(eventArgs.itemIndex);
         if (isItemSelected === false || eventArgs.browserEvent.which === MouseButtons_1.MouseButtons.Left) {
             if (toggleOnly) {
@@ -96,7 +96,7 @@ var KeyboardSelectionEventsHelper = (function () {
             setTimeout(this.clearWindowSelection, 0);
         }
     };
-    KeyboardSelectionEventsHelper.prototype.clearWindowSelection = function () {
+    SelectionEventsHelper.prototype.clearWindowSelection = function () {
         try {
             if (window.getSelection) {
                 window.getSelection().removeAllRanges();
@@ -109,6 +109,6 @@ var KeyboardSelectionEventsHelper = (function () {
         catch (e) {
         }
     };
-    return KeyboardSelectionEventsHelper;
+    return SelectionEventsHelper;
 }());
-exports.KeyboardSelectionEventsHelper = KeyboardSelectionEventsHelper;
+exports.SelectionEventsHelper = SelectionEventsHelper;

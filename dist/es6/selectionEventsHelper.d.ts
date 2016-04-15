@@ -1,6 +1,6 @@
 import { ISelectionManager } from './contracts/ISelectionManager';
 import { ISelectableItemClickedEventArgs } from './contracts/ISelectableItemClickedEventArgs';
-export declare class KeyboardSelectionEventsHelper {
+export declare class SelectionEventsHelper {
     selectionManager: ISelectionManager;
     constructor(selectionManager: ISelectionManager);
     trySelectAll(evt: KeyboardEvent): void;

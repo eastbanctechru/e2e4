@@ -2,7 +2,7 @@ System.register(['./common/keyCodes', './common/MouseButtons'], function(exports
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var keyCodes_1, MouseButtons_1;
-    var KeyboardSelectionEventsHelper;
+    var SelectionEventsHelper;
     return {
         setters:[
             function (keyCodes_1_1) {
@@ -12,18 +12,18 @@ System.register(['./common/keyCodes', './common/MouseButtons'], function(exports
                 MouseButtons_1 = MouseButtons_1_1;
             }],
         execute: function() {
-            KeyboardSelectionEventsHelper = (function () {
-                function KeyboardSelectionEventsHelper(selectionManager) {
+            SelectionEventsHelper = (function () {
+                function SelectionEventsHelper(selectionManager) {
                     this.selectionManager = selectionManager;
                 }
-                KeyboardSelectionEventsHelper.prototype.trySelectAll = function (evt) {
+                SelectionEventsHelper.prototype.trySelectAll = function (evt) {
                     if (evt.ctrlKey) {
                         this.selectionManager.selectAll();
                         evt.stopPropagation();
                         evt.preventDefault();
                     }
                 };
-                KeyboardSelectionEventsHelper.prototype.onArrowUp = function (evt, allowMultipleSelection) {
+                SelectionEventsHelper.prototype.onArrowUp = function (evt, allowMultipleSelection) {
                     if (evt.ctrlKey) {
                         this.selectionManager.selectFirst();
                         evt.stopPropagation();
@@ -46,7 +46,7 @@ System.register(['./common/keyCodes', './common/MouseButtons'], function(exports
                         evt.preventDefault();
                     }
                 };
-                KeyboardSelectionEventsHelper.prototype.onArrowDown = function (evt, allowMultipleSelection) {
+                SelectionEventsHelper.prototype.onArrowDown = function (evt, allowMultipleSelection) {
                     if (evt.ctrlKey) {
                         this.selectionManager.selectLast();
                         evt.stopPropagation();
@@ -69,7 +69,7 @@ System.register(['./common/keyCodes', './common/MouseButtons'], function(exports
                         evt.preventDefault();
                     }
                 };
-                KeyboardSelectionEventsHelper.prototype.keyDownHandler = function (evt, allowMultipleSelection) {
+                SelectionEventsHelper.prototype.keyDownHandler = function (evt, allowMultipleSelection) {
                     switch (evt.keyCode) {
                         case keyCodes_1.KeyCodes.ArrowUp:
                             this.onArrowUp(evt, allowMultipleSelection);
@@ -84,7 +84,7 @@ System.register(['./common/keyCodes', './common/MouseButtons'], function(exports
                             break;
                     }
                 };
-                KeyboardSelectionEventsHelper.prototype.onMouseUp = function (eventArgs, toggleOnly, allowMultipleSelection) {
+                SelectionEventsHelper.prototype.onMouseUp = function (eventArgs, toggleOnly, allowMultipleSelection) {
                     var isItemSelected = this.selectionManager.isIndexSelected(eventArgs.itemIndex);
                     if (isItemSelected === false || eventArgs.browserEvent.which === MouseButtons_1.MouseButtons.Left) {
                         if (toggleOnly) {
@@ -107,7 +107,7 @@ System.register(['./common/keyCodes', './common/MouseButtons'], function(exports
                         setTimeout(this.clearWindowSelection, 0);
                     }
                 };
-                KeyboardSelectionEventsHelper.prototype.clearWindowSelection = function () {
+                SelectionEventsHelper.prototype.clearWindowSelection = function () {
                     try {
                         if (window.getSelection) {
                             window.getSelection().removeAllRanges();
@@ -120,9 +120,9 @@ System.register(['./common/keyCodes', './common/MouseButtons'], function(exports
                     catch (e) {
                     }
                 };
-                return KeyboardSelectionEventsHelper;
+                return SelectionEventsHelper;
             }());
-            exports_1("KeyboardSelectionEventsHelper", KeyboardSelectionEventsHelper);
+            exports_1("SelectionEventsHelper", SelectionEventsHelper);
         }
     }
 });
