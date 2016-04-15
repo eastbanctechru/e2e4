@@ -1,4 +1,5 @@
 import { ISelectionManager } from './contracts/ISelectionManager';
+import { ISelectableItemClickedEventArgs } from './contracts/ISelectableItemClickedEventArgs';
 export declare class KeyboardSelectionEventsHelper {
     selectionManager: ISelectionManager;
     constructor(selectionManager: ISelectionManager);
@@ -6,5 +7,6 @@ export declare class KeyboardSelectionEventsHelper {
     onArrowUp(evt: KeyboardEvent, allowMultipleSelection: boolean): void;
     onArrowDown(evt: KeyboardEvent, allowMultipleSelection: boolean): void;
     keyDownHandler(evt: KeyboardEvent, allowMultipleSelection: boolean): void;
+    onMouseUp(eventArgs: ISelectableItemClickedEventArgs, toggleOnly: boolean, allowMultipleSelection: boolean): void;
     clearWindowSelection(): void;
 }

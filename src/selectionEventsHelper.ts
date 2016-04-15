@@ -1,5 +1,7 @@
 import {ISelectionManager} from './contracts/ISelectionManager';
+import {ISelectableItemClickedEventArgs} from './contracts/ISelectableItemClickedEventArgs';
 import {KeyCodes} from './common/keyCodes';
+import {MouseButtons} from './common/MouseButtons';
 export class KeyboardSelectionEventsHelper {
     selectionManager: ISelectionManager;
     constructor(selectionManager: ISelectionManager) {
@@ -65,6 +67,27 @@ export class KeyboardSelectionEventsHelper {
                 break;
             default:
                 break;
+        }
+    }
+    onMouseUp(eventArgs: ISelectableItemClickedEventArgs, toggleOnly: boolean, allowMultipleSelection: boolean): void {
+        const isItemSelected = this.selectionManager.isIndexSelected(eventArgs.itemIndex);
+        if (isItemSelected === false || eventArgs.browserEvent.which === MouseButtons.Left) {
+            if (toggleOnly) {
+                this.selectionManager.toggleSelection(eventArgs.itemIndex, true);
+                setTimeout(this.clearWindowSelection, 0);
+                return;
+            }
+        }
+        if (isItemSelected === false || eventArgs.browserEvent.which === MouseButtons.Left) {
+            if (eventArgs.browserEvent.ctrlKey && allowMultipleSelection) {
+                this.selectionManager.toggleSelection(eventArgs.itemIndex, true);
+            } else if (eventArgs.browserEvent.shiftKey && allowMultipleSelection) {
+                const minIndex = this.selectionManager.getMinSelectedIndex();
+                this.selectionManager.selectRange(minIndex === null ? eventArgs.itemIndex : minIndex, eventArgs.itemIndex);
+            } else {
+                this.selectionManager.toggleSelection(eventArgs.itemIndex, false);
+            }
+            setTimeout(this.clearWindowSelection, 0);
         }
     }
     clearWindowSelection(): void {

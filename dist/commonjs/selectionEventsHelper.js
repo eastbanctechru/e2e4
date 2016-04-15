@@ -1,5 +1,6 @@
 "use strict";
 var keyCodes_1 = require('./common/keyCodes');
+var MouseButtons_1 = require('./common/MouseButtons');
 var KeyboardSelectionEventsHelper = (function () {
     function KeyboardSelectionEventsHelper(selectionManager) {
         this.selectionManager = selectionManager;
@@ -17,7 +18,7 @@ var KeyboardSelectionEventsHelper = (function () {
             evt.stopPropagation();
             evt.preventDefault();
         }
-        else if (this.selectionManager.lastProcessedIndex === null) {
+        else if (this.selectionManager.lastProcessedIndex === null || this.selectionManager.lastProcessedIndex === undefined) {
             this.selectionManager.selectFirst();
             evt.stopPropagation();
             evt.preventDefault();
@@ -40,7 +41,7 @@ var KeyboardSelectionEventsHelper = (function () {
             evt.stopPropagation();
             evt.preventDefault();
         }
-        else if (this.selectionManager.lastProcessedIndex === null) {
+        else if (this.selectionManager.lastProcessedIndex === null || this.selectionManager.lastProcessedIndex === undefined) {
             this.selectionManager.selectFirst();
             evt.stopPropagation();
             evt.preventDefault();
@@ -70,6 +71,29 @@ var KeyboardSelectionEventsHelper = (function () {
                 break;
             default:
                 break;
+        }
+    };
+    KeyboardSelectionEventsHelper.prototype.onMouseUp = function (eventArgs, toggleOnly, allowMultipleSelection) {
+        var isItemSelected = this.selectionManager.isIndexSelected(eventArgs.itemIndex);
+        if (isItemSelected === false || eventArgs.browserEvent.which === MouseButtons_1.MouseButtons.Left) {
+            if (toggleOnly) {
+                this.selectionManager.toggleSelection(eventArgs.itemIndex, true);
+                setTimeout(this.clearWindowSelection, 0);
+                return;
+            }
+        }
+        if (isItemSelected === false || eventArgs.browserEvent.which === MouseButtons_1.MouseButtons.Left) {
+            if (eventArgs.browserEvent.ctrlKey && allowMultipleSelection) {
+                this.selectionManager.toggleSelection(eventArgs.itemIndex, true);
+            }
+            else if (eventArgs.browserEvent.shiftKey && allowMultipleSelection) {
+                var minIndex = this.selectionManager.getMinSelectedIndex();
+                this.selectionManager.selectRange(minIndex === null ? eventArgs.itemIndex : minIndex, eventArgs.itemIndex);
+            }
+            else {
+                this.selectionManager.toggleSelection(eventArgs.itemIndex, false);
+            }
+            setTimeout(this.clearWindowSelection, 0);
         }
     };
     KeyboardSelectionEventsHelper.prototype.clearWindowSelection = function () {

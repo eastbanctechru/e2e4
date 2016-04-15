@@ -1,12 +1,15 @@
-System.register(['./common/keyCodes'], function(exports_1, context_1) {
+System.register(['./common/keyCodes', './common/MouseButtons'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var keyCodes_1;
+    var keyCodes_1, MouseButtons_1;
     var KeyboardSelectionEventsHelper;
     return {
         setters:[
             function (keyCodes_1_1) {
                 keyCodes_1 = keyCodes_1_1;
+            },
+            function (MouseButtons_1_1) {
+                MouseButtons_1 = MouseButtons_1_1;
             }],
         execute: function() {
             KeyboardSelectionEventsHelper = (function () {
@@ -26,7 +29,7 @@ System.register(['./common/keyCodes'], function(exports_1, context_1) {
                         evt.stopPropagation();
                         evt.preventDefault();
                     }
-                    else if (this.selectionManager.lastProcessedIndex === null) {
+                    else if (this.selectionManager.lastProcessedIndex === null || this.selectionManager.lastProcessedIndex === undefined) {
                         this.selectionManager.selectFirst();
                         evt.stopPropagation();
                         evt.preventDefault();
@@ -49,7 +52,7 @@ System.register(['./common/keyCodes'], function(exports_1, context_1) {
                         evt.stopPropagation();
                         evt.preventDefault();
                     }
-                    else if (this.selectionManager.lastProcessedIndex === null) {
+                    else if (this.selectionManager.lastProcessedIndex === null || this.selectionManager.lastProcessedIndex === undefined) {
                         this.selectionManager.selectFirst();
                         evt.stopPropagation();
                         evt.preventDefault();
@@ -79,6 +82,29 @@ System.register(['./common/keyCodes'], function(exports_1, context_1) {
                             break;
                         default:
                             break;
+                    }
+                };
+                KeyboardSelectionEventsHelper.prototype.onMouseUp = function (eventArgs, toggleOnly, allowMultipleSelection) {
+                    var isItemSelected = this.selectionManager.isIndexSelected(eventArgs.itemIndex);
+                    if (isItemSelected === false || eventArgs.browserEvent.which === MouseButtons_1.MouseButtons.Left) {
+                        if (toggleOnly) {
+                            this.selectionManager.toggleSelection(eventArgs.itemIndex, true);
+                            setTimeout(this.clearWindowSelection, 0);
+                            return;
+                        }
+                    }
+                    if (isItemSelected === false || eventArgs.browserEvent.which === MouseButtons_1.MouseButtons.Left) {
+                        if (eventArgs.browserEvent.ctrlKey && allowMultipleSelection) {
+                            this.selectionManager.toggleSelection(eventArgs.itemIndex, true);
+                        }
+                        else if (eventArgs.browserEvent.shiftKey && allowMultipleSelection) {
+                            var minIndex = this.selectionManager.getMinSelectedIndex();
+                            this.selectionManager.selectRange(minIndex === null ? eventArgs.itemIndex : minIndex, eventArgs.itemIndex);
+                        }
+                        else {
+                            this.selectionManager.toggleSelection(eventArgs.itemIndex, false);
+                        }
+                        setTimeout(this.clearWindowSelection, 0);
                     }
                 };
                 KeyboardSelectionEventsHelper.prototype.clearWindowSelection = function () {
