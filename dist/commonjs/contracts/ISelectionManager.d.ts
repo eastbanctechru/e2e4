@@ -1,4 +1,6 @@
+import { ISelectable } from './ISelectable';
 export interface ISelectionManager {
+    itemsSource: Array<ISelectable>;
     lastProcessedIndex: number;
     deselectAll(recursive?: boolean): void;
     selectAll(recursive?: boolean): void;

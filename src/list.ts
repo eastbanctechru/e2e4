@@ -1,6 +1,7 @@
 import {Defaults} from './common/defaults';
 import {Utility} from './common/utility';
 import {SelectionManager} from './selectionManager';
+import {ISelectable} from './contracts/ISelectable';
 import {FilterManager} from './filterManager';
 import {ProgressState} from './common/progressState';
 import {IStateManager} from './contracts/IStateManager';
@@ -29,7 +30,8 @@ export abstract class List implements IList {
     }
     constructor(stateManager: IStateManager) {
         this.stateManager = stateManager;
-        SelectionManager.includeIn(this, 'items');
+        this.selectionManager = new SelectionManager();
+        this.selectionManager.itemsSource = <Array<ISelectable>>this.items;
         FilterManager.includeIn(this);
         SortManager.includeIn(this);
         this.filterManager.registerFilterTarget(this.sortManager);

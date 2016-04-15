@@ -18,7 +18,8 @@ var List = (function () {
         ///IObjectWithState
         this.useModelState = true;
         this.stateManager = stateManager;
-        selectionManager_1.SelectionManager.includeIn(this, 'items');
+        this.selectionManager = new selectionManager_1.SelectionManager();
+        this.selectionManager.itemsSource = this.items;
         filterManager_1.FilterManager.includeIn(this);
         sortManager_1.SortManager.includeIn(this);
         this.filterManager.registerFilterTarget(this.sortManager);

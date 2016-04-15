@@ -1,21 +1,19 @@
 "use strict";
 var SelectionManager = (function () {
-    function SelectionManager(target, itemsPropertyName) {
+    function SelectionManager() {
         this.selectionsList = new Array();
-        this.target = target;
-        this.itemsPropertyName = itemsPropertyName;
     }
-    SelectionManager.includeIn = function (target, itemsPropertyName) {
-        target.selectionManager = new SelectionManager(target, itemsPropertyName);
-    };
     SelectionManager.prototype.dispose = function () {
         this.selectionsList.length = 0;
         delete this.selectionsList;
-        delete this.target;
+        delete this.items;
     };
     Object.defineProperty(SelectionManager.prototype, "itemsSource", {
         get: function () {
-            return this.target[this.itemsPropertyName];
+            return this.items;
+        },
+        set: function (value) {
+            this.items = value;
         },
         enumerable: true,
         configurable: true
@@ -41,7 +39,7 @@ var SelectionManager = (function () {
         this.processSelection(selectionTuple.item, false);
         if (this.canRecurse(recursive, selectionTuple.item)) {
             /* tslint:disable:no-any */
-            selectionTuple.item.selectionManager.deselectAll(true);
+            (selectionTuple.item).selectionManager.deselectAll(true);
         }
         this.lastProcessedIndex = selectionTuple.index;
     };
@@ -66,7 +64,7 @@ var SelectionManager = (function () {
         }
         if (this.canRecurse(recursive, selectionTuple.item)) {
             /* tslint:disable:no-any */
-            selectionTuple.item.selectionManager.selectAll(true);
+            (selectionTuple.item).selectionManager.selectAll(true);
         }
         this.lastProcessedIndex = selectionTuple.index;
     };
@@ -90,7 +88,7 @@ var SelectionManager = (function () {
             this.processSelection(item, false);
             if (this.canRecurse(recursive, item)) {
                 /* tslint:disable:no-any */
-                item.selectionManager.deselectAll(true);
+                (item).selectionManager.deselectAll(true);
             }
         }
         this.lastProcessedIndex = null;
@@ -114,7 +112,7 @@ var SelectionManager = (function () {
             this.processSelection(tuple.item, true);
             if (this.canRecurse(recursive, tuple.item)) {
                 /* tslint:disable:no-any */
-                tuple.item.selectionManager.selectAll(true);
+                (tuple.item).selectionManager.selectAll(true);
             }
         }
         (_a = this.selectionsList).splice.apply(_a, [0, this.selectionsList.length].concat(tempData));
@@ -194,7 +192,7 @@ var SelectionManager = (function () {
                 result.push(item);
                 if (this.canRecurse(recursive, item)) {
                     /* tslint:disable:no-any */
-                    result = result.concat(item.selectionManager.getSelections(true));
+                    result = result.concat((item).selectionManager.getSelections(true));
                 }
             }
         }
