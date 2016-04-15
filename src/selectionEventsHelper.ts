@@ -1,91 +1,99 @@
+import {ISelectable} from './contracts/ISelectable';
 import {ISelectionManager} from './contracts/ISelectionManager';
-import {ISelectableItemClickedEventArgs} from './contracts/ISelectableItemClickedEventArgs';
+import {ISelectionConfig} from './contracts/ISelectionConfig';
 import {KeyCodes} from './common/keyCodes';
 import {MouseButtons} from './common/MouseButtons';
+
 export class SelectionEventsHelper {
-    selectionManager: ISelectionManager;
-    constructor(selectionManager: ISelectionManager) {
-        this.selectionManager = selectionManager;
+    selectionConfig: ISelectionConfig;
+    constructor(selectionConfig: ISelectionConfig) {
+        this.selectionConfig = selectionConfig;
     }
-    trySelectAll(evt: KeyboardEvent): void {
-        if (evt.ctrlKey) {
-            this.selectionManager.selectAll();
-            evt.stopPropagation();
-            evt.preventDefault();
+    trySelectAll(browserEvent: KeyboardEvent): void {
+        if (browserEvent.ctrlKey) {
+            this.selectionConfig.selectionManager.selectAll();
+            browserEvent.stopPropagation();
+            browserEvent.preventDefault();
         }
     }
-    onArrowUp(evt: KeyboardEvent, allowMultipleSelection: boolean): void {
-        if (evt.ctrlKey) {
-            this.selectionManager.selectFirst();
-            evt.stopPropagation();
-            evt.preventDefault();
-        } else if (this.selectionManager.lastProcessedIndex === null || this.selectionManager.lastProcessedIndex === undefined) {
-            this.selectionManager.selectFirst();
-            evt.stopPropagation();
-            evt.preventDefault();
-        } else if (evt.shiftKey && false === this.selectionManager.isIndexSelected(this.selectionManager.lastProcessedIndex)) {
-            this.selectionManager.selectRange(this.selectionManager.lastProcessedIndex, this.selectionManager.lastProcessedIndex - 1);
-        } else if (this.selectionManager.lastProcessedIndex > 0) {
-            if (this.selectionManager.isIndexSelected(this.selectionManager.lastProcessedIndex - 1)) {
-                this.selectionManager.deselectIndex(this.selectionManager.lastProcessedIndex);
+    onArrowUp(browserEvent: KeyboardEvent, allowMultipleSelection: boolean): void {
+        if (browserEvent.ctrlKey) {
+            this.selectionConfig.selectionManager.selectFirst();
+            browserEvent.stopPropagation();
+            browserEvent.preventDefault();
+        } else if (this.selectionConfig.selectionManager.lastProcessedIndex === null || this.selectionConfig.selectionManager.lastProcessedIndex === undefined) {
+            this.selectionConfig.selectionManager.selectFirst();
+            browserEvent.stopPropagation();
+            browserEvent.preventDefault();
+        } else if (browserEvent.shiftKey && false === this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex)) {
+            this.selectionConfig.selectionManager.selectRange(this.selectionConfig.selectionManager.lastProcessedIndex, this.selectionConfig.selectionManager.lastProcessedIndex - 1);
+        } else if (this.selectionConfig.selectionManager.lastProcessedIndex > 0) {
+            if (this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex - 1)) {
+                this.selectionConfig.selectionManager.deselectIndex(this.selectionConfig.selectionManager.lastProcessedIndex);
             }
-            this.selectionManager.selectIndex(this.selectionManager.lastProcessedIndex - 1, evt.shiftKey && allowMultipleSelection);
-            evt.stopPropagation();
-            evt.preventDefault();
+            this.selectionConfig.selectionManager.selectIndex(this.selectionConfig.selectionManager.lastProcessedIndex - 1, browserEvent.shiftKey && allowMultipleSelection);
+            browserEvent.stopPropagation();
+            browserEvent.preventDefault();
         }
     }
-    onArrowDown(evt: KeyboardEvent, allowMultipleSelection: boolean): void {
-        if (evt.ctrlKey) {
-            this.selectionManager.selectLast();
-            evt.stopPropagation();
-            evt.preventDefault();
-        } else if (this.selectionManager.lastProcessedIndex === null || this.selectionManager.lastProcessedIndex === undefined) {
-            this.selectionManager.selectFirst();
-            evt.stopPropagation();
-            evt.preventDefault();
-        } else if (evt.shiftKey && false === this.selectionManager.isIndexSelected(this.selectionManager.lastProcessedIndex)) {
-            this.selectionManager.selectRange(this.selectionManager.lastProcessedIndex, this.selectionManager.lastProcessedIndex + 1);
+    onArrowDown(browserEvent: KeyboardEvent, allowMultipleSelection: boolean): void {
+        if (browserEvent.ctrlKey) {
+            this.selectionConfig.selectionManager.selectLast();
+            browserEvent.stopPropagation();
+            browserEvent.preventDefault();
+        } else if (this.selectionConfig.selectionManager.lastProcessedIndex === null || this.selectionConfig.selectionManager.lastProcessedIndex === undefined) {
+            this.selectionConfig.selectionManager.selectFirst();
+            browserEvent.stopPropagation();
+            browserEvent.preventDefault();
+        } else if (browserEvent.shiftKey && false === this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex)) {
+            this.selectionConfig.selectionManager.selectRange(this.selectionConfig.selectionManager.lastProcessedIndex, this.selectionConfig.selectionManager.lastProcessedIndex + 1);
         } else {
-            if (this.selectionManager.isIndexSelected(this.selectionManager.lastProcessedIndex + 1)) {
-                this.selectionManager.deselectIndex(this.selectionManager.lastProcessedIndex);
+            if (this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex + 1)) {
+                this.selectionConfig.selectionManager.deselectIndex(this.selectionConfig.selectionManager.lastProcessedIndex);
             }
-            this.selectionManager.selectIndex(this.selectionManager.lastProcessedIndex + 1, evt.shiftKey && allowMultipleSelection);
-            evt.stopPropagation();
-            evt.preventDefault();
+            this.selectionConfig.selectionManager.selectIndex(this.selectionConfig.selectionManager.lastProcessedIndex + 1, browserEvent.shiftKey && allowMultipleSelection);
+            browserEvent.stopPropagation();
+            browserEvent.preventDefault();
         }
     }
-    keyDownHandler(evt: KeyboardEvent, allowMultipleSelection: boolean): void {
-        switch (evt.keyCode) {
+    keyboardHandler(browserEvent: KeyboardEvent, allowMultipleSelection: boolean): void {
+        switch (browserEvent.keyCode) {
             case KeyCodes.ArrowUp:
-                this.onArrowUp(evt, allowMultipleSelection);
+                this.onArrowUp(browserEvent, allowMultipleSelection);
                 break;
             case KeyCodes.ArrowDown:
-                this.onArrowDown(evt, allowMultipleSelection);
+                this.onArrowDown(browserEvent, allowMultipleSelection);
                 break;
             case KeyCodes.A:
-                this.trySelectAll(evt);
+                this.trySelectAll(browserEvent);
                 break;
             default:
                 break;
         }
     }
-    onMouseUp(eventArgs: ISelectableItemClickedEventArgs, toggleOnly: boolean, allowMultipleSelection: boolean): void {
-        const isItemSelected = this.selectionManager.isIndexSelected(eventArgs.itemIndex);
-        if (isItemSelected === false || eventArgs.browserEvent.which === MouseButtons.Left) {
-            if (toggleOnly) {
-                this.selectionManager.toggleSelection(eventArgs.itemIndex, true);
+    mouseHandler(browserEvent: MouseEvent, itemIndex?: number, item?: ISelectable): void {
+        if (itemIndex === null || itemIndex === undefined) {
+            itemIndex = this.selectionConfig.selectionManager.getItemIndex(item);
+            if (itemIndex === -1) {
+                return;
+            }
+        }
+        const isItemSelected = this.selectionConfig.selectionManager.isIndexSelected(itemIndex);
+        if (isItemSelected === false || browserEvent.which === MouseButtons.Left) {
+            if (this.selectionConfig.toggleOnly) {
+                this.selectionConfig.selectionManager.toggleSelection(itemIndex, true);
                 setTimeout(this.clearWindowSelection, 0);
                 return;
             }
         }
-        if (isItemSelected === false || eventArgs.browserEvent.which === MouseButtons.Left) {
-            if (eventArgs.browserEvent.ctrlKey && allowMultipleSelection) {
-                this.selectionManager.toggleSelection(eventArgs.itemIndex, true);
-            } else if (eventArgs.browserEvent.shiftKey && allowMultipleSelection) {
-                const minIndex = this.selectionManager.getMinSelectedIndex();
-                this.selectionManager.selectRange(minIndex === null ? eventArgs.itemIndex : minIndex, eventArgs.itemIndex);
+        if (isItemSelected === false || browserEvent.which === MouseButtons.Left) {
+            if (browserEvent.ctrlKey && this.selectionConfig.allowMultipleSelection) {
+                this.selectionConfig.selectionManager.toggleSelection(itemIndex, true);
+            } else if (browserEvent.shiftKey && this.selectionConfig.allowMultipleSelection) {
+                const minIndex = this.selectionConfig.selectionManager.getMinSelectedIndex();
+                this.selectionConfig.selectionManager.selectRange(minIndex === null ? itemIndex : minIndex, itemIndex);
             } else {
-                this.selectionManager.toggleSelection(eventArgs.itemIndex, false);
+                this.selectionConfig.selectionManager.toggleSelection(itemIndex, false);
             }
             setTimeout(this.clearWindowSelection, 0);
         }

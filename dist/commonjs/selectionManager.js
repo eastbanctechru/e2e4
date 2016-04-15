@@ -128,6 +128,9 @@ var SelectionManager = (function () {
         }
         return false;
     };
+    SelectionManager.prototype.getItemIndex = function (item) {
+        return this.itemsSource.findIndex(function (value) { return value === item; });
+    };
     SelectionManager.prototype.getMinSelectedIndex = function () {
         var minIndex = null;
         this.selectionsList.forEach(function (item) {

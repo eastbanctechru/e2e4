@@ -125,6 +125,9 @@ export class SelectionManager implements ISelectionManager {
         return false;
     }
 
+    getItemIndex(item: ISelectable): number {
+        return this.itemsSource.findIndex(value => value === item);
+    }
     getMinSelectedIndex(): number {
         let minIndex = null;
         this.selectionsList.forEach(item => {

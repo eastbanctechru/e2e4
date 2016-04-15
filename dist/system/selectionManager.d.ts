@@ -17,6 +17,7 @@ export declare class SelectionManager implements ISelectionManager {
     selectRange(fromIndex: number, toIndex: number, recursive?: boolean): void;
     hasSelections(): boolean;
     isIndexSelected(index: number): boolean;
+    getItemIndex(item: ISelectable): number;
     getMinSelectedIndex(): number;
     getMaxSelectedIndex(): number;
     selectFirst(): void;
