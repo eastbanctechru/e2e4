@@ -2,7 +2,7 @@ import {ISelectionManager} from './contracts/ISelectionManager';
 import {ISelectableItemClickedEventArgs} from './contracts/ISelectableItemClickedEventArgs';
 import {KeyCodes} from './common/keyCodes';
 import {MouseButtons} from './common/MouseButtons';
-export class KeyboardSelectionEventsHelper {
+export class SelectionEventsHelper {
     selectionManager: ISelectionManager;
     constructor(selectionManager: ISelectionManager) {
         this.selectionManager = selectionManager;
