@@ -143,17 +143,17 @@ System.register(['./list', './common/utility', './common/defaults', './filterAnn
                     }
                 };
                 __decorate([
-                    filterAnnotation_1.filter({ defaultValue: 1, parameterName: defaults_1.Defaults.pagedListSettings.pageNumberParameterName }), 
-                    __metadata('design:type', Number)
-                ], PagedList.prototype, "pageNumber", null);
-                __decorate([
                     filterAnnotation_1.filter({
                         defaultValue: defaults_1.Defaults.pagedListSettings.defaultPageSize,
                         parameterName: defaults_1.Defaults.pagedListSettings.pageSizeParameterName,
                         persisted: defaults_1.Defaults.pagedListSettings.persistPageSize
                     }), 
-                    __metadata('design:type', Number)
-                ], PagedList.prototype, "pageSize", null);
+                    __metadata('design:type', Object)
+                ], PagedList.prototype, "pageSizeInternal", void 0);
+                __decorate([
+                    filterAnnotation_1.filter({ defaultValue: 1, parameterName: defaults_1.Defaults.pagedListSettings.pageNumberParameterName }), 
+                    __metadata('design:type', Object)
+                ], PagedList.prototype, "pageNumberInternal", void 0);
                 return PagedList;
             }(list_1.List));
             exports_1("PagedList", PagedList);

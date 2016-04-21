@@ -74,14 +74,6 @@ var BufferedList = (function (_super) {
     };
     __decorate([
         filterAnnotation_1.filter({
-            defaultValue: 0,
-            parameterName: defaults_1.Defaults.bufferedListSettings.skipRowCountParameterName,
-            parseFormatter: function () { return 0; }
-        }), 
-        __metadata('design:type', Object)
-    ], BufferedList.prototype, "skip", void 0);
-    __decorate([
-        filterAnnotation_1.filter({
             defaultValue: defaults_1.Defaults.bufferedListSettings.defaultTakeRowCount,
             parameterName: defaults_1.Defaults.bufferedListSettings.takeRowCountParameterName,
             parseFormatter: function (proposedParam, allParams) {
@@ -91,8 +83,16 @@ var BufferedList = (function (_super) {
                 return defaults_1.Defaults.bufferedListSettings.defaultTakeRowCount;
             }
         }), 
-        __metadata('design:type', Number)
-    ], BufferedList.prototype, "takeRowCount", null);
+        __metadata('design:type', Object)
+    ], BufferedList.prototype, "takeRowCountInternal", void 0);
+    __decorate([
+        filterAnnotation_1.filter({
+            defaultValue: 0,
+            parameterName: defaults_1.Defaults.bufferedListSettings.skipRowCountParameterName,
+            parseFormatter: function () { return 0; }
+        }), 
+        __metadata('design:type', Object)
+    ], BufferedList.prototype, "skip", void 0);
     return BufferedList;
 }(list_1.List));
 exports.BufferedList = BufferedList;
