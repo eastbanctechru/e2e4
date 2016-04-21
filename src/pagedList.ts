@@ -6,8 +6,16 @@ import {IFilterConfig} from './contracts/IFilterConfig';
 import {IStateManager} from './contracts/IStateManager';
 
 export abstract class PagedList extends List {
+    @filter({
+        defaultValue: Defaults.pagedListSettings.defaultPageSize,
+        parameterName: Defaults.pagedListSettings.pageSizeParameterName,
+        persisted: Defaults.pagedListSettings.persistPageSize
+    })
     private pageSizeInternal = Defaults.pagedListSettings.defaultPageSize;
+
+    @filter({ defaultValue: 1, parameterName: Defaults.pagedListSettings.pageNumberParameterName } as IFilterConfig)
     private pageNumberInternal = 1;
+
     private pagedLoadDataSuccessBinded: (result: Object) => Object;
     private pagedLoadDataSuccessCallback(result: Object): Object {
         this.loadedCount = result[Defaults.listSettings.loadedCountParameterName];
@@ -34,7 +42,6 @@ export abstract class PagedList extends List {
         return Math.ceil(this.totalCount / this.pageSizeInternal);
     }
 
-    @filter({ defaultValue: 1, parameterName: Defaults.pagedListSettings.pageNumberParameterName } as IFilterConfig)
     get pageNumber(): number {
         return this.pageNumberInternal;
     }
@@ -50,11 +57,6 @@ export abstract class PagedList extends List {
         this.pageNumberInternal = pageNumber;
     }
 
-    @filter({
-        defaultValue: Defaults.pagedListSettings.defaultPageSize,
-        parameterName: Defaults.pagedListSettings.pageSizeParameterName,
-        persisted: Defaults.pagedListSettings.persistPageSize
-    })
     get pageSize(): number {
         return this.pageSizeInternal;
     }

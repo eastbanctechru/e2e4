@@ -6,15 +6,6 @@ import {IFilterConfig} from './contracts/IFilterConfig';
 
 export abstract class BufferedList extends List {
     private bufferedLoadDataSuccessBinded: (result: Object) => Object;
-    private takeRowCountInternal = Defaults.bufferedListSettings.defaultTakeRowCount;
-
-    @filter({
-        defaultValue: 0,
-        parameterName: Defaults.bufferedListSettings.skipRowCountParameterName,
-        parseFormatter: (): number => { return 0; }
-    } as IFilterConfig)
-    skip = 0;
-
     @filter({
         defaultValue: Defaults.bufferedListSettings.defaultTakeRowCount,
         parameterName: Defaults.bufferedListSettings.takeRowCountParameterName,
@@ -25,6 +16,15 @@ export abstract class BufferedList extends List {
             return Defaults.bufferedListSettings.defaultTakeRowCount;
         }
     } as IFilterConfig)
+    private takeRowCountInternal = Defaults.bufferedListSettings.defaultTakeRowCount;
+
+    @filter({
+        defaultValue: 0,
+        parameterName: Defaults.bufferedListSettings.skipRowCountParameterName,
+        parseFormatter: (): number => { return 0; }
+    } as IFilterConfig)
+    skip = 0;
+
     get takeRowCount(): number {
         return this.takeRowCountInternal;
     }
