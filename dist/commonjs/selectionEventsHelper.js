@@ -73,13 +73,7 @@ var SelectionEventsHelper = (function () {
                 break;
         }
     };
-    SelectionEventsHelper.prototype.mouseHandler = function (browserEvent, itemIndex, item) {
-        if (itemIndex === null || itemIndex === undefined) {
-            itemIndex = this.selectionConfig.selectionManager.getItemIndex(item);
-            if (itemIndex === -1) {
-                return;
-            }
-        }
+    SelectionEventsHelper.prototype.mouseHandler = function (browserEvent, itemIndex) {
         var isItemSelected = this.selectionConfig.selectionManager.isIndexSelected(itemIndex);
         if (isItemSelected === false || browserEvent.which === MouseButtons_1.MouseButtons.Left) {
             if (this.selectionConfig.toggleOnly) {

@@ -71,13 +71,7 @@ export class SelectionEventsHelper {
                 break;
         }
     }
-    mouseHandler(browserEvent: MouseEvent, itemIndex?: number, item?: ISelectable): void {
-        if (itemIndex === null || itemIndex === undefined) {
-            itemIndex = this.selectionConfig.selectionManager.getItemIndex(item);
-            if (itemIndex === -1) {
-                return;
-            }
-        }
+    mouseHandler(browserEvent: MouseEvent, itemIndex: number): void {
         const isItemSelected = this.selectionConfig.selectionManager.isIndexSelected(itemIndex);
         if (isItemSelected === false || browserEvent.which === MouseButtons.Left) {
             if (this.selectionConfig.toggleOnly) {

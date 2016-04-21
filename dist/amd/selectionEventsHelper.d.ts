@@ -1,4 +1,3 @@
-import { ISelectable } from './contracts/ISelectable';
 import { ISelectionConfig } from './contracts/ISelectionConfig';
 export declare class SelectionEventsHelper {
     selectionConfig: ISelectionConfig;
@@ -7,6 +6,6 @@ export declare class SelectionEventsHelper {
     onArrowUp(browserEvent: KeyboardEvent, allowMultipleSelection: boolean): void;
     onArrowDown(browserEvent: KeyboardEvent, allowMultipleSelection: boolean): void;
     keyboardHandler(browserEvent: KeyboardEvent, allowMultipleSelection: boolean): void;
-    mouseHandler(browserEvent: MouseEvent, itemIndex?: number, item?: ISelectable): void;
+    mouseHandler(browserEvent: MouseEvent, itemIndex: number): void;
     clearWindowSelection(): void;
 }
