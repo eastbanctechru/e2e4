@@ -1,7 +1,5 @@
 import {Defaults} from './common/defaults';
 import {Utility} from './common/utility';
-import {SelectionManager} from './selectionManager';
-import {ISelectable} from './contracts/ISelectable';
 import {FilterManager} from './filterManager';
 import {ProgressState} from './common/progressState';
 import {IStateManager} from './contracts/IStateManager';
@@ -9,7 +7,6 @@ import {IList} from './contracts/IList';
 import {ISortManager} from './contracts/ISortManager';
 import {SortManager} from './sortManager';
 import {IFilterManager} from './contracts/IFilterManager';
-import {ISelectionManager} from './contracts/ISelectionManager';
 
 export abstract class List implements IList {
     private listLoadDataSuccessCallback(result: Object): Object {
@@ -25,13 +22,10 @@ export abstract class List implements IList {
     private listLoadDataFailBinded: (error: Object) => void;
     private clearDataInternal(): void {
         this.totalCount = 0;
-        this.selectionManager.deselectAll();
         Utility.disposeAll(this.items);
     }
     constructor(stateManager: IStateManager) {
         this.stateManager = stateManager;
-        this.selectionManager = new SelectionManager();
-        this.selectionManager.itemsSource = <Array<ISelectable>>this.items;
         FilterManager.includeIn(this);
         SortManager.includeIn(this);
         this.filterManager.registerFilterTarget(this.sortManager);
@@ -62,7 +56,6 @@ export abstract class List implements IList {
         this.clearDataInternal();
         this.sortManager.dispose();
         this.filterManager.dispose();
-        this.selectionManager.dispose();
     }
     onSortChangesCompleted(): void {
         if (this.ready) {
@@ -128,7 +121,6 @@ export abstract class List implements IList {
         return this.stateManager.mergeStates(params);
     }
     ///IObjectWithState
-    selectionManager: ISelectionManager;
     filterManager: IFilterManager;
     sortManager: ISortManager;
     abstract getDataReadPromise(requestParams: any): Promise<Object>;

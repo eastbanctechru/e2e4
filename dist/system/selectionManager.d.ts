@@ -12,6 +12,7 @@ export declare class SelectionManager implements ISelectionManager {
     private selectItem(selectionTuple, savePrevious?, recursive?);
     private canRecurse(recursive, item);
     private getSelectionTuple(index);
+    private checkSelection();
     deselectAll(recursive?: boolean): void;
     selectAll(recursive?: boolean): void;
     selectRange(fromIndex: number, toIndex: number, recursive?: boolean): void;

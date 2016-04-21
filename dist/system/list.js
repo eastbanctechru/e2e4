@@ -1,7 +1,7 @@
-System.register(['./common/defaults', './common/utility', './selectionManager', './filterManager', './common/progressState', './sortManager'], function(exports_1, context_1) {
+System.register(['./common/defaults', './common/utility', './filterManager', './common/progressState', './sortManager'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var defaults_1, utility_1, selectionManager_1, filterManager_1, progressState_1, sortManager_1;
+    var defaults_1, utility_1, filterManager_1, progressState_1, sortManager_1;
     var List;
     return {
         setters:[
@@ -10,9 +10,6 @@ System.register(['./common/defaults', './common/utility', './selectionManager', 
             },
             function (utility_1_1) {
                 utility_1 = utility_1_1;
-            },
-            function (selectionManager_1_1) {
-                selectionManager_1 = selectionManager_1_1;
             },
             function (filterManager_1_1) {
                 filterManager_1 = filterManager_1_1;
@@ -37,8 +34,6 @@ System.register(['./common/defaults', './common/utility', './selectionManager', 
                     ///IObjectWithState
                     this.useModelState = true;
                     this.stateManager = stateManager;
-                    this.selectionManager = new selectionManager_1.SelectionManager();
-                    this.selectionManager.itemsSource = this.items;
                     filterManager_1.FilterManager.includeIn(this);
                     sortManager_1.SortManager.includeIn(this);
                     this.filterManager.registerFilterTarget(this.sortManager);
@@ -56,7 +51,6 @@ System.register(['./common/defaults', './common/utility', './selectionManager', 
                 };
                 List.prototype.clearDataInternal = function () {
                     this.totalCount = 0;
-                    this.selectionManager.deselectAll();
                     utility_1.Utility.disposeAll(this.items);
                 };
                 Object.defineProperty(List.prototype, "busy", {
@@ -85,7 +79,6 @@ System.register(['./common/defaults', './common/utility', './selectionManager', 
                     this.clearDataInternal();
                     this.sortManager.dispose();
                     this.filterManager.dispose();
-                    this.selectionManager.dispose();
                 };
                 List.prototype.onSortChangesCompleted = function () {
                     if (this.ready) {

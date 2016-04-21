@@ -14,6 +14,7 @@ var SelectionManager = (function () {
         },
         set: function (value) {
             this.items = value;
+            this.checkSelection();
         },
         enumerable: true,
         configurable: true
@@ -79,6 +80,14 @@ var SelectionManager = (function () {
             index: index,
             item: this.itemsSource[index]
         };
+    };
+    SelectionManager.prototype.checkSelection = function () {
+        for (var i = this.selectionsList.length - 1; i >= 0; i--) {
+            var tuple = this.selectionsList[i];
+            if (this.itemsSource[tuple.index] !== tuple.item) {
+                this.deselectItem(tuple);
+            }
+        }
     };
     SelectionManager.prototype.deselectAll = function (recursive) {
         if (recursive === void 0) { recursive = false; }

@@ -3,7 +3,6 @@ import { IStateManager } from './contracts/IStateManager';
 import { IList } from './contracts/IList';
 import { ISortManager } from './contracts/ISortManager';
 import { IFilterManager } from './contracts/IFilterManager';
-import { ISelectionManager } from './contracts/ISelectionManager';
 export declare abstract class List implements IList {
     private listLoadDataSuccessCallback(result);
     private listLoadDataFailCallback();
@@ -34,7 +33,6 @@ export declare abstract class List implements IList {
     saveRequestState(): void;
     saveLocalState(): void;
     private getRestoredState(params);
-    selectionManager: ISelectionManager;
     filterManager: IFilterManager;
     sortManager: ISortManager;
     abstract getDataReadPromise(requestParams: any): Promise<Object>;

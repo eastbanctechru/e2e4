@@ -89,7 +89,6 @@ export abstract class PagedList extends List {
     }
 
     loadData(): Promise<Object> {
-        this.selectionManager.deselectAll();
         const promise = super.loadData.call(this, ...Array.prototype.slice.call(arguments));
         Utility.disposeAll(this.items);
         promise.then(this.pagedLoadDataSuccessBinded);

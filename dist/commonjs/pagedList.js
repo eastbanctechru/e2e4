@@ -96,7 +96,6 @@ var PagedList = (function (_super) {
         configurable: true
     });
     PagedList.prototype.loadData = function () {
-        this.selectionManager.deselectAll();
         var promise = (_a = _super.prototype.loadData).call.apply(_a, [this].concat(Array.prototype.slice.call(arguments)));
         utility_1.Utility.disposeAll(this.items);
         promise.then(this.pagedLoadDataSuccessBinded);

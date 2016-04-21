@@ -1,7 +1,6 @@
 "use strict";
 var defaults_1 = require('./common/defaults');
 var utility_1 = require('./common/utility');
-var selectionManager_1 = require('./selectionManager');
 var filterManager_1 = require('./filterManager');
 var progressState_1 = require('./common/progressState');
 var sortManager_1 = require('./sortManager');
@@ -18,8 +17,6 @@ var List = (function () {
         ///IObjectWithState
         this.useModelState = true;
         this.stateManager = stateManager;
-        this.selectionManager = new selectionManager_1.SelectionManager();
-        this.selectionManager.itemsSource = this.items;
         filterManager_1.FilterManager.includeIn(this);
         sortManager_1.SortManager.includeIn(this);
         this.filterManager.registerFilterTarget(this.sortManager);
@@ -37,7 +34,6 @@ var List = (function () {
     };
     List.prototype.clearDataInternal = function () {
         this.totalCount = 0;
-        this.selectionManager.deselectAll();
         utility_1.Utility.disposeAll(this.items);
     };
     Object.defineProperty(List.prototype, "busy", {
@@ -66,7 +62,6 @@ var List = (function () {
         this.clearDataInternal();
         this.sortManager.dispose();
         this.filterManager.dispose();
-        this.selectionManager.dispose();
     };
     List.prototype.onSortChangesCompleted = function () {
         if (this.ready) {

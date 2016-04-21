@@ -17,6 +17,7 @@ export class SelectionManager implements ISelectionManager {
     }
     set itemsSource(value: Array<ISelectable>) {
         this.items = value;
+        this.checkSelection();
     }
     private processSelection(item: ISelectable, selected: boolean): void {
         item.selected = selected;
@@ -76,6 +77,14 @@ export class SelectionManager implements ISelectionManager {
             index: index,
             item: this.itemsSource[index]
         };
+    }
+    private checkSelection(): void {
+        for (let i = this.selectionsList.length - 1; i >= 0; i--) {
+            const tuple = this.selectionsList[i];
+            if (this.itemsSource[tuple.index] !== tuple.item) {
+                this.deselectItem(tuple);
+            }
+        }
     }
     deselectAll(recursive: boolean = false): void {
         const list = this.selectionsList.splice(0, this.selectionsList.length);
