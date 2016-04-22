@@ -1,6 +1,5 @@
 import { List } from './list';
 import { IStateManager } from './contracts/IStateManager';
-import { ISortManager } from './contracts/ISortManager';
 export declare abstract class PagedList extends List {
     private pageSizeInternal;
     private pageNumberInternal;
@@ -8,7 +7,7 @@ export declare abstract class PagedList extends List {
     private pagedLoadDataSuccessCallback(result);
     displayFrom: number;
     displayTo: number;
-    constructor(stateManager: IStateManager, sortManager: ISortManager);
+    constructor(stateManager: IStateManager);
     dispose(): void;
     pageCount: number;
     pageNumber: number;

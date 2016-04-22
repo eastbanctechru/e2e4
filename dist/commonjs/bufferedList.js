@@ -18,8 +18,8 @@ var defaults_1 = require('./common/defaults');
 var filterAnnotation_1 = require('./filterAnnotation');
 var BufferedList = (function (_super) {
     __extends(BufferedList, _super);
-    function BufferedList(stateManager, sortManager) {
-        _super.call(this, stateManager, sortManager);
+    function BufferedList(stateManager) {
+        _super.call(this, stateManager);
         this.takeRowCountInternal = defaults_1.Defaults.bufferedListSettings.defaultTakeRowCount;
         this.skip = 0;
         this.bufferedLoadDataSuccessBinded = this.bufferedLoadDataSuccess.bind(this);

@@ -19,7 +19,7 @@ System.register(['./common/defaults', './common/utility', './filterManager', './
             }],
         execute: function() {
             List = (function () {
-                function List(stateManager, sortManager) {
+                function List(stateManager) {
                     this.disposed = false;
                     this.inited = false;
                     this.state = null;
@@ -31,9 +31,7 @@ System.register(['./common/defaults', './common/utility', './filterManager', './
                     ///IObjectWithState
                     this.useModelState = true;
                     this.stateManager = stateManager;
-                    this.sortManager = sortManager;
                     filterManager_1.FilterManager.includeIn(this);
-                    this.filterManager.registerFilterTarget(this.sortManager);
                     this.listLoadDataSuccessBinded = this.listLoadDataSuccessCallback.bind(this);
                     this.listLoadDataFailBinded = this.listLoadDataFailCallback.bind(this);
                 }
@@ -74,7 +72,6 @@ System.register(['./common/defaults', './common/utility', './filterManager', './
                     delete this.listLoadDataSuccessBinded;
                     delete this.listLoadDataFailBinded;
                     this.clearDataInternal();
-                    this.sortManager.dispose();
                     this.filterManager.dispose();
                 };
                 List.prototype.onSortChangesCompleted = function () {

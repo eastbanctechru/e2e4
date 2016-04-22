@@ -34,8 +34,8 @@ System.register(['./list', './common/utility', './common/defaults', './filterAnn
         execute: function() {
             PagedList = (function (_super) {
                 __extends(PagedList, _super);
-                function PagedList(stateManager, sortManager) {
-                    _super.call(this, stateManager, sortManager);
+                function PagedList(stateManager) {
+                    _super.call(this, stateManager);
                     this.pageSizeInternal = defaults_1.Defaults.pagedListSettings.defaultPageSize;
                     this.pageNumberInternal = 1;
                     this.displayFrom = 1;

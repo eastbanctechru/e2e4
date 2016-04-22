@@ -4,7 +4,7 @@ var utility_1 = require('./common/utility');
 var filterManager_1 = require('./filterManager');
 var progressState_1 = require('./common/progressState');
 var List = (function () {
-    function List(stateManager, sortManager) {
+    function List(stateManager) {
         this.disposed = false;
         this.inited = false;
         this.state = null;
@@ -16,9 +16,7 @@ var List = (function () {
         ///IObjectWithState
         this.useModelState = true;
         this.stateManager = stateManager;
-        this.sortManager = sortManager;
         filterManager_1.FilterManager.includeIn(this);
-        this.filterManager.registerFilterTarget(this.sortManager);
         this.listLoadDataSuccessBinded = this.listLoadDataSuccessCallback.bind(this);
         this.listLoadDataFailBinded = this.listLoadDataFailCallback.bind(this);
     }
@@ -59,7 +57,6 @@ var List = (function () {
         delete this.listLoadDataSuccessBinded;
         delete this.listLoadDataFailBinded;
         this.clearDataInternal();
-        this.sortManager.dispose();
         this.filterManager.dispose();
     };
     List.prototype.onSortChangesCompleted = function () {

@@ -1,7 +1,6 @@
 import { ProgressState } from './common/progressState';
 import { IStateManager } from './contracts/IStateManager';
 import { IList } from './contracts/IList';
-import { ISortManager } from './contracts/ISortManager';
 import { IFilterManager } from './contracts/IFilterManager';
 export declare abstract class List implements IList {
     private listLoadDataSuccessCallback(result);
@@ -9,7 +8,7 @@ export declare abstract class List implements IList {
     private listLoadDataSuccessBinded;
     private listLoadDataFailBinded;
     private clearDataInternal();
-    constructor(stateManager: IStateManager, sortManager: ISortManager);
+    constructor(stateManager: IStateManager);
     disposed: boolean;
     inited: boolean;
     state: ProgressState;
@@ -34,6 +33,5 @@ export declare abstract class List implements IList {
     saveLocalState(): void;
     private getRestoredState(params);
     filterManager: IFilterManager;
-    sortManager: ISortManager;
     abstract getDataReadPromise(requestParams: any): Promise<Object>;
 }

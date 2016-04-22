@@ -4,7 +4,6 @@ import {FilterManager} from './filterManager';
 import {ProgressState} from './common/progressState';
 import {IStateManager} from './contracts/IStateManager';
 import {IList} from './contracts/IList';
-import {ISortManager} from './contracts/ISortManager';
 import {IFilterManager} from './contracts/IFilterManager';
 
 export abstract class List implements IList {
@@ -23,11 +22,9 @@ export abstract class List implements IList {
         this.totalCount = 0;
         Utility.disposeAll(this.items);
     }
-    constructor(stateManager: IStateManager, sortManager: ISortManager) {
+    constructor(stateManager: IStateManager) {
         this.stateManager = stateManager;
-        this.sortManager = sortManager;
         FilterManager.includeIn(this);
-        this.filterManager.registerFilterTarget(this.sortManager);
         this.listLoadDataSuccessBinded = this.listLoadDataSuccessCallback.bind(this);
         this.listLoadDataFailBinded = this.listLoadDataFailCallback.bind(this);
     }
@@ -53,7 +50,6 @@ export abstract class List implements IList {
         delete this.listLoadDataSuccessBinded;
         delete this.listLoadDataFailBinded;
         this.clearDataInternal();
-        this.sortManager.dispose();
         this.filterManager.dispose();
     }
     onSortChangesCompleted(): void {
@@ -121,6 +117,5 @@ export abstract class List implements IList {
     }
     ///IObjectWithState
     filterManager: IFilterManager;
-    sortManager: ISortManager;
     abstract getDataReadPromise(requestParams: any): Promise<Object>;
 }
