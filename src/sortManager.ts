@@ -6,9 +6,6 @@ import {filter} from './filterAnnotation';
 import * as _ from 'lodash';
 
 export class SortManager implements ISortManager {
-    static includeIn(target: any): void {
-        target.sortManager = new SortManager();
-    }
     @filter({
         defaultValue: function(): Array<SortParameter> { return this.defaultSortings ? _.cloneDeep(this.defaultSortings) : []; },
         parameterName: Defaults.listSettings.sortParameterName,

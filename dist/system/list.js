@@ -1,7 +1,7 @@
-System.register(['./common/defaults', './common/utility', './filterManager', './common/progressState', './sortManager'], function(exports_1, context_1) {
+System.register(['./common/defaults', './common/utility', './filterManager', './common/progressState'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var defaults_1, utility_1, filterManager_1, progressState_1, sortManager_1;
+    var defaults_1, utility_1, filterManager_1, progressState_1;
     var List;
     return {
         setters:[
@@ -16,13 +16,10 @@ System.register(['./common/defaults', './common/utility', './filterManager', './
             },
             function (progressState_1_1) {
                 progressState_1 = progressState_1_1;
-            },
-            function (sortManager_1_1) {
-                sortManager_1 = sortManager_1_1;
             }],
         execute: function() {
             List = (function () {
-                function List(stateManager) {
+                function List(stateManager, sortManager) {
                     this.disposed = false;
                     this.inited = false;
                     this.state = null;
@@ -34,8 +31,8 @@ System.register(['./common/defaults', './common/utility', './filterManager', './
                     ///IObjectWithState
                     this.useModelState = true;
                     this.stateManager = stateManager;
+                    this.sortManager = sortManager;
                     filterManager_1.FilterManager.includeIn(this);
-                    sortManager_1.SortManager.includeIn(this);
                     this.filterManager.registerFilterTarget(this.sortManager);
                     this.listLoadDataSuccessBinded = this.listLoadDataSuccessCallback.bind(this);
                     this.listLoadDataFailBinded = this.listLoadDataFailCallback.bind(this);

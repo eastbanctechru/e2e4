@@ -3,6 +3,7 @@ import {IStateManager} from './contracts/IStateManager';
 import {Defaults} from './common/defaults';
 import {filter} from './filterAnnotation';
 import {IFilterConfig} from './contracts/IFilterConfig';
+import {ISortManager} from './contracts/ISortManager';
 
 export abstract class BufferedList extends List {
     private bufferedLoadDataSuccessBinded: (result: Object) => Object;
@@ -46,8 +47,8 @@ export abstract class BufferedList extends List {
         this.takeRowCountInternal = rowCount;
     }
 
-    constructor(stateManager: IStateManager) {
-        super(stateManager);
+    constructor(stateManager: IStateManager, sortManager: ISortManager) {
+        super(stateManager, sortManager);
         this.bufferedLoadDataSuccessBinded = this.bufferedLoadDataSuccess.bind(this);
     }
 

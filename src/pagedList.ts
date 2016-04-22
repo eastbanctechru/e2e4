@@ -4,6 +4,7 @@ import {Defaults} from './common/defaults';
 import {filter} from './filterAnnotation';
 import {IFilterConfig} from './contracts/IFilterConfig';
 import {IStateManager} from './contracts/IStateManager';
+import {ISortManager} from './contracts/ISortManager';
 
 export abstract class PagedList extends List {
     @filter({
@@ -28,8 +29,8 @@ export abstract class PagedList extends List {
     displayFrom = 1;
     displayTo = 1;
 
-    constructor(stateManager: IStateManager) {
-        super(stateManager);
+    constructor(stateManager: IStateManager, sortManager: ISortManager) {
+        super(stateManager, sortManager);
         this.pagedLoadDataSuccessBinded = this.pagedLoadDataSuccessCallback.bind(this);
     }
 

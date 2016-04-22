@@ -31,8 +31,8 @@ System.register(['./list', './common/defaults', './filterAnnotation'], function(
         execute: function() {
             BufferedList = (function (_super) {
                 __extends(BufferedList, _super);
-                function BufferedList(stateManager) {
-                    _super.call(this, stateManager);
+                function BufferedList(stateManager, sortManager) {
+                    _super.call(this, stateManager, sortManager);
                     this.takeRowCountInternal = defaults_1.Defaults.bufferedListSettings.defaultTakeRowCount;
                     this.skip = 0;
                     this.bufferedLoadDataSuccessBinded = this.bufferedLoadDataSuccess.bind(this);

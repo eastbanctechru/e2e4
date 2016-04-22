@@ -9,7 +9,7 @@ export declare abstract class List implements IList {
     private listLoadDataSuccessBinded;
     private listLoadDataFailBinded;
     private clearDataInternal();
-    constructor(stateManager: IStateManager);
+    constructor(stateManager: IStateManager, sortManager: ISortManager);
     disposed: boolean;
     inited: boolean;
     state: ProgressState;

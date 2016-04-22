@@ -1,24 +1,25 @@
 import { expect, assert } from 'chai';
 
-import { IObjectWithSort } from '../src/contracts/IObjectWithSort';
+import { ISortManager } from '../src/contracts/ISortManager';
 import { SortParameter } from '../src/common/sortParameter';
 import { SortDirection } from '../src/common/sortDirection';
 import { SortManager } from '../src/sortManager';
 
-interface ISortableObject extends IObjectWithSort {
+interface ISortableObject {
+    sortManager: ISortManager;
 }
 
 class SortableObject implements ISortableObject {
     sortManager = null;
     constructor () {
-        SortManager.includeIn(this);
+        this.sortManager = new SortManager();
     }
 }
 
 class ObjectWithDefaultSortings implements ISortableObject {
     sortManager = null;
     constructor () {
-        SortManager.includeIn(this);
+        this.sortManager = new SortManager();
         this.sortManager.defaultSortings = [{
             direction: SortDirection.Asc,
             fieldName: 'id'

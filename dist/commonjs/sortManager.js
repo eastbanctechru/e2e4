@@ -17,9 +17,6 @@ var SortManager = (function () {
         this.sortings = new Array();
         this.defaultSortingsPrivate = null;
     }
-    SortManager.includeIn = function (target) {
-        target.sortManager = new SortManager();
-    };
     Object.defineProperty(SortManager.prototype, "defaultSortings", {
         get: function () {
             return this.defaultSortingsPrivate;

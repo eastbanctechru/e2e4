@@ -3,9 +3,8 @@ var defaults_1 = require('./common/defaults');
 var utility_1 = require('./common/utility');
 var filterManager_1 = require('./filterManager');
 var progressState_1 = require('./common/progressState');
-var sortManager_1 = require('./sortManager');
 var List = (function () {
-    function List(stateManager) {
+    function List(stateManager, sortManager) {
         this.disposed = false;
         this.inited = false;
         this.state = null;
@@ -17,8 +16,8 @@ var List = (function () {
         ///IObjectWithState
         this.useModelState = true;
         this.stateManager = stateManager;
+        this.sortManager = sortManager;
         filterManager_1.FilterManager.includeIn(this);
-        sortManager_1.SortManager.includeIn(this);
         this.filterManager.registerFilterTarget(this.sortManager);
         this.listLoadDataSuccessBinded = this.listLoadDataSuccessCallback.bind(this);
         this.listLoadDataFailBinded = this.listLoadDataFailCallback.bind(this);
