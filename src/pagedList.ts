@@ -1,11 +1,11 @@
-import {List} from './list';
+import {SimpleList} from './simpleList';
 import {Utility} from './common/utility';
 import {Defaults} from './common/defaults';
 import {filter} from './filterAnnotation';
 import {IFilterConfig} from './contracts/IFilterConfig';
 import {IStateManager} from './contracts/IStateManager';
 
-export abstract class PagedList extends List {
+export abstract class PagedList extends SimpleList {
     @filter({
         defaultValue: Defaults.pagedListSettings.defaultPageSize,
         parameterName: Defaults.pagedListSettings.pageSizeParameterName,

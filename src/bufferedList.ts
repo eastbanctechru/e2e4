@@ -1,10 +1,10 @@
-import {List} from './list';
+import {SimpleList} from './simpleList';
 import {IStateManager} from './contracts/IStateManager';
 import {Defaults} from './common/defaults';
 import {filter} from './filterAnnotation';
 import {IFilterConfig} from './contracts/IFilterConfig';
 
-export abstract class BufferedList extends List {
+export abstract class BufferedList extends SimpleList {
     private bufferedLoadDataSuccessBinded: (result: Object) => Object;
     @filter({
         defaultValue: Defaults.bufferedListSettings.defaultTakeRowCount,

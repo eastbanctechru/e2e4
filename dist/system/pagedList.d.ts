@@ -1,6 +1,6 @@
-import { List } from './list';
+import { SimpleList } from './simpleList';
 import { IStateManager } from './contracts/IStateManager';
-export declare abstract class PagedList extends List {
+export declare abstract class PagedList extends SimpleList {
     private pageSizeInternal;
     private pageNumberInternal;
     private pagedLoadDataSuccessBinded;

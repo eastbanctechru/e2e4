@@ -2,7 +2,7 @@ import { ProgressState } from './common/progressState';
 import { IStateManager } from './contracts/IStateManager';
 import { IList } from './contracts/IList';
 import { IFilterManager } from './contracts/IFilterManager';
-export declare abstract class List implements IList {
+export declare abstract class SimpleList implements IList {
     private listLoadDataSuccessCallback(result);
     private listLoadDataFailCallback();
     private listLoadDataSuccessBinded;

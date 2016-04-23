@@ -1,4 +1,4 @@
-System.register(['./list', './common/utility', './common/defaults', './filterAnnotation'], function(exports_1, context_1) {
+System.register(['./simpleList', './common/utility', './common/defaults', './filterAnnotation'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -15,12 +15,12 @@ System.register(['./list', './common/utility', './common/defaults', './filterAnn
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var list_1, utility_1, defaults_1, filterAnnotation_1;
+    var simpleList_1, utility_1, defaults_1, filterAnnotation_1;
     var PagedList;
     return {
         setters:[
-            function (list_1_1) {
-                list_1 = list_1_1;
+            function (simpleList_1_1) {
+                simpleList_1 = simpleList_1_1;
             },
             function (utility_1_1) {
                 utility_1 = utility_1_1;
@@ -154,7 +154,7 @@ System.register(['./list', './common/utility', './common/defaults', './filterAnn
                     __metadata('design:type', Object)
                 ], PagedList.prototype, "pageNumberInternal", void 0);
                 return PagedList;
-            }(list_1.List));
+            }(simpleList_1.SimpleList));
             exports_1("PagedList", PagedList);
         }
     }

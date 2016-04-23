@@ -6,7 +6,7 @@ import {IStateManager} from './contracts/IStateManager';
 import {IList} from './contracts/IList';
 import {IFilterManager} from './contracts/IFilterManager';
 
-export abstract class List implements IList {
+export abstract class SimpleList implements IList {
     private listLoadDataSuccessCallback(result: Object): Object {
         this.loadedCount = result[Defaults.listSettings.loadedCountParameterName];
         this.totalCount = result[Defaults.listSettings.totalCountParameterName] || 0;

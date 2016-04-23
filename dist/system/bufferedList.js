@@ -1,4 +1,4 @@
-System.register(['./list', './common/defaults', './filterAnnotation'], function(exports_1, context_1) {
+System.register(['./simpleList', './common/defaults', './filterAnnotation'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -15,12 +15,12 @@ System.register(['./list', './common/defaults', './filterAnnotation'], function(
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var list_1, defaults_1, filterAnnotation_1;
+    var simpleList_1, defaults_1, filterAnnotation_1;
     var BufferedList;
     return {
         setters:[
-            function (list_1_1) {
-                list_1 = list_1_1;
+            function (simpleList_1_1) {
+                simpleList_1 = simpleList_1_1;
             },
             function (defaults_1_1) {
                 defaults_1 = defaults_1_1;
@@ -107,7 +107,7 @@ System.register(['./list', './common/defaults', './filterAnnotation'], function(
                     __metadata('design:type', Object)
                 ], BufferedList.prototype, "skip", void 0);
                 return BufferedList;
-            }(list_1.List));
+            }(simpleList_1.SimpleList));
             exports_1("BufferedList", BufferedList);
         }
     }

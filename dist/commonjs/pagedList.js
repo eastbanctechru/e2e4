@@ -13,7 +13,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var list_1 = require('./list');
+var simpleList_1 = require('./simpleList');
 var utility_1 = require('./common/utility');
 var defaults_1 = require('./common/defaults');
 var filterAnnotation_1 = require('./filterAnnotation');
@@ -139,5 +139,5 @@ var PagedList = (function (_super) {
         __metadata('design:type', Object)
     ], PagedList.prototype, "pageNumberInternal", void 0);
     return PagedList;
-}(list_1.List));
+}(simpleList_1.SimpleList));
 exports.PagedList = PagedList;
