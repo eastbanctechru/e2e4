@@ -22,7 +22,7 @@ System.register(['./common/defaults', './common/utility', './filterManager', './
                 function SimpleList(stateManager) {
                     this.disposed = false;
                     this.inited = false;
-                    this.state = null;
+                    this.state = progressState_1.ProgressState.Initial;
                     ///IList
                     this.items = [];
                     this.totalCount = 0;
