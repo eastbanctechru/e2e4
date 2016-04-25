@@ -30,7 +30,7 @@ export abstract class SimpleList implements IList {
     }
     disposed = false;
     inited = false;
-    state: ProgressState = null;
+    state: ProgressState = ProgressState.Initial;
 
     get busy(): boolean {
         return this.state === ProgressState.Progress;
