@@ -26,7 +26,7 @@
             });
         }
     }
-    formatString(format: string, ...args: string[]) {
+    static formatString(format: string, ...args: any[]): string {
         let s = arguments[0];
         for (let i = 0; i < arguments.length - 1; i++) {
             let reg = new RegExp('\\{' + i + '\\}', 'gm');

@@ -1,4 +1,4 @@
 export declare class Utility {
     static disposeAll(collection: any[], async?: boolean): void;
-    formatString(format: string, ...args: string[]): any;
+    static formatString(format: string, ...args: any[]): string;
 }

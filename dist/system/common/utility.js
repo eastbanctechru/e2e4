@@ -35,7 +35,7 @@ System.register([], function(exports_1, context_1) {
                         });
                     }
                 };
-                Utility.prototype.formatString = function (format) {
+                Utility.formatString = function (format) {
                     var args = [];
                     for (var _i = 1; _i < arguments.length; _i++) {
                         args[_i - 1] = arguments[_i];
