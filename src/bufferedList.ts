@@ -6,6 +6,15 @@ import {IFilterConfig} from './contracts/IFilterConfig';
 
 export abstract class BufferedList extends SimpleList {
     private bufferedLoadDataSuccessBinded: (result: Object) => Object;
+    private takeRowCountInternal = Defaults.bufferedListSettings.defaultTakeRowCount;
+
+    @filter({
+        defaultValue: 0,
+        parameterName: Defaults.bufferedListSettings.skipRowCountParameterName,
+        parseFormatter: (): number => { return 0; }
+    } as IFilterConfig)
+    skip = 0;
+
     @filter({
         defaultValue: Defaults.bufferedListSettings.defaultTakeRowCount,
         parameterName: Defaults.bufferedListSettings.takeRowCountParameterName,
@@ -16,15 +25,6 @@ export abstract class BufferedList extends SimpleList {
             return Defaults.bufferedListSettings.defaultTakeRowCount;
         }
     } as IFilterConfig)
-    private takeRowCountInternal = Defaults.bufferedListSettings.defaultTakeRowCount;
-
-    @filter({
-        defaultValue: 0,
-        parameterName: Defaults.bufferedListSettings.skipRowCountParameterName,
-        parseFormatter: (): number => { return 0; }
-    } as IFilterConfig)
-    skip = 0;
-
     get takeRowCount(): number {
         return this.takeRowCountInternal;
     }
@@ -66,7 +66,11 @@ export abstract class BufferedList extends SimpleList {
         }
         return result;
     }
-
+    clearData(): void {
+        super.clearData();
+        this.skip = 0;
+        this.takeRowCount = Defaults.bufferedListSettings.defaultTakeRowCount;
+    }
     loadData(): Promise<Object> {
         const promise = super.loadData.call(this, ...Array.prototype.slice.call(arguments));
         promise.then(this.bufferedLoadDataSuccessBinded);
