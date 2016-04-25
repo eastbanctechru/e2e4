@@ -74,6 +74,11 @@ System.register(['./simpleList', './common/defaults', './filterAnnotation'], fun
                     }
                     return result;
                 };
+                BufferedList.prototype.clearData = function () {
+                    _super.prototype.clearData.call(this);
+                    this.skip = 0;
+                    this.takeRowCount = defaults_1.Defaults.bufferedListSettings.defaultTakeRowCount;
+                };
                 BufferedList.prototype.loadData = function () {
                     var promise = (_a = _super.prototype.loadData).call.apply(_a, [this].concat(Array.prototype.slice.call(arguments)));
                     promise.then(this.bufferedLoadDataSuccessBinded);
@@ -87,6 +92,14 @@ System.register(['./simpleList', './common/defaults', './filterAnnotation'], fun
                 };
                 __decorate([
                     filterAnnotation_1.filter({
+                        defaultValue: 0,
+                        parameterName: defaults_1.Defaults.bufferedListSettings.skipRowCountParameterName,
+                        parseFormatter: function () { return 0; }
+                    }), 
+                    __metadata('design:type', Object)
+                ], BufferedList.prototype, "skip", void 0);
+                __decorate([
+                    filterAnnotation_1.filter({
                         defaultValue: defaults_1.Defaults.bufferedListSettings.defaultTakeRowCount,
                         parameterName: defaults_1.Defaults.bufferedListSettings.takeRowCountParameterName,
                         parseFormatter: function (proposedParam, allParams) {
@@ -96,16 +109,8 @@ System.register(['./simpleList', './common/defaults', './filterAnnotation'], fun
                             return defaults_1.Defaults.bufferedListSettings.defaultTakeRowCount;
                         }
                     }), 
-                    __metadata('design:type', Object)
-                ], BufferedList.prototype, "takeRowCountInternal", void 0);
-                __decorate([
-                    filterAnnotation_1.filter({
-                        defaultValue: 0,
-                        parameterName: defaults_1.Defaults.bufferedListSettings.skipRowCountParameterName,
-                        parseFormatter: function () { return 0; }
-                    }), 
-                    __metadata('design:type', Object)
-                ], BufferedList.prototype, "skip", void 0);
+                    __metadata('design:type', Number)
+                ], BufferedList.prototype, "takeRowCount", null);
                 return BufferedList;
             }(simpleList_1.SimpleList));
             exports_1("BufferedList", BufferedList);

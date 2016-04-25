@@ -117,6 +117,11 @@ System.register(['./simpleList', './common/utility', './common/defaults', './fil
                     return promise;
                     var _a;
                 };
+                PagedList.prototype.clearData = function () {
+                    _super.prototype.clearData.call(this);
+                    this.pageNumber = 1;
+                    this.pageSize = defaults_1.Defaults.pagedListSettings.defaultPageSize;
+                };
                 PagedList.prototype.goToFirstPage = function () {
                     if (this.pageNumber > 1) {
                         this.pageNumber = 1;
@@ -142,17 +147,17 @@ System.register(['./simpleList', './common/utility', './common/defaults', './fil
                     }
                 };
                 __decorate([
+                    filterAnnotation_1.filter({ defaultValue: 1, parameterName: defaults_1.Defaults.pagedListSettings.pageNumberParameterName }), 
+                    __metadata('design:type', Number)
+                ], PagedList.prototype, "pageNumber", null);
+                __decorate([
                     filterAnnotation_1.filter({
                         defaultValue: defaults_1.Defaults.pagedListSettings.defaultPageSize,
                         parameterName: defaults_1.Defaults.pagedListSettings.pageSizeParameterName,
                         persisted: defaults_1.Defaults.pagedListSettings.persistPageSize
                     }), 
-                    __metadata('design:type', Object)
-                ], PagedList.prototype, "pageSizeInternal", void 0);
-                __decorate([
-                    filterAnnotation_1.filter({ defaultValue: 1, parameterName: defaults_1.Defaults.pagedListSettings.pageNumberParameterName }), 
-                    __metadata('design:type', Object)
-                ], PagedList.prototype, "pageNumberInternal", void 0);
+                    __metadata('design:type', Number)
+                ], PagedList.prototype, "pageSize", null);
                 return PagedList;
             }(simpleList_1.SimpleList));
             exports_1("PagedList", PagedList);

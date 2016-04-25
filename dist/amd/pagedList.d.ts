@@ -13,6 +13,7 @@ export declare abstract class PagedList extends SimpleList {
     pageNumber: number;
     pageSize: number;
     loadData(): Promise<Object>;
+    clearData(): void;
     goToFirstPage(): void;
     goToPreviousPage(): void;
     goToNextPage(): void;

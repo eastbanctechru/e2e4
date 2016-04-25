@@ -8,6 +8,7 @@ export declare abstract class BufferedList extends SimpleList {
     constructor(stateManager: IStateManager);
     dispose(): void;
     bufferedLoadDataSuccess(result: Object): Object;
+    clearData(): void;
     loadData(): Promise<Object>;
     onSortChangesCompleted(): void;
 }
