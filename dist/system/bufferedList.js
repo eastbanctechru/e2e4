@@ -1,4 +1,4 @@
-System.register(['./simpleList', './bufferedPager'], function(exports_1, context_1) {
+System.register(['./simpleList'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -6,21 +6,18 @@ System.register(['./simpleList', './bufferedPager'], function(exports_1, context
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
-    var simpleList_1, bufferedPager_1;
+    var simpleList_1;
     var BufferedList;
     return {
         setters:[
             function (simpleList_1_1) {
                 simpleList_1 = simpleList_1_1;
-            },
-            function (bufferedPager_1_1) {
-                bufferedPager_1 = bufferedPager_1_1;
             }],
         execute: function() {
             BufferedList = (function (_super) {
                 __extends(BufferedList, _super);
-                function BufferedList(stateManager) {
-                    _super.call(this, stateManager, new bufferedPager_1.BufferedPager());
+                function BufferedList(stateManager, pager) {
+                    _super.call(this, stateManager, pager);
                 }
                 return BufferedList;
             }(simpleList_1.SimpleList));

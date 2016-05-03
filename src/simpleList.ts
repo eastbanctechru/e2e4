@@ -23,7 +23,7 @@ export abstract class SimpleList implements IList {
     private listLoadDataSuccessBinded: (result: Object) => Object;
     private listLoadDataFailBinded: (error: Object) => void;
     private clearDataInternal(): void {
-        this.pager.totalCount = 0;
+        this.pager.reset();
         Utility.disposeAll(this.items);
     }
     constructor(stateManager: IStateManager, pager: IPager) {

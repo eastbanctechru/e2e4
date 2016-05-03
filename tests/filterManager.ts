@@ -5,6 +5,7 @@ import { filter } from '../src/filterAnnotation';
 
 interface IFilterableObject {
     items: IItem[];
+    filterManager: FilterManager;
 }
 
 interface IItem {

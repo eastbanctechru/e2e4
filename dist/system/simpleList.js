@@ -48,7 +48,7 @@ System.register(['./common/defaults', './common/utility', './filterManager', './
                     this.state = progressState_1.ProgressState.Fail;
                 };
                 SimpleList.prototype.clearDataInternal = function () {
-                    this.pager.totalCount = 0;
+                    this.pager.reset();
                     utility_1.Utility.disposeAll(this.items);
                 };
                 Object.defineProperty(SimpleList.prototype, "busy", {

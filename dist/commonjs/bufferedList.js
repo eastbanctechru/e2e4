@@ -5,11 +5,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var simpleList_1 = require('./simpleList');
-var bufferedPager_1 = require('./bufferedPager');
 var BufferedList = (function (_super) {
     __extends(BufferedList, _super);
-    function BufferedList(stateManager) {
-        _super.call(this, stateManager, new bufferedPager_1.BufferedPager());
+    function BufferedList(stateManager, pager) {
+        _super.call(this, stateManager, pager);
     }
     return BufferedList;
 }(simpleList_1.SimpleList));
