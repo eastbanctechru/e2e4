@@ -1,7 +1,6 @@
 import * as _ from 'lodash';
 import {FilterConfig} from './filterConfig';
 import {IFilterManager} from './contracts/IFilterManager';
-import {IObjectWithFilter} from './contracts/IObjectWithFilter';
 
 export class FilterManager implements IFilterManager {
     static coerceTypes = { 'true': !0, 'false': !1, 'null': null };
@@ -10,9 +9,6 @@ export class FilterManager implements IFilterManager {
         const typeConfigs = FilterManager.filterPropertiesMap.has(targetType) ? FilterManager.filterPropertiesMap.get(targetType) : new Array<FilterConfig>();
         typeConfigs.push(propertyConfig);
         FilterManager.filterPropertiesMap.set(targetType, typeConfigs);
-    }
-    static includeIn(target: IObjectWithFilter): void {
-        target.filterManager = new FilterManager(target);
     }
     static coerceValue(/* tslint:disable:no-any */value: any/* tslint:enable:no-any */): Object {
         if (typeof value === 'object' || Array.isArray(value)) {

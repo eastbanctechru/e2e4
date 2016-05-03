@@ -14,12 +14,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var simpleList_1 = require('./simpleList');
+var bufferedPager_1 = require('./bufferedPager');
 var defaults_1 = require('./common/defaults');
 var filterAnnotation_1 = require('./filterAnnotation');
 var BufferedList = (function (_super) {
     __extends(BufferedList, _super);
     function BufferedList(stateManager) {
-        _super.call(this, stateManager);
+        _super.call(this, stateManager, new bufferedPager_1.BufferedPager());
         this.takeRowCountInternal = defaults_1.Defaults.bufferedListSettings.defaultTakeRowCount;
         this.skip = 0;
         this.bufferedLoadDataSuccessBinded = this.bufferedLoadDataSuccess.bind(this);

@@ -1,4 +1,5 @@
 import {SimpleList} from './simpleList';
+import {PagedPager} from './pagedPager';
 import {Utility} from './common/utility';
 import {Defaults} from './common/defaults';
 import {filter} from './filterAnnotation';
@@ -21,7 +22,7 @@ export abstract class PagedList extends SimpleList {
     displayTo = 1;
 
     constructor(stateManager: IStateManager) {
-        super(stateManager);
+        super(stateManager, new PagedPager());
         this.pagedLoadDataSuccessBinded = this.pagedLoadDataSuccessCallback.bind(this);
     }
 

@@ -39,13 +39,6 @@ const savePrevious = true;
 const doNotSavePrevious = false;
 
 describe('FilterManager', () => {
-    it('injects in target object', () => {
-        const target = toTarget();
-        const {sortManager} = target;
-        assert.isDefined(sortManager);
-        assert.isNotNull(sortManager);
-    });
-
     it('can have default sorting', () => {
         const target = toTargetWithDefault();
         const {sortManager} = target;

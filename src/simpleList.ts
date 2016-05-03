@@ -3,6 +3,7 @@ import {Utility} from './common/utility';
 import {FilterManager} from './filterManager';
 import {ProgressState} from './common/progressState';
 import {IStateManager} from './contracts/IStateManager';
+import {IPager} from './contracts/IPager';
 import {IList} from './contracts/IList';
 import {IFilterManager} from './contracts/IFilterManager';
 
@@ -22,9 +23,10 @@ export abstract class SimpleList implements IList {
         this.totalCount = 0;
         Utility.disposeAll(this.items);
     }
-    constructor(stateManager: IStateManager) {
+    constructor(stateManager: IStateManager, pager: IPager) {
         this.stateManager = stateManager;
-        FilterManager.includeIn(this);
+        this.pager = pager;
+        this.filterManager = new FilterManager(this);
         this.listLoadDataSuccessBinded = this.listLoadDataSuccessCallback.bind(this);
         this.listLoadDataFailBinded = this.listLoadDataFailCallback.bind(this);
     }
@@ -117,5 +119,6 @@ export abstract class SimpleList implements IList {
     }
     ///IObjectWithState
     filterManager: IFilterManager;
+    pager: IPager;
     abstract getDataReadPromise(requestParams: any): Promise<Object>;
 }

@@ -1,0 +1,7 @@
+export class PagedPager {
+    reset() {
+        throw new Error('Not implemented yet');
+    }
+}
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBhZ2VkUGFnZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0E7SUFDSSxLQUFLO1FBQ0QsTUFBTSxJQUFJLEtBQUssQ0FBQyxxQkFBcUIsQ0FBQyxDQUFDO0lBQzNDLENBQUM7QUFDTCxDQUFDO0FBQUEiLCJmaWxlIjoicGFnZWRQYWdlci5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7SVBhZ2VyfSBmcm9tICcuL2NvbnRyYWN0cy9JUGFnZXInO1xyXG5leHBvcnQgY2xhc3MgUGFnZWRQYWdlciBpbXBsZW1lbnRzIElQYWdlciB7XHJcbiAgICByZXNldCgpOiB2b2lkIHtcclxuICAgICAgICB0aHJvdyBuZXcgRXJyb3IoJ05vdCBpbXBsZW1lbnRlZCB5ZXQnKTtcclxuICAgIH1cclxufVxyXG4iXSwic291cmNlUm9vdCI6Ii9zb3VyY2UvIn0=

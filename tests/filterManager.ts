@@ -1,11 +1,9 @@
 import { expect, assert } from 'chai';
 
-import { IObjectWithFilter } from '../src/contracts/IObjectWithFilter';
-
 import { FilterManager } from '../src/filterManager';
 import { filter } from '../src/filterAnnotation';
 
-interface IFilterableObject extends IObjectWithFilter {
+interface IFilterableObject {
     items: IItem[];
 }
 
@@ -28,17 +26,10 @@ function toTarget(): IFilterableObject {
 }
 
 describe('FilterManager', () => {
-    it('injects in target object', () => {
-        const target = toTarget();
-        FilterManager.includeIn(target);
-        assert.isDefined(target.filterManager);
-        assert.isNotNull(target.filterManager);
-    });
-
     it('builds filter value for target object', () => {
         const target = toTarget();
 
-        FilterManager.includeIn(target);
+        target.filterManager = new FilterManager(target);
 
         const value = FilterManager.buildFilterValue(target, '', null);
         expect(value).eql('');

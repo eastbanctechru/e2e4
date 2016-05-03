@@ -14,13 +14,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var simpleList_1 = require('./simpleList');
+var pagedPager_1 = require('./pagedPager');
 var utility_1 = require('./common/utility');
 var defaults_1 = require('./common/defaults');
 var filterAnnotation_1 = require('./filterAnnotation');
 var PagedList = (function (_super) {
     __extends(PagedList, _super);
     function PagedList(stateManager) {
-        _super.call(this, stateManager);
+        _super.call(this, stateManager, new pagedPager_1.PagedPager());
         this.pageSizeInternal = defaults_1.Defaults.pagedListSettings.defaultPageSize;
         this.pageNumberInternal = 1;
         this.displayFrom = 1;

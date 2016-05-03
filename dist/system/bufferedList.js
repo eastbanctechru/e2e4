@@ -1,4 +1,4 @@
-System.register(['./simpleList', './common/defaults', './filterAnnotation'], function(exports_1, context_1) {
+System.register(['./simpleList', './bufferedPager', './common/defaults', './filterAnnotation'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -15,12 +15,15 @@ System.register(['./simpleList', './common/defaults', './filterAnnotation'], fun
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var simpleList_1, defaults_1, filterAnnotation_1;
+    var simpleList_1, bufferedPager_1, defaults_1, filterAnnotation_1;
     var BufferedList;
     return {
         setters:[
             function (simpleList_1_1) {
                 simpleList_1 = simpleList_1_1;
+            },
+            function (bufferedPager_1_1) {
+                bufferedPager_1 = bufferedPager_1_1;
             },
             function (defaults_1_1) {
                 defaults_1 = defaults_1_1;
@@ -32,7 +35,7 @@ System.register(['./simpleList', './common/defaults', './filterAnnotation'], fun
             BufferedList = (function (_super) {
                 __extends(BufferedList, _super);
                 function BufferedList(stateManager) {
-                    _super.call(this, stateManager);
+                    _super.call(this, stateManager, new bufferedPager_1.BufferedPager());
                     this.takeRowCountInternal = defaults_1.Defaults.bufferedListSettings.defaultTakeRowCount;
                     this.skip = 0;
                     this.bufferedLoadDataSuccessBinded = this.bufferedLoadDataSuccess.bind(this);

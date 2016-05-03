@@ -1,4 +1,5 @@
 import {SimpleList} from './simpleList';
+import {BufferedPager} from './bufferedPager';
 import {IStateManager} from './contracts/IStateManager';
 import {Defaults} from './common/defaults';
 import {filter} from './filterAnnotation';
@@ -47,7 +48,7 @@ export abstract class BufferedList extends SimpleList {
     }
 
     constructor(stateManager: IStateManager) {
-        super(stateManager);
+        super(stateManager, new BufferedPager());
         this.bufferedLoadDataSuccessBinded = this.bufferedLoadDataSuccess.bind(this);
     }
 

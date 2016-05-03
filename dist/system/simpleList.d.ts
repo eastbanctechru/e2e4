@@ -1,5 +1,6 @@
 import { ProgressState } from './common/progressState';
 import { IStateManager } from './contracts/IStateManager';
+import { IPager } from './contracts/IPager';
 import { IList } from './contracts/IList';
 import { IFilterManager } from './contracts/IFilterManager';
 export declare abstract class SimpleList implements IList {
@@ -8,7 +9,7 @@ export declare abstract class SimpleList implements IList {
     private listLoadDataSuccessBinded;
     private listLoadDataFailBinded;
     private clearDataInternal();
-    constructor(stateManager: IStateManager);
+    constructor(stateManager: IStateManager, pager: IPager);
     disposed: boolean;
     inited: boolean;
     state: ProgressState;
@@ -33,5 +34,6 @@ export declare abstract class SimpleList implements IList {
     saveLocalState(): void;
     private getRestoredState(params);
     filterManager: IFilterManager;
+    pager: IPager;
     abstract getDataReadPromise(requestParams: any): Promise<Object>;
 }

@@ -4,7 +4,7 @@ var utility_1 = require('./common/utility');
 var filterManager_1 = require('./filterManager');
 var progressState_1 = require('./common/progressState');
 var SimpleList = (function () {
-    function SimpleList(stateManager) {
+    function SimpleList(stateManager, pager) {
         this.disposed = false;
         this.inited = false;
         this.state = progressState_1.ProgressState.Initial;
@@ -16,7 +16,8 @@ var SimpleList = (function () {
         ///IObjectWithState
         this.useModelState = true;
         this.stateManager = stateManager;
-        filterManager_1.FilterManager.includeIn(this);
+        this.pager = pager;
+        this.filterManager = new filterManager_1.FilterManager(this);
         this.listLoadDataSuccessBinded = this.listLoadDataSuccessCallback.bind(this);
         this.listLoadDataFailBinded = this.listLoadDataFailCallback.bind(this);
     }

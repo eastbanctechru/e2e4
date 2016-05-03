@@ -20,9 +20,6 @@ System.register(['lodash'], function(exports_1, context_1) {
                     typeConfigs.push(propertyConfig);
                     FilterManager.filterPropertiesMap.set(targetType, typeConfigs);
                 };
-                FilterManager.includeIn = function (target) {
-                    target.filterManager = new FilterManager(target);
-                };
                 FilterManager.coerceValue = function (/* tslint:disable:no-any */ value /* tslint:enable:no-any */) {
                     if (typeof value === 'object' || Array.isArray(value)) {
                         for (var index in value) {

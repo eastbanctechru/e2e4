@@ -36,15 +36,7 @@ function toEmptyTarget(): ISelectionableObject {
 }
 
 describe('SelectionManager', () => {
-    it('injects in target object', () => {
-        const target = toTarget();
-        target.selectionManager = new SelectionManager();
-        target.selectionManager.itemsSource = target.items;
-        assert.isDefined(target.selectionManager);
-        assert.isNotNull(target.selectionManager);
-    });
-
-    describe('getSelections', () => {
+     describe('getSelections', () => {
         it('returns empty array if nothing is selected', () => {
             const target = toTarget();
             target.selectionManager = new SelectionManager();

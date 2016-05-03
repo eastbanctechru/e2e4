@@ -19,7 +19,7 @@ System.register(['./common/defaults', './common/utility', './filterManager', './
             }],
         execute: function() {
             SimpleList = (function () {
-                function SimpleList(stateManager) {
+                function SimpleList(stateManager, pager) {
                     this.disposed = false;
                     this.inited = false;
                     this.state = progressState_1.ProgressState.Initial;
@@ -31,7 +31,8 @@ System.register(['./common/defaults', './common/utility', './filterManager', './
                     ///IObjectWithState
                     this.useModelState = true;
                     this.stateManager = stateManager;
-                    filterManager_1.FilterManager.includeIn(this);
+                    this.pager = pager;
+                    this.filterManager = new filterManager_1.FilterManager(this);
                     this.listLoadDataSuccessBinded = this.listLoadDataSuccessCallback.bind(this);
                     this.listLoadDataFailBinded = this.listLoadDataFailCallback.bind(this);
                 }

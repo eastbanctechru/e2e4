@@ -1,4 +1,4 @@
-System.register(['./simpleList', './common/utility', './common/defaults', './filterAnnotation'], function(exports_1, context_1) {
+System.register(['./simpleList', './pagedPager', './common/utility', './common/defaults', './filterAnnotation'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __extends = (this && this.__extends) || function (d, b) {
@@ -15,12 +15,15 @@ System.register(['./simpleList', './common/utility', './common/defaults', './fil
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var simpleList_1, utility_1, defaults_1, filterAnnotation_1;
+    var simpleList_1, pagedPager_1, utility_1, defaults_1, filterAnnotation_1;
     var PagedList;
     return {
         setters:[
             function (simpleList_1_1) {
                 simpleList_1 = simpleList_1_1;
+            },
+            function (pagedPager_1_1) {
+                pagedPager_1 = pagedPager_1_1;
             },
             function (utility_1_1) {
                 utility_1 = utility_1_1;
@@ -35,7 +38,7 @@ System.register(['./simpleList', './common/utility', './common/defaults', './fil
             PagedList = (function (_super) {
                 __extends(PagedList, _super);
                 function PagedList(stateManager) {
-                    _super.call(this, stateManager);
+                    _super.call(this, stateManager, new pagedPager_1.PagedPager());
                     this.pageSizeInternal = defaults_1.Defaults.pagedListSettings.defaultPageSize;
                     this.pageNumberInternal = 1;
                     this.displayFrom = 1;
