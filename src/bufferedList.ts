@@ -30,7 +30,7 @@ export abstract class BufferedList extends SimpleList {
     }
 
     set takeRowCount(value: number) {
-        const valueStr = (value + '').replace(/[^0-9\.]/g, '');
+        const valueStr = (value + '').replace(/[^0-9]/g, '');
         let rowCount = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : Defaults.bufferedListSettings.defaultTakeRowCount;
         if (rowCount < Defaults.bufferedListSettings.minRowCount) {
             rowCount = Defaults.bufferedListSettings.defaultTakeRowCount;

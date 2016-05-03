@@ -29,7 +29,7 @@ var BufferedList = (function (_super) {
             return this.takeRowCountInternal;
         },
         set: function (value) {
-            var valueStr = (value + '').replace(/[^0-9\.]/g, '');
+            var valueStr = (value + '').replace(/[^0-9]/g, '');
             var rowCount = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : defaults_1.Defaults.bufferedListSettings.defaultTakeRowCount;
             if (rowCount < defaults_1.Defaults.bufferedListSettings.minRowCount) {
                 rowCount = defaults_1.Defaults.bufferedListSettings.defaultTakeRowCount;

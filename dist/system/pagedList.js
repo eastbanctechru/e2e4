@@ -65,7 +65,7 @@ System.register(['./simpleList', './common/utility', './common/defaults', './fil
                         return this.pageNumberInternal;
                     },
                     set: function (value) {
-                        var valueStr = (value + '').replace(/[^0-9\.]/g, '');
+                        var valueStr = (value + '').replace(/[^0-9]/g, '');
                         var pageNumber = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : 1;
                         if (pageNumber > this.pageCount) {
                             pageNumber = this.pageCount;
@@ -83,7 +83,7 @@ System.register(['./simpleList', './common/utility', './common/defaults', './fil
                         return this.pageSizeInternal;
                     },
                     set: function (value) {
-                        var valueStr = (value + '').replace(/[^0-9\.]/g, '');
+                        var valueStr = (value + '').replace(/[^0-9]/g, '');
                         var pageSize = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : defaults_1.Defaults.pagedListSettings.defaultPageSize;
                         if (pageSize > defaults_1.Defaults.pagedListSettings.maxPageSize) {
                             pageSize = defaults_1.Defaults.pagedListSettings.maxPageSize;

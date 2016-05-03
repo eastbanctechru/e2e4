@@ -38,7 +38,7 @@ export abstract class PagedList extends SimpleList {
         return this.pageNumberInternal;
     }
     set pageNumber(value: number) {
-        const valueStr = (value + '').replace(/[^0-9\.]/g, '');
+        const valueStr = (value + '').replace(/[^0-9]/g, '');
         let pageNumber = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : 1;
         if (pageNumber > this.pageCount) {
             pageNumber = this.pageCount;
@@ -57,7 +57,7 @@ export abstract class PagedList extends SimpleList {
         return this.pageSizeInternal;
     }
     set pageSize(value: number) {
-        const valueStr = (value + '').replace(/[^0-9\.]/g, '');
+        const valueStr = (value + '').replace(/[^0-9]/g, '');
         let pageSize = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : Defaults.pagedListSettings.defaultPageSize;
 
         if (pageSize > Defaults.pagedListSettings.maxPageSize) {
