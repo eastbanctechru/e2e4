@@ -77,7 +77,7 @@ var PagedPager = (function () {
         configurable: true
     });
     PagedPager.prototype.processResponse = function (result) {
-        this.loadedCount = result[defaults_1.Defaults.listSettings.loadedCountParameterName];
+        this.loadedCount = result[defaults_1.Defaults.listSettings.loadedCountParameterName] || 0;
         this.totalCount = result[defaults_1.Defaults.listSettings.totalCountParameterName] || 0;
         this.displayFrom = result[defaults_1.Defaults.pagedListSettings.displayFromParameterName] || 1;
         this.displayTo = result[defaults_1.Defaults.pagedListSettings.displayToParameterName] || 1;

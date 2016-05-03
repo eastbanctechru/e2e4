@@ -66,7 +66,7 @@ export class PagedPager implements IPager {
     }
 
     processResponse(result: Object): void {
-        this.loadedCount = result[Defaults.listSettings.loadedCountParameterName];
+        this.loadedCount = result[Defaults.listSettings.loadedCountParameterName] || 0;
         this.totalCount = result[Defaults.listSettings.totalCountParameterName] || 0;
 
         this.displayFrom = result[Defaults.pagedListSettings.displayFromParameterName] || 1;

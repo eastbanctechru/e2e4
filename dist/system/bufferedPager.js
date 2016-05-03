@@ -52,7 +52,7 @@ System.register(['./common/defaults', './filterAnnotation'], function(exports_1,
                     configurable: true
                 });
                 BufferedPager.prototype.processResponse = function (result) {
-                    this.loadedCount = result[defaults_1.Defaults.listSettings.loadedCountParameterName];
+                    this.loadedCount = result[defaults_1.Defaults.listSettings.loadedCountParameterName] || 0;
                     this.totalCount = result[defaults_1.Defaults.listSettings.totalCountParameterName] || 0;
                     this.skip += result[defaults_1.Defaults.listSettings.loadedCountParameterName];
                     this.loadedCount = this.skip;
