@@ -11,8 +11,8 @@ export abstract class PagedList extends SimpleList {
     private pageNumberInternal = 1;
     private pagedLoadDataSuccessBinded: (result: Object) => Object;
     private pagedLoadDataSuccessCallback(result: Object): Object {
-        this.loadedCount = result[Defaults.listSettings.loadedCountParameterName];
-        this.totalCount = result[Defaults.listSettings.totalCountParameterName] || 0;
+        this.pager.loadedCount = result[Defaults.listSettings.loadedCountParameterName];
+        this.pager.totalCount = result[Defaults.listSettings.totalCountParameterName] || 0;
 
         this.displayFrom = result[Defaults.pagedListSettings.displayFromParameterName] || 1;
         this.displayTo = result[Defaults.pagedListSettings.displayToParameterName] || 1;
@@ -32,7 +32,7 @@ export abstract class PagedList extends SimpleList {
     }
 
     get pageCount(): number {
-        return Math.ceil(this.totalCount / this.pageSizeInternal);
+        return Math.ceil(this.pager.totalCount / this.pageSizeInternal);
     }
     @filter({ defaultValue: 1, parameterName: Defaults.pagedListSettings.pageNumberParameterName } as IFilterConfig)
     get pageNumber(): number {
@@ -64,13 +64,13 @@ export abstract class PagedList extends SimpleList {
         if (pageSize > Defaults.pagedListSettings.maxPageSize) {
             pageSize = Defaults.pagedListSettings.maxPageSize;
         }
-        if (this.totalCount !== 0) {
-            if (pageSize > this.totalCount) {
-                pageSize = this.totalCount;
+        if (this.pager.totalCount !== 0) {
+            if (pageSize > this.pager.totalCount) {
+                pageSize = this.pager.totalCount;
             }
 
-            if (this.pageNumber * pageSize > this.totalCount) {
-                pageSize = Math.ceil(this.totalCount / this.pageNumber);
+            if (this.pageNumber * pageSize > this.pager.totalCount) {
+                pageSize = Math.ceil(this.pager.totalCount / this.pageNumber);
                 if (pageSize > Defaults.pagedListSettings.maxPageSize) {
                     pageSize = Defaults.pagedListSettings.maxPageSize;
                 }

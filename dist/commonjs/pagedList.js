@@ -29,8 +29,8 @@ var PagedList = (function (_super) {
         this.pagedLoadDataSuccessBinded = this.pagedLoadDataSuccessCallback.bind(this);
     }
     PagedList.prototype.pagedLoadDataSuccessCallback = function (result) {
-        this.loadedCount = result[defaults_1.Defaults.listSettings.loadedCountParameterName];
-        this.totalCount = result[defaults_1.Defaults.listSettings.totalCountParameterName] || 0;
+        this.pager.loadedCount = result[defaults_1.Defaults.listSettings.loadedCountParameterName];
+        this.pager.totalCount = result[defaults_1.Defaults.listSettings.totalCountParameterName] || 0;
         this.displayFrom = result[defaults_1.Defaults.pagedListSettings.displayFromParameterName] || 1;
         this.displayTo = result[defaults_1.Defaults.pagedListSettings.displayToParameterName] || 1;
         return result;
@@ -41,7 +41,7 @@ var PagedList = (function (_super) {
     };
     Object.defineProperty(PagedList.prototype, "pageCount", {
         get: function () {
-            return Math.ceil(this.totalCount / this.pageSizeInternal);
+            return Math.ceil(this.pager.totalCount / this.pageSizeInternal);
         },
         enumerable: true,
         configurable: true
@@ -74,12 +74,12 @@ var PagedList = (function (_super) {
             if (pageSize > defaults_1.Defaults.pagedListSettings.maxPageSize) {
                 pageSize = defaults_1.Defaults.pagedListSettings.maxPageSize;
             }
-            if (this.totalCount !== 0) {
-                if (pageSize > this.totalCount) {
-                    pageSize = this.totalCount;
+            if (this.pager.totalCount !== 0) {
+                if (pageSize > this.pager.totalCount) {
+                    pageSize = this.pager.totalCount;
                 }
-                if (this.pageNumber * pageSize > this.totalCount) {
-                    pageSize = Math.ceil(this.totalCount / this.pageNumber);
+                if (this.pageNumber * pageSize > this.pager.totalCount) {
+                    pageSize = Math.ceil(this.pager.totalCount / this.pageNumber);
                     if (pageSize > defaults_1.Defaults.pagedListSettings.maxPageSize) {
                         pageSize = defaults_1.Defaults.pagedListSettings.maxPageSize;
                     }

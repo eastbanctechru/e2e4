@@ -19,8 +19,6 @@ export declare abstract class SimpleList implements IList {
     dispose(): void;
     onSortChangesCompleted(): void;
     items: Object[];
-    totalCount: number;
-    loadedCount: number;
     toRequest(): any;
     getLocalState(): Object;
     loadData(): Promise<Object>;

@@ -9,9 +9,12 @@ import {IFilterManager} from './contracts/IFilterManager';
 
 export abstract class SimpleList implements IList {
     private listLoadDataSuccessCallback(result: Object): Object {
-        this.loadedCount = result[Defaults.listSettings.loadedCountParameterName];
-        this.totalCount = result[Defaults.listSettings.totalCountParameterName] || 0;
+        this.pager.processResponse(result);
         this.state = ProgressState.Done;
+        // In case when filter changed from last request and theres no data now
+        if ((result[Defaults.listSettings.totalCountParameterName] || 0) === 0) {
+            this.clearData();
+        }
         return result;
     }
     private listLoadDataFailCallback(): void {
@@ -20,7 +23,7 @@ export abstract class SimpleList implements IList {
     private listLoadDataSuccessBinded: (result: Object) => Object;
     private listLoadDataFailBinded: (error: Object) => void;
     private clearDataInternal(): void {
-        this.totalCount = 0;
+        this.pager.totalCount = 0;
         Utility.disposeAll(this.items);
     }
     constructor(stateManager: IStateManager, pager: IPager) {
@@ -63,8 +66,6 @@ export abstract class SimpleList implements IList {
     }
     ///IList
     items: Object[] = [];
-    totalCount = 0;
-    loadedCount = 0;
     toRequest(): any {
         return this.filterManager.buildRequest(null);
     }
@@ -77,7 +78,7 @@ export abstract class SimpleList implements IList {
             throw new Error('loadData can be called only after activation.');
         }
 
-        this.totalCount = 0;
+        this.pager.totalCount = 0;
         this.state = ProgressState.Progress;
         const promise = this.getDataReadPromise(this.toRequest());
         this.addToCancellationSequence(promise);

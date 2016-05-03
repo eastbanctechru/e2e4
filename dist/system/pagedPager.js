@@ -7,7 +7,10 @@ System.register([], function(exports_1, context_1) {
         execute: function() {
             PagedPager = (function () {
                 function PagedPager() {
+                    this.totalCount = 0;
+                    this.loadedCount = 0;
                 }
+                PagedPager.prototype.processResponse = function (result) { };
                 PagedPager.prototype.reset = function () {
                     throw new Error('Not implemented yet');
                 };
