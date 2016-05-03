@@ -29,7 +29,7 @@
       "lib": "dist/amd"
     },
     "dependencies": {
-      "lodash": "^4.9.0"
+      "lodash": "^4.11.1"
     }
   },
   "dependencies": {
@@ -42,7 +42,7 @@
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "gulp-sourcemaps": "^1.6.0",
-    "gulp-tslint": "^4.3.5",
+    "gulp-tslint": "^5.0.0",
     "gulp-typescript": "^2.13.0",
     "karma": "0.13.22",
     "karma-mocha": "0.2.2",
@@ -50,7 +50,7 @@
     "karma-sourcemap-loader": "0.3.7",
     "karma-spec-reporter": "0.0.26",
     "karma-webpack": "1.7.0",
-    "lodash": "^4.9.0",
+    "lodash": "^4.11.1",
     "merge2": "^1.0.2",
     "mocha": "2.4.5",
     "object.assign": "^4.0.3",
