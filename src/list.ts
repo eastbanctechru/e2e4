@@ -4,10 +4,9 @@ import {FilterManager} from './filterManager';
 import {ProgressState} from './common/progressState';
 import {IStateManager} from './contracts/IStateManager';
 import {IPager} from './contracts/IPager';
-import {IList} from './contracts/IList';
 import {IFilterManager} from './contracts/IFilterManager';
 
-export abstract class SimpleList implements IList {
+export abstract class List {
     private listLoadDataSuccessCallback(result: Object): Object {
         this.pager.processResponse(result);
         this.state = ProgressState.Done;
@@ -22,7 +21,7 @@ export abstract class SimpleList implements IList {
     }
     private listLoadDataSuccessBinded: (result: Object) => Object;
     private listLoadDataFailBinded: (error: Object) => void;
-    private clearDataInternal(): void {
+    clearData(): void {
         this.pager.reset();
         Utility.disposeAll(this.items);
     }
@@ -55,12 +54,12 @@ export abstract class SimpleList implements IList {
         this.disposed = true;
         delete this.listLoadDataSuccessBinded;
         delete this.listLoadDataFailBinded;
-        this.clearDataInternal();
+        this.clearData();
         this.filterManager.dispose();
     }
     onSortChangesCompleted(): void {
         if (this.ready) {
-            this.clearDataInternal();
+            this.clearData();
             this.loadData();
         }
     }
@@ -88,9 +87,6 @@ export abstract class SimpleList implements IList {
             this.saveLocalState();
         }
         return promise;
-    }
-    clearData(): void {
-        this.clearDataInternal();
     }
     reloadData(): void {
         if (this.ready) {

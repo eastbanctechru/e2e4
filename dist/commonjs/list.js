@@ -3,8 +3,8 @@ var defaults_1 = require('./common/defaults');
 var utility_1 = require('./common/utility');
 var filterManager_1 = require('./filterManager');
 var progressState_1 = require('./common/progressState');
-var SimpleList = (function () {
-    function SimpleList(stateManager, pager) {
+var List = (function () {
+    function List(stateManager, pager) {
         this.disposed = false;
         this.inited = false;
         this.state = progressState_1.ProgressState.Initial;
@@ -20,7 +20,7 @@ var SimpleList = (function () {
         this.listLoadDataSuccessBinded = this.listLoadDataSuccessCallback.bind(this);
         this.listLoadDataFailBinded = this.listLoadDataFailCallback.bind(this);
     }
-    SimpleList.prototype.listLoadDataSuccessCallback = function (result) {
+    List.prototype.listLoadDataSuccessCallback = function (result) {
         this.pager.processResponse(result);
         this.state = progressState_1.ProgressState.Done;
         // In case when filter changed from last request and theres no data now
@@ -29,52 +29,52 @@ var SimpleList = (function () {
         }
         return result;
     };
-    SimpleList.prototype.listLoadDataFailCallback = function () {
+    List.prototype.listLoadDataFailCallback = function () {
         this.state = progressState_1.ProgressState.Fail;
     };
-    SimpleList.prototype.clearDataInternal = function () {
+    List.prototype.clearData = function () {
         this.pager.reset();
         utility_1.Utility.disposeAll(this.items);
     };
-    Object.defineProperty(SimpleList.prototype, "busy", {
+    Object.defineProperty(List.prototype, "busy", {
         get: function () {
             return this.state === progressState_1.ProgressState.Progress;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(SimpleList.prototype, "ready", {
+    Object.defineProperty(List.prototype, "ready", {
         get: function () {
             return this.state !== progressState_1.ProgressState.Progress;
         },
         enumerable: true,
         configurable: true
     });
-    SimpleList.prototype.init = function (queryParams) {
+    List.prototype.init = function (queryParams) {
         this.inited = true;
         var restoredState = this.getRestoredState(queryParams);
         this.filterManager.parseParams(restoredState);
     };
-    SimpleList.prototype.dispose = function () {
+    List.prototype.dispose = function () {
         this.disposed = true;
         delete this.listLoadDataSuccessBinded;
         delete this.listLoadDataFailBinded;
-        this.clearDataInternal();
+        this.clearData();
         this.filterManager.dispose();
     };
-    SimpleList.prototype.onSortChangesCompleted = function () {
+    List.prototype.onSortChangesCompleted = function () {
         if (this.ready) {
-            this.clearDataInternal();
+            this.clearData();
             this.loadData();
         }
     };
-    SimpleList.prototype.toRequest = function () {
+    List.prototype.toRequest = function () {
         return this.filterManager.buildRequest(null);
     };
-    SimpleList.prototype.getLocalState = function () {
+    List.prototype.getLocalState = function () {
         return this.filterManager.buildPersistedState(null);
     };
-    SimpleList.prototype.loadData = function () {
+    List.prototype.loadData = function () {
         if (!this.inited) {
             throw new Error('loadData can be called only after activation.');
         }
@@ -89,10 +89,7 @@ var SimpleList = (function () {
         }
         return promise;
     };
-    SimpleList.prototype.clearData = function () {
-        this.clearDataInternal();
-    };
-    SimpleList.prototype.reloadData = function () {
+    List.prototype.reloadData = function () {
         if (this.ready) {
             this.clearData();
             this.loadData();
@@ -100,24 +97,24 @@ var SimpleList = (function () {
     };
     ///IList
     ///IRequestCanceller
-    SimpleList.prototype.addToCancellationSequence = function (promise) { };
+    List.prototype.addToCancellationSequence = function (promise) { };
     ;
-    SimpleList.prototype.cancelRequests = function () { };
+    List.prototype.cancelRequests = function () { };
     ;
-    SimpleList.prototype.saveRequestState = function () {
+    List.prototype.saveRequestState = function () {
         this.stateManager.flushRequestState(this.toRequest());
     };
     ;
-    SimpleList.prototype.saveLocalState = function () {
+    List.prototype.saveLocalState = function () {
         this.stateManager.persistLocalState(this.getLocalState());
     };
     ;
-    SimpleList.prototype.getRestoredState = function (params) {
+    List.prototype.getRestoredState = function (params) {
         if (this.useModelState === false) {
             return params;
         }
         return this.stateManager.mergeStates(params);
     };
-    return SimpleList;
+    return List;
 }());
-exports.SimpleList = SimpleList;
+exports.List = List;
