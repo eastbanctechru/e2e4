@@ -62,12 +62,6 @@ var List = (function () {
         this.clearData();
         this.filterManager.dispose();
     };
-    List.prototype.onSortChangesCompleted = function () {
-        if (this.ready) {
-            this.clearData();
-            this.loadData();
-        }
-    };
     List.prototype.toRequest = function () {
         return this.filterManager.buildRequest(null);
     };

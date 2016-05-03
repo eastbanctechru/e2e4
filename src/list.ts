@@ -57,12 +57,6 @@ export abstract class List {
         this.clearData();
         this.filterManager.dispose();
     }
-    onSortChangesCompleted(): void {
-        if (this.ready) {
-            this.clearData();
-            this.loadData();
-        }
-    }
     ///IList
     items: Object[] = [];
     toRequest(): any {
