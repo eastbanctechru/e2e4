@@ -1,6 +1,5 @@
-﻿import {IObjectWithState} from './IObjectWithState';
-import {IRequestCanceller} from './IRequestCanceller';
-export interface IList extends IObjectWithState, IRequestCanceller {
+﻿import {IRequestCanceller} from './IRequestCanceller';
+export interface IList extends IRequestCanceller {
     items: Object[];
     totalCount: number;
     loadedCount: number;
