@@ -27,6 +27,7 @@ export abstract class SimpleList implements IList {
         this.stateManager = stateManager;
         this.pager = pager;
         this.filterManager = new FilterManager(this);
+        this.filterManager.registerFilterTarget(this.pager);
         this.listLoadDataSuccessBinded = this.listLoadDataSuccessCallback.bind(this);
         this.listLoadDataFailBinded = this.listLoadDataFailCallback.bind(this);
     }
