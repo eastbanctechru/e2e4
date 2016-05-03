@@ -11,8 +11,6 @@ System.register(['./common/defaults'], function(exports_1, context_1) {
         execute: function() {
             SimplePager = (function () {
                 function SimplePager() {
-                    this.pageSizeInternal = defaults_1.Defaults.pagedListSettings.defaultPageSize;
-                    this.pageNumberInternal = 1;
                     this.totalCount = 0;
                     this.loadedCount = 0;
                 }

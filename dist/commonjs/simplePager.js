@@ -2,8 +2,6 @@
 var defaults_1 = require('./common/defaults');
 var SimplePager = (function () {
     function SimplePager() {
-        this.pageSizeInternal = defaults_1.Defaults.pagedListSettings.defaultPageSize;
-        this.pageNumberInternal = 1;
         this.totalCount = 0;
         this.loadedCount = 0;
     }

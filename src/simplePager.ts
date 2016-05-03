@@ -2,9 +2,6 @@ import {Defaults} from './common/defaults';
 import {IPager} from './contracts/IPager';
 
 export class SimplePager implements IPager {
-    private pageSizeInternal = Defaults.pagedListSettings.defaultPageSize;
-    private pageNumberInternal = 1;
-
     totalCount: number = 0;
     loadedCount: number = 0;
 
