@@ -23,7 +23,6 @@ export abstract class List {
     private listLoadDataFailBinded: (error: Object) => void;
     clearData(): void {
         this.pager.reset();
-        Utility.disposeAll(this.items);
     }
     constructor(stateManager: IStateManager, pager: IPager) {
         this.stateManager = stateManager;
@@ -57,8 +56,6 @@ export abstract class List {
         this.clearData();
         this.filterManager.dispose();
     }
-    ///IList
-    items: Object[] = [];
     toRequest(): any {
         return this.filterManager.buildRequest(null);
     }

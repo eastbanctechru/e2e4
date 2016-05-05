@@ -1,15 +1,12 @@
-System.register(['./common/defaults', './common/utility', './filterManager', './common/progressState'], function(exports_1, context_1) {
+System.register(['./common/defaults', './filterManager', './common/progressState'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var defaults_1, utility_1, filterManager_1, progressState_1;
+    var defaults_1, filterManager_1, progressState_1;
     var List;
     return {
         setters:[
             function (defaults_1_1) {
                 defaults_1 = defaults_1_1;
-            },
-            function (utility_1_1) {
-                utility_1 = utility_1_1;
             },
             function (filterManager_1_1) {
                 filterManager_1 = filterManager_1_1;
@@ -23,8 +20,6 @@ System.register(['./common/defaults', './common/utility', './filterManager', './
                     this.disposed = false;
                     this.inited = false;
                     this.state = progressState_1.ProgressState.Initial;
-                    ///IList
-                    this.items = [];
                     ///IRequestCanceller
                     ///IObjectWithState
                     this.useModelState = true;
@@ -49,7 +44,6 @@ System.register(['./common/defaults', './common/utility', './filterManager', './
                 };
                 List.prototype.clearData = function () {
                     this.pager.reset();
-                    utility_1.Utility.disposeAll(this.items);
                 };
                 Object.defineProperty(List.prototype, "busy", {
                     get: function () {

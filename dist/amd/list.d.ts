@@ -16,7 +16,6 @@ export declare abstract class List {
     ready: boolean;
     init(queryParams?: Object): void;
     dispose(): void;
-    items: Object[];
     toRequest(): any;
     getLocalState(): Object;
     loadData(): Promise<Object>;

@@ -1,6 +1,5 @@
 "use strict";
 var defaults_1 = require('./common/defaults');
-var utility_1 = require('./common/utility');
 var filterManager_1 = require('./filterManager');
 var progressState_1 = require('./common/progressState');
 var List = (function () {
@@ -8,8 +7,6 @@ var List = (function () {
         this.disposed = false;
         this.inited = false;
         this.state = progressState_1.ProgressState.Initial;
-        ///IList
-        this.items = [];
         ///IRequestCanceller
         ///IObjectWithState
         this.useModelState = true;
@@ -34,7 +31,6 @@ var List = (function () {
     };
     List.prototype.clearData = function () {
         this.pager.reset();
-        utility_1.Utility.disposeAll(this.items);
     };
     Object.defineProperty(List.prototype, "busy", {
         get: function () {
