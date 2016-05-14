@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/fshchudlo/e2e4#readme",
   "scripts": {
-    "ci": "gulp test"
+    "ci": "gulp test",
+    "postinstall": "typings install"
   },
   "jspm": {
     "registry": "npm",
