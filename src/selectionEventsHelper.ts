@@ -16,7 +16,7 @@ export class SelectionEventsHelper {
             browserEvent.preventDefault();
         }
     }
-    onArrowUp(browserEvent: KeyboardEvent, allowMultipleSelection: boolean): void {
+    onArrowUp(browserEvent: KeyboardEvent): void {
         if (browserEvent.ctrlKey) {
             this.selectionConfig.selectionManager.selectFirst();
             browserEvent.stopPropagation();
@@ -31,12 +31,12 @@ export class SelectionEventsHelper {
             if (this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex - 1)) {
                 this.selectionConfig.selectionManager.deselectIndex(this.selectionConfig.selectionManager.lastProcessedIndex);
             }
-            this.selectionConfig.selectionManager.selectIndex(this.selectionConfig.selectionManager.lastProcessedIndex - 1, browserEvent.shiftKey && allowMultipleSelection);
+            this.selectionConfig.selectionManager.selectIndex(this.selectionConfig.selectionManager.lastProcessedIndex - 1, browserEvent.shiftKey && this.selectionConfig.allowMultipleSelection);
             browserEvent.stopPropagation();
             browserEvent.preventDefault();
         }
     }
-    onArrowDown(browserEvent: KeyboardEvent, allowMultipleSelection: boolean): void {
+    onArrowDown(browserEvent: KeyboardEvent): void {
         if (browserEvent.ctrlKey) {
             this.selectionConfig.selectionManager.selectLast();
             browserEvent.stopPropagation();
@@ -51,18 +51,18 @@ export class SelectionEventsHelper {
             if (this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex + 1)) {
                 this.selectionConfig.selectionManager.deselectIndex(this.selectionConfig.selectionManager.lastProcessedIndex);
             }
-            this.selectionConfig.selectionManager.selectIndex(this.selectionConfig.selectionManager.lastProcessedIndex + 1, browserEvent.shiftKey && allowMultipleSelection);
+            this.selectionConfig.selectionManager.selectIndex(this.selectionConfig.selectionManager.lastProcessedIndex + 1, browserEvent.shiftKey && this.selectionConfig.allowMultipleSelection);
             browserEvent.stopPropagation();
             browserEvent.preventDefault();
         }
     }
-    keyboardHandler(browserEvent: KeyboardEvent, allowMultipleSelection: boolean): void {
+    keyboardHandler(browserEvent: KeyboardEvent): void {
         switch (browserEvent.keyCode) {
             case KeyCodes.ArrowUp:
-                this.onArrowUp(browserEvent, allowMultipleSelection);
+                this.onArrowUp(browserEvent);
                 break;
             case KeyCodes.ArrowDown:
-                this.onArrowDown(browserEvent, allowMultipleSelection);
+                this.onArrowDown(browserEvent);
                 break;
             case KeyCodes.A:
                 this.trySelectAll(browserEvent);

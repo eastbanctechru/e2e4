@@ -12,7 +12,7 @@ var SelectionEventsHelper = (function () {
             browserEvent.preventDefault();
         }
     };
-    SelectionEventsHelper.prototype.onArrowUp = function (browserEvent, allowMultipleSelection) {
+    SelectionEventsHelper.prototype.onArrowUp = function (browserEvent) {
         if (browserEvent.ctrlKey) {
             this.selectionConfig.selectionManager.selectFirst();
             browserEvent.stopPropagation();
@@ -30,12 +30,12 @@ var SelectionEventsHelper = (function () {
             if (this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex - 1)) {
                 this.selectionConfig.selectionManager.deselectIndex(this.selectionConfig.selectionManager.lastProcessedIndex);
             }
-            this.selectionConfig.selectionManager.selectIndex(this.selectionConfig.selectionManager.lastProcessedIndex - 1, browserEvent.shiftKey && allowMultipleSelection);
+            this.selectionConfig.selectionManager.selectIndex(this.selectionConfig.selectionManager.lastProcessedIndex - 1, browserEvent.shiftKey && this.selectionConfig.allowMultipleSelection);
             browserEvent.stopPropagation();
             browserEvent.preventDefault();
         }
     };
-    SelectionEventsHelper.prototype.onArrowDown = function (browserEvent, allowMultipleSelection) {
+    SelectionEventsHelper.prototype.onArrowDown = function (browserEvent) {
         if (browserEvent.ctrlKey) {
             this.selectionConfig.selectionManager.selectLast();
             browserEvent.stopPropagation();
@@ -53,18 +53,18 @@ var SelectionEventsHelper = (function () {
             if (this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex + 1)) {
                 this.selectionConfig.selectionManager.deselectIndex(this.selectionConfig.selectionManager.lastProcessedIndex);
             }
-            this.selectionConfig.selectionManager.selectIndex(this.selectionConfig.selectionManager.lastProcessedIndex + 1, browserEvent.shiftKey && allowMultipleSelection);
+            this.selectionConfig.selectionManager.selectIndex(this.selectionConfig.selectionManager.lastProcessedIndex + 1, browserEvent.shiftKey && this.selectionConfig.allowMultipleSelection);
             browserEvent.stopPropagation();
             browserEvent.preventDefault();
         }
     };
-    SelectionEventsHelper.prototype.keyboardHandler = function (browserEvent, allowMultipleSelection) {
+    SelectionEventsHelper.prototype.keyboardHandler = function (browserEvent) {
         switch (browserEvent.keyCode) {
             case keyCodes_1.KeyCodes.ArrowUp:
-                this.onArrowUp(browserEvent, allowMultipleSelection);
+                this.onArrowUp(browserEvent);
                 break;
             case keyCodes_1.KeyCodes.ArrowDown:
-                this.onArrowDown(browserEvent, allowMultipleSelection);
+                this.onArrowDown(browserEvent);
                 break;
             case keyCodes_1.KeyCodes.A:
                 this.trySelectAll(browserEvent);
