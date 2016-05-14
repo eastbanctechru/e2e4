@@ -2,7 +2,7 @@ import {ISelectable} from './contracts/ISelectable';
 import {ISelectionManager} from './contracts/ISelectionManager';
 import {ISelectionConfig} from './contracts/ISelectionConfig';
 import {KeyCodes} from './common/keyCodes';
-import {MouseButtons} from './common/MouseButtons';
+import {MouseButtons} from './common/mouseButtons';
 
 export class SelectionEventsHelper {
     selectionConfig: ISelectionConfig;

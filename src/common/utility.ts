@@ -1,7 +1,5 @@
 ﻿export class Utility {
-    /* tslint:disable:no-any */
     static disposeAll(collection: any[], async: boolean = true): void {
-        /* tslint:enable:no-any */
         if (!collection) {
             return;
         }

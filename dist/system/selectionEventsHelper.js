@@ -1,15 +1,15 @@
-System.register(['./common/keyCodes', './common/MouseButtons'], function(exports_1, context_1) {
+System.register(['./common/keyCodes', './common/mouseButtons'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var keyCodes_1, MouseButtons_1;
+    var keyCodes_1, mouseButtons_1;
     var SelectionEventsHelper;
     return {
         setters:[
             function (keyCodes_1_1) {
                 keyCodes_1 = keyCodes_1_1;
             },
-            function (MouseButtons_1_1) {
-                MouseButtons_1 = MouseButtons_1_1;
+            function (mouseButtons_1_1) {
+                mouseButtons_1 = mouseButtons_1_1;
             }],
         execute: function() {
             SelectionEventsHelper = (function () {
@@ -86,14 +86,14 @@ System.register(['./common/keyCodes', './common/MouseButtons'], function(exports
                 };
                 SelectionEventsHelper.prototype.mouseHandler = function (browserEvent, itemIndex) {
                     var isItemSelected = this.selectionConfig.selectionManager.isIndexSelected(itemIndex);
-                    if (isItemSelected === false || browserEvent.which === MouseButtons_1.MouseButtons.Left) {
+                    if (isItemSelected === false || browserEvent.which === mouseButtons_1.MouseButtons.Left) {
                         if (this.selectionConfig.toggleOnly) {
                             this.selectionConfig.selectionManager.toggleSelection(itemIndex, true);
                             setTimeout(this.clearWindowSelection, 0);
                             return;
                         }
                     }
-                    if (isItemSelected === false || browserEvent.which === MouseButtons_1.MouseButtons.Left) {
+                    if (isItemSelected === false || browserEvent.which === mouseButtons_1.MouseButtons.Left) {
                         if (browserEvent.ctrlKey && this.selectionConfig.allowMultipleSelection) {
                             this.selectionConfig.selectionManager.toggleSelection(itemIndex, true);
                         }

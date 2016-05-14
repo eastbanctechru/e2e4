@@ -2,10 +2,8 @@
 var Utility = (function () {
     function Utility() {
     }
-    /* tslint:disable:no-any */
     Utility.disposeAll = function (collection, async) {
         if (async === void 0) { async = true; }
-        /* tslint:enable:no-any */
         if (!collection) {
             return;
         }

@@ -11,7 +11,7 @@ var FilterManager = (function () {
         typeConfigs.push(propertyConfig);
         FilterManager.filterPropertiesMap.set(targetType, typeConfigs);
     };
-    FilterManager.coerceValue = function (/* tslint:disable:no-any */ value /* tslint:enable:no-any */) {
+    FilterManager.coerceValue = function (value) {
         if (typeof value === 'object' || Array.isArray(value)) {
             for (var index in value) {
                 if (value.hasOwnProperty(index)) {
@@ -30,7 +30,7 @@ var FilterManager = (function () {
         }
         return value;
     };
-    FilterManager.buildFilterValue = function (target, /* tslint:disable:no-any */ value /* tslint:enable:no-any */, config) {
+    FilterManager.buildFilterValue = function (target, value, config) {
         if (config && config.valueSerializer) {
             return config.valueSerializer.call(target, value);
         }

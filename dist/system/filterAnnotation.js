@@ -2,9 +2,7 @@ System.register(['./filterConfig'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var filterConfig_1;
-    /* tslint:disable:no-any */
     function filter(targetOrNameOrConfig, key, descriptor) {
-        /* tslint:enable:no-any */
         var configurableDecorate = function (target, key2, descriptor2) {
             var actualTarget = key2 ? target.constructor : target;
             var config = {

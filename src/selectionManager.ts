@@ -38,9 +38,7 @@ export class SelectionManager implements ISelectionManager {
         }
         this.processSelection(selectionTuple.item, false);
         if (this.canRecurse(recursive, selectionTuple.item)) {
-            /* tslint:disable:no-any */
             ((selectionTuple.item as any)).selectionManager.deselectAll(true);
-            /* tslint:enable:no-any */
         }
         this.lastProcessedIndex = selectionTuple.index;
     }
@@ -60,13 +58,11 @@ export class SelectionManager implements ISelectionManager {
             this.processSelection(selectionTuple.item, true);
         }
         if (this.canRecurse(recursive, selectionTuple.item)) {
-            /* tslint:disable:no-any */
             ((selectionTuple.item as any)).selectionManager.selectAll(true);
-            /* tslint:enable:no-any */
         }
         this.lastProcessedIndex = selectionTuple.index;
     }
-    private canRecurse(recursive: boolean, /* tslint:disable:no-any */item: any/* tslint:enable:no-any */): boolean {
+    private canRecurse(recursive: boolean, item: any): boolean {
         if (recursive && item.selectionManager && item.selectionManager instanceof SelectionManager) {
             return true;
         }
@@ -92,9 +88,7 @@ export class SelectionManager implements ISelectionManager {
             const item = list[i].item;
             this.processSelection(item, false);
             if (this.canRecurse(recursive, item)) {
-                /* tslint:disable:no-any */
                 ((item as any)).selectionManager.deselectAll(true);
-                /* tslint:enable:no-any */
             }
         }
         this.lastProcessedIndex = null;
@@ -115,9 +109,7 @@ export class SelectionManager implements ISelectionManager {
             tempData.push(tuple);
             this.processSelection(tuple.item, true);
             if (this.canRecurse(recursive, tuple.item)) {
-                /* tslint:disable:no-any */
                 ((tuple.item as any)).selectionManager.selectAll(true);
-                /* tslint:enable:no-any */
             }
         }
         this.selectionsList.splice(0, this.selectionsList.length, ...tempData);
@@ -195,9 +187,7 @@ export class SelectionManager implements ISelectionManager {
                 const item = this.selectionsList[i].item;
                 result.push(item);
                 if (this.canRecurse(recursive, item)) {
-                    /* tslint:disable:no-any */
                     result = result.concat(((item as any)).selectionManager.getSelections(true));
-                    /* tslint:enable:no-any */
                 }
             }
         }

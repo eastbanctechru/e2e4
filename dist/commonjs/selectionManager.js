@@ -39,7 +39,6 @@ var SelectionManager = (function () {
         }
         this.processSelection(selectionTuple.item, false);
         if (this.canRecurse(recursive, selectionTuple.item)) {
-            /* tslint:disable:no-any */
             (selectionTuple.item).selectionManager.deselectAll(true);
         }
         this.lastProcessedIndex = selectionTuple.index;
@@ -64,12 +63,11 @@ var SelectionManager = (function () {
             this.processSelection(selectionTuple.item, true);
         }
         if (this.canRecurse(recursive, selectionTuple.item)) {
-            /* tslint:disable:no-any */
             (selectionTuple.item).selectionManager.selectAll(true);
         }
         this.lastProcessedIndex = selectionTuple.index;
     };
-    SelectionManager.prototype.canRecurse = function (recursive, /* tslint:disable:no-any */ item /* tslint:enable:no-any */) {
+    SelectionManager.prototype.canRecurse = function (recursive, item) {
         if (recursive && item.selectionManager && item.selectionManager instanceof SelectionManager) {
             return true;
         }
@@ -96,7 +94,6 @@ var SelectionManager = (function () {
             var item = list[i].item;
             this.processSelection(item, false);
             if (this.canRecurse(recursive, item)) {
-                /* tslint:disable:no-any */
                 (item).selectionManager.deselectAll(true);
             }
         }
@@ -120,7 +117,6 @@ var SelectionManager = (function () {
             tempData.push(tuple);
             this.processSelection(tuple.item, true);
             if (this.canRecurse(recursive, tuple.item)) {
-                /* tslint:disable:no-any */
                 (tuple.item).selectionManager.selectAll(true);
             }
         }
@@ -203,7 +199,6 @@ var SelectionManager = (function () {
                 var item = this.selectionsList[i].item;
                 result.push(item);
                 if (this.canRecurse(recursive, item)) {
-                    /* tslint:disable:no-any */
                     result = result.concat((item).selectionManager.getSelections(true));
                 }
             }

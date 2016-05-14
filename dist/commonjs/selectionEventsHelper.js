@@ -1,6 +1,6 @@
 "use strict";
 var keyCodes_1 = require('./common/keyCodes');
-var MouseButtons_1 = require('./common/MouseButtons');
+var mouseButtons_1 = require('./common/mouseButtons');
 var SelectionEventsHelper = (function () {
     function SelectionEventsHelper(selectionConfig) {
         this.selectionConfig = selectionConfig;
@@ -75,14 +75,14 @@ var SelectionEventsHelper = (function () {
     };
     SelectionEventsHelper.prototype.mouseHandler = function (browserEvent, itemIndex) {
         var isItemSelected = this.selectionConfig.selectionManager.isIndexSelected(itemIndex);
-        if (isItemSelected === false || browserEvent.which === MouseButtons_1.MouseButtons.Left) {
+        if (isItemSelected === false || browserEvent.which === mouseButtons_1.MouseButtons.Left) {
             if (this.selectionConfig.toggleOnly) {
                 this.selectionConfig.selectionManager.toggleSelection(itemIndex, true);
                 setTimeout(this.clearWindowSelection, 0);
                 return;
             }
         }
-        if (isItemSelected === false || browserEvent.which === MouseButtons_1.MouseButtons.Left) {
+        if (isItemSelected === false || browserEvent.which === mouseButtons_1.MouseButtons.Left) {
             if (browserEvent.ctrlKey && this.selectionConfig.allowMultipleSelection) {
                 this.selectionConfig.selectionManager.toggleSelection(itemIndex, true);
             }

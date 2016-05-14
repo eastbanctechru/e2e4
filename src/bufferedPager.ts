@@ -18,7 +18,7 @@ export class BufferedPager implements IPager {
     @filter({
         defaultValue: Defaults.bufferedListSettings.defaultTakeRowCount,
         parameterName: Defaults.bufferedListSettings.takeRowCountParameterName,
-        parseFormatter: (proposedParam, allParams): number => {
+        parseFormatter: (proposedParam: any, allParams: any): number => {
             if (allParams && allParams.skip !== undefined && allParams.take !== undefined) {
                 return allParams.skip + allParams.take;
             }

@@ -10,7 +10,7 @@ export class FilterManager implements IFilterManager {
         typeConfigs.push(propertyConfig);
         FilterManager.filterPropertiesMap.set(targetType, typeConfigs);
     }
-    static coerceValue(/* tslint:disable:no-any */value: any/* tslint:enable:no-any */): Object {
+    static coerceValue(value: any): Object {
         if (typeof value === 'object' || Array.isArray(value)) {
             for (let index in value) {
                 if (value.hasOwnProperty(index)) {
@@ -26,7 +26,7 @@ export class FilterManager implements IFilterManager {
         }
         return value;
     }
-    static buildFilterValue(target: Object, /* tslint:disable:no-any */value: any/* tslint:enable:no-any */, config: FilterConfig): Object {
+    static buildFilterValue(target: Object, value: any, config: FilterConfig): Object {
         if (config && config.valueSerializer) {
             return config.valueSerializer.call(target, value);
         }

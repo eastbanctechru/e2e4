@@ -20,7 +20,7 @@ System.register(['lodash'], function(exports_1, context_1) {
                     typeConfigs.push(propertyConfig);
                     FilterManager.filterPropertiesMap.set(targetType, typeConfigs);
                 };
-                FilterManager.coerceValue = function (/* tslint:disable:no-any */ value /* tslint:enable:no-any */) {
+                FilterManager.coerceValue = function (value) {
                     if (typeof value === 'object' || Array.isArray(value)) {
                         for (var index in value) {
                             if (value.hasOwnProperty(index)) {
@@ -39,7 +39,7 @@ System.register(['lodash'], function(exports_1, context_1) {
                     }
                     return value;
                 };
-                FilterManager.buildFilterValue = function (target, /* tslint:disable:no-any */ value /* tslint:enable:no-any */, config) {
+                FilterManager.buildFilterValue = function (target, value, config) {
                     if (config && config.valueSerializer) {
                         return config.valueSerializer.call(target, value);
                     }

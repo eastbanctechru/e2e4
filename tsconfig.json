@@ -11,9 +11,11 @@
         "allowUnreachableCode": false,
         "allowUnusedLabels": false,
         "noImplicitAny": false,
+        "suppressImplicitAnyIndexErrors": true,
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
-        "pretty": true
+        "pretty": true,
+        "forceConsistentCasingInFileNames": true
     },
     "exclude": [
         "node_modules",

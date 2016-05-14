@@ -45,7 +45,6 @@ System.register([], function(exports_1, context_1) {
                     }
                     this.processSelection(selectionTuple.item, false);
                     if (this.canRecurse(recursive, selectionTuple.item)) {
-                        /* tslint:disable:no-any */
                         (selectionTuple.item).selectionManager.deselectAll(true);
                     }
                     this.lastProcessedIndex = selectionTuple.index;
@@ -70,12 +69,11 @@ System.register([], function(exports_1, context_1) {
                         this.processSelection(selectionTuple.item, true);
                     }
                     if (this.canRecurse(recursive, selectionTuple.item)) {
-                        /* tslint:disable:no-any */
                         (selectionTuple.item).selectionManager.selectAll(true);
                     }
                     this.lastProcessedIndex = selectionTuple.index;
                 };
-                SelectionManager.prototype.canRecurse = function (recursive, /* tslint:disable:no-any */ item /* tslint:enable:no-any */) {
+                SelectionManager.prototype.canRecurse = function (recursive, item) {
                     if (recursive && item.selectionManager && item.selectionManager instanceof SelectionManager) {
                         return true;
                     }
@@ -102,7 +100,6 @@ System.register([], function(exports_1, context_1) {
                         var item = list[i].item;
                         this.processSelection(item, false);
                         if (this.canRecurse(recursive, item)) {
-                            /* tslint:disable:no-any */
                             (item).selectionManager.deselectAll(true);
                         }
                     }
@@ -126,7 +123,6 @@ System.register([], function(exports_1, context_1) {
                         tempData.push(tuple);
                         this.processSelection(tuple.item, true);
                         if (this.canRecurse(recursive, tuple.item)) {
-                            /* tslint:disable:no-any */
                             (tuple.item).selectionManager.selectAll(true);
                         }
                     }
@@ -209,7 +205,6 @@ System.register([], function(exports_1, context_1) {
                             var item = this.selectionsList[i].item;
                             result.push(item);
                             if (this.canRecurse(recursive, item)) {
-                                /* tslint:disable:no-any */
                                 result = result.concat((item).selectionManager.getSelections(true));
                             }
                         }
