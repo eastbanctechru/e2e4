@@ -3,7 +3,7 @@ var path = require('path');
 
 module.exports = function (config) {
     config.set({
-        browsers: ['PhantomJS'], //run in Chrome
+        browsers: ['PhantomJS'],
         singleRun: true, //just run once by default
         frameworks: ['mocha'], //use the mocha test framework
         files: [
@@ -13,17 +13,17 @@ module.exports = function (config) {
             'tests/**/*.ts'
             // each file acts as entry point for the webpack configuration
         ],
-
         preprocessors: {
             // add webpack as preprocessor
             'tests/**/*.ts': ['webpack', 'sourcemap'],
             'src/**/*.js': ['coverage']
         },
-        reporters: ['spec', 'coverage'], //report results in this format
+        reporters: ['spec', 'coverage'],
         coverageReporter: {
             dir: 'reports/',
             reporters: [
-                {type: 'json', subdir: 'coverage'}
+                { type: 'json', subdir: 'coverage' },
+                { type: 'html', subdir: 'coverage/html' }
             ]
         },
         webpack: {
