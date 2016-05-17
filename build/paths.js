@@ -9,6 +9,7 @@ var pkg = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
 
 module.exports = {
   root: appRoot,
+  reports: 'reports/',
   transpiled: 'transpiled/',
   source: appRoot + tsGlob,
   tests: testsRoot + tsGlob,

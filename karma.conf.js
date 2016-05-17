@@ -16,9 +16,16 @@ module.exports = function (config) {
 
         preprocessors: {
             // add webpack as preprocessor
-            'tests/**/*.ts': [ 'webpack', 'sourcemap' ]
+            'tests/**/*.ts': ['webpack', 'sourcemap'],
+            'src/**/*.js': ['coverage']
         },
-        reporters: [ 'spec' ], //report results in this format
+        reporters: ['spec', 'coverage'], //report results in this format
+        coverageReporter: {
+            dir: 'reports/',
+            reporters: [
+                {type: 'json', subdir: 'coverage'}
+            ]
+        },
         webpack: {
             devtool: 'inline-source-map', //just do inline source maps instead of the default
             module: {
@@ -31,7 +38,12 @@ module.exports = function (config) {
                             path.resolve(__dirname, 'tests')
                         ]
                     }
-                ]
+                ],
+                postLoaders: [{
+                    test: /\.ts$/,
+                    include: [path.resolve(__dirname, 'src')],
+                    loader: 'istanbul-instrumenter'
+                }]
             },
             resolve: {
                 modulesDirectories: [
