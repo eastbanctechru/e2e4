@@ -1,6 +1,5 @@
 export declare class Defaults {
     static listSettings: {
-        contextAreaSelector: string;
         loadedCountParameterName: string;
         persistSortings: boolean;
         sortParameterName: string;

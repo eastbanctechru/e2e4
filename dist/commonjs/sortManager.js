@@ -15,7 +15,7 @@ var _ = require('lodash');
 var SortManager = (function () {
     function SortManager() {
         this.sortings = new Array();
-        this.defaultSortingsPrivate = null;
+        this.defaultSortingsPrivate = new Array();
     }
     Object.defineProperty(SortManager.prototype, "defaultSortings", {
         get: function () {
@@ -23,7 +23,7 @@ var SortManager = (function () {
         },
         set: function (value) {
             this.defaultSortingsPrivate = value;
-            if (this.sortings === null || this.sortings.length === 0) {
+            if (this.sortings.length === 0) {
                 this.sortings = _.cloneDeep(this.defaultSortingsPrivate);
             }
         },
@@ -49,12 +49,12 @@ var SortManager = (function () {
         }
     };
     SortManager.prototype.dispose = function () {
-        delete this.defaultSortings;
+        this.defaultSortingsPrivate.length = 0;
         this.sortings.length = 0;
     };
     __decorate([
         filterAnnotation_1.filter({
-            defaultValue: function () { return this.defaultSortings ? _.cloneDeep(this.defaultSortings) : []; },
+            defaultValue: function () { return _.cloneDeep(this.defaultSortings || []); },
             parameterName: defaults_1.Defaults.listSettings.sortParameterName,
             parseFormatter: function (proposedValue) {
                 return Array.isArray(proposedValue) ? proposedValue.map(function (sort) { return new sortParameter_1.SortParameter(sort.fieldName, sort.direction * 1); }) : [];

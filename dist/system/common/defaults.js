@@ -9,7 +9,6 @@ System.register([], function(exports_1, context_1) {
                 function Defaults() {
                 }
                 Defaults.listSettings = {
-                    contextAreaSelector: '#contextMenu',
                     loadedCountParameterName: 'loadedCount',
                     persistSortings: true,
                     sortParameterName: 'sort',

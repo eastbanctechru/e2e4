@@ -3,7 +3,6 @@ var Defaults = (function () {
     function Defaults() {
     }
     Defaults.listSettings = {
-        contextAreaSelector: '#contextMenu',
         loadedCountParameterName: 'loadedCount',
         persistSortings: true,
         sortParameterName: 'sort',

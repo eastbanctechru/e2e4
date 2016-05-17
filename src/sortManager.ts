@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 
 export class SortManager implements ISortManager {
     @filter({
-        defaultValue: function(): Array<SortParameter> { return this.defaultSortings ? _.cloneDeep(this.defaultSortings) : []; },
+        defaultValue: function (): Array<SortParameter> { return _.cloneDeep(this.defaultSortings || []); },
         parameterName: Defaults.listSettings.sortParameterName,
         parseFormatter: (proposedValue): Array<Object> => {
             return Array.isArray(proposedValue) ? proposedValue.map((sort) => { return new SortParameter(sort.fieldName, sort.direction * 1); }) : [];
@@ -16,13 +16,13 @@ export class SortManager implements ISortManager {
     } as IFilterConfig)
     sortings = new Array<SortParameter>();
 
-    private defaultSortingsPrivate: SortParameter[] = null;
+    private defaultSortingsPrivate: SortParameter[] = new Array<SortParameter>();
     get defaultSortings(): SortParameter[] {
         return this.defaultSortingsPrivate;
     }
     set defaultSortings(value: Array<SortParameter>) {
         this.defaultSortingsPrivate = value;
-        if (this.sortings === null || this.sortings.length === 0) {
+        if (this.sortings.length === 0) {
             this.sortings = _.cloneDeep(this.defaultSortingsPrivate);
         }
     }
@@ -44,7 +44,7 @@ export class SortManager implements ISortManager {
         }
     }
     dispose(): void {
-        delete this.defaultSortings;
+        this.defaultSortingsPrivate.length = 0;
         this.sortings.length = 0;
     }
 }

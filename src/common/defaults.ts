@@ -1,7 +1,6 @@
 ﻿export class Defaults {
     static listSettings =
     {
-        contextAreaSelector: '#contextMenu',
         loadedCountParameterName: 'loadedCount',
         persistSortings: true,
         sortParameterName: 'sort',

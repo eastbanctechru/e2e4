@@ -11,14 +11,14 @@ interface ISortableObject {
 
 class SortableObject implements ISortableObject {
     sortManager = null;
-    constructor () {
+    constructor() {
         this.sortManager = new SortManager();
     }
 }
 
 class ObjectWithDefaultSortings implements ISortableObject {
     sortManager = null;
-    constructor () {
+    constructor() {
         this.sortManager = new SortManager();
         this.sortManager.defaultSortings = [{
             direction: SortDirection.Asc,
@@ -38,21 +38,56 @@ function toTargetWithDefault(): ISortableObject {
 const savePrevious = true;
 const doNotSavePrevious = false;
 
-describe('FilterManager', () => {
+describe('SortManager', () => {
+    it('has empty default sortings by default', () => {
+        const target = toTarget();
+        const {sortManager} = target;
+        expect(sortManager.defaultSortings.length).eql(0);
+    });
+
     it('can have default sorting', () => {
         const target = toTargetWithDefault();
         const {sortManager} = target;
-        expect(sortManager.defaultSortings).eql([ { direction: 0, fieldName: 'id' } ]);
+        expect(sortManager.defaultSortings).eql([{ direction: 0, fieldName: 'id' }]);
         sortManager.setSort('id', doNotSavePrevious);
 
         expect(sortManager.sortings[0].fieldName).eql('id');
         expect(sortManager.sortings[0].direction).eql(SortDirection.Desc);
     });
 
-    it('can set add sorting', () => {
+    it('can add sorting', () => {
         const target = toTarget();
         const {sortManager} = target;
         sortManager.setSort('id', doNotSavePrevious);
+        expect(sortManager.sortings[0].fieldName).eql('id');
+        expect(sortManager.sortings[0].direction).eql(SortDirection.Asc);
+    });
+
+    it('change empty sortings to setted default sortings', () => {
+        const target = toTarget();
+        const {sortManager} = target;
+
+        sortManager.defaultSortings = [{
+            direction: SortDirection.Desc,
+            fieldName: 'name'
+        } as SortParameter];
+
+        expect(sortManager.sortings.length).eql(1);
+        expect(sortManager.sortings[0].fieldName).eql('name');
+        expect(sortManager.sortings[0].direction).eql(SortDirection.Desc);
+    });
+
+    it('doesn\'t change provided sorting after default sortings setted', () => {
+        const target = toTarget();
+        const {sortManager} = target;
+        sortManager.setSort('id', doNotSavePrevious);
+
+        sortManager.defaultSortings = [{
+            direction: SortDirection.Asc,
+            fieldName: 'name'
+        } as SortParameter];
+
+        expect(sortManager.sortings.length).eql(1);
         expect(sortManager.sortings[0].fieldName).eql('id');
         expect(sortManager.sortings[0].direction).eql(SortDirection.Asc);
     });
@@ -90,6 +125,40 @@ describe('FilterManager', () => {
         sortManager.setSort('id', savePrevious);
         expect(sortManager.sortings[0].fieldName).eql('id');
         expect(sortManager.sortings[0].direction).eql(SortDirection.Desc);
+    });
+
+    it('push newly added sort to the end of sortings array', () => {
+        const target = toTarget();
+        const {sortManager} = target;
+        sortManager.setSort('id', savePrevious);
+        sortManager.setSort('name', savePrevious);
+        expect(sortManager.sortings.length).eql(2);
+        expect(sortManager.sortings[1].fieldName).eql('name');
+    });
+    it('push toggled sort to the end of sortings array', () => {
+        const target = toTarget();
+        const {sortManager} = target;
+        sortManager.setSort('id', savePrevious);
+        sortManager.setSort('name', savePrevious);
+        sortManager.setSort('id', savePrevious);
+        expect(sortManager.sortings.length).eql(2);
+        expect(sortManager.sortings[1].fieldName).eql('id');
+    });
+
+    it('set sortings to empty array on dispose', () => {
+        const target = toTarget();
+        const {sortManager} = target;
+        sortManager.setSort('id', savePrevious);
+        sortManager.setSort('name', savePrevious);
+        sortManager.dispose();
+        expect(sortManager.sortings.length).eql(0);
+    });
+
+    it('set defaultSortings to empty array on dispose', () => {
+        const target = toTargetWithDefault();
+        const {sortManager} = target;
+        sortManager.dispose();
+        expect(sortManager.defaultSortings.length).eql(0);
     });
 
 });
