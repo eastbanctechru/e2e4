@@ -171,7 +171,7 @@ describe('SortManager', () => {
         expect(sortManager.defaultSortings).eql(sortManager.sortings);
         let filterManager = new FilterManager(sortManager);
         sortManager.setSort('name', doNotSavePrevious);
-        filterManager.resetFilters();
+        filterManager.resetValues();
         expect(sortManager.defaultSortings).not.equal(sortManager.sortings);
         expect(sortManager.defaultSortings).eql(sortManager.sortings);
     });

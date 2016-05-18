@@ -53,7 +53,7 @@ export class FilterManager implements IFilterManager {
         this.appliedFiltersMap.clear();
         delete this.appliedFiltersMap;
     }
-    resetFilters(): void {
+    resetValues(): void {
         this.appliedFiltersMap.forEach((targetConfig, target) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
@@ -80,7 +80,7 @@ export class FilterManager implements IFilterManager {
         });
         this.defaultsApplied = true;
     }
-    buildRequest(result?: Object): Object {
+    getRequestState(result?: Object): Object {
         result = result || {};
         this.appliedFiltersMap.forEach((targetConfig, target) => {
             for (let i = 0; i < targetConfig.length; i++) {
@@ -91,7 +91,7 @@ export class FilterManager implements IFilterManager {
         });
         return result;
     }
-    buildPersistedState(result?: Object): Object {
+    getPersistedState(result?: Object): Object {
         result = result || {};
         this.appliedFiltersMap.forEach((targetConfig, target) => {
             for (let i = 0; i < targetConfig.length; i++) {

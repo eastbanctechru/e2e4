@@ -57,10 +57,10 @@ export abstract class List {
         this.filterManager.dispose();
     }
     toRequest(): any {
-        return this.filterManager.buildRequest(null);
+        return this.filterManager.getRequestState(null);
     }
     getLocalState(): Object {
-        return this.filterManager.buildPersistedState(null);
+        return this.filterManager.getPersistedState(null);
     }
 
     loadData(): Promise<Object> {

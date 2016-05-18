@@ -1,8 +1,8 @@
 ﻿export interface IFilterManager {
     dispose(): void;
-    resetFilters(): void;
+    resetValues(): void;
     parseParams(params: Object): void;
-    buildRequest(result?: Object): Object;
-    buildPersistedState(result?: Object): Object;
+    getRequestState(result?: Object): Object;
+    getPersistedState(result?: Object): Object;
     registerFilterTarget(target: Object): void;
 }
