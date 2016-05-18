@@ -9,4 +9,4 @@ describe('coverage stub :)', () => {
         expect(new Utility()).not.null;
         expect(new Defaults()).not.null;
     });
-})
+});

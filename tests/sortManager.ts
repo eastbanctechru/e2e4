@@ -178,7 +178,6 @@ describe('SortManager', () => {
         });
     });
 
-
     describe('as filter target', () => {
         it('parse invalid params object as empty array', () => {
             const target = toTarget();

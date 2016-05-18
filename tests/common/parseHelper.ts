@@ -52,7 +52,7 @@ describe('ParseHelper', () => {
         expect(ParseHelper.coerceValue(['true', 'false', 'null', 'undefined', '5', 'just a string']
         )).eql([true, false, null, undefined, 5, 'just a string']);
     });
-    it('works only with simple objects', () => {
+    it('works only with own properties', () => {
         class ParentRequest {
             parentProperty: string = 'just a string';
             parentMethod(): void { }
@@ -61,7 +61,6 @@ describe('ParseHelper', () => {
             childProperty: string = 'just a string';
         }
         let toParse = {};
-        expect(ParseHelper.coerceValue(new ChildRequest())).eql({ childProperty: 'just a string', parentProperty: 'just a string'});
         expect(ParseHelper.coerceValue(new ChildRequest()).hasOwnProperty('parentMethod')).false;
     });
 });
