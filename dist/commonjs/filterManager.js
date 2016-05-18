@@ -51,7 +51,7 @@ var FilterManager = (function () {
         this.appliedFiltersMap.clear();
         delete this.appliedFiltersMap;
     };
-    FilterManager.prototype.resetFilters = function () {
+    FilterManager.prototype.resetValues = function () {
         this.appliedFiltersMap.forEach(function (targetConfig, target) {
             for (var i = 0; i < targetConfig.length; i++) {
                 var config = targetConfig[i];
@@ -78,7 +78,7 @@ var FilterManager = (function () {
         });
         this.defaultsApplied = true;
     };
-    FilterManager.prototype.buildRequest = function (result) {
+    FilterManager.prototype.getRequestState = function (result) {
         result = result || {};
         this.appliedFiltersMap.forEach(function (targetConfig, target) {
             for (var i = 0; i < targetConfig.length; i++) {
@@ -89,7 +89,7 @@ var FilterManager = (function () {
         });
         return result;
     };
-    FilterManager.prototype.buildPersistedState = function (result) {
+    FilterManager.prototype.getPersistedState = function (result) {
         result = result || {};
         this.appliedFiltersMap.forEach(function (targetConfig, target) {
             for (var i = 0; i < targetConfig.length; i++) {

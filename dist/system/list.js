@@ -72,10 +72,10 @@ System.register(['./common/defaults', './filterManager', './common/progressState
                     this.filterManager.dispose();
                 };
                 List.prototype.toRequest = function () {
-                    return this.filterManager.buildRequest(null);
+                    return this.filterManager.getRequestState(null);
                 };
                 List.prototype.getLocalState = function () {
-                    return this.filterManager.buildPersistedState(null);
+                    return this.filterManager.getPersistedState(null);
                 };
                 List.prototype.loadData = function () {
                     if (!this.inited) {
