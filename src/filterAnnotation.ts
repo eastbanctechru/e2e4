@@ -10,10 +10,10 @@ export function filter(targetOrNameOrConfig?: string | IFilterConfig | any, key?
             emptyIsNull: false,
             ignoreOnAutoMap: false,
             parameterName: key2,
+            parseFormatter: undefined,
             persisted: false,
             propertyName: key2,
-            valueParser: undefined,
-            valueSerializer: undefined
+            serializeFormatter: undefined
         } as IFilterConfig;
 
         if (typeof targetOrNameOrConfig === 'string') {

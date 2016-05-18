@@ -47,6 +47,7 @@
     "gulp-typescript": "^2.13.4",
     "istanbul-instrumenter-loader": "^0.2.0",
     "karma": "^0.13.22",
+    "karma-chrome-launcher": "^1.0.1",
     "karma-coverage": "^1.0.0",
     "karma-mocha": "1.0.1",
     "karma-phantomjs-launcher": "1.0.0",

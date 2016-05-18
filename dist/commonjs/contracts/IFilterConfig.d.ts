@@ -6,6 +6,6 @@ export interface IFilterConfig {
     emptyIsNull?: boolean;
     coerce?: boolean;
     persisted?: boolean;
-    valueSerializer?: (value: Object) => Object;
-    valueParser?: (rawValue: Object, allValues?: Object) => Object;
+    serializeFormatter?: (value: Object) => Object;
+    parseFormatter?: (rawValue: Object, allValues?: Object) => Object;
 }

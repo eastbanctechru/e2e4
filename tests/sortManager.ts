@@ -1,9 +1,9 @@
 import { expect, assert } from 'chai';
-
 import { ISortManager } from '../src/contracts/ISortManager';
 import { SortParameter } from '../src/common/sortParameter';
 import { SortDirection } from '../src/common/sortDirection';
 import { SortManager } from '../src/sortManager';
+import { FilterManager } from '../src/filterManager';
 
 interface ISortableObject {
     sortManager: ISortManager;
@@ -20,10 +20,7 @@ class ObjectWithDefaultSortings implements ISortableObject {
     sortManager = null;
     constructor() {
         this.sortManager = new SortManager();
-        this.sortManager.defaultSortings = [{
-            direction: SortDirection.Asc,
-            fieldName: 'id'
-        } as SortParameter];
+        this.sortManager.defaultSortings = [new SortParameter('id', SortDirection.Asc)];
     }
 }
 
@@ -48,7 +45,7 @@ describe('SortManager', () => {
     it('can have default sorting', () => {
         const target = toTargetWithDefault();
         const {sortManager} = target;
-        expect(sortManager.defaultSortings).eql([{ direction: 0, fieldName: 'id' }]);
+        expect(sortManager.defaultSortings).eql([new SortParameter('id', SortDirection.Asc)]);
         sortManager.setSort('id', doNotSavePrevious);
 
         expect(sortManager.sortings[0].fieldName).eql('id');
@@ -159,6 +156,30 @@ describe('SortManager', () => {
         const {sortManager} = target;
         sortManager.dispose();
         expect(sortManager.defaultSortings.length).eql(0);
+    });
+
+    it('deeply clone default sortings to sortings', () => {
+        const target = toTargetWithDefault();
+        const {sortManager} = target;
+        expect(sortManager.defaultSortings).not.equal(sortManager.sortings);
+        expect(sortManager.defaultSortings).eql(sortManager.sortings);
+        let filterManager = new FilterManager(sortManager);
+        sortManager.setSort('name', doNotSavePrevious);
+        filterManager.resetFilters();
+        expect(sortManager.defaultSortings).not.equal(sortManager.sortings);
+        expect(sortManager.defaultSortings).eql(sortManager.sortings);
+    });
+
+    it('parse invalid params object as empty array', () => {
+        const target = toTarget();
+        const {sortManager} = target;
+        let filterManager = new FilterManager(sortManager);
+        debugger;
+        let params = { sort: { fieldName: 'id', sortDirection: SortDirection.Desc } };
+        filterManager.parseParams(params);
+        console.log(sortManager.sortings);
+        expect(sortManager.sortings.length).equal(0);
+        
     });
 
 });

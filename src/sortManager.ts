@@ -3,11 +3,13 @@ import {Defaults} from './common/defaults';
 import {IFilterConfig} from './contracts/IFilterConfig';
 import {SortParameter} from './common/sortParameter';
 import {filter} from './filterAnnotation';
-import * as _ from 'lodash';
 
 export class SortManager implements ISortManager {
+    private cloneSortings(toClone: Array<SortParameter>): Array<SortParameter> {
+        return (Array.isArray(toClone) ? toClone : []).map(s => new SortParameter(s.fieldName, s.direction));
+    }
     @filter({
-        defaultValue: function (): Array<SortParameter> { return _.cloneDeep(this.defaultSortings || []); },
+        defaultValue: function (): Array<SortParameter> { return this.cloneSortings(this.defaultSortingsPrivate); },
         parameterName: Defaults.listSettings.sortParameterName,
         parseFormatter: (proposedValue): Array<Object> => {
             return Array.isArray(proposedValue) ? proposedValue.map((sort) => { return new SortParameter(sort.fieldName, sort.direction * 1); }) : [];
@@ -23,7 +25,7 @@ export class SortManager implements ISortManager {
     set defaultSortings(value: Array<SortParameter>) {
         this.defaultSortingsPrivate = value;
         if (this.sortings.length === 0) {
-            this.sortings = _.cloneDeep(this.defaultSortingsPrivate);
+            this.sortings = this.cloneSortings(this.defaultSortingsPrivate);
         }
     }
     setSort(fieldName: string, savePrevious: boolean): void {

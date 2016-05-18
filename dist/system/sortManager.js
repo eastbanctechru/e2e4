@@ -1,4 +1,4 @@
-System.register(['./common/defaults', './common/sortParameter', './filterAnnotation', 'lodash'], function(exports_1, context_1) {
+System.register(['./common/defaults', './common/sortParameter', './filterAnnotation'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['./common/defaults', './common/sortParameter', './filterAnnotat
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var defaults_1, sortParameter_1, filterAnnotation_1, _;
+    var defaults_1, sortParameter_1, filterAnnotation_1;
     var SortManager;
     return {
         setters:[
@@ -22,9 +22,6 @@ System.register(['./common/defaults', './common/sortParameter', './filterAnnotat
             },
             function (filterAnnotation_1_1) {
                 filterAnnotation_1 = filterAnnotation_1_1;
-            },
-            function (_1) {
-                _ = _1;
             }],
         execute: function() {
             SortManager = (function () {
@@ -32,6 +29,9 @@ System.register(['./common/defaults', './common/sortParameter', './filterAnnotat
                     this.sortings = new Array();
                     this.defaultSortingsPrivate = new Array();
                 }
+                SortManager.prototype.cloneSortings = function (toClone) {
+                    return (Array.isArray(toClone) ? toClone : []).map(function (s) { return new sortParameter_1.SortParameter(s.fieldName, s.direction); });
+                };
                 Object.defineProperty(SortManager.prototype, "defaultSortings", {
                     get: function () {
                         return this.defaultSortingsPrivate;
@@ -39,7 +39,7 @@ System.register(['./common/defaults', './common/sortParameter', './filterAnnotat
                     set: function (value) {
                         this.defaultSortingsPrivate = value;
                         if (this.sortings.length === 0) {
-                            this.sortings = _.cloneDeep(this.defaultSortingsPrivate);
+                            this.sortings = this.cloneSortings(this.defaultSortingsPrivate);
                         }
                     },
                     enumerable: true,
@@ -69,7 +69,7 @@ System.register(['./common/defaults', './common/sortParameter', './filterAnnotat
                 };
                 __decorate([
                     filterAnnotation_1.filter({
-                        defaultValue: function () { return _.cloneDeep(this.defaultSortings || []); },
+                        defaultValue: function () { return this.cloneSortings(this.defaultSortingsPrivate); },
                         parameterName: defaults_1.Defaults.listSettings.sortParameterName,
                         parseFormatter: function (proposedValue) {
                             return Array.isArray(proposedValue) ? proposedValue.map(function (sort) { return new sortParameter_1.SortParameter(sort.fieldName, sort.direction * 1); }) : [];

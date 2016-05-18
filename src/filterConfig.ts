@@ -9,8 +9,8 @@ export class FilterConfig implements IFilterConfig {
     emptyIsNull: boolean;
     persisted: boolean;
     coerce: boolean;
-    valueSerializer: (value: Object) => Object;
-    valueParser: (rawValue: Object, allValues?: Object) => Object;
+    serializeFormatter: (value: Object) => Object;
+    parseFormatter: (rawValue: Object, allValues?: Object) => Object;
     descriptor: Object;
     constructor(config: IFilterConfig) {
         Object.assign(this, config);

@@ -11,12 +11,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var defaults_1 = require('./common/defaults');
 var sortParameter_1 = require('./common/sortParameter');
 var filterAnnotation_1 = require('./filterAnnotation');
-var _ = require('lodash');
 var SortManager = (function () {
     function SortManager() {
         this.sortings = new Array();
         this.defaultSortingsPrivate = new Array();
     }
+    SortManager.prototype.cloneSortings = function (toClone) {
+        return (Array.isArray(toClone) ? toClone : []).map(function (s) { return new sortParameter_1.SortParameter(s.fieldName, s.direction); });
+    };
     Object.defineProperty(SortManager.prototype, "defaultSortings", {
         get: function () {
             return this.defaultSortingsPrivate;
@@ -24,7 +26,7 @@ var SortManager = (function () {
         set: function (value) {
             this.defaultSortingsPrivate = value;
             if (this.sortings.length === 0) {
-                this.sortings = _.cloneDeep(this.defaultSortingsPrivate);
+                this.sortings = this.cloneSortings(this.defaultSortingsPrivate);
             }
         },
         enumerable: true,
@@ -54,7 +56,7 @@ var SortManager = (function () {
     };
     __decorate([
         filterAnnotation_1.filter({
-            defaultValue: function () { return _.cloneDeep(this.defaultSortings || []); },
+            defaultValue: function () { return this.cloneSortings(this.defaultSortingsPrivate); },
             parameterName: defaults_1.Defaults.listSettings.sortParameterName,
             parseFormatter: function (proposedValue) {
                 return Array.isArray(proposedValue) ? proposedValue.map(function (sort) { return new sortParameter_1.SortParameter(sort.fieldName, sort.direction * 1); }) : [];

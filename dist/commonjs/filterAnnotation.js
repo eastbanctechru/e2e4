@@ -10,10 +10,10 @@ function filter(targetOrNameOrConfig, key, descriptor) {
             emptyIsNull: false,
             ignoreOnAutoMap: false,
             parameterName: key2,
+            parseFormatter: undefined,
             persisted: false,
             propertyName: key2,
-            valueParser: undefined,
-            valueSerializer: undefined
+            serializeFormatter: undefined
         };
         if (typeof targetOrNameOrConfig === 'string') {
             config.parameterName = targetOrNameOrConfig;

@@ -27,8 +27,8 @@ export class FilterManager implements IFilterManager {
         return value;
     }
     static buildFilterValue(target: Object, value: any, config: FilterConfig): Object {
-        if (config && config.valueSerializer) {
-            return config.valueSerializer.call(target, value);
+        if (config && config.serializeFormatter) {
+            return config.serializeFormatter.call(target, value);
         }
 
         value = config && config.emptyIsNull ? value || null : value;
@@ -74,7 +74,7 @@ export class FilterManager implements IFilterManager {
                 if (params && params[config.parameterName] !== undefined && false === config.ignoreOnAutoMap) {
                     let proposedVal = config.emptyIsNull ? params[config.parameterName] || null : params[config.parameterName];
                     proposedVal = config.coerce ? FilterManager.coerceValue(proposedVal) : proposedVal;
-                    target[config.propertyName] = config.valueParser ? config.valueParser.call(target, proposedVal, params) : proposedVal;
+                    target[config.propertyName] = config.parseFormatter ? config.parseFormatter.call(target, proposedVal, params) : proposedVal;
                 }
             }
         });
@@ -103,8 +103,8 @@ export class FilterManager implements IFilterManager {
                 if (proposedVal && proposedVal.toRequest) {
                     proposedVal = proposedVal.toRequest();
                 }
-                result[config.parameterName] = config.valueSerializer
-                    ? config.valueSerializer.call(target, proposedVal) : (config.emptyIsNull ? proposedVal || null : proposedVal);
+                result[config.parameterName] = config.serializeFormatter
+                    ? config.serializeFormatter.call(target, proposedVal) : (config.emptyIsNull ? proposedVal || null : proposedVal);
             }
         });
         return result;
