@@ -174,12 +174,8 @@ describe('SortManager', () => {
         const target = toTarget();
         const {sortManager} = target;
         let filterManager = new FilterManager(sortManager);
-        debugger;
         let params = { sort: { fieldName: 'id', sortDirection: SortDirection.Desc } };
         filterManager.parseParams(params);
-        console.log(sortManager.sortings);
         expect(sortManager.sortings.length).equal(0);
-        
     });
-
 });
