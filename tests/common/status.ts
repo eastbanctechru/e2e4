@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import * as sinon from 'sinon';
 import { Status } from '../../src/common/status';
 import { ProgressState } from '../../src/common/progressState';
 

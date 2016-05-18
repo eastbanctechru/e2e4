@@ -1,5 +1,4 @@
 import { expect, assert } from 'chai';
-
 import { FilterManager } from '../src/filterManager';
 import { filter } from '../src/filterAnnotation';
 

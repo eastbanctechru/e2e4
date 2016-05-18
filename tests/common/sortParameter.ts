@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import * as sinon from 'sinon';
 import { SortParameter } from '../../src/common/sortParameter';
 import { SortDirection } from '../../src/common/sortDirection';
 

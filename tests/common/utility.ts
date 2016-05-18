@@ -3,6 +3,7 @@ import * as sinon from 'sinon';
 import { Utility } from '../../src/common/utility';
 
 describe('Utility', () => {
+
     it('disposeAll sync', () => {
         const disposeSpy = sinon.spy();
         const collection = [{ dispose: disposeSpy }];

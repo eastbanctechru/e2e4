@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 import {FilterConfig} from './filterConfig';
-import {ParseHelper} from './common/ParseHelper';
+import {ParseHelper} from './common/parseHelper';
 import {IFilterManager} from './contracts/IFilterManager';
 
 export class FilterManager implements IFilterManager {

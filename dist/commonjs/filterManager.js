@@ -1,6 +1,6 @@
 "use strict";
 var _ = require('lodash');
-var ParseHelper_1 = require('./common/ParseHelper');
+var parseHelper_1 = require('./common/parseHelper');
 var FilterManager = (function () {
     function FilterManager(target) {
         this.defaultsApplied = false;
@@ -53,7 +53,7 @@ var FilterManager = (function () {
                 }
                 if (params && params[config.parameterName] !== undefined && false === config.ignoreOnAutoMap) {
                     var proposedVal = config.emptyIsNull ? params[config.parameterName] || null : params[config.parameterName];
-                    proposedVal = config.coerce ? ParseHelper_1.ParseHelper.coerceValue(proposedVal) : proposedVal;
+                    proposedVal = config.coerce ? parseHelper_1.ParseHelper.coerceValue(proposedVal) : proposedVal;
                     target[config.propertyName] = config.parseFormatter ? config.parseFormatter.call(target, proposedVal, params) : proposedVal;
                 }
             }

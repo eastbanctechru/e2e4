@@ -26,18 +26,6 @@ var Utility = (function () {
             });
         }
     };
-    Utility.formatString = function (format) {
-        var args = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            args[_i - 1] = arguments[_i];
-        }
-        var s = arguments[0];
-        for (var i = 0; i < arguments.length - 1; i++) {
-            var reg = new RegExp('\\{' + i + '\\}', 'gm');
-            s = s.replace(reg, arguments[i + 1]);
-        }
-        return s;
-    };
     return Utility;
 }());
 exports.Utility = Utility;

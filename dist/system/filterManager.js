@@ -1,15 +1,15 @@
-System.register(['lodash', './common/ParseHelper'], function(exports_1, context_1) {
+System.register(['lodash', './common/parseHelper'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var _, ParseHelper_1;
+    var _, parseHelper_1;
     var FilterManager;
     return {
         setters:[
             function (_1) {
                 _ = _1;
             },
-            function (ParseHelper_1_1) {
-                ParseHelper_1 = ParseHelper_1_1;
+            function (parseHelper_1_1) {
+                parseHelper_1 = parseHelper_1_1;
             }],
         execute: function() {
             FilterManager = (function () {
@@ -64,7 +64,7 @@ System.register(['lodash', './common/ParseHelper'], function(exports_1, context_
                             }
                             if (params && params[config.parameterName] !== undefined && false === config.ignoreOnAutoMap) {
                                 var proposedVal = config.emptyIsNull ? params[config.parameterName] || null : params[config.parameterName];
-                                proposedVal = config.coerce ? ParseHelper_1.ParseHelper.coerceValue(proposedVal) : proposedVal;
+                                proposedVal = config.coerce ? parseHelper_1.ParseHelper.coerceValue(proposedVal) : proposedVal;
                                 target[config.propertyName] = config.parseFormatter ? config.parseFormatter.call(target, proposedVal, params) : proposedVal;
                             }
                         }
