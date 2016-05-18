@@ -16,17 +16,17 @@ var SortManager = (function () {
         this.sortings = new Array();
         this.defaultSortingsPrivate = new Array();
     }
-    SortManager.prototype.cloneSortings = function (toClone) {
-        return (Array.isArray(toClone) ? toClone : []).map(function (s) { return new sortParameter_1.SortParameter(s.fieldName, s.direction); });
+    SortManager.prototype.cloneDefaultSortings = function () {
+        return this.defaultSortingsPrivate.map(function (s) { return new sortParameter_1.SortParameter(s.fieldName, s.direction); });
     };
     Object.defineProperty(SortManager.prototype, "defaultSortings", {
         get: function () {
             return this.defaultSortingsPrivate;
         },
         set: function (value) {
-            this.defaultSortingsPrivate = value;
+            this.defaultSortingsPrivate = value || [];
             if (this.sortings.length === 0) {
-                this.sortings = this.cloneSortings(this.defaultSortingsPrivate);
+                this.sortings = this.cloneDefaultSortings();
             }
         },
         enumerable: true,
@@ -56,7 +56,7 @@ var SortManager = (function () {
     };
     __decorate([
         filterAnnotation_1.filter({
-            defaultValue: function () { return this.cloneSortings(this.defaultSortingsPrivate); },
+            defaultValue: function () { return this.cloneDefaultSortings(); },
             parameterName: defaults_1.Defaults.listSettings.sortParameterName,
             parseFormatter: function (proposedValue) {
                 return Array.isArray(proposedValue) ? proposedValue.map(function (sort) { return new sortParameter_1.SortParameter(sort.fieldName, sort.direction * 1); }) : [];

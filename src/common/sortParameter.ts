@@ -2,7 +2,7 @@
 export class SortParameter {
     constructor(fieldName: string, direction: SortDirection = SortDirection.Asc) {
         this.fieldName = fieldName;
-        this.direction = direction === undefined ? SortDirection.Asc : direction;
+        this.direction = direction;
     }
     direction: SortDirection;
     fieldName: string = null;
