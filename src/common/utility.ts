@@ -1,9 +1,8 @@
 ﻿export class Utility {
     static disposeAll(collection: any[], async: boolean = true): void {
-        if (!collection) {
+        if (!Array.isArray(collection)) {
             return;
         }
-        async = async === undefined ? true : async;
         let items = collection.splice(0, collection.length);
 
         if (async) {

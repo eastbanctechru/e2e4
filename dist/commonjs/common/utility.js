@@ -4,10 +4,9 @@ var Utility = (function () {
     }
     Utility.disposeAll = function (collection, async) {
         if (async === void 0) { async = true; }
-        if (!collection) {
+        if (!Array.isArray(collection)) {
             return;
         }
-        async = async === undefined ? true : async;
         var items = collection.splice(0, collection.length);
         if (async) {
             setTimeout(function () {
