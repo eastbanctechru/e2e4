@@ -1,31 +1,17 @@
 import * as _ from 'lodash';
 import {FilterConfig} from './filterConfig';
+import {ParseHelper} from './common/ParseHelper';
 import {IFilterManager} from './contracts/IFilterManager';
 
 export class FilterManager implements IFilterManager {
-    static coerceTypes = { 'true': !0, 'false': !1, 'null': null };
+
     static filterPropertiesMap = new Map<any, Array<FilterConfig>>();
     static registerFilter(targetType: Object, propertyConfig: FilterConfig): void {
         const typeConfigs = FilterManager.filterPropertiesMap.has(targetType) ? FilterManager.filterPropertiesMap.get(targetType) : new Array<FilterConfig>();
         typeConfigs.push(propertyConfig);
         FilterManager.filterPropertiesMap.set(targetType, typeConfigs);
     }
-    static coerceValue(value: any): Object {
-        if (typeof value === 'object' || Array.isArray(value)) {
-            for (let index in value) {
-                if (value.hasOwnProperty(index)) {
-                    value[index] = FilterManager.coerceValue(value[index]);
-                }
-            }
-        } else if (value && !isNaN(value)) {
-            value = +value;
-        } else if (value === 'undefined') {
-            value = undefined;
-        } else if (FilterManager.coerceTypes[value] !== undefined) {
-            value = FilterManager.coerceTypes[value];
-        }
-        return value;
-    }
+
     static buildFilterValue(target: Object, value: any, config: FilterConfig): Object {
         if (config && config.serializeFormatter) {
             return config.serializeFormatter.call(target, value);
@@ -73,7 +59,7 @@ export class FilterManager implements IFilterManager {
 
                 if (params && params[config.parameterName] !== undefined && false === config.ignoreOnAutoMap) {
                     let proposedVal = config.emptyIsNull ? params[config.parameterName] || null : params[config.parameterName];
-                    proposedVal = config.coerce ? FilterManager.coerceValue(proposedVal) : proposedVal;
+                    proposedVal = config.coerce ? ParseHelper.coerceValue(proposedVal) : proposedVal;
                     target[config.propertyName] = config.parseFormatter ? config.parseFormatter.call(target, proposedVal, params) : proposedVal;
                 }
             }

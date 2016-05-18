@@ -1,12 +1,15 @@
-System.register(['lodash'], function(exports_1, context_1) {
+System.register(['lodash', './common/ParseHelper'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var _;
+    var _, ParseHelper_1;
     var FilterManager;
     return {
         setters:[
             function (_1) {
                 _ = _1;
+            },
+            function (ParseHelper_1_1) {
+                ParseHelper_1 = ParseHelper_1_1;
             }],
         execute: function() {
             FilterManager = (function () {
@@ -19,25 +22,6 @@ System.register(['lodash'], function(exports_1, context_1) {
                     var typeConfigs = FilterManager.filterPropertiesMap.has(targetType) ? FilterManager.filterPropertiesMap.get(targetType) : new Array();
                     typeConfigs.push(propertyConfig);
                     FilterManager.filterPropertiesMap.set(targetType, typeConfigs);
-                };
-                FilterManager.coerceValue = function (value) {
-                    if (typeof value === 'object' || Array.isArray(value)) {
-                        for (var index in value) {
-                            if (value.hasOwnProperty(index)) {
-                                value[index] = FilterManager.coerceValue(value[index]);
-                            }
-                        }
-                    }
-                    else if (value && !isNaN(value)) {
-                        value = +value;
-                    }
-                    else if (value === 'undefined') {
-                        value = undefined;
-                    }
-                    else if (FilterManager.coerceTypes[value] !== undefined) {
-                        value = FilterManager.coerceTypes[value];
-                    }
-                    return value;
                 };
                 FilterManager.buildFilterValue = function (target, value, config) {
                     if (config && config.serializeFormatter) {
@@ -80,7 +64,7 @@ System.register(['lodash'], function(exports_1, context_1) {
                             }
                             if (params && params[config.parameterName] !== undefined && false === config.ignoreOnAutoMap) {
                                 var proposedVal = config.emptyIsNull ? params[config.parameterName] || null : params[config.parameterName];
-                                proposedVal = config.coerce ? FilterManager.coerceValue(proposedVal) : proposedVal;
+                                proposedVal = config.coerce ? ParseHelper_1.ParseHelper.coerceValue(proposedVal) : proposedVal;
                                 target[config.propertyName] = config.parseFormatter ? config.parseFormatter.call(target, proposedVal, params) : proposedVal;
                             }
                         }
@@ -130,7 +114,6 @@ System.register(['lodash'], function(exports_1, context_1) {
                         this.appliedFiltersMap.delete(target);
                     }
                 };
-                FilterManager.coerceTypes = { 'true': !0, 'false': !1, 'null': null };
                 FilterManager.filterPropertiesMap = new Map();
                 return FilterManager;
             }());
