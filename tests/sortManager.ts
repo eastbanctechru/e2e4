@@ -63,7 +63,6 @@ describe('SortManager', () => {
     it('change empty sortings to setted default sortings', () => {
         const target = toTarget();
         const {sortManager} = target;
-
         sortManager.defaultSortings = [{
             direction: SortDirection.Desc,
             fieldName: 'name'
@@ -87,6 +86,13 @@ describe('SortManager', () => {
         expect(sortManager.sortings.length).eql(1);
         expect(sortManager.sortings[0].fieldName).eql('id');
         expect(sortManager.sortings[0].direction).eql(SortDirection.Asc);
+    });
+
+    it('set default sortings to empty array instead of null', () => {
+        const target = toTarget();
+        const {sortManager} = target;
+        sortManager.defaultSortings = null;
+        expect(sortManager.defaultSortings.length).eql(0);
     });
 
     it('can save previous sorting', () => {
@@ -174,8 +180,21 @@ describe('SortManager', () => {
         const target = toTarget();
         const {sortManager} = target;
         let filterManager = new FilterManager(sortManager);
-        let params = { sort: { fieldName: 'id', sortDirection: SortDirection.Desc } };
+        let params = { sort: { direction: SortDirection.Desc, fieldName: 'id' } };
         filterManager.parseParams(params);
         expect(sortManager.sortings.length).equal(0);
+    });
+    it('parse params object to correct sortings array', () => {
+        const target = toTarget();
+        const {sortManager} = target;
+        let filterManager = new FilterManager(sortManager);
+        let params = { sort: [{ direction: SortDirection.Desc, fieldName: 'id' }, { direction: SortDirection.Desc, fieldName: 'name' }] };
+        filterManager.parseParams(params);
+        expect(sortManager.sortings.length).equal(2);
+        expect(sortManager.sortings[0].fieldName).eql(params.sort[0].fieldName);
+        expect(sortManager.sortings[0].direction).eql(params.sort[0].direction);
+        expect(sortManager.sortings[1].fieldName).eql(params.sort[1].fieldName);
+        expect(sortManager.sortings[1].direction).eql(params.sort[1].direction);
+        expect(sortManager.sortings).not.equal(params.sort);
     });
 });

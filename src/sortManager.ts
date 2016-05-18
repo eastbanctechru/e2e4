@@ -5,11 +5,11 @@ import {SortParameter} from './common/sortParameter';
 import {filter} from './filterAnnotation';
 
 export class SortManager implements ISortManager {
-    private cloneSortings(toClone: Array<SortParameter>): Array<SortParameter> {
-        return (Array.isArray(toClone) ? toClone : []).map(s => new SortParameter(s.fieldName, s.direction));
+    private cloneDefaultSortings(): Array<SortParameter> {
+        return this.defaultSortingsPrivate.map(s => new SortParameter(s.fieldName, s.direction));
     }
     @filter({
-        defaultValue: function (): Array<SortParameter> { return this.cloneSortings(this.defaultSortingsPrivate); },
+        defaultValue: function (): Array<SortParameter> { return this.cloneDefaultSortings(); },
         parameterName: Defaults.listSettings.sortParameterName,
         parseFormatter: (proposedValue): Array<Object> => {
             return Array.isArray(proposedValue) ? proposedValue.map((sort) => { return new SortParameter(sort.fieldName, sort.direction * 1); }) : [];
@@ -23,9 +23,9 @@ export class SortManager implements ISortManager {
         return this.defaultSortingsPrivate;
     }
     set defaultSortings(value: Array<SortParameter>) {
-        this.defaultSortingsPrivate = value;
+        this.defaultSortingsPrivate = value || [];
         if (this.sortings.length === 0) {
-            this.sortings = this.cloneSortings(this.defaultSortingsPrivate);
+            this.sortings = this.cloneDefaultSortings();
         }
     }
     setSort(fieldName: string, savePrevious: boolean): void {
