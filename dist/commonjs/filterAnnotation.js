@@ -3,18 +3,7 @@ var filterConfig_1 = require('./filterConfig');
 function filter(targetOrNameOrConfig, key, descriptor) {
     var configurableDecorate = function (target, key2, descriptor2) {
         var actualTarget = key2 ? target.constructor : target;
-        var config = {
-            coerce: true,
-            defaultValue: undefined,
-            descriptor: undefined,
-            emptyIsNull: false,
-            ignoreOnAutoMap: false,
-            parameterName: key2,
-            parseFormatter: undefined,
-            persisted: false,
-            propertyName: key2,
-            serializeFormatter: undefined
-        };
+        var config = filterConfig_1.FilterConfig.getDefaultConfig(key2);
         if (typeof targetOrNameOrConfig === 'string') {
             config.parameterName = targetOrNameOrConfig;
         }

@@ -3,18 +3,7 @@ import {IFilterConfig} from './contracts/IFilterConfig';
 export function filter(targetOrNameOrConfig?: string | IFilterConfig | any, key?: string, descriptor?: Object): any {
     const configurableDecorate = (target, key2, descriptor2) => {
         const actualTarget = key2 ? target.constructor : target;
-        const config = {
-            coerce: true,
-            defaultValue: undefined,
-            descriptor: undefined,
-            emptyIsNull: false,
-            ignoreOnAutoMap: false,
-            parameterName: key2,
-            parseFormatter: undefined,
-            persisted: false,
-            propertyName: key2,
-            serializeFormatter: undefined
-        } as IFilterConfig;
+        const config = FilterConfig.getDefaultConfig(key2);
 
         if (typeof targetOrNameOrConfig === 'string') {
             config.parameterName = targetOrNameOrConfig;
