@@ -20,14 +20,15 @@ export class SelectionManager implements ISelectionManager {
         this.checkSelection();
     }
     private processSelection(item: ISelectable, selected: boolean): void {
+        const initialSelectState = item.selected;
         item.selected = selected;
-        if (item.onSelectionChanged !== undefined) {
+        if (item.onSelectionChanged !== undefined && initialSelectState !== selected) {
             item.onSelectionChanged(selected);
         }
-        if (selected === true && item.onSelected !== undefined) {
+        if (selected === true && item.onSelected !== undefined && initialSelectState !== selected) {
             item.onSelected();
         }
-        if (selected === false && item.onDeselected !== undefined) {
+        if (selected === false && item.onDeselected !== undefined && initialSelectState !== selected) {
             item.onDeselected();
         }
     }

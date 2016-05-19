@@ -1,5 +1,7 @@
 import { expect, assert } from 'chai';
 
+import * as sinon from 'sinon';
+
 import { ISelectable } from '../src/contracts/ISelectable';
 import { SelectionManager } from '../src/selectionManager';
 
@@ -21,6 +23,22 @@ function toItem(name: string): IItem {
     return { name, selected: false };
 }
 
+function toItemWithHooks(name: string): IItem {
+    return {
+        name,
+        onDeselected: sinon.spy(),
+        onSelected: sinon.spy(),
+        onSelectionChanged: sinon.spy(),
+        selected: false
+    };
+}
+
+function toTargetWithHooks(): ISelectionableObject {
+    return {
+        items: ['first', 'second'].map(toItemWithHooks),
+        selectionManager: null
+    };
+}
 function toTarget(): ISelectionableObject {
     return {
         items: ['first', 'second', 'third'].map(toItem),
@@ -36,7 +54,7 @@ function toEmptyTarget(): ISelectionableObject {
 }
 
 describe('SelectionManager', () => {
-     describe('getSelections', () => {
+    describe('getSelections', () => {
         it('returns empty array if nothing is selected', () => {
             const target = toTarget();
             target.selectionManager = new SelectionManager();
@@ -349,6 +367,73 @@ describe('SelectionManager', () => {
                     { name: 'first', selected: true },
                     { name: 'second', selected: true }
                 ]);
+        });
+    });
+    describe('selection hooks', () => {
+        it('onSelected hook called if defined', () => {
+            const target = toTargetWithHooks();
+            target.selectionManager = new SelectionManager();
+            target.selectionManager.itemsSource = target.items;
+
+            target.selectionManager.selectIndex(0);
+            let processed = target.items[0] as ISelectable;
+            let untouched = target.items[1] as ISelectable;
+
+            expect((<any>processed.onSelected).calledOnce).true;
+            expect((<any>untouched.onSelected).notCalled).true;
+        });
+        it('onDeselected hook called if defined', () => {
+            const target = toTargetWithHooks();
+            target.selectionManager = new SelectionManager();
+            target.selectionManager.itemsSource = target.items;
+
+            target.selectionManager.selectIndex(0);
+            target.selectionManager.deselectIndex(0);
+            let processed = target.items[0] as ISelectable;
+            let untouched = target.items[1] as ISelectable;
+
+            expect((<any>processed.onDeselected).calledOnce).true;
+            expect((<any>untouched.onDeselected).notCalled).true;
+        });
+
+        it('onSelectionChanged hook called on every manipulation if defined', () => {
+            const target = toTargetWithHooks();
+            target.selectionManager = new SelectionManager();
+            target.selectionManager.itemsSource = target.items;
+
+            target.selectionManager.selectIndex(0);
+            target.selectionManager.deselectIndex(0);
+            let processed = target.items[0] as ISelectable;
+            let untouched = target.items[1] as ISelectable;
+
+            expect((<any>processed.onSelectionChanged).calledTwice).true;
+            expect((<any>untouched.onSelectionChanged).notCalled).true;
+        });
+        it('onDeselected hook not called when deselect item that not selected', () => {
+            const target = toTargetWithHooks();
+            target.selectionManager = new SelectionManager();
+            target.selectionManager.itemsSource = target.items;
+
+            target.selectionManager.deselectIndex(0);
+            let processed = target.items[0] as ISelectable;
+            let untouched = target.items[1] as ISelectable;
+
+            expect((<any>processed.onDeselected).notCalled).true;
+            expect((<any>untouched.onDeselected).notCalled).true;
+        });
+
+        it('onSelectionChanged hook not called when deselect item that not selected', () => {
+            const target = toTargetWithHooks();
+            target.selectionManager = new SelectionManager();
+            target.selectionManager.itemsSource = target.items;
+
+            target.selectionManager.deselectIndex(0);
+            let processed = target.items[0] as ISelectable;
+            let untouched = target.items[1] as ISelectable;
+
+            sinon.spy().notCalled;
+            expect((<any>processed.onSelectionChanged).notCalled).true;
+            expect((<any>untouched.onSelectionChanged).notCalled).true;
         });
     });
 });
