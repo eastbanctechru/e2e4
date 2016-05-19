@@ -17,23 +17,19 @@ export class StatusTracker {
     static trackStatus(title: string): number {
         const sid = setTimeout(() => {
             StatusTracker.status = ProgressState.Progress;
-            if (title) {
-                const status = new Status(ProgressState.Progress, title);
-                status.sid = sid;
-                StatusTracker.statusList.push(status);
-            }
+            const status = new Status(ProgressState.Progress, title);
+            status.sid = sid;
+            StatusTracker.statusList.push(status);
         }, Defaults.uiSettings.progressDelayInterval);
         return sid;
     }
     static resolveStatus(sid: number, status: ProgressState): void {
-        if (sid) {
-            clearTimeout(sid);
-            const current = StatusTracker.statusList.find(item => {
-                return item.sid === sid;
-            });
-            if (current) {
-                current.status = status;
-            }
+        clearTimeout(sid);
+        const current = StatusTracker.statusList.find(item => {
+            return item.sid === sid;
+        });
+        if (current) {
+            current.status = status;
         }
         setTimeout((): void => {
             const undone = StatusTracker.statusList.find(item => {
