@@ -4,6 +4,10 @@ import { FilterManager } from '../src/filterManager';
 import { FilterConfig } from '../src/filterConfig';
 import { IFilterConfig } from '../src/contracts/IFilterConfig';
 
+
+function parseStub(value: Object): Object { return value; }
+function serializeStub(rawValue: Object, allValues?: Object): Object { return rawValue; }
+
 function checkConfigsEquality(expected: IFilterConfig, actual: IFilterConfig): void {
     expect(actual.coerce).eql(expected.coerce);
     expect(actual.defaultValue).eql(expected.defaultValue);
@@ -17,36 +21,62 @@ function checkConfigsEquality(expected: IFilterConfig, actual: IFilterConfig): v
 }
 
 describe('filterAnnotation', () => {
+    it('registers config in filterManager', () => {
+        class RequestObject {
+            @filter
+            requestProperty: string;
+        }
+        expect(FilterManager.filterPropertiesMap.has(RequestObject)).true;
+        expect(FilterManager.filterPropertiesMap.get(RequestObject).length).equal(1);
+    });
     it('registers default config without params', () => {
         class RequestObject {
             @filter
             requestProperty: string;
         }
-        let requestObject = new RequestObject();
-        FilterManager.filterPropertiesMap.get(RequestObject);
-
-        expect(FilterManager.filterPropertiesMap.has(RequestObject)).true;
-        expect(FilterManager.filterPropertiesMap.get(RequestObject).length).equal(1);
-
         let actualConfig = FilterManager.filterPropertiesMap.get(RequestObject)[0];
         let expectedConfig = FilterConfig.getDefaultConfig('requestProperty');
         checkConfigsEquality(actualConfig, expectedConfig);
     });
 
-    it('registers default config without custom parameter name when gets string param', () => {
+    it('registers default config with custom parameter name when gets string param', () => {
         class RequestObject {
             @filter('changedName')
             requestProperty: string;
         }
-        let requestObject = new RequestObject();
-        FilterManager.filterPropertiesMap.get(RequestObject);
-
-        expect(FilterManager.filterPropertiesMap.has(RequestObject)).true;
-        expect(FilterManager.filterPropertiesMap.get(RequestObject).length).equal(1);
-
         let actualConfig = FilterManager.filterPropertiesMap.get(RequestObject)[0];
         let expectedConfig = FilterConfig.getDefaultConfig('requestProperty');
         expectedConfig.parameterName = 'changedName';
+        checkConfigsEquality(actualConfig, expectedConfig);
+    });
+    it('registers custom config with object parameter', () => {
+        class RequestObject {
+            @filter({
+                coerce: false,
+                defaultValue: 1,
+                emptyIsNull: true,
+                ignoreOnAutoMap: true,
+                parameterName: 'customName',
+                parseFormatter: parseStub,
+                persisted: true,
+                propertyName: 'customName',
+                serializeFormatter: serializeStub
+            } as IFilterConfig)
+            requestProperty: string;
+        }
+        
+        let actualConfig = FilterManager.filterPropertiesMap.get(RequestObject)[0];
+        let expectedConfig = {
+            coerce: false,
+            defaultValue: 1,
+            emptyIsNull: true,
+            ignoreOnAutoMap: true,
+            parameterName: 'customName',
+            parseFormatter: parseStub,
+            persisted: true,
+            propertyName: 'customName',
+            serializeFormatter: serializeStub
+        };
         checkConfigsEquality(actualConfig, expectedConfig);
     });
 });

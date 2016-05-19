@@ -6,7 +6,6 @@ export class FilterConfig implements IFilterConfig {
         return {
             coerce: true,
             defaultValue: undefined,
-            descriptor: undefined,
             emptyIsNull: false,
             ignoreOnAutoMap: false,
             parameterName: propertyName,
@@ -25,12 +24,10 @@ export class FilterConfig implements IFilterConfig {
     coerce: boolean;
     serializeFormatter: (value: Object) => Object;
     parseFormatter: (rawValue: Object, allValues?: Object) => Object;
-    descriptor: Object;
     constructor(config: IFilterConfig) {
         Object.assign(this, config);
     }
-    register(target: Object, descriptor?: Object): void {
-        this.descriptor = descriptor || undefined;
+    register(target: Object): void {
         FilterManager.registerFilter(target, this);
     }
 }

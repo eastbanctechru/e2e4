@@ -2,8 +2,10 @@ System.register(['./filterConfig'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var filterConfig_1;
-    function filter(targetOrNameOrConfig, key, descriptor) {
-        var configurableDecorate = function (target, key2, descriptor2) {
+    function filter(targetOrNameOrConfig, key) {
+        console.log(targetOrNameOrConfig);
+        console.log(key);
+        var configurableDecorate = function (target, key2) {
             var actualTarget = key2 ? target.constructor : target;
             var config = filterConfig_1.FilterConfig.getDefaultConfig(key2);
             if (typeof targetOrNameOrConfig === 'string') {
@@ -12,12 +14,12 @@ System.register(['./filterConfig'], function(exports_1, context_1) {
             else {
                 Object.assign(config, targetOrNameOrConfig);
             }
-            return new filterConfig_1.FilterConfig(config).register(actualTarget, descriptor2);
+            return new filterConfig_1.FilterConfig(config).register(actualTarget);
         };
         if (key) {
             var targetTemp = targetOrNameOrConfig;
             targetOrNameOrConfig = null;
-            return configurableDecorate(targetTemp, key, descriptor);
+            return configurableDecorate(targetTemp, key);
         }
         return configurableDecorate;
     }

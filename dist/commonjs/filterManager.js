@@ -4,7 +4,7 @@ var parseHelper_1 = require('./common/parseHelper');
 var FilterManager = (function () {
     function FilterManager(target) {
         this.defaultsApplied = false;
-        this.appliedFiltersMap = new Map();
+        this.appliedFiltersMapInternal = new Map();
         this.registerFilterTarget(target);
     }
     FilterManager.registerFilter = function (targetType, propertyConfig) {
@@ -30,11 +30,18 @@ var FilterManager = (function () {
         return value;
     };
     FilterManager.prototype.dispose = function () {
-        this.appliedFiltersMap.clear();
-        delete this.appliedFiltersMap;
+        this.appliedFiltersMapInternal.clear();
+        delete this.appliedFiltersMapInternal;
     };
+    Object.defineProperty(FilterManager.prototype, "appliedFiltersMap", {
+        get: function () {
+            return this.appliedFiltersMapInternal;
+        },
+        enumerable: true,
+        configurable: true
+    });
     FilterManager.prototype.resetValues = function () {
-        this.appliedFiltersMap.forEach(function (targetConfig, target) {
+        this.appliedFiltersMapInternal.forEach(function (targetConfig, target) {
             for (var i = 0; i < targetConfig.length; i++) {
                 var config = targetConfig[i];
                 var defaultValue = (typeof config.defaultValue === 'function') ? config.defaultValue.call(target) : config.defaultValue;
@@ -45,7 +52,7 @@ var FilterManager = (function () {
     };
     FilterManager.prototype.parseParams = function (params) {
         var _this = this;
-        this.appliedFiltersMap.forEach(function (targetConfig, target) {
+        this.appliedFiltersMapInternal.forEach(function (targetConfig, target) {
             for (var i = 0; i < targetConfig.length; i++) {
                 var config = targetConfig[i];
                 if (false === _this.defaultsApplied && config.defaultValue === undefined) {
@@ -62,7 +69,7 @@ var FilterManager = (function () {
     };
     FilterManager.prototype.getRequestState = function (result) {
         result = result || {};
-        this.appliedFiltersMap.forEach(function (targetConfig, target) {
+        this.appliedFiltersMapInternal.forEach(function (targetConfig, target) {
             for (var i = 0; i < targetConfig.length; i++) {
                 var config = targetConfig[i];
                 var proposedVal = target[config.propertyName];
@@ -73,7 +80,7 @@ var FilterManager = (function () {
     };
     FilterManager.prototype.getPersistedState = function (result) {
         result = result || {};
-        this.appliedFiltersMap.forEach(function (targetConfig, target) {
+        this.appliedFiltersMapInternal.forEach(function (targetConfig, target) {
             for (var i = 0; i < targetConfig.length; i++) {
                 var config = targetConfig[i];
                 if (!config.persisted) {
@@ -90,17 +97,17 @@ var FilterManager = (function () {
         return result;
     };
     FilterManager.prototype.registerFilterTarget = function (target) {
-        var targetConfig = this.appliedFiltersMap.has(target) ? this.appliedFiltersMap.get(target) : new Array();
+        var targetConfig = this.appliedFiltersMapInternal.has(target) ? this.appliedFiltersMapInternal.get(target) : new Array();
         FilterManager.filterPropertiesMap.forEach(function (typeConfig, type) {
             if (target instanceof type) {
                 targetConfig = targetConfig.concat(_.cloneDeep(typeConfig));
             }
         });
         if (targetConfig.length > 0) {
-            this.appliedFiltersMap.set(target, targetConfig);
+            this.appliedFiltersMapInternal.set(target, targetConfig);
         }
         else {
-            this.appliedFiltersMap.delete(target);
+            this.appliedFiltersMapInternal.delete(target);
         }
     };
     FilterManager.filterPropertiesMap = new Map();

@@ -17,7 +17,6 @@ System.register(['./filterManager'], function(exports_1, context_1) {
                     return {
                         coerce: true,
                         defaultValue: undefined,
-                        descriptor: undefined,
                         emptyIsNull: false,
                         ignoreOnAutoMap: false,
                         parameterName: propertyName,
@@ -28,7 +27,6 @@ System.register(['./filterManager'], function(exports_1, context_1) {
                     };
                 };
                 FilterConfig.prototype.register = function (target, descriptor) {
-                    this.descriptor = descriptor || undefined;
                     filterManager_1.FilterManager.registerFilter(target, this);
                 };
                 return FilterConfig;

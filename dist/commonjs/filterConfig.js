@@ -8,7 +8,6 @@ var FilterConfig = (function () {
         return {
             coerce: true,
             defaultValue: undefined,
-            descriptor: undefined,
             emptyIsNull: false,
             ignoreOnAutoMap: false,
             parameterName: propertyName,
@@ -19,7 +18,6 @@ var FilterConfig = (function () {
         };
     };
     FilterConfig.prototype.register = function (target, descriptor) {
-        this.descriptor = descriptor || undefined;
         filterManager_1.FilterManager.registerFilter(target, this);
     };
     return FilterConfig;

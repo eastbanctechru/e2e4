@@ -5,8 +5,9 @@ export declare class FilterManager implements IFilterManager {
     static registerFilter(targetType: Object, propertyConfig: FilterConfig): void;
     static buildFilterValue(target: Object, value: any, config: FilterConfig): Object;
     private defaultsApplied;
-    private appliedFiltersMap;
+    private appliedFiltersMapInternal;
     dispose(): void;
+    appliedFiltersMap: Map<Object, Array<FilterConfig>>;
     resetValues(): void;
     parseParams(params: Object): void;
     getRequestState(result?: Object): Object;
