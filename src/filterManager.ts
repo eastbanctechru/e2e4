@@ -33,14 +33,17 @@ export class FilterManager implements IFilterManager {
     }
 
     private defaultsApplied = false;
-    private appliedFiltersMap = new Map<Object, Array<FilterConfig>>();
+    private appliedFiltersMapInternal = new Map<Object, Array<FilterConfig>>();
 
     dispose(): void {
-        this.appliedFiltersMap.clear();
-        delete this.appliedFiltersMap;
+        this.appliedFiltersMapInternal.clear();
+        delete this.appliedFiltersMapInternal;
+    }
+    get appliedFiltersMap(): Map<Object, Array<FilterConfig>> {
+        return this.appliedFiltersMapInternal;
     }
     resetValues(): void {
-        this.appliedFiltersMap.forEach((targetConfig, target) => {
+        this.appliedFiltersMapInternal.forEach((targetConfig, target) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
                 const defaultValue = (typeof config.defaultValue === 'function') ? (config.defaultValue as Function).call(target) : config.defaultValue;
@@ -50,7 +53,7 @@ export class FilterManager implements IFilterManager {
         });
     }
     parseParams(params: Object): void {
-        this.appliedFiltersMap.forEach((targetConfig, target) => {
+        this.appliedFiltersMapInternal.forEach((targetConfig, target) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
                 if (false === this.defaultsApplied && config.defaultValue === undefined) {
@@ -68,7 +71,7 @@ export class FilterManager implements IFilterManager {
     }
     getRequestState(result?: Object): Object {
         result = result || {};
-        this.appliedFiltersMap.forEach((targetConfig, target) => {
+        this.appliedFiltersMapInternal.forEach((targetConfig, target) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
                 const proposedVal = target[config.propertyName];
@@ -79,7 +82,7 @@ export class FilterManager implements IFilterManager {
     }
     getPersistedState(result?: Object): Object {
         result = result || {};
-        this.appliedFiltersMap.forEach((targetConfig, target) => {
+        this.appliedFiltersMapInternal.forEach((targetConfig, target) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
                 if (!config.persisted) {
@@ -96,16 +99,16 @@ export class FilterManager implements IFilterManager {
         return result;
     }
     registerFilterTarget(target: Object): void {
-        let targetConfig = this.appliedFiltersMap.has(target) ? this.appliedFiltersMap.get(target) : new Array<FilterConfig>();
+        let targetConfig = this.appliedFiltersMapInternal.has(target) ? this.appliedFiltersMapInternal.get(target) : new Array<FilterConfig>();
         FilterManager.filterPropertiesMap.forEach((typeConfig, type) => {
             if (target instanceof type) {
                 targetConfig = targetConfig.concat(_.cloneDeep(typeConfig));
             }
         });
         if (targetConfig.length > 0) {
-            this.appliedFiltersMap.set(target, targetConfig);
+            this.appliedFiltersMapInternal.set(target, targetConfig);
         } else {
-            this.appliedFiltersMap.delete(target);
+            this.appliedFiltersMapInternal.delete(target);
         }
     }
     constructor(target: Object) {
