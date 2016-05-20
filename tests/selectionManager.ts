@@ -1,7 +1,6 @@
 import { expect, assert } from 'chai';
 
 import * as sinon from 'sinon';
-
 import { ISelectable } from '../src/contracts/ISelectable';
 import { SelectionManager } from '../src/selectionManager';
 
@@ -428,9 +427,44 @@ describe('SelectionManager', () => {
             let processed = target.items[0] as ISelectable;
             let untouched = target.items[1] as ISelectable;
 
-            sinon.spy().notCalled;
             expect((<any>processed.onSelectionChanged).notCalled).true;
             expect((<any>untouched.onSelectionChanged).notCalled).true;
+        });
+    });
+    describe('dispose', () => {
+        it('clears selections list and last processed index', () => {
+            const target = toTarget();
+            target.selectionManager = new SelectionManager();
+            target.selectionManager.itemsSource = target.items;
+            target.selectionManager.selectAll();
+            expect(target.selectionManager.getSelections().length).equal(3);
+            target.selectionManager.dispose();
+            expect(target.selectionManager.getSelections().length).equal(0);
+            expect(target.selectionManager.lastProcessedIndex).null;
+        });
+        it('removes items source', () => {
+            const target = toTarget();
+            target.selectionManager = new SelectionManager();
+            target.selectionManager.itemsSource = target.items;
+            target.selectionManager.dispose();
+            expect(target.selectionManager.itemsSource).undefined;
+        });
+
+        it('but keep initial collection untouched', () => {
+            const target = toTarget();
+            const tempItems = target.items.slice();
+            target.selectionManager = new SelectionManager();
+            target.selectionManager.itemsSource = target.items;
+            target.selectionManager.dispose();
+            expect(target.items).eql(tempItems);
+        });
+        it('doesn\'t call onDeselected hook', () => {
+            const target = toTargetWithHooks();
+            target.selectionManager = new SelectionManager();
+            target.selectionManager.itemsSource = target.items;
+
+            target.selectionManager.selectAll();
+            expect(target.items.map(i => (<any>i.onDeselected).notCalled).reduce((p, c) => p && c, true)).true;
         });
     });
 });

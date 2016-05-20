@@ -7,7 +7,7 @@ export class SelectionManager implements ISelectionManager {
     private itemsPropertyName: string;
     dispose(): void {
         this.selectionsList.length = 0;
-        delete this.selectionsList;
+        this.lastProcessedIndex = null;
         delete this.items;
     }
 
