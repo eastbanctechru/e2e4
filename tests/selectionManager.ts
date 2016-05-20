@@ -8,9 +8,6 @@ import { SelectionManager } from '../src/selectionManager';
 const savePrevious = true;
 const doNotSavePrevious = false;
 
-const recursive = true;
-const nonRecursive = false;
-
 interface ISelectionableObject {
     items: IItem[];
     selectionManager: SelectionManager;
@@ -59,7 +56,7 @@ describe('SelectionManager', () => {
             const target = toTarget();
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
-            expect(target.selectionManager.getSelections(false)).eql([]);
+            expect(target.selectionManager.getSelections()).eql([]);
         });
 
         it('returns selections array', () => {
@@ -67,7 +64,7 @@ describe('SelectionManager', () => {
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
             target.selectionManager.selectFirst();
-            expect(target.selectionManager.getSelections(false)).eql([{ name: 'first', selected: true }]);
+            expect(target.selectionManager.getSelections()).eql([{ name: 'first', selected: true }]);
         });
     });
 
@@ -78,7 +75,7 @@ describe('SelectionManager', () => {
             target.selectionManager.itemsSource = target.items;
             target.selectionManager.selectFirst();
 
-            expect(target.selectionManager.getSelections(false)).eql([{ name: 'first', selected: true }]);
+            expect(target.selectionManager.getSelections()).eql([{ name: 'first', selected: true }]);
         });
 
         it(`doesn't affect previously selected items`, () => {
@@ -88,7 +85,7 @@ describe('SelectionManager', () => {
             target.items[2].selected = true;
             target.selectionManager.selectFirst();
 
-            expect(target.selectionManager.getSelections(false)).eql([{ name: 'first', selected: true }]);
+            expect(target.selectionManager.getSelections()).eql([{ name: 'first', selected: true }]);
 
             expect(target.items[0].selected).eql(true);
             expect(target.items[1].selected).eql(false);
@@ -112,7 +109,7 @@ describe('SelectionManager', () => {
             target.selectionManager.itemsSource = target.items;
             target.selectionManager.selectLast();
 
-            expect(target.selectionManager.getSelections(false)).eql([{ name: 'third', selected: true }]);
+            expect(target.selectionManager.getSelections()).eql([{ name: 'third', selected: true }]);
 
             expect(target.items[0].selected).eql(false);
             expect(target.items[1].selected).eql(false);
@@ -126,7 +123,7 @@ describe('SelectionManager', () => {
             target.items[0].selected = true;
             target.selectionManager.selectLast();
 
-            expect(target.selectionManager.getSelections(false)).eql([{ name: 'third', selected: true }]);
+            expect(target.selectionManager.getSelections()).eql([{ name: 'third', selected: true }]);
             expect(target.items[0].selected).eql(true);
             expect(target.items[1].selected).eql(false);
             expect(target.items[2].selected).eql(true);
@@ -147,7 +144,7 @@ describe('SelectionManager', () => {
             const target = toTarget();
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
-            target.selectionManager.selectIndex(1, savePrevious, nonRecursive);
+            target.selectionManager.selectIndex(1, savePrevious);
 
             expect(target.items[0].selected).eql(false);
             expect(target.items[1].selected).eql(true);
@@ -159,8 +156,8 @@ describe('SelectionManager', () => {
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
             target.selectionManager.selectFirst();
-            target.selectionManager.selectIndex(1, savePrevious, nonRecursive);
-            expect(target.selectionManager.getSelections(false)).eql([{ name: 'first', selected: true }, { name: 'second', selected: true }]);
+            target.selectionManager.selectIndex(1, savePrevious);
+            expect(target.selectionManager.getSelections()).eql([{ name: 'first', selected: true }, { name: 'second', selected: true }]);
 
             expect(target.items[0].selected).eql(true);
             expect(target.items[1].selected).eql(true);
@@ -172,8 +169,8 @@ describe('SelectionManager', () => {
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
             target.selectionManager.selectFirst();
-            target.selectionManager.selectIndex(1, doNotSavePrevious, nonRecursive);
-            expect(target.selectionManager.getSelections(false)).eql([{ name: 'second', selected: true }]);
+            target.selectionManager.selectIndex(1, doNotSavePrevious);
+            expect(target.selectionManager.getSelections()).eql([{ name: 'second', selected: true }]);
 
             expect(target.items[0].selected).eql(false);
             expect(target.items[1].selected).eql(true);
@@ -186,15 +183,15 @@ describe('SelectionManager', () => {
             const target = toTarget();
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
-            target.selectionManager.selectIndex(1, savePrevious, nonRecursive);
-            expect(target.selectionManager.getSelections(false)).eql([{ name: 'second', selected: true }]);
+            target.selectionManager.selectIndex(1, savePrevious);
+            expect(target.selectionManager.getSelections()).eql([{ name: 'second', selected: true }]);
 
             expect(target.items[0].selected).eql(false);
             expect(target.items[1].selected).eql(true);
             expect(target.items[2].selected).eql(false);
 
-            target.selectionManager.deselectIndex(1, nonRecursive);
-            expect(target.selectionManager.getSelections(false)).eql([]);
+            target.selectionManager.deselectIndex(1);
+            expect(target.selectionManager.getSelections()).eql([]);
             expect(target.items[1].selected).eql(false);
         });
 
@@ -205,15 +202,15 @@ describe('SelectionManager', () => {
             const target = toTarget();
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
-            target.selectionManager.toggleSelection(1, savePrevious, nonRecursive);
-            expect(target.selectionManager.getSelections(false)).eql([{ name: 'second', selected: true }]);
+            target.selectionManager.toggleSelection(1, savePrevious);
+            expect(target.selectionManager.getSelections()).eql([{ name: 'second', selected: true }]);
 
             expect(target.items[0].selected).eql(false);
             expect(target.items[1].selected).eql(true);
             expect(target.items[2].selected).eql(false);
 
-            target.selectionManager.toggleSelection(1, savePrevious, nonRecursive);
-            expect(target.selectionManager.getSelections(false)).eql([]);
+            target.selectionManager.toggleSelection(1, savePrevious);
+            expect(target.selectionManager.getSelections()).eql([]);
             expect(target.items[1].selected).eql(false);
         });
 
@@ -222,15 +219,15 @@ describe('SelectionManager', () => {
 
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
-            target.selectionManager.toggleSelection(1, doNotSavePrevious, nonRecursive);
-            expect(target.selectionManager.getSelections(false)).eql([{ name: 'second', selected: true }]);
+            target.selectionManager.toggleSelection(1, doNotSavePrevious);
+            expect(target.selectionManager.getSelections()).eql([{ name: 'second', selected: true }]);
 
             expect(target.items[0].selected).eql(false);
             expect(target.items[1].selected).eql(true);
             expect(target.items[2].selected).eql(false);
 
-            target.selectionManager.toggleSelection(2, doNotSavePrevious, nonRecursive);
-            expect(target.selectionManager.getSelections(false)).eql([{ name: 'third', selected: true }]);
+            target.selectionManager.toggleSelection(2, doNotSavePrevious);
+            expect(target.selectionManager.getSelections()).eql([{ name: 'third', selected: true }]);
             expect(target.items[1].selected).eql(false);
             expect(target.items[2].selected).eql(true);
         });
@@ -239,15 +236,15 @@ describe('SelectionManager', () => {
             const target = toTarget();
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
-            target.selectionManager.toggleSelection(1, savePrevious, nonRecursive);
-            expect(target.selectionManager.getSelections(false)).eql([{ name: 'second', selected: true }]);
+            target.selectionManager.toggleSelection(1, savePrevious);
+            expect(target.selectionManager.getSelections()).eql([{ name: 'second', selected: true }]);
 
             expect(target.items[0].selected).eql(false);
             expect(target.items[1].selected).eql(true);
             expect(target.items[2].selected).eql(false);
 
-            target.selectionManager.toggleSelection(2, savePrevious, nonRecursive);
-            expect(target.selectionManager.getSelections(false))
+            target.selectionManager.toggleSelection(2, savePrevious);
+            expect(target.selectionManager.getSelections())
                 .eql([
                     { name: 'second', selected: true },
                     { name: 'third', selected: true }
@@ -263,7 +260,7 @@ describe('SelectionManager', () => {
             const target = toTarget();
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
-            target.selectionManager.toggleSelection(1, savePrevious, nonRecursive);
+            target.selectionManager.toggleSelection(1, savePrevious);
             expect(target.selectionManager.getMinSelectedIndex()).eql(1);
         });
 
@@ -271,8 +268,8 @@ describe('SelectionManager', () => {
             const target = toTarget();
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
-            target.selectionManager.toggleSelection(0, savePrevious, nonRecursive);
-            target.selectionManager.toggleSelection(1, savePrevious, nonRecursive);
+            target.selectionManager.toggleSelection(0, savePrevious);
+            target.selectionManager.toggleSelection(1, savePrevious);
             expect(target.selectionManager.getMinSelectedIndex()).eql(0);
         });
 
@@ -283,7 +280,7 @@ describe('SelectionManager', () => {
             const target = toTarget();
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
-            target.selectionManager.toggleSelection(1, savePrevious, nonRecursive);
+            target.selectionManager.toggleSelection(1, savePrevious);
             expect(target.selectionManager.getMaxSelectedIndex()).eql(1);
         });
 
@@ -291,8 +288,8 @@ describe('SelectionManager', () => {
             const target = toTarget();
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
-            target.selectionManager.toggleSelection(0, savePrevious, nonRecursive);
-            target.selectionManager.toggleSelection(1, savePrevious, nonRecursive);
+            target.selectionManager.toggleSelection(0, savePrevious);
+            target.selectionManager.toggleSelection(1, savePrevious);
             expect(target.selectionManager.getMaxSelectedIndex()).eql(1);
         });
 
@@ -303,7 +300,7 @@ describe('SelectionManager', () => {
             const target = toTarget();
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
-            target.selectionManager.toggleSelection(1, savePrevious, nonRecursive);
+            target.selectionManager.toggleSelection(1, savePrevious);
             expect(target.selectionManager.isIndexSelected(1)).eql(true);
         });
 
@@ -322,7 +319,7 @@ describe('SelectionManager', () => {
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
             expect(target.selectionManager.hasSelections()).eql(false);
-            target.selectionManager.toggleSelection(1, savePrevious, nonRecursive);
+            target.selectionManager.toggleSelection(1, savePrevious);
             expect(target.selectionManager.hasSelections()).eql(true);
         });
     });
@@ -333,9 +330,9 @@ describe('SelectionManager', () => {
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
 
-            target.selectionManager.selectRange(-1, 5, nonRecursive);
+            target.selectionManager.selectRange(-1, 5);
 
-            expect(target.selectionManager.getSelections(false))
+            expect(target.selectionManager.getSelections())
                 .eql([]);
         });
 
@@ -344,9 +341,9 @@ describe('SelectionManager', () => {
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
 
-            target.selectionManager.selectRange(0, 1, nonRecursive);
+            target.selectionManager.selectRange(0, 1);
 
-            expect(target.selectionManager.getSelections(false))
+            expect(target.selectionManager.getSelections())
                 .eql([
                     { name: 'first', selected: true },
                     { name: 'second', selected: true }
@@ -358,11 +355,11 @@ describe('SelectionManager', () => {
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
 
-            target.selectionManager.toggleSelection(2, savePrevious, nonRecursive);
+            target.selectionManager.toggleSelection(2, savePrevious);
 
-            target.selectionManager.selectRange(0, 1, recursive);
+            target.selectionManager.selectRange(0, 1);
 
-            expect(target.selectionManager.getSelections(false))
+            expect(target.selectionManager.getSelections())
                 .eql([
                     { name: 'first', selected: true },
                     { name: 'second', selected: true }

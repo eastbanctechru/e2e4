@@ -32,18 +32,15 @@ export class SelectionManager implements ISelectionManager {
             item.onDeselected();
         }
     }
-    private deselectItem(selectionTuple: ISelectionTuple, recursive: boolean = false): void {
+    private deselectItem(selectionTuple: ISelectionTuple): void {
         const index = this.selectionsList.findIndex(selectedItem => (selectedItem.item === selectionTuple.item));
         if (index !== -1) {
             this.selectionsList.splice(index, 1);
         }
         this.processSelection(selectionTuple.item, false);
-        if (this.canRecurse(recursive, selectionTuple.item)) {
-            ((selectionTuple.item as any)).selectionManager.deselectAll(true);
-        }
         this.lastProcessedIndex = selectionTuple.index;
     }
-    private selectItem(selectionTuple: ISelectionTuple, savePrevious: boolean = false, recursive: boolean = false): void {
+    private selectItem(selectionTuple: ISelectionTuple, savePrevious: boolean = false): void {
         if (savePrevious) {
             const index = this.selectionsList.findIndex(selectedItem => (selectedItem.item === selectionTuple.item));
             if (index !== -1) {
@@ -58,16 +55,7 @@ export class SelectionManager implements ISelectionManager {
             this.selectionsList.push(selectionTuple);
             this.processSelection(selectionTuple.item, true);
         }
-        if (this.canRecurse(recursive, selectionTuple.item)) {
-            ((selectionTuple.item as any)).selectionManager.selectAll(true);
-        }
         this.lastProcessedIndex = selectionTuple.index;
-    }
-    private canRecurse(recursive: boolean, item: any): boolean {
-        if (recursive && item.selectionManager && item.selectionManager instanceof SelectionManager) {
-            return true;
-        }
-        return false;
     }
     private getSelectionTuple(index: number): ISelectionTuple {
         return {
@@ -83,21 +71,18 @@ export class SelectionManager implements ISelectionManager {
             }
         }
     }
-    deselectAll(recursive: boolean = false): void {
+    deselectAll(): void {
         const list = this.selectionsList.splice(0, this.selectionsList.length);
         for (let i = 0; i < list.length; i++) {
             const item = list[i].item;
             this.processSelection(item, false);
-            if (this.canRecurse(recursive, item)) {
-                ((item as any)).selectionManager.deselectAll(true);
-            }
         }
         this.lastProcessedIndex = null;
     }
-    selectAll(recursive: boolean = false): void {
-        this.selectRange(0, this.itemsSource.length - 1, recursive);
+    selectAll(): void {
+        this.selectRange(0, this.itemsSource.length - 1);
     }
-    selectRange(fromIndex: number, toIndex: number, recursive: boolean = false): void {
+    selectRange(fromIndex: number, toIndex: number): void {
         if (toIndex < 0 || this.itemsSource.length <= toIndex || fromIndex < 0 || this.itemsSource.length <= fromIndex) {
             return;
         }
@@ -109,9 +94,6 @@ export class SelectionManager implements ISelectionManager {
             const tuple = this.getSelectionTuple(i);
             tempData.push(tuple);
             this.processSelection(tuple.item, true);
-            if (this.canRecurse(recursive, tuple.item)) {
-                ((tuple.item as any)).selectionManager.selectAll(true);
-            }
         }
         this.selectionsList.splice(0, this.selectionsList.length, ...tempData);
         this.lastProcessedIndex = endIndex;
@@ -156,42 +138,32 @@ export class SelectionManager implements ISelectionManager {
         }
     }
 
-    selectIndex(index: number, savePrevious: boolean = false, recursive: boolean = false): void {
+    selectIndex(index: number, savePrevious: boolean = false): void {
         if (index >= 0 && this.itemsSource.length > index) {
-            this.selectItem(this.getSelectionTuple(index), savePrevious, recursive);
+            this.selectItem(this.getSelectionTuple(index), savePrevious);
         }
     }
-    deselectIndex(index: number, recursive: boolean = false): void {
+    deselectIndex(index: number): void {
         if (index >= 0 && this.itemsSource.length > index) {
-            this.deselectItem(this.getSelectionTuple(index), recursive);
+            this.deselectItem(this.getSelectionTuple(index));
         }
     }
-    toggleSelection(index: number, savePrevious: boolean = false, recursive: boolean = false): void {
+    toggleSelection(index: number, savePrevious: boolean = false): void {
         if (index < 0 || this.itemsSource.length <= index) {
             return;
         }
         const tuple = this.getSelectionTuple(index);
         if (this.isIndexSelected(index)) {
             if (this.selectionsList.length === 1 || (this.selectionsList.length > 1 && savePrevious)) {
-                this.deselectItem(tuple, recursive);
+                this.deselectItem(tuple);
             } else {
-                this.selectItem(tuple, savePrevious, recursive);
+                this.selectItem(tuple, savePrevious);
             }
             return;
         }
-        this.selectItem(tuple, savePrevious, recursive);
+        this.selectItem(tuple, savePrevious);
     }
-    getSelections(recursive: boolean = false): Array<Object> {
-        if (recursive) {
-            let result = [];
-            for (let i = 0; i < this.selectionsList.length; i++) {
-                const item = this.selectionsList[i].item;
-                result.push(item);
-                if (this.canRecurse(recursive, item)) {
-                    result = result.concat(((item as any)).selectionManager.getSelections(true));
-                }
-            }
-        }
+    getSelections(): Array<Object> {
         return this.selectionsList.map((selectable) => selectable.item);
     }
 }
