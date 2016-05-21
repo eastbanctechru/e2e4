@@ -47,7 +47,6 @@ export class BufferedPager implements IPager {
     }
 
     processResponse(result: Object): void {
-        this.loadedCount = result[Defaults.listSettings.loadedCountParameterName] || 0;
         this.totalCount = result[Defaults.listSettings.totalCountParameterName] || 0;
         this.skip += result[Defaults.listSettings.loadedCountParameterName];
         this.loadedCount = this.skip;
