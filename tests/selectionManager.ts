@@ -281,6 +281,21 @@ describe('SelectionManager', () => {
             expect(target.items[2].selected).eql(true);
         });
 
+        it(`ignores incorrect values`, () => {
+            const target = toTarget();
+            target.selectionManager = new SelectionManager();
+            target.selectionManager.itemsSource = target.items;
+
+            target.selectionManager.toggleSelection(-20);
+            expect(target.selectionManager.getSelections()).empty;
+
+            target.selectionManager.toggleSelection(null);
+            expect(target.selectionManager.getSelections()).empty;
+
+            target.selectionManager.toggleSelection(150);
+            expect(target.selectionManager.getSelections()).empty;
+        });
+
     });
 
     describe('getMinSelectedIndex', () => {
