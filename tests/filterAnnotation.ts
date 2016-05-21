@@ -4,7 +4,6 @@ import { FilterManager } from '../src/filterManager';
 import { FilterConfig } from '../src/filterConfig';
 import { IFilterConfig } from '../src/contracts/IFilterConfig';
 
-
 function parseStub(value: Object): Object { return value; }
 function serializeStub(rawValue: Object, allValues?: Object): Object { return rawValue; }
 
@@ -23,7 +22,7 @@ function checkConfigsEquality(expected: IFilterConfig, actual: IFilterConfig): v
 describe('filterAnnotation', () => {
     it('registers config in filterManager', () => {
         class RequestObject {
-            @filter
+            @filter()
             requestProperty: string;
         }
         expect(FilterManager.filterPropertiesMap.has(RequestObject)).true;
@@ -31,7 +30,7 @@ describe('filterAnnotation', () => {
     });
     it('registers default config without params', () => {
         class RequestObject {
-            @filter
+            @filter()
             requestProperty: string;
         }
         let actualConfig = FilterManager.filterPropertiesMap.get(RequestObject)[0];
