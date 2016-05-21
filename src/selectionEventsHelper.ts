@@ -73,24 +73,29 @@ export class SelectionEventsHelper {
     }
     mouseHandler(browserEvent: MouseEvent, itemIndex: number): void {
         const isItemSelected = this.selectionConfig.selectionManager.isIndexSelected(itemIndex);
-        if (isItemSelected === false || browserEvent.which === MouseButtons.Left) {
-            if (this.selectionConfig.toggleOnly) {
-                this.selectionConfig.selectionManager.toggleSelection(itemIndex, true);
-                setTimeout(this.clearWindowSelection, 0);
-                return;
-            }
+        if (isItemSelected !== false && browserEvent.which !== MouseButtons.Left) {
+            return;
         }
-        if (isItemSelected === false || browserEvent.which === MouseButtons.Left) {
-            if (browserEvent.ctrlKey && this.selectionConfig.allowMultipleSelection) {
-                this.selectionConfig.selectionManager.toggleSelection(itemIndex, true);
-            } else if (browserEvent.shiftKey && this.selectionConfig.allowMultipleSelection) {
+
+        if (this.selectionConfig.toggleOnly) {
+            if (browserEvent.shiftKey) {
                 const minIndex = this.selectionConfig.selectionManager.getMinSelectedIndex();
                 this.selectionConfig.selectionManager.selectRange(minIndex === null ? itemIndex : minIndex, itemIndex);
             } else {
-                this.selectionConfig.selectionManager.toggleSelection(itemIndex, false);
+                this.selectionConfig.selectionManager.toggleSelection(itemIndex, true);
             }
             setTimeout(this.clearWindowSelection, 0);
+            return;
         }
+        if (browserEvent.ctrlKey && this.selectionConfig.allowMultipleSelection) {
+            this.selectionConfig.selectionManager.toggleSelection(itemIndex, true);
+        } else if (browserEvent.shiftKey && this.selectionConfig.allowMultipleSelection) {
+            const minIndex = this.selectionConfig.selectionManager.getMinSelectedIndex();
+            this.selectionConfig.selectionManager.selectRange(minIndex === null ? itemIndex : minIndex, itemIndex);
+        } else {
+            this.selectionConfig.selectionManager.toggleSelection(itemIndex, false);
+        }
+        setTimeout(this.clearWindowSelection, 0);
     }
     clearWindowSelection(): void {
         try {

@@ -332,6 +332,27 @@ describe('SelectionManager', () => {
                 } as ISelectable)).eq(-1);
         });
     });
+    describe('itemsSource', () => {
+        it('remove deleted item from selections on set', () => {
+            const target = toTarget();
+            target.selectionManager = new SelectionManager();
+            target.selectionManager.itemsSource = target.items;
+            target.selectionManager.selectAll();
+            expect(target.selectionManager.getSelections().length).eq(3);
+            target.items.pop();
+            target.selectionManager.itemsSource = target.items;
+            expect(target.selectionManager.getSelections().length).eq(2);
+        });
+        it('remove shifted items from selections on set', () => {
+            const target = toTarget();
+            target.selectionManager = new SelectionManager();
+            target.selectionManager.itemsSource = target.items;
+            target.selectionManager.selectAll();
+            target.items.unshift(target.items.pop());
+            target.selectionManager.itemsSource = target.items;
+            expect(target.selectionManager.getSelections().length).eq(0);
+        });
+    });
 
     describe('hasSelections', () => {
         it('return boolean', () => {
