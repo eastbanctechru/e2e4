@@ -11,6 +11,7 @@ export class PagedPager implements IPager {
     loadedCount: number = 0;
     displayFrom = 1;
     displayTo = 1;
+    defaultPageSize = Defaults.pagedListSettings.defaultPageSize;
     get pageCount(): number {
         return Math.ceil(this.totalCount / this.pageSizeInternal);
     }
@@ -30,7 +31,7 @@ export class PagedPager implements IPager {
         this.pageNumberInternal = pageNumber;
     }
     @filter({
-        defaultValue: Defaults.pagedListSettings.defaultPageSize,
+        defaultValue: function (): number { return this.defaultPageSize; },
         parameterName: Defaults.pagedListSettings.pageSizeParameterName,
         persisted: Defaults.pagedListSettings.persistPageSize
     })
