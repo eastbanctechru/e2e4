@@ -311,6 +311,27 @@ describe('SelectionManager', () => {
             expect(target.selectionManager.isIndexSelected(4)).eql(false);
         });
     });
+    describe('getItemIndex', () => {
+        it('return index for item in items source', () => {
+            const target = toTarget();
+            target.selectionManager = new SelectionManager();
+            target.selectionManager.itemsSource = target.items;
+            expect(target.selectionManager.getItemIndex(target.items[0])).eq(0);
+            expect(target.selectionManager.getItemIndex(target.items[1])).eq(1);
+            expect(target.selectionManager.getItemIndex(target.items[2])).eq(2);
+        });
+
+        it('return -1 for item that not from items source', () => {
+            const target = toTarget();
+            target.selectionManager = new SelectionManager();
+            target.selectionManager.itemsSource = target.items;
+            expect(target.selectionManager.getItemIndex(
+                {
+                    name: 'four',
+                    selected: false
+                } as ISelectable)).eq(-1);
+        });
+    });
 
     describe('hasSelections', () => {
         it('return boolean', () => {

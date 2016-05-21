@@ -28,9 +28,9 @@ describe('filterAnnotation', () => {
         expect(FilterManager.filterPropertiesMap.has(RequestObject)).true;
         expect(FilterManager.filterPropertiesMap.get(RequestObject).length).equal(1);
     });
-    it('registers default config without params', () => {
+    it('registers default config if no args', () => {
         class RequestObject {
-            @filter()
+            @filter
             requestProperty: string;
         }
         let actualConfig = FilterManager.filterPropertiesMap.get(RequestObject)[0];
