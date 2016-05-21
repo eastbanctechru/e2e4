@@ -71,6 +71,9 @@ export class SelectionManager implements ISelectionManager {
             }
         }
     }
+    private checkIndexAcceptable(index: number): boolean {
+        return index !== null && index !== undefined && index >= 0 && this.itemsSource.length > index;
+    }
     deselectAll(): void {
         const list = this.selectionsList.splice(0, this.selectionsList.length);
         for (let i = 0; i < list.length; i++) {
@@ -139,17 +142,17 @@ export class SelectionManager implements ISelectionManager {
     }
 
     selectIndex(index: number, savePrevious: boolean = false): void {
-        if (index >= 0 && this.itemsSource.length > index) {
+        if (this.checkIndexAcceptable(index)) {
             this.selectItem(this.getSelectionTuple(index), savePrevious);
         }
     }
     deselectIndex(index: number): void {
-        if (index >= 0 && this.itemsSource.length > index) {
+        if (this.checkIndexAcceptable(index)) {
             this.deselectItem(this.getSelectionTuple(index));
         }
     }
     toggleSelection(index: number, savePrevious: boolean = false): void {
-        if (index < 0 || this.itemsSource.length <= index) {
+        if (!this.checkIndexAcceptable(index)) {
             return;
         }
         const tuple = this.getSelectionTuple(index);

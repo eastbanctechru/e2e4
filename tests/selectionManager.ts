@@ -175,6 +175,21 @@ describe('SelectionManager', () => {
             expect(target.items[1].selected).eql(true);
             expect(target.items[2].selected).eql(false);
         });
+
+        it(`ignores incorrect values`, () => {
+            const target = toTarget();
+            target.selectionManager = new SelectionManager();
+            target.selectionManager.itemsSource = target.items;
+
+            target.selectionManager.selectIndex(-20);
+            expect(target.selectionManager.getSelections()).empty;
+
+            target.selectionManager.selectIndex(null);
+            expect(target.selectionManager.getSelections()).empty;
+
+            target.selectionManager.selectIndex(150);
+            expect(target.selectionManager.getSelections()).empty;
+        });
     });
 
     describe('deselectIndex', () => {
@@ -192,6 +207,20 @@ describe('SelectionManager', () => {
             target.selectionManager.deselectIndex(1);
             expect(target.selectionManager.getSelections()).eql([]);
             expect(target.items[1].selected).eql(false);
+        });
+        it(`ignores incorrect values`, () => {
+            const target = toTarget();
+            target.selectionManager = new SelectionManager();
+            target.selectionManager.itemsSource = target.items;
+
+            target.selectionManager.deselectIndex(-20);
+            expect(target.selectionManager.getSelections()).empty;
+
+            target.selectionManager.deselectIndex(null);
+            expect(target.selectionManager.getSelections()).empty;
+
+            target.selectionManager.deselectIndex(150);
+            expect(target.selectionManager.getSelections()).empty;
         });
 
     });
