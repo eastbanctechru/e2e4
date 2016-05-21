@@ -109,6 +109,10 @@ describe('Utility', () => {
             expect(Utility.coerceValue('5.5')).eql(5.5);
             expect(Utility.coerceValue('0.5')).eql(0.5);
         });
+        it('handles null and undefined', () => {
+            expect(Utility.coerceValue(null)).null;
+            expect(Utility.coerceValue(undefined)).undefined;
+        });
         it('parse \'undefined\' to undefined', () => {
             expect(Utility.coerceValue('undefined')).eql(undefined);
         });
