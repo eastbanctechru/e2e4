@@ -4,7 +4,7 @@
   "ambientDependencies": {
     "assertion-error": "github:DefinitelyTyped/DefinitelyTyped/assertion-error/assertion-error.d.ts#0cd5f0a1482dc3149f5446b1d885ef6ac7c57720",
     "chai": "github:DefinitelyTyped/DefinitelyTyped/chai/chai.d.ts#0cd5f0a1482dc3149f5446b1d885ef6ac7c57720",
-    "es6-shim": "registry:dt/es6-shim#0.31.2+20160317120654",
+    "core-js": "github:DefinitelyTyped/DefinitelyTyped/core-js/core-js.d.ts#299b5caa22876ef27dc8e9a5b7fd7bf93457b6f4",
     "mocha": "github:DefinitelyTyped/DefinitelyTyped/mocha/mocha.d.ts#0cd5f0a1482dc3149f5446b1d885ef6ac7c57720",
     "sinon": "github:DefinitelyTyped/DefinitelyTyped/sinon/sinon.d.ts#0cd5f0a1482dc3149f5446b1d885ef6ac7c57720"
   }
