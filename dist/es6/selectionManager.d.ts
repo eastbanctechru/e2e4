@@ -12,6 +12,7 @@ export declare class SelectionManager implements ISelectionManager {
     private selectItem(selectionTuple, savePrevious?);
     private getSelectionTuple(index);
     private checkSelection();
+    private checkIndexAcceptable(index);
     deselectAll(): void;
     selectAll(): void;
     selectRange(fromIndex: number, toIndex: number): void;

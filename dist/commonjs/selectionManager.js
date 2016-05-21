@@ -44,11 +44,6 @@ var SelectionManager = (function () {
         var _this = this;
         if (savePrevious === void 0) { savePrevious = false; }
         if (savePrevious) {
-            var index = this.selectionsList.findIndex(function (selectedItem) { return (selectedItem.item === selectionTuple.item); });
-            if (index !== -1) {
-                this.processSelection(selectionTuple.item, false);
-                this.selectionsList.splice(index, 1);
-            }
             this.selectionsList.push(selectionTuple);
             this.processSelection(selectionTuple.item, true);
         }
@@ -73,6 +68,9 @@ var SelectionManager = (function () {
                 this.deselectItem(tuple);
             }
         }
+    };
+    SelectionManager.prototype.checkIndexAcceptable = function (index) {
+        return index !== null && index !== undefined && index >= 0 && this.itemsSource.length > index;
     };
     SelectionManager.prototype.deselectAll = function () {
         var list = this.selectionsList.splice(0, this.selectionsList.length);
@@ -140,28 +138,23 @@ var SelectionManager = (function () {
     };
     SelectionManager.prototype.selectIndex = function (index, savePrevious) {
         if (savePrevious === void 0) { savePrevious = false; }
-        if (index >= 0 && this.itemsSource.length > index) {
+        if (this.checkIndexAcceptable(index)) {
             this.selectItem(this.getSelectionTuple(index), savePrevious);
         }
     };
     SelectionManager.prototype.deselectIndex = function (index) {
-        if (index >= 0 && this.itemsSource.length > index) {
+        if (this.checkIndexAcceptable(index)) {
             this.deselectItem(this.getSelectionTuple(index));
         }
     };
     SelectionManager.prototype.toggleSelection = function (index, savePrevious) {
         if (savePrevious === void 0) { savePrevious = false; }
-        if (index < 0 || this.itemsSource.length <= index) {
+        if (!this.checkIndexAcceptable(index)) {
             return;
         }
         var tuple = this.getSelectionTuple(index);
-        if (this.isIndexSelected(index)) {
-            if (this.selectionsList.length === 1 || (this.selectionsList.length > 1 && savePrevious)) {
-                this.deselectItem(tuple);
-            }
-            else {
-                this.selectItem(tuple, savePrevious);
-            }
+        if (this.isIndexSelected(index) && (this.selectionsList.length === 1 || (this.selectionsList.length > 1 && savePrevious))) {
+            this.deselectItem(tuple);
             return;
         }
         this.selectItem(tuple, savePrevious);

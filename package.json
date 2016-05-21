@@ -66,11 +66,11 @@
     "ts-loader": "0.8.2",
     "tslint": "^3.10.2",
     "typescript": "^1.8.10",
-    "typings": "^1.0.3",
+    "typings": "^1.0.4",
     "vinyl": "^1.1.1",
     "vinyl-paths": "^2.1.0",
     "wallaby-webpack": "0.0.22",
-    "webpack": "1.13.0",
+    "webpack": "1.13.1",
     "yargs": "^4.7.0"
   }
 }
