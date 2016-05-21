@@ -8,7 +8,7 @@ module.exports = function (config) {
         frameworks: ['mocha'], //use the mocha test framework
         files: [
             //polyfill
-            'node_modules/core-js/client/core.js',
+            'node_modules/es6-shim/es6-shim.js',
             // all files in "test"
             'tests/**/*.ts'
             // each file acts as entry point for the webpack configuration
