@@ -1,15 +1,12 @@
-System.register(['lodash', './common/parseHelper'], function(exports_1, context_1) {
+System.register(['./common/utility'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var _, parseHelper_1;
+    var utility_1;
     var FilterManager;
     return {
         setters:[
-            function (_1) {
-                _ = _1;
-            },
-            function (parseHelper_1_1) {
-                parseHelper_1 = parseHelper_1_1;
+            function (utility_1_1) {
+                utility_1 = utility_1_1;
             }],
         execute: function() {
             FilterManager = (function () {
@@ -56,8 +53,8 @@ System.register(['lodash', './common/parseHelper'], function(exports_1, context_
                         for (var i = 0; i < targetConfig.length; i++) {
                             var config = targetConfig[i];
                             var defaultValue = (typeof config.defaultValue === 'function') ? config.defaultValue.call(target) : config.defaultValue;
-                            var clonedObject = _.cloneDeep({ defaultValue: defaultValue });
-                            target[config.propertyName] = clonedObject.defaultValue;
+                            var clonedObject = utility_1.Utility.cloneLiteral({ defaultValue: defaultValue });
+                            target[config.propertyName] = config.parseFormatter ? config.parseFormatter(clonedObject.defaultValue) : clonedObject.defaultValue;
                         }
                     });
                 };
@@ -67,11 +64,11 @@ System.register(['lodash', './common/parseHelper'], function(exports_1, context_
                         for (var i = 0; i < targetConfig.length; i++) {
                             var config = targetConfig[i];
                             if (false === _this.defaultsApplied && config.defaultValue === undefined) {
-                                config.defaultValue = _.cloneDeep({ defaultValue: target[config.propertyName] }).defaultValue;
+                                config.defaultValue = utility_1.Utility.cloneLiteral({ defaultValue: target[config.propertyName] }).defaultValue;
                             }
                             if (params && params[config.parameterName] !== undefined && false === config.ignoreOnAutoMap) {
                                 var proposedVal = config.emptyIsNull ? params[config.parameterName] || null : params[config.parameterName];
-                                proposedVal = config.coerce ? parseHelper_1.ParseHelper.coerceValue(proposedVal) : proposedVal;
+                                proposedVal = config.coerce ? utility_1.Utility.coerceValue(proposedVal) : proposedVal;
                                 target[config.propertyName] = config.parseFormatter ? config.parseFormatter.call(target, proposedVal, params) : proposedVal;
                             }
                         }
@@ -111,7 +108,7 @@ System.register(['lodash', './common/parseHelper'], function(exports_1, context_
                     var targetConfig = this.appliedFiltersMapInternal.has(target) ? this.appliedFiltersMapInternal.get(target) : new Array();
                     FilterManager.filterPropertiesMap.forEach(function (typeConfig, type) {
                         if (target instanceof type) {
-                            targetConfig = targetConfig.concat(_.cloneDeep(typeConfig));
+                            targetConfig = targetConfig.concat(typeConfig);
                         }
                     });
                     if (targetConfig.length > 0) {

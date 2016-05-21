@@ -1,6 +1,5 @@
 "use strict";
-var _ = require('lodash');
-var parseHelper_1 = require('./common/parseHelper');
+var utility_1 = require('./common/utility');
 var FilterManager = (function () {
     function FilterManager(target) {
         this.defaultsApplied = false;
@@ -45,8 +44,8 @@ var FilterManager = (function () {
             for (var i = 0; i < targetConfig.length; i++) {
                 var config = targetConfig[i];
                 var defaultValue = (typeof config.defaultValue === 'function') ? config.defaultValue.call(target) : config.defaultValue;
-                var clonedObject = _.cloneDeep({ defaultValue: defaultValue });
-                target[config.propertyName] = clonedObject.defaultValue;
+                var clonedObject = utility_1.Utility.cloneLiteral({ defaultValue: defaultValue });
+                target[config.propertyName] = config.parseFormatter ? config.parseFormatter(clonedObject.defaultValue) : clonedObject.defaultValue;
             }
         });
     };
@@ -56,11 +55,11 @@ var FilterManager = (function () {
             for (var i = 0; i < targetConfig.length; i++) {
                 var config = targetConfig[i];
                 if (false === _this.defaultsApplied && config.defaultValue === undefined) {
-                    config.defaultValue = _.cloneDeep({ defaultValue: target[config.propertyName] }).defaultValue;
+                    config.defaultValue = utility_1.Utility.cloneLiteral({ defaultValue: target[config.propertyName] }).defaultValue;
                 }
                 if (params && params[config.parameterName] !== undefined && false === config.ignoreOnAutoMap) {
                     var proposedVal = config.emptyIsNull ? params[config.parameterName] || null : params[config.parameterName];
-                    proposedVal = config.coerce ? parseHelper_1.ParseHelper.coerceValue(proposedVal) : proposedVal;
+                    proposedVal = config.coerce ? utility_1.Utility.coerceValue(proposedVal) : proposedVal;
                     target[config.propertyName] = config.parseFormatter ? config.parseFormatter.call(target, proposedVal, params) : proposedVal;
                 }
             }
@@ -100,7 +99,7 @@ var FilterManager = (function () {
         var targetConfig = this.appliedFiltersMapInternal.has(target) ? this.appliedFiltersMapInternal.get(target) : new Array();
         FilterManager.filterPropertiesMap.forEach(function (typeConfig, type) {
             if (target instanceof type) {
-                targetConfig = targetConfig.concat(_.cloneDeep(typeConfig));
+                targetConfig = targetConfig.concat(typeConfig);
             }
         });
         if (targetConfig.length > 0) {

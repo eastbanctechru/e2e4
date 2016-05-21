@@ -1,7 +1,7 @@
-System.register(['./common/status', './common/defaults', './common/progressState', 'lodash'], function(exports_1, context_1) {
+System.register(['./common/status', './common/defaults', './common/progressState'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var status_1, defaults_1, progressState_1, _;
+    var status_1, defaults_1, progressState_1;
     var StatusTracker;
     return {
         setters:[
@@ -13,9 +13,6 @@ System.register(['./common/status', './common/defaults', './common/progressState
             },
             function (progressState_1_1) {
                 progressState_1 = progressState_1_1;
-            },
-            function (_1) {
-                _ = _1;
             }],
         execute: function() {
             StatusTracker = (function () {
@@ -61,9 +58,11 @@ System.register(['./common/status', './common/defaults', './common/progressState
                             StatusTracker.status = progressState_1.ProgressState.Done;
                         }
                         else {
-                            _.remove(StatusTracker.statusList, function (item) {
-                                return item.sid === sid;
-                            });
+                            for (var i = StatusTracker.statusList.length - 1; i >= 0; i--) {
+                                if (StatusTracker.statusList[i].sid === sid) {
+                                    StatusTracker.statusList.splice(i, 1);
+                                }
+                            }
                         }
                     }, defaults_1.Defaults.uiSettings.elementVisibilityInterval);
                 };

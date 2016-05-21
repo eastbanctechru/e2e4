@@ -2,7 +2,6 @@
 var status_1 = require('./common/status');
 var defaults_1 = require('./common/defaults');
 var progressState_1 = require('./common/progressState');
-var _ = require('lodash');
 var StatusTracker = (function () {
     function StatusTracker() {
     }
@@ -46,9 +45,11 @@ var StatusTracker = (function () {
                 StatusTracker.status = progressState_1.ProgressState.Done;
             }
             else {
-                _.remove(StatusTracker.statusList, function (item) {
-                    return item.sid === sid;
-                });
+                for (var i = StatusTracker.statusList.length - 1; i >= 0; i--) {
+                    if (StatusTracker.statusList[i].sid === sid) {
+                        StatusTracker.statusList.splice(i, 1);
+                    }
+                }
             }
         }, defaults_1.Defaults.uiSettings.elementVisibilityInterval);
     };

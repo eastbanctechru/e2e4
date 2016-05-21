@@ -79,8 +79,7 @@ describe('Utility', () => {
                 },
                 nullProperty: null,
                 numberProperty: 5,
-                stringProperty: 'Hello world',
-
+                stringProperty: 'Hello world'
             };
             let cloned = Utility.cloneLiteral(toClone);
             expect(cloned).to.not.equal(toClone);
@@ -89,7 +88,7 @@ describe('Utility', () => {
         it('clones only properties', () => {
             let toClone = {
                 arrayProperty: ['Hello world', 5, null],
-                functionProperty: function () {
+                functionProperty: function (): void {
                 }
             };
             let cloned = Utility.cloneLiteral(toClone);

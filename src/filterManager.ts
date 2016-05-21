@@ -101,7 +101,7 @@ export class FilterManager implements IFilterManager {
         let targetConfig = this.appliedFiltersMapInternal.has(target) ? this.appliedFiltersMapInternal.get(target) : new Array<FilterConfig>();
         FilterManager.filterPropertiesMap.forEach((typeConfig, type) => {
             if (target instanceof type) {
-                targetConfig = targetConfig.concat(_.cloneDeep(typeConfig));
+                targetConfig = targetConfig.concat(typeConfig);
             }
         });
         if (targetConfig.length > 0) {

@@ -1,7 +1,6 @@
 ﻿import {Status} from './common/status';
 import {Defaults} from './common/defaults';
 import {ProgressState} from './common/progressState';
-import * as _ from 'lodash';
 
 export class StatusTracker {
     static status = ProgressState.Done;
@@ -39,9 +38,11 @@ export class StatusTracker {
                 StatusTracker.statusList.length = 0;
                 StatusTracker.status = ProgressState.Done;
             } else {
-                _.remove(StatusTracker.statusList, item => {
-                    return item.sid === sid;
-                });
+                for (let i = StatusTracker.statusList.length - 1; i >= 0; i--) {
+                    if (StatusTracker.statusList[i].sid === sid) {
+                        StatusTracker.statusList.splice(i, 1);
+                    }
+                }
             }
         }, Defaults.uiSettings.elementVisibilityInterval);
     };
