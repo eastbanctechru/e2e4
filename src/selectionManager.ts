@@ -47,11 +47,6 @@ export class SelectionManager implements ISelectionManager {
     }
     private selectItem(selectionTuple: ISelectionTuple, savePrevious: boolean = false): void {
         if (savePrevious) {
-            const index = this.selectionsList.findIndex(selectedItem => (selectedItem.item === selectionTuple.item));
-            if (index !== -1) {
-                this.processSelection(selectionTuple.item, false);
-                this.selectionsList.splice(index, 1);
-            }
             this.selectionsList.push(selectionTuple);
             this.processSelection(selectionTuple.item, true);
         } else {
