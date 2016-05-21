@@ -17,7 +17,7 @@ var FilterConfig = (function () {
             serializeFormatter: undefined
         };
     };
-    FilterConfig.prototype.register = function (target, descriptor) {
+    FilterConfig.prototype.register = function (target) {
         filterManager_1.FilterManager.registerFilter(target, this);
     };
     return FilterConfig;

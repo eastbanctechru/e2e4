@@ -8,14 +8,13 @@ export declare class SelectionManager implements ISelectionManager {
     lastProcessedIndex: number;
     itemsSource: Array<ISelectable>;
     private processSelection(item, selected);
-    private deselectItem(selectionTuple, recursive?);
-    private selectItem(selectionTuple, savePrevious?, recursive?);
-    private canRecurse(recursive, item);
+    private deselectItem(selectionTuple);
+    private selectItem(selectionTuple, savePrevious?);
     private getSelectionTuple(index);
     private checkSelection();
-    deselectAll(recursive?: boolean): void;
-    selectAll(recursive?: boolean): void;
-    selectRange(fromIndex: number, toIndex: number, recursive?: boolean): void;
+    deselectAll(): void;
+    selectAll(): void;
+    selectRange(fromIndex: number, toIndex: number): void;
     hasSelections(): boolean;
     isIndexSelected(index: number): boolean;
     getItemIndex(item: ISelectable): number;
@@ -23,8 +22,8 @@ export declare class SelectionManager implements ISelectionManager {
     getMaxSelectedIndex(): number;
     selectFirst(): void;
     selectLast(): void;
-    selectIndex(index: number, savePrevious?: boolean, recursive?: boolean): void;
-    deselectIndex(index: number, recursive?: boolean): void;
-    toggleSelection(index: number, savePrevious?: boolean, recursive?: boolean): void;
-    getSelections(recursive?: boolean): Array<Object>;
+    selectIndex(index: number, savePrevious?: boolean): void;
+    deselectIndex(index: number): void;
+    toggleSelection(index: number, savePrevious?: boolean): void;
+    getSelections(): Array<Object>;
 }

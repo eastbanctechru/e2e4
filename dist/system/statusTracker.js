@@ -38,23 +38,19 @@ System.register(['./common/status', './common/defaults', './common/progressState
                 StatusTracker.trackStatus = function (title) {
                     var sid = setTimeout(function () {
                         StatusTracker.status = progressState_1.ProgressState.Progress;
-                        if (title) {
-                            var status_2 = new status_1.Status(progressState_1.ProgressState.Progress, title);
-                            status_2.sid = sid;
-                            StatusTracker.statusList.push(status_2);
-                        }
+                        var status = new status_1.Status(progressState_1.ProgressState.Progress, title);
+                        status.sid = sid;
+                        StatusTracker.statusList.push(status);
                     }, defaults_1.Defaults.uiSettings.progressDelayInterval);
                     return sid;
                 };
                 StatusTracker.resolveStatus = function (sid, status) {
-                    if (sid) {
-                        clearTimeout(sid);
-                        var current = StatusTracker.statusList.find(function (item) {
-                            return item.sid === sid;
-                        });
-                        if (current) {
-                            current.status = status;
-                        }
+                    clearTimeout(sid);
+                    var current = StatusTracker.statusList.find(function (item) {
+                        return item.sid === sid;
+                    });
+                    if (current) {
+                        current.status = status;
                     }
                     setTimeout(function () {
                         var undone = StatusTracker.statusList.find(function (item) {

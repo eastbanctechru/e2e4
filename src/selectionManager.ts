@@ -1,6 +1,11 @@
 import {ISelectable} from './contracts/ISelectable';
 import {ISelectionManager} from './contracts/ISelectionManager';
-import {ISelectionTuple} from './contracts/ISelectionTuple';
+
+interface ISelectionTuple {
+    index: number;
+    item: ISelectable;
+}
+
 export class SelectionManager implements ISelectionManager {
     private selectionsList = new Array<ISelectionTuple>();
     private items: Array<ISelectable>;

@@ -10,7 +10,6 @@ export declare class FilterConfig implements IFilterConfig {
     coerce: boolean;
     serializeFormatter: (value: Object) => Object;
     parseFormatter: (rawValue: Object, allValues?: Object) => Object;
-    descriptor: Object;
     constructor(config: IFilterConfig);
-    register(target: Object, descriptor?: Object): void;
+    register(target: Object): void;
 }

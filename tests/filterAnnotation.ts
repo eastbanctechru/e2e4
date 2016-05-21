@@ -64,7 +64,7 @@ describe('filterAnnotation', () => {
             } as IFilterConfig)
             requestProperty: string;
         }
-        
+
         let actualConfig = FilterManager.filterPropertiesMap.get(RequestObject)[0];
         let expectedConfig = {
             coerce: false,

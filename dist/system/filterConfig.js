@@ -26,7 +26,7 @@ System.register(['./filterManager'], function(exports_1, context_1) {
                         serializeFormatter: undefined
                     };
                 };
-                FilterConfig.prototype.register = function (target, descriptor) {
+                FilterConfig.prototype.register = function (target) {
                     filterManager_1.FilterManager.registerFilter(target, this);
                 };
                 return FilterConfig;

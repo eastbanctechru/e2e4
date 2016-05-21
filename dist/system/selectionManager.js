@@ -11,7 +11,7 @@ System.register([], function(exports_1, context_1) {
                 }
                 SelectionManager.prototype.dispose = function () {
                     this.selectionsList.length = 0;
-                    delete this.selectionsList;
+                    this.lastProcessedIndex = null;
                     delete this.items;
                 };
                 Object.defineProperty(SelectionManager.prototype, "itemsSource", {
@@ -26,33 +26,29 @@ System.register([], function(exports_1, context_1) {
                     configurable: true
                 });
                 SelectionManager.prototype.processSelection = function (item, selected) {
+                    var initialSelectState = item.selected;
                     item.selected = selected;
-                    if (item.onSelectionChanged !== undefined) {
+                    if (item.onSelectionChanged !== undefined && initialSelectState !== selected) {
                         item.onSelectionChanged(selected);
                     }
-                    if (selected === true && item.onSelected !== undefined) {
+                    if (selected === true && item.onSelected !== undefined && initialSelectState !== selected) {
                         item.onSelected();
                     }
-                    if (selected === false && item.onDeselected !== undefined) {
+                    if (selected === false && item.onDeselected !== undefined && initialSelectState !== selected) {
                         item.onDeselected();
                     }
                 };
-                SelectionManager.prototype.deselectItem = function (selectionTuple, recursive) {
-                    if (recursive === void 0) { recursive = false; }
+                SelectionManager.prototype.deselectItem = function (selectionTuple) {
                     var index = this.selectionsList.findIndex(function (selectedItem) { return (selectedItem.item === selectionTuple.item); });
                     if (index !== -1) {
                         this.selectionsList.splice(index, 1);
                     }
                     this.processSelection(selectionTuple.item, false);
-                    if (this.canRecurse(recursive, selectionTuple.item)) {
-                        (selectionTuple.item).selectionManager.deselectAll(true);
-                    }
                     this.lastProcessedIndex = selectionTuple.index;
                 };
-                SelectionManager.prototype.selectItem = function (selectionTuple, savePrevious, recursive) {
+                SelectionManager.prototype.selectItem = function (selectionTuple, savePrevious) {
                     var _this = this;
                     if (savePrevious === void 0) { savePrevious = false; }
-                    if (recursive === void 0) { recursive = false; }
                     if (savePrevious) {
                         var index = this.selectionsList.findIndex(function (selectedItem) { return (selectedItem.item === selectionTuple.item); });
                         if (index !== -1) {
@@ -68,16 +64,7 @@ System.register([], function(exports_1, context_1) {
                         this.selectionsList.push(selectionTuple);
                         this.processSelection(selectionTuple.item, true);
                     }
-                    if (this.canRecurse(recursive, selectionTuple.item)) {
-                        (selectionTuple.item).selectionManager.selectAll(true);
-                    }
                     this.lastProcessedIndex = selectionTuple.index;
-                };
-                SelectionManager.prototype.canRecurse = function (recursive, item) {
-                    if (recursive && item.selectionManager && item.selectionManager instanceof SelectionManager) {
-                        return true;
-                    }
-                    return false;
                 };
                 SelectionManager.prototype.getSelectionTuple = function (index) {
                     return {
@@ -93,24 +80,18 @@ System.register([], function(exports_1, context_1) {
                         }
                     }
                 };
-                SelectionManager.prototype.deselectAll = function (recursive) {
-                    if (recursive === void 0) { recursive = false; }
+                SelectionManager.prototype.deselectAll = function () {
                     var list = this.selectionsList.splice(0, this.selectionsList.length);
                     for (var i = 0; i < list.length; i++) {
                         var item = list[i].item;
                         this.processSelection(item, false);
-                        if (this.canRecurse(recursive, item)) {
-                            (item).selectionManager.deselectAll(true);
-                        }
                     }
                     this.lastProcessedIndex = null;
                 };
-                SelectionManager.prototype.selectAll = function (recursive) {
-                    if (recursive === void 0) { recursive = false; }
-                    this.selectRange(0, this.itemsSource.length - 1, recursive);
+                SelectionManager.prototype.selectAll = function () {
+                    this.selectRange(0, this.itemsSource.length - 1);
                 };
-                SelectionManager.prototype.selectRange = function (fromIndex, toIndex, recursive) {
-                    if (recursive === void 0) { recursive = false; }
+                SelectionManager.prototype.selectRange = function (fromIndex, toIndex) {
                     if (toIndex < 0 || this.itemsSource.length <= toIndex || fromIndex < 0 || this.itemsSource.length <= fromIndex) {
                         return;
                     }
@@ -122,9 +103,6 @@ System.register([], function(exports_1, context_1) {
                         var tuple = this.getSelectionTuple(i);
                         tempData.push(tuple);
                         this.processSelection(tuple.item, true);
-                        if (this.canRecurse(recursive, tuple.item)) {
-                            (tuple.item).selectionManager.selectAll(true);
-                        }
                     }
                     (_a = this.selectionsList).splice.apply(_a, [0, this.selectionsList.length].concat(tempData));
                     this.lastProcessedIndex = endIndex;
@@ -166,49 +144,35 @@ System.register([], function(exports_1, context_1) {
                         this.selectItem(this.getSelectionTuple(this.itemsSource.length - 1));
                     }
                 };
-                SelectionManager.prototype.selectIndex = function (index, savePrevious, recursive) {
+                SelectionManager.prototype.selectIndex = function (index, savePrevious) {
                     if (savePrevious === void 0) { savePrevious = false; }
-                    if (recursive === void 0) { recursive = false; }
                     if (index >= 0 && this.itemsSource.length > index) {
-                        this.selectItem(this.getSelectionTuple(index), savePrevious, recursive);
+                        this.selectItem(this.getSelectionTuple(index), savePrevious);
                     }
                 };
-                SelectionManager.prototype.deselectIndex = function (index, recursive) {
-                    if (recursive === void 0) { recursive = false; }
+                SelectionManager.prototype.deselectIndex = function (index) {
                     if (index >= 0 && this.itemsSource.length > index) {
-                        this.deselectItem(this.getSelectionTuple(index), recursive);
+                        this.deselectItem(this.getSelectionTuple(index));
                     }
                 };
-                SelectionManager.prototype.toggleSelection = function (index, savePrevious, recursive) {
+                SelectionManager.prototype.toggleSelection = function (index, savePrevious) {
                     if (savePrevious === void 0) { savePrevious = false; }
-                    if (recursive === void 0) { recursive = false; }
                     if (index < 0 || this.itemsSource.length <= index) {
                         return;
                     }
                     var tuple = this.getSelectionTuple(index);
                     if (this.isIndexSelected(index)) {
                         if (this.selectionsList.length === 1 || (this.selectionsList.length > 1 && savePrevious)) {
-                            this.deselectItem(tuple, recursive);
+                            this.deselectItem(tuple);
                         }
                         else {
-                            this.selectItem(tuple, savePrevious, recursive);
+                            this.selectItem(tuple, savePrevious);
                         }
                         return;
                     }
-                    this.selectItem(tuple, savePrevious, recursive);
+                    this.selectItem(tuple, savePrevious);
                 };
-                SelectionManager.prototype.getSelections = function (recursive) {
-                    if (recursive === void 0) { recursive = false; }
-                    if (recursive) {
-                        var result = [];
-                        for (var i = 0; i < this.selectionsList.length; i++) {
-                            var item = this.selectionsList[i].item;
-                            result.push(item);
-                            if (this.canRecurse(recursive, item)) {
-                                result = result.concat((item).selectionManager.getSelections(true));
-                            }
-                        }
-                    }
+                SelectionManager.prototype.getSelections = function () {
                     return this.selectionsList.map(function (selectable) { return selectable.item; });
                 };
                 return SelectionManager;
