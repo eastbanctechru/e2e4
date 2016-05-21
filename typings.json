@@ -1,11 +1,13 @@
 {
   "name": "e2e4",
   "version": false,
-  "ambientDependencies": {
-    "assertion-error": "github:DefinitelyTyped/DefinitelyTyped/assertion-error/assertion-error.d.ts#0cd5f0a1482dc3149f5446b1d885ef6ac7c57720",
-    "chai": "github:DefinitelyTyped/DefinitelyTyped/chai/chai.d.ts#0cd5f0a1482dc3149f5446b1d885ef6ac7c57720",
+  "dependencies": {
+    "assertion-error": "registry:npm/assertion-error#1.0.0+20160422045008",
+    "chai": "registry:npm/chai#3.5.0+20160415060238",
+    "sinon": "registry:npm/sinon#1.16.0+20160427193336"
+  },
+  "globalDependencies": {
     "es6-shim": "registry:dt/es6-shim#0.31.2+20160317120654",
-    "mocha": "github:DefinitelyTyped/DefinitelyTyped/mocha/mocha.d.ts#0cd5f0a1482dc3149f5446b1d885ef6ac7c57720",
-    "sinon": "github:DefinitelyTyped/DefinitelyTyped/sinon/sinon.d.ts#0cd5f0a1482dc3149f5446b1d885ef6ac7c57720"
+    "mocha": "registry:dt/mocha#2.2.5+20160317120654"
   }
 }

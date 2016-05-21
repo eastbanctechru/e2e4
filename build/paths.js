@@ -15,6 +15,5 @@ module.exports = {
   tests: testsRoot + tsGlob,
   output: 'dist/',
   packageName: pkg.name,
-  dtsSrc: ['typings/browser.d.ts'],
-  es6dtsSrc: ['typings/browser/ambient/lodash/index.d.ts']
+  dtsSrc: ['typings/index.d.ts']
 };
