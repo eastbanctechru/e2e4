@@ -1,6 +1,5 @@
-import * as _ from 'lodash';
 import {FilterConfig} from './filterConfig';
-import {ParseHelper} from './common/parseHelper';
+import {Utility} from './common/utility';
 import {IFilterManager} from './contracts/IFilterManager';
 
 export class FilterManager implements IFilterManager {
@@ -47,8 +46,8 @@ export class FilterManager implements IFilterManager {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
                 const defaultValue = (typeof config.defaultValue === 'function') ? (config.defaultValue as Function).call(target) : config.defaultValue;
-                const clonedObject = _.cloneDeep({ defaultValue: defaultValue });
-                target[config.propertyName] = clonedObject.defaultValue;
+                const clonedObject = Utility.cloneLiteral({ defaultValue: defaultValue });
+                target[config.propertyName] = config.parseFormatter ? config.parseFormatter(clonedObject.defaultValue) : clonedObject.defaultValue;
             }
         });
     }
@@ -57,12 +56,12 @@ export class FilterManager implements IFilterManager {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
                 if (false === this.defaultsApplied && config.defaultValue === undefined) {
-                    config.defaultValue = _.cloneDeep({ defaultValue: target[config.propertyName] }).defaultValue;
+                    config.defaultValue = Utility.cloneLiteral({ defaultValue: target[config.propertyName] }).defaultValue;
                 }
 
                 if (params && params[config.parameterName] !== undefined && false === config.ignoreOnAutoMap) {
                     let proposedVal = config.emptyIsNull ? params[config.parameterName] || null : params[config.parameterName];
-                    proposedVal = config.coerce ? ParseHelper.coerceValue(proposedVal) : proposedVal;
+                    proposedVal = config.coerce ? Utility.coerceValue(proposedVal) : proposedVal;
                     target[config.propertyName] = config.parseFormatter ? config.parseFormatter.call(target, proposedVal, params) : proposedVal;
                 }
             }

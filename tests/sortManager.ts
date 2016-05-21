@@ -98,11 +98,14 @@ describe('SortManager', () => {
         it('deeply clone default sortings to sortings', () => {
             const target = toTargetWithDefault();
             const {sortManager} = target;
+
             expect(sortManager.defaultSortings).not.equal(sortManager.sortings);
             expect(sortManager.defaultSortings).eql(sortManager.sortings);
+
             let filterManager = new FilterManager(sortManager);
             sortManager.setSort('name', doNotSavePrevious);
             filterManager.resetValues();
+
             expect(sortManager.defaultSortings).not.equal(sortManager.sortings);
             expect(sortManager.defaultSortings).eql(sortManager.sortings);
         });
