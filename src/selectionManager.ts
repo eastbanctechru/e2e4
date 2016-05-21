@@ -156,12 +156,8 @@ export class SelectionManager implements ISelectionManager {
             return;
         }
         const tuple = this.getSelectionTuple(index);
-        if (this.isIndexSelected(index)) {
-            if (this.selectionsList.length === 1 || (this.selectionsList.length > 1 && savePrevious)) {
-                this.deselectItem(tuple);
-            } else {
-                this.selectItem(tuple, savePrevious);
-            }
+        if (this.isIndexSelected(index) && (this.selectionsList.length === 1 || (this.selectionsList.length > 1 && savePrevious))) {
+            this.deselectItem(tuple);
             return;
         }
         this.selectItem(tuple, savePrevious);

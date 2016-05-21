@@ -241,6 +241,22 @@ describe('SelectionManager', () => {
             expect(target.selectionManager.getSelections()).eql([]);
             expect(target.items[1].selected).eql(false);
         });
+        it('toggle element selection only at index when multiple items selected', () => {
+            const target = toTarget();
+            target.selectionManager = new SelectionManager();
+            target.selectionManager.itemsSource = target.items;
+            target.selectionManager.toggleSelection(1, savePrevious);
+            target.selectionManager.toggleSelection(2, savePrevious);
+            expect(target.selectionManager.getSelections()).eql([{ name: 'second', selected: true }, { name: 'third', selected: true }]);
+
+            expect(target.items[0].selected).eql(false);
+            expect(target.items[1].selected).eql(true);
+            expect(target.items[2].selected).eql(true);
+
+            target.selectionManager.toggleSelection(1, savePrevious);
+            expect(target.selectionManager.getSelections()).eql([{ name: 'third', selected: true }]);
+            expect(target.items[1].selected).eql(false);
+        });
 
         it('toggle element selection at index, single item mode', () => {
             const target = toTarget();
@@ -333,6 +349,15 @@ describe('SelectionManager', () => {
             target.selectionManager.itemsSource = target.items;
             target.selectionManager.toggleSelection(0, savePrevious);
             target.selectionManager.toggleSelection(1, savePrevious);
+            expect(target.selectionManager.getMaxSelectedIndex()).eql(1);
+        });
+
+        it('for reversed selection order', () => {
+            const target = toTarget();
+            target.selectionManager = new SelectionManager();
+            target.selectionManager.itemsSource = target.items;
+            target.selectionManager.toggleSelection(1, savePrevious);
+            target.selectionManager.toggleSelection(0, savePrevious);
             expect(target.selectionManager.getMaxSelectedIndex()).eql(1);
         });
 
