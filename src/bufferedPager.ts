@@ -19,13 +19,13 @@ export class BufferedPager implements IPager {
     skip = 0;
 
     @filter({
-        defaultValue: function (): number { return this.defaultTakeRowCount; },
+        defaultValue: function (): number { return this.defaultRowCount; },
         parameterName: Defaults.bufferedListSettings.takeRowCountParameterName,
         parseFormatter: (proposedParam: any, allParams: any): number => {
             if (allParams && allParams.skip !== undefined && allParams.take !== undefined) {
                 return allParams.skip + allParams.take;
             }
-            return this.defaultTakeRowCount;
+            return this.defaultRowCount;
         }
     } as IFilterConfig)
     get takeRowCount(): number {
