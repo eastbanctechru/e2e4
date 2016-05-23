@@ -4,7 +4,18 @@ import {filter} from './filterAnnotation';
 import {IFilterConfig} from './contracts/IFilterConfig';
 
 export class BufferedPager implements IPager {
+    @filter({
+        defaultValue: function (): number { return this.defaultRowCount; },
+        parameterName: Defaults.bufferedListSettings.takeRowCountParameterName,
+        parseFormatter: function (proposedParam: any, allParams: any): number {
+            if (allParams && !isNaN(allParams.skip) && !isNaN(allParams.take)) {
+                return (allParams.skip || 0) + (allParams.take || 0);
+            }
+            return this.defaultRowCount;
+        }
+    } as IFilterConfig)
     private takeRowCountInternal = Defaults.bufferedListSettings.defaultRowCount;
+
     totalCount: number = 0;
     loadedCount: number = 0;
     defaultRowCount: number = Defaults.bufferedListSettings.defaultRowCount;
@@ -14,20 +25,10 @@ export class BufferedPager implements IPager {
     @filter({
         defaultValue: 0,
         parameterName: Defaults.bufferedListSettings.skipRowCountParameterName,
-        parseFormatter: (): number => { return 0; }
+        parseFormatter: function (): number { return 0; }
     } as IFilterConfig)
     skip = 0;
 
-    @filter({
-        defaultValue: function (): number { return this.defaultRowCount; },
-        parameterName: Defaults.bufferedListSettings.takeRowCountParameterName,
-        parseFormatter: (proposedParam: any, allParams: any): number => {
-            if (allParams && allParams.skip !== undefined && allParams.take !== undefined) {
-                return allParams.skip + allParams.take;
-            }
-            return this.defaultRowCount;
-        }
-    } as IFilterConfig)
     get takeRowCount(): number {
         return this.takeRowCountInternal;
     }
