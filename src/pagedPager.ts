@@ -7,11 +7,14 @@ export class PagedPager implements IPager {
     private pageSizeInternal = Defaults.pagedListSettings.defaultPageSize;
     private pageNumberInternal = 1;
 
+    defaultPageSize = Defaults.pagedListSettings.defaultPageSize;
+    maxPageSize = Defaults.pagedListSettings.maxPageSize;
+    minPageSize = Defaults.pagedListSettings.minPageSize;
     totalCount: number = 0;
     loadedCount: number = 0;
     displayFrom = 1;
     displayTo = 1;
-    defaultPageSize = Defaults.pagedListSettings.defaultPageSize;
+
     get pageCount(): number {
         return Math.ceil(this.totalCount / this.pageSizeInternal);
     }
@@ -40,10 +43,10 @@ export class PagedPager implements IPager {
     }
     set pageSize(value: number) {
         const valueStr = (value + '').replace(/[^0-9]/g, '');
-        let pageSize = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : Defaults.pagedListSettings.defaultPageSize;
+        let pageSize = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : this.defaultPageSize;
 
-        if (pageSize > Defaults.pagedListSettings.maxPageSize) {
-            pageSize = Defaults.pagedListSettings.maxPageSize;
+        if (pageSize > this.maxPageSize) {
+            pageSize = this.maxPageSize;
         }
         if (this.totalCount !== 0) {
             if (pageSize > this.totalCount) {
@@ -52,13 +55,13 @@ export class PagedPager implements IPager {
 
             if (this.pageNumber * pageSize > this.totalCount) {
                 pageSize = Math.ceil(this.totalCount / this.pageNumber);
-                if (pageSize > Defaults.pagedListSettings.maxPageSize) {
-                    pageSize = Defaults.pagedListSettings.maxPageSize;
+                if (pageSize > this.maxPageSize) {
+                    pageSize = this.maxPageSize;
                 }
             }
         }
-        if (pageSize < Defaults.pagedListSettings.minPageSize || pageSize === 0) {
-            pageSize = Defaults.pagedListSettings.defaultPageSize;
+        if (pageSize < this.minPageSize || pageSize === 0) {
+            pageSize = this.defaultPageSize;
         }
         if (this.pageNumber === this.pageCount && pageSize > this.pageSizeInternal) {
             pageSize = this.pageSizeInternal;
@@ -77,6 +80,6 @@ export class PagedPager implements IPager {
     reset(): void {
         this.totalCount = 0;
         this.pageNumber = 1;
-        this.pageSize = Defaults.pagedListSettings.defaultPageSize;
+        this.pageSize = this.defaultPageSize;
     }
 }
