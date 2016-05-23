@@ -8,10 +8,11 @@ export class BufferedPager implements IPager {
         defaultValue: function (): number { return this.defaultRowCount; },
         parameterName: Defaults.bufferedListSettings.takeRowCountParameterName,
         parseFormatter: function (proposedParam: any, allParams: any): number {
+            let result;
             if (allParams && !isNaN(allParams.skip) && !isNaN(allParams.take)) {
-                return (allParams.skip || 0) + (allParams.take || 0);
+                result = (allParams.skip || 0) + (allParams.take || 0);
             }
-            return this.defaultRowCount;
+            return result || this.defaultRowCount;
         }
     } as IFilterConfig)
     private takeRowCountInternal = Defaults.bufferedListSettings.defaultRowCount;

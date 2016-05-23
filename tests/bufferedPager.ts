@@ -93,5 +93,28 @@ describe('BufferedPager', () => {
             filterManager.parseParams(params);
             expect(pager.takeRowCount).eq(pager.defaultRowCount);
         });
+        it('parse nulls as zeroes for takeRowCount', () => {
+            let pager = new BufferedPager();
+            let filterManager = new FilterManager(pager);
+            filterManager.parseParams({
+                skip: 100,
+                take: null
+            });
+            expect(pager.takeRowCount).eq(100);
+            filterManager.parseParams({
+                skip: null,
+                take: 100
+            });
+            expect(pager.takeRowCount).eq(100);
+        });
+        it('parse takeRowCount to defaultRowCount if parsed value is invalid', () => {
+            let pager = new BufferedPager();
+            let filterManager = new FilterManager(pager);
+            filterManager.parseParams({
+                skip: null,
+                take: null
+            });
+            expect(pager.takeRowCount).eq(pager.defaultRowCount);
+        });
     });
 });
