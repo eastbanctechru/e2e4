@@ -4,10 +4,12 @@ import {filter} from './filterAnnotation';
 import {IFilterConfig} from './contracts/IFilterConfig';
 
 export class BufferedPager implements IPager {
-    private takeRowCountInternal = Defaults.bufferedListSettings.defaultTakeRowCount;
+    private takeRowCountInternal = Defaults.bufferedListSettings.defaultRowCount;
     totalCount: number = 0;
     loadedCount: number = 0;
-    defaultTakeRowCount: number = Defaults.bufferedListSettings.defaultTakeRowCount;
+    defaultRowCount: number = Defaults.bufferedListSettings.defaultRowCount;
+    minRowCount: number = Defaults.bufferedListSettings.minRowCount;
+    maxRowCount: number = Defaults.bufferedListSettings.defaultRowCount;
 
     @filter({
         defaultValue: 0,
@@ -23,7 +25,7 @@ export class BufferedPager implements IPager {
             if (allParams && allParams.skip !== undefined && allParams.take !== undefined) {
                 return allParams.skip + allParams.take;
             }
-            return Defaults.bufferedListSettings.defaultTakeRowCount;
+            return this.defaultTakeRowCount;
         }
     } as IFilterConfig)
     get takeRowCount(): number {
@@ -32,12 +34,12 @@ export class BufferedPager implements IPager {
 
     set takeRowCount(value: number) {
         const valueStr = (value + '').replace(/[^0-9]/g, '');
-        let rowCount = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : Defaults.bufferedListSettings.defaultTakeRowCount;
-        if (rowCount < Defaults.bufferedListSettings.minRowCount) {
-            rowCount = Defaults.bufferedListSettings.defaultTakeRowCount;
+        let rowCount = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : this.defaultRowCount;
+        if (rowCount < this.minRowCount) {
+            rowCount = this.defaultRowCount;
         }
-        if (rowCount > Defaults.bufferedListSettings.maxRowCount) {
-            rowCount = Defaults.bufferedListSettings.maxRowCount;
+        if (rowCount > this.maxRowCount) {
+            rowCount = this.maxRowCount;
         }
         if (this.totalCount !== 0) {
             if (this.skip + rowCount > this.totalCount) {
@@ -49,13 +51,14 @@ export class BufferedPager implements IPager {
 
     processResponse(result: Object): void {
         this.totalCount = result[Defaults.listSettings.totalCountParameterName] || 0;
-        this.skip += result[Defaults.listSettings.loadedCountParameterName];
+        this.skip = (result[Defaults.listSettings.loadedCountParameterName] === null || result[Defaults.listSettings.loadedCountParameterName] === undefined) ?
+            0 : this.skip + result[Defaults.listSettings.loadedCountParameterName];
         this.loadedCount = this.skip;
     }
 
     reset(): void {
         this.totalCount = 0;
-        this.takeRowCount = Defaults.bufferedListSettings.defaultTakeRowCount;
+        this.takeRowCount = this.defaultRowCount;
         this.skip = 0;
     }
 }

@@ -17,14 +17,30 @@ describe('BufferedPager', () => {
         pager.processResponse(response);
         expect(pager.totalCount).eq(response.totalCount);
         expect(pager.loadedCount).eq(response.loadedCount);
+        expect(pager.skip).eq(response.loadedCount);
     });
     it('increments skip on each load callback execution', () => {
         let pager = new BufferedPager();
         let response = toResponseObject();
         for (let i = response.loadedCount; i <= response.totalCount; i += response.loadedCount) {
-            pager.processResponse(toResponseObject());
+            pager.processResponse(response);
             expect(pager.skip).eq(i);
         }
+    });
+    it('process incorrect values as 0', () => {
+        let pager = new BufferedPager();
+        let response = toResponseObject();
+        pager.processResponse(response);
+
+        expect(pager.totalCount).eq(response.totalCount);
+        expect(pager.loadedCount).eq(response.loadedCount);
+
+        response.loadedCount = null;
+        response.totalCount = null;
+        pager.processResponse(response);
+
+        expect(pager.totalCount).eq(0);
+        expect(pager.loadedCount).eq(0);
     });
     it('resets contract properties', () => {
         let pager = new BufferedPager();
@@ -33,6 +49,6 @@ describe('BufferedPager', () => {
         pager.reset();
         expect(pager.totalCount).eq(0);
         expect(pager.skip).eq(0);
-        expect(pager.takeRowCount).eq(Defaults.bufferedListSettings.defaultTakeRowCount);
+        expect(pager.takeRowCount).eq(Defaults.bufferedListSettings.defaultRowCount);
     });
 });

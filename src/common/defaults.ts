@@ -8,7 +8,7 @@
     };
     static bufferedListSettings =
     {
-        defaultTakeRowCount: 20,
+        defaultRowCount: 20,
         maxRowCount: 200,
         minRowCount: 0,
         skipRowCountParameterName: 'skip',
