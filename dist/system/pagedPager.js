@@ -30,8 +30,8 @@ System.register(['./common/defaults', './filterAnnotation'], function(exports_1,
                     this.minPageSize = defaults_1.Defaults.pagedListSettings.minPageSize;
                     this.totalCount = 0;
                     this.loadedCount = 0;
-                    this.displayFrom = 1;
-                    this.displayTo = 1;
+                    this.displayFrom = 0;
+                    this.displayTo = 0;
                 }
                 Object.defineProperty(PagedPager.prototype, "pageCount", {
                     get: function () {
@@ -93,8 +93,8 @@ System.register(['./common/defaults', './filterAnnotation'], function(exports_1,
                 PagedPager.prototype.processResponse = function (result) {
                     this.loadedCount = result[defaults_1.Defaults.listSettings.loadedCountParameterName] || 0;
                     this.totalCount = result[defaults_1.Defaults.listSettings.totalCountParameterName] || 0;
-                    this.displayFrom = result[defaults_1.Defaults.pagedListSettings.displayFromParameterName] || 1;
-                    this.displayTo = result[defaults_1.Defaults.pagedListSettings.displayToParameterName] || 1;
+                    this.displayFrom = result[defaults_1.Defaults.pagedListSettings.displayFromParameterName] || 0;
+                    this.displayTo = result[defaults_1.Defaults.pagedListSettings.displayToParameterName] || 0;
                 };
                 PagedPager.prototype.reset = function () {
                     this.totalCount = 0;
@@ -102,13 +102,22 @@ System.register(['./common/defaults', './filterAnnotation'], function(exports_1,
                     this.pageSize = this.defaultPageSize;
                 };
                 __decorate([
-                    filterAnnotation_1.filter({ defaultValue: 1, parameterName: defaults_1.Defaults.pagedListSettings.pageNumberParameterName }), 
-                    __metadata('design:type', Number)
-                ], PagedPager.prototype, "pageNumber", null);
+                    filterAnnotation_1.filter({
+                        defaultValue: 1,
+                        parameterName: defaults_1.Defaults.pagedListSettings.pageNumberParameterName,
+                        parseFormatter: function (proposedParam) {
+                            return isNaN(proposedParam) || !proposedParam ? 1 : proposedParam;
+                        }
+                    }), 
+                    __metadata('design:type', Object)
+                ], PagedPager.prototype, "pageNumberInternal", void 0);
                 __decorate([
                     filterAnnotation_1.filter({
                         defaultValue: function () { return this.defaultPageSize; },
                         parameterName: defaults_1.Defaults.pagedListSettings.pageSizeParameterName,
+                        parseFormatter: function (proposedParam) {
+                            return isNaN(proposedParam) || !proposedParam ? this.defaultPageSize : proposedParam;
+                        },
                         persisted: defaults_1.Defaults.pagedListSettings.persistPageSize
                     }), 
                     __metadata('design:type', Number)

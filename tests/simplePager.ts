@@ -41,7 +41,6 @@ describe('SimplePager', () => {
         expect(pager.loadedCount).eq(0);
     });
 
-
     it('resets contract properties', () => {
         let pager = new SimplePager();
         let response = toResponseObject();
