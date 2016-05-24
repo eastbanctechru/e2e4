@@ -133,6 +133,30 @@ describe('PagedPager', () => {
         });
     });
     describe('internal state', () => {
+        describe('pageSize', () => {
+            it('sets pageNumber to defaultPageSize on invalid', () => {
+                let pager = new PagedPager();
+                pager.pageSize = null;
+                expect(pager.pageSize).eq(pager.defaultPageSize);
+                pager.pageSize = undefined;
+                expect(pager.pageSize).eq(pager.defaultPageSize);
+                pager.pageSize = -20;
+                expect(pager.pageSize).eq(pager.defaultPageSize);
+            });
+            it('sets pageSize to maxPageSize when try to set bigger value', () => {
+                let pager = new PagedPager();
+                pager.pageSize = Defaults.pagedListSettings.maxPageSize + 100;
+                expect(pager.pageSize).eq(Defaults.pagedListSettings.maxPageSize);
+            });
+
+            it('can have own maxRowCount', () => {
+                let pager = new PagedPager();
+                pager.maxPageSize = Defaults.pagedListSettings.maxPageSize + 100;
+                pager.pageSize = pager.maxPageSize + 100;
+                expect(pager.pageSize).eq(pager.maxPageSize);
+                expect(pager.maxPageSize).not.eq(Defaults.pagedListSettings.maxPageSize);
+            });
+        });
         describe('pageNumber', () => {
             it('sets pageNumber to 1 on invalid', () => {
                 let pager = new PagedPager();

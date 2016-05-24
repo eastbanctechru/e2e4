@@ -154,7 +154,7 @@ describe('BufferedPager', () => {
             expect(pager.maxRowCount).not.eq(Defaults.bufferedListSettings.maxRowCount);
         });
 
-        it('sets rowCount to defaultRowCount when try to set smaller then minRowCount', () => {
+        it('sets rowCount to defaultRowCount when try to set less then minRowCount', () => {
             let pager = new BufferedPager();
             pager.takeRowCount = Defaults.bufferedListSettings.minRowCount - 1;
             expect(pager.takeRowCount).eq(Defaults.bufferedListSettings.defaultRowCount);
