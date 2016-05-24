@@ -11,3 +11,5 @@ script:
   - gulp tslint
   - gulp build
   - gulp test
+after_success: 
+  - 'npm run coveralls'

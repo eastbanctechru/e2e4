@@ -24,8 +24,7 @@ module.exports = function (config) {
         coverageReporter: {
             dir: 'reports/',
             reporters: [
-                { type: 'json', subdir: 'coverage' },
-                { type: 'html', subdir: 'coverage/html' }
+                { type: 'lcov', subdir: 'coverage' }
             ]
         },
         webpack: {
