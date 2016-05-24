@@ -14,6 +14,19 @@ function toResponseObject(): IResponseObject {
     return { displayFrom: 1, displayTo: 20, loadedCount: 20, totalCount: 100 } as IResponseObject;
 }
 describe('PagedPager', () => {
+    describe('ctor', () => {
+        it('created with good state', () => {
+            let pager = new PagedPager();
+            expect(pager.totalCount).eq(0);
+            expect(pager.loadedCount).eq(0);
+            expect(pager.pageNumber).eq(1);
+            expect(pager.pageSize).eq(pager.defaultPageSize);
+            expect(pager.displayFrom).eq(0);
+            expect(pager.displayTo).eq(0);
+
+        });
+    });
+
     describe('response processing', () => {
         it('process response values', () => {
             let pager = new PagedPager();

@@ -14,8 +14,8 @@ export class PagedPager implements IPager {
     minPageSize = Defaults.pagedListSettings.minPageSize;
     totalCount: number = 0;
     loadedCount: number = 0;
-    displayFrom = 1;
-    displayTo = 1;
+    displayFrom = 0;
+    displayTo = 0;
 
     get pageCount(): number {
         return Math.ceil(this.totalCount / this.pageSizeInternal);

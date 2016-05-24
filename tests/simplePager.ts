@@ -10,6 +10,13 @@ function toResponseObject(): IResponseObject {
     return { loadedCount: 20, totalCount: 100 } as IResponseObject;
 }
 describe('SimplePager', () => {
+
+    it('created with good state', () => {
+        let pager = new SimplePager();
+        expect(pager.totalCount).eq(0);
+        expect(pager.loadedCount).eq(0);
+    });
+
     it('process response values', () => {
         let pager = new SimplePager();
         let response = toResponseObject();

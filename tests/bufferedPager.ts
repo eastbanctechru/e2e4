@@ -12,6 +12,16 @@ function toResponseObject(): IResponseObject {
     return { loadedCount: 20, totalCount: 100 } as IResponseObject;
 }
 describe('BufferedPager', () => {
+    describe('ctor', () => {
+        it('created with good state', () => {
+            let pager = new BufferedPager();
+            expect(pager.totalCount).eq(0);
+            expect(pager.loadedCount).eq(0);
+            expect(pager.skip).eq(0);
+            expect(pager.takeRowCount).eq(pager.defaultRowCount);
+
+        });
+    });
     describe('response processing', () => {
         it('process response values', () => {
             let pager = new BufferedPager();
