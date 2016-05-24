@@ -77,6 +77,30 @@ describe('PagedPager', () => {
             filterManager.parseParams(params);
             expect(pager.pageNumber).eq(params.pageNumber);
         });
+        it('parse pageNumber as 1 if invalid', () => {
+            let pager = new PagedPager();
+            let filterManager = new FilterManager(pager);
+
+            expect(pager.pageNumber).eq(1);
+            let params = {
+                pageNumber: null,
+                pageSize: 100
+            };
+            filterManager.parseParams(params);
+            expect(pager.pageNumber).eq(1);
+        });
+        it('parse pageSize as defaultPageSize if invalid', () => {
+            let pager = new PagedPager();
+            let filterManager = new FilterManager(pager);
+
+            expect(pager.pageNumber).eq(1);
+            let params = {
+                pageNumber: 1,
+                pageSize: null
+            };
+            filterManager.parseParams(params);
+            expect(pager.pageSize).eq(pager.defaultPageSize);
+        });
         it('parse pageSize param', () => {
             let pager = new PagedPager();
             let filterManager = new FilterManager(pager);
