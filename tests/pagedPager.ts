@@ -132,4 +132,38 @@ describe('PagedPager', () => {
             expect(Defaults.pagedListSettings.defaultPageSize).not.eq(pager.defaultPageSize);
         });
     });
+    describe('internal state', () => {
+        describe('pageNumber', () => {
+            it('sets pageNumber to 1 on invalid', () => {
+                let pager = new PagedPager();
+                pager.pageNumber = null;
+                expect(pager.pageNumber).eq(1);
+                pager.pageNumber = undefined;
+                expect(pager.pageNumber).eq(1);
+                pager.pageNumber = -20;
+                expect(pager.pageNumber).eq(1);
+            });
+
+            it('sets pageNumber to 1 if invalid', () => {
+                let pager = new PagedPager();
+                pager.pageNumber = null;
+                expect(pager.pageNumber).eq(1);
+                pager.pageNumber = undefined;
+                expect(pager.pageNumber).eq(1);
+            });
+            it('sets pageNumber to pageCount if set bigger value', () => {
+                let pager = new PagedPager();
+                let response = toResponseObject();
+                pager.processResponse(response);
+                pager.pageNumber = pager.pageCount + 10;
+                expect(pager.pageNumber).eq(pager.pageCount);
+            });
+        });
+        it('calculates pageCount as count/size', () => {
+            let pager = new PagedPager();
+            let response = toResponseObject();
+            pager.processResponse(response);
+            expect(pager.pageCount).eq(Math.ceil(pager.totalCount / pager.pageSize));
+        });
+    });
 });
