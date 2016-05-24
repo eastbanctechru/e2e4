@@ -5,6 +5,8 @@ import {IFilterConfig} from './contracts/IFilterConfig';
 
 export class PagedPager implements IPager {
     private pageSizeInternal = Defaults.pagedListSettings.defaultPageSize;
+
+    @filter({ defaultValue: 1, parameterName: Defaults.pagedListSettings.pageNumberParameterName } as IFilterConfig)
     private pageNumberInternal = 1;
 
     defaultPageSize = Defaults.pagedListSettings.defaultPageSize;
@@ -18,7 +20,6 @@ export class PagedPager implements IPager {
     get pageCount(): number {
         return Math.ceil(this.totalCount / this.pageSizeInternal);
     }
-    @filter({ defaultValue: 1, parameterName: Defaults.pagedListSettings.pageNumberParameterName } as IFilterConfig)
     get pageNumber(): number {
         return this.pageNumberInternal;
     }

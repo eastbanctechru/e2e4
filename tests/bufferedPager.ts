@@ -128,7 +128,8 @@ describe('BufferedPager', () => {
             expect(pager.takeRowCount).eq(5);
             expect(Defaults.bufferedListSettings.defaultRowCount).not.eq(pager.defaultRowCount);
         });
-
+    });
+    describe('work with takeRowCount', () => {
         it('sets rowCount to maxRowCount when try to set bigger value', () => {
             let pager = new BufferedPager();
             pager.takeRowCount = Defaults.bufferedListSettings.maxRowCount + 100;
