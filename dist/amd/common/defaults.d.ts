@@ -6,7 +6,7 @@ export declare class Defaults {
         totalCountParameterName: string;
     };
     static bufferedListSettings: {
-        defaultTakeRowCount: number;
+        defaultRowCount: number;
         maxRowCount: number;
         minRowCount: number;
         skipRowCountParameterName: string;

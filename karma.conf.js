@@ -9,6 +9,8 @@ module.exports = function (config) {
         files: [
             //polyfill
             'node_modules/es6-shim/es6-shim.js',
+            //ts emitted functions replaced to more relevant code coverage
+            'tests/ts-emitted-functions.js',
             // all files in "test"
             'tests/**/*.ts'
             // each file acts as entry point for the webpack configuration

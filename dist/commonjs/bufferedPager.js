@@ -12,9 +12,12 @@ var defaults_1 = require('./common/defaults');
 var filterAnnotation_1 = require('./filterAnnotation');
 var BufferedPager = (function () {
     function BufferedPager() {
-        this.takeRowCountInternal = defaults_1.Defaults.bufferedListSettings.defaultTakeRowCount;
+        this.takeRowCountInternal = defaults_1.Defaults.bufferedListSettings.defaultRowCount;
         this.totalCount = 0;
         this.loadedCount = 0;
+        this.defaultRowCount = defaults_1.Defaults.bufferedListSettings.defaultRowCount;
+        this.minRowCount = defaults_1.Defaults.bufferedListSettings.minRowCount;
+        this.maxRowCount = defaults_1.Defaults.bufferedListSettings.maxRowCount;
         this.skip = 0;
     }
     Object.defineProperty(BufferedPager.prototype, "takeRowCount", {
@@ -23,12 +26,12 @@ var BufferedPager = (function () {
         },
         set: function (value) {
             var valueStr = (value + '').replace(/[^0-9]/g, '');
-            var rowCount = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : defaults_1.Defaults.bufferedListSettings.defaultTakeRowCount;
-            if (rowCount < defaults_1.Defaults.bufferedListSettings.minRowCount) {
-                rowCount = defaults_1.Defaults.bufferedListSettings.defaultTakeRowCount;
+            var rowCount = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : this.defaultRowCount;
+            if (rowCount < this.minRowCount) {
+                rowCount = this.defaultRowCount;
             }
-            if (rowCount > defaults_1.Defaults.bufferedListSettings.maxRowCount) {
-                rowCount = defaults_1.Defaults.bufferedListSettings.maxRowCount;
+            if (rowCount > this.maxRowCount) {
+                rowCount = this.maxRowCount;
             }
             if (this.totalCount !== 0) {
                 if (this.skip + rowCount > this.totalCount) {
@@ -41,16 +44,30 @@ var BufferedPager = (function () {
         configurable: true
     });
     BufferedPager.prototype.processResponse = function (result) {
-        this.loadedCount = result[defaults_1.Defaults.listSettings.loadedCountParameterName] || 0;
         this.totalCount = result[defaults_1.Defaults.listSettings.totalCountParameterName] || 0;
-        this.skip += result[defaults_1.Defaults.listSettings.loadedCountParameterName];
+        this.skip = (result[defaults_1.Defaults.listSettings.loadedCountParameterName] === null || result[defaults_1.Defaults.listSettings.loadedCountParameterName] === undefined) ?
+            0 : this.skip + result[defaults_1.Defaults.listSettings.loadedCountParameterName];
         this.loadedCount = this.skip;
     };
     BufferedPager.prototype.reset = function () {
         this.totalCount = 0;
-        this.takeRowCount = defaults_1.Defaults.bufferedListSettings.defaultTakeRowCount;
+        this.takeRowCount = this.defaultRowCount;
         this.skip = 0;
     };
+    __decorate([
+        filterAnnotation_1.filter({
+            defaultValue: function () { return this.defaultRowCount; },
+            parameterName: defaults_1.Defaults.bufferedListSettings.takeRowCountParameterName,
+            parseFormatter: function (proposedParam, allParams) {
+                var result;
+                if (allParams && !isNaN(allParams.skip) && !isNaN(allParams.take)) {
+                    result = (allParams.skip || 0) + (allParams.take || 0);
+                }
+                return result || this.defaultRowCount;
+            }
+        }), 
+        __metadata('design:type', Object)
+    ], BufferedPager.prototype, "takeRowCountInternal", void 0);
     __decorate([
         filterAnnotation_1.filter({
             defaultValue: 0,
@@ -59,19 +76,6 @@ var BufferedPager = (function () {
         }), 
         __metadata('design:type', Object)
     ], BufferedPager.prototype, "skip", void 0);
-    __decorate([
-        filterAnnotation_1.filter({
-            defaultValue: defaults_1.Defaults.bufferedListSettings.defaultTakeRowCount,
-            parameterName: defaults_1.Defaults.bufferedListSettings.takeRowCountParameterName,
-            parseFormatter: function (proposedParam, allParams) {
-                if (allParams && allParams.skip !== undefined && allParams.take !== undefined) {
-                    return allParams.skip + allParams.take;
-                }
-                return defaults_1.Defaults.bufferedListSettings.defaultTakeRowCount;
-            }
-        }), 
-        __metadata('design:type', Number)
-    ], BufferedPager.prototype, "takeRowCount", null);
     return BufferedPager;
 }());
 exports.BufferedPager = BufferedPager;

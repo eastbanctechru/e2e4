@@ -54,7 +54,7 @@ System.register(['./common/utility'], function(exports_1, context_1) {
                             var config = targetConfig[i];
                             var defaultValue = (typeof config.defaultValue === 'function') ? config.defaultValue.call(target) : config.defaultValue;
                             var clonedObject = utility_1.Utility.cloneLiteral({ defaultValue: defaultValue });
-                            target[config.propertyName] = config.parseFormatter ? config.parseFormatter(clonedObject.defaultValue) : clonedObject.defaultValue;
+                            target[config.propertyName] = config.parseFormatter ? config.parseFormatter.call(target, clonedObject.defaultValue) : clonedObject.defaultValue;
                         }
                     });
                 };

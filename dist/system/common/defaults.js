@@ -15,9 +15,9 @@ System.register([], function(exports_1, context_1) {
                     totalCountParameterName: 'totalCount'
                 };
                 Defaults.bufferedListSettings = {
-                    defaultTakeRowCount: 20,
+                    defaultRowCount: 20,
                     maxRowCount: 200,
-                    minRowCount: 0,
+                    minRowCount: 1,
                     skipRowCountParameterName: 'skip',
                     takeRowCountParameterName: 'take'
                 };
@@ -26,7 +26,7 @@ System.register([], function(exports_1, context_1) {
                     displayFromParameterName: 'displayFrom',
                     displayToParameterName: 'displayTo',
                     maxPageSize: 200,
-                    minPageSize: 0,
+                    minPageSize: 1,
                     pageNumberParameterName: 'pageNumber',
                     pageSizeParameterName: 'pageSize',
                     persistPageSize: true

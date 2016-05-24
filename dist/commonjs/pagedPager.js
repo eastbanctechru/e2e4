@@ -14,6 +14,9 @@ var PagedPager = (function () {
     function PagedPager() {
         this.pageSizeInternal = defaults_1.Defaults.pagedListSettings.defaultPageSize;
         this.pageNumberInternal = 1;
+        this.defaultPageSize = defaults_1.Defaults.pagedListSettings.defaultPageSize;
+        this.maxPageSize = defaults_1.Defaults.pagedListSettings.maxPageSize;
+        this.minPageSize = defaults_1.Defaults.pagedListSettings.minPageSize;
         this.totalCount = 0;
         this.loadedCount = 0;
         this.displayFrom = 1;
@@ -50,9 +53,9 @@ var PagedPager = (function () {
         },
         set: function (value) {
             var valueStr = (value + '').replace(/[^0-9]/g, '');
-            var pageSize = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : defaults_1.Defaults.pagedListSettings.defaultPageSize;
-            if (pageSize > defaults_1.Defaults.pagedListSettings.maxPageSize) {
-                pageSize = defaults_1.Defaults.pagedListSettings.maxPageSize;
+            var pageSize = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : this.defaultPageSize;
+            if (pageSize > this.maxPageSize) {
+                pageSize = this.maxPageSize;
             }
             if (this.totalCount !== 0) {
                 if (pageSize > this.totalCount) {
@@ -60,13 +63,13 @@ var PagedPager = (function () {
                 }
                 if (this.pageNumber * pageSize > this.totalCount) {
                     pageSize = Math.ceil(this.totalCount / this.pageNumber);
-                    if (pageSize > defaults_1.Defaults.pagedListSettings.maxPageSize) {
-                        pageSize = defaults_1.Defaults.pagedListSettings.maxPageSize;
+                    if (pageSize > this.maxPageSize) {
+                        pageSize = this.maxPageSize;
                     }
                 }
             }
-            if (pageSize < defaults_1.Defaults.pagedListSettings.minPageSize || pageSize === 0) {
-                pageSize = defaults_1.Defaults.pagedListSettings.defaultPageSize;
+            if (pageSize < this.minPageSize || pageSize === 0) {
+                pageSize = this.defaultPageSize;
             }
             if (this.pageNumber === this.pageCount && pageSize > this.pageSizeInternal) {
                 pageSize = this.pageSizeInternal;
@@ -85,7 +88,7 @@ var PagedPager = (function () {
     PagedPager.prototype.reset = function () {
         this.totalCount = 0;
         this.pageNumber = 1;
-        this.pageSize = defaults_1.Defaults.pagedListSettings.defaultPageSize;
+        this.pageSize = this.defaultPageSize;
     };
     __decorate([
         filterAnnotation_1.filter({ defaultValue: 1, parameterName: defaults_1.Defaults.pagedListSettings.pageNumberParameterName }), 
@@ -93,7 +96,7 @@ var PagedPager = (function () {
     ], PagedPager.prototype, "pageNumber", null);
     __decorate([
         filterAnnotation_1.filter({
-            defaultValue: defaults_1.Defaults.pagedListSettings.defaultPageSize,
+            defaultValue: function () { return this.defaultPageSize; },
             parameterName: defaults_1.Defaults.pagedListSettings.pageSizeParameterName,
             persisted: defaults_1.Defaults.pagedListSettings.persistPageSize
         }), 
