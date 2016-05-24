@@ -32,11 +32,6 @@ describe('BufferedPager', () => {
         it('process incorrect values as 0', () => {
             let pager = new BufferedPager();
             let response = toResponseObject();
-            pager.processResponse(response);
-
-            expect(pager.totalCount).eq(response.totalCount);
-            expect(pager.loadedCount).eq(response.loadedCount);
-
             response.loadedCount = null;
             response.totalCount = null;
             pager.processResponse(response);
@@ -52,7 +47,7 @@ describe('BufferedPager', () => {
             pager.reset();
             expect(pager.totalCount).eq(0);
             expect(pager.skip).eq(0);
-            expect(pager.takeRowCount).eq(Defaults.bufferedListSettings.defaultRowCount);
+            expect(pager.takeRowCount).eq(pager.defaultRowCount);
         });
     });
     describe('as filter target', () => {
