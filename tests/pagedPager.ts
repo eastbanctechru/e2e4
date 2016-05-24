@@ -151,10 +151,12 @@ describe('PagedPager', () => {
                 pager.pageNumber = undefined;
                 expect(pager.pageNumber).eq(1);
             });
-            it('sets pageNumber to pageCount if set bigger value', () => {
+            it('sets pageNumber no bigger than pageCount', () => {
                 let pager = new PagedPager();
                 let response = toResponseObject();
                 pager.processResponse(response);
+                pager.pageNumber = pager.pageCount;
+                expect(pager.pageNumber).eq(pager.pageCount);
                 pager.pageNumber = pager.pageCount + 10;
                 expect(pager.pageNumber).eq(pager.pageCount);
             });
