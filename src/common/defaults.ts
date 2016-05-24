@@ -10,7 +10,7 @@
     {
         defaultRowCount: 20,
         maxRowCount: 200,
-        minRowCount: 0,
+        minRowCount: 1,
         skipRowCountParameterName: 'skip',
         takeRowCountParameterName: 'take'
     };
@@ -20,7 +20,7 @@
         displayFromParameterName: 'displayFrom',
         displayToParameterName: 'displayTo',
         maxPageSize: 200,
-        minPageSize: 0,
+        minPageSize: 1,
         pageNumberParameterName: 'pageNumber',
         pageSizeParameterName: 'pageSize',
         persistPageSize: true

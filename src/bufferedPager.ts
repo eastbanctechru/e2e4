@@ -21,7 +21,7 @@ export class BufferedPager implements IPager {
     loadedCount: number = 0;
     defaultRowCount: number = Defaults.bufferedListSettings.defaultRowCount;
     minRowCount: number = Defaults.bufferedListSettings.minRowCount;
-    maxRowCount: number = Defaults.bufferedListSettings.defaultRowCount;
+    maxRowCount: number = Defaults.bufferedListSettings.maxRowCount;
 
     @filter({
         defaultValue: 0,
