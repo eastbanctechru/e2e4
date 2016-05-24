@@ -6,7 +6,13 @@ import {IFilterConfig} from './contracts/IFilterConfig';
 export class PagedPager implements IPager {
     private pageSizeInternal = Defaults.pagedListSettings.defaultPageSize;
 
-    @filter({ defaultValue: 1, parameterName: Defaults.pagedListSettings.pageNumberParameterName } as IFilterConfig)
+    @filter({
+        defaultValue: 1,
+        parameterName: Defaults.pagedListSettings.pageNumberParameterName,
+        parseFormatter: function (proposedParam: any): number {
+            return isNaN(proposedParam) || !proposedParam ? 1 : proposedParam;
+        }
+    } as IFilterConfig)
     private pageNumberInternal = 1;
 
     defaultPageSize = Defaults.pagedListSettings.defaultPageSize;
@@ -37,6 +43,9 @@ export class PagedPager implements IPager {
     @filter({
         defaultValue: function (): number { return this.defaultPageSize; },
         parameterName: Defaults.pagedListSettings.pageSizeParameterName,
+        parseFormatter: function (proposedParam: any): number {
+            return isNaN(proposedParam) || !proposedParam ? this.defaultPageSize : proposedParam;
+        },
         persisted: Defaults.pagedListSettings.persistPageSize
     })
     get pageSize(): number {
