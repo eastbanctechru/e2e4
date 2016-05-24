@@ -149,12 +149,26 @@ describe('PagedPager', () => {
                 expect(pager.pageSize).eq(Defaults.pagedListSettings.maxPageSize);
             });
 
-            it('can have own maxRowCount', () => {
+            it('can have own maxPageSize', () => {
                 let pager = new PagedPager();
                 pager.maxPageSize = Defaults.pagedListSettings.maxPageSize + 100;
                 pager.pageSize = pager.maxPageSize + 100;
                 expect(pager.pageSize).eq(pager.maxPageSize);
                 expect(pager.maxPageSize).not.eq(Defaults.pagedListSettings.maxPageSize);
+            });
+
+            it('sets pageSize to defaultPageSize when try to set value less then minPageSize', () => {
+                let pager = new PagedPager();
+                pager.pageSize = Defaults.pagedListSettings.minPageSize - 1;
+                expect(pager.pageSize).eq(pager.defaultPageSize);
+            });
+
+            it('can have own maxPageSize', () => {
+                let pager = new PagedPager();
+                pager.minPageSize = Defaults.pagedListSettings.minPageSize + 10;
+                pager.pageSize = pager.minPageSize - 10;
+                expect(pager.pageSize).eq(pager.defaultPageSize);
+                expect(pager.minPageSize).not.eq(Defaults.pagedListSettings.minPageSize);
             });
         });
         describe('pageNumber', () => {
