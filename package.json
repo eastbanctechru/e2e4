@@ -53,12 +53,12 @@
     "karma-spec-reporter": "0.0.26",
     "karma-webpack": "1.7.0",
     "merge2": "^1.0.2",
-    "mocha": "2.4.5",
+    "mocha": "2.5.2",
     "object.assign": "^4.0.3",
     "phantomjs-prebuilt": "2.1.7",
     "remap-istanbul": "^0.6.4",
     "require-dir": "^0.3.0",
-    "run-sequence": "^1.1.5",
+    "run-sequence": "^1.2.1",
     "sinon": "2.0.0-pre",
     "ts-loader": "0.8.2",
     "tslint": "^3.10.2",
@@ -68,6 +68,6 @@
     "vinyl-paths": "^2.1.0",
     "wallaby-webpack": "0.0.22",
     "webpack": "1.13.1",
-    "yargs": "^4.7.0"
+    "yargs": "^4.7.1"
   }
 }
