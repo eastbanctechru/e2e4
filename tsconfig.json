@@ -15,8 +15,7 @@
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
         "pretty": true,
-        "forceConsistentCasingInFileNames": true,
-        "noEmitHelpers": true
+        "forceConsistentCasingInFileNames": true
     },
     "exclude": [
         "node_modules",

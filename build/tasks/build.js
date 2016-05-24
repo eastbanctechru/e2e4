@@ -11,7 +11,6 @@ gulp.task('build-es6', function() {
     var options = require('../../tsconfig.json').compilerOptions;
     options['target'] = 'es6';
     options['module'] = 'es6';
-    options['noEmitHelpers'] = false;
     var tsResult = gulp.src(paths.source)
         .pipe(sourcemaps.init())
         .pipe(typescript(options));
@@ -25,7 +24,6 @@ gulp.task('build-amd', function() {
     var options = require('../../tsconfig.json').compilerOptions;
     options['module'] = 'amd';
     options['target'] = 'es5';
-    options['noEmitHelpers'] = false;
     var tsResult = gulp.src(paths.dtsSrc.concat(paths.source))
         .pipe(sourcemaps.init())
         .pipe(typescript(options));
@@ -39,7 +37,6 @@ gulp.task('build-commonjs', function() {
     var options = require('../../tsconfig.json').compilerOptions;
     options['module'] = 'commonjs';
     options['target'] = 'es5';
-    options['noEmitHelpers'] = false;
     var tsResult = gulp.src(paths.dtsSrc.concat(paths.source))
         .pipe(typescript(options));
     return merge([
@@ -52,7 +49,6 @@ gulp.task('build-system', function() {
     var options = require('../../tsconfig.json').compilerOptions;
     options['module'] = 'system';
     options['target'] = 'es5';
-    options['noEmitHelpers'] = false;
     var tsResult = gulp.src(paths.dtsSrc.concat(paths.source))
         .pipe(typescript(options));
     return merge([
