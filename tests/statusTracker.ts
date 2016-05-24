@@ -32,7 +32,7 @@ describe('StatusTracker', () => {
         expect(StatusTracker.statusList.length).eq(1);
     });
 
-    it('resolves single status. Tracked status becomes Done', function(): void {
+    it('resolves single status. Tracked status becomes Done', function (): void {
 
         const sid = StatusTracker.trackStatus('new status 1');
         expect(StatusTracker.statusList.length).eq(0);
@@ -48,7 +48,19 @@ describe('StatusTracker', () => {
 
     });
 
-    it('resolves one of several status. Tracked status stays Progress', function(): void {
+    it('Handles duplicate resolve normally', function (): void {
+
+        const sid = StatusTracker.trackStatus('new status 1');
+        clock.tick(Defaults.uiSettings.progressDelayInterval);
+        StatusTracker.resolveStatus(sid, ProgressState.Done);
+        StatusTracker.resolveStatus(sid, ProgressState.Done);
+        clock.tick(Defaults.uiSettings.elementVisibilityInterval);
+        expect(StatusTracker.statusList.length).eq(0);
+        expect(StatusTracker.status).eql(ProgressState.Done);
+        StatusTracker.resolveStatus(sid, ProgressState.Done);
+    });
+
+    it('resolves one of several status. Tracked status stays Progress', function (): void {
 
         const sid = StatusTracker.trackStatus('new status 1');
         StatusTracker.trackStatus('new status 2');
