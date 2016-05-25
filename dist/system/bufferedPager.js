@@ -69,10 +69,10 @@ System.register(['./common/defaults', './filterAnnotation'], function(exports_1,
                     filterAnnotation_1.filter({
                         defaultValue: function () { return this.defaultRowCount; },
                         parameterName: defaults_1.Defaults.bufferedListSettings.takeRowCountParameterName,
-                        parseFormatter: function (proposedParam, allParams) {
+                        parseFormatter: function (rawValue, allValues) {
                             var result;
-                            if (allParams && !isNaN(allParams.skip) && !isNaN(allParams.take)) {
-                                result = (allParams.skip || 0) + (allParams.take || 0);
+                            if (allValues && !isNaN(allValues.skip) && !isNaN(allValues.take)) {
+                                result = (allValues.skip || 0) + (allValues.take || 0);
                             }
                             return result || this.defaultRowCount;
                         }

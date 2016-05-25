@@ -71,8 +71,8 @@ System.register(['./common/defaults', './common/sortParameter', './filterAnnotat
                     filterAnnotation_1.filter({
                         defaultValue: function () { return this.cloneDefaultSortings(); },
                         parameterName: defaults_1.Defaults.listSettings.sortParameterName,
-                        parseFormatter: function (proposedValue) {
-                            return Array.isArray(proposedValue) ? proposedValue.map(function (sort) { return new sortParameter_1.SortParameter(sort.fieldName, sort.direction * 1); }) : [];
+                        parseFormatter: function (rawValue) {
+                            return Array.isArray(rawValue) ? rawValue.map(function (sort) { return new sortParameter_1.SortParameter(sort.fieldName, sort.direction * 1); }) : [];
                         },
                         persisted: defaults_1.Defaults.listSettings.persistSortings
                     }), 

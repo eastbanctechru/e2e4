@@ -105,8 +105,8 @@ System.register(['./common/defaults', './filterAnnotation'], function(exports_1,
                     filterAnnotation_1.filter({
                         defaultValue: 1,
                         parameterName: defaults_1.Defaults.pagedListSettings.pageNumberParameterName,
-                        parseFormatter: function (proposedParam) {
-                            return isNaN(proposedParam) || !proposedParam ? 1 : proposedParam;
+                        parseFormatter: function (rawValue) {
+                            return isNaN(rawValue) || !rawValue ? 1 : rawValue;
                         }
                     }), 
                     __metadata('design:type', Object)
@@ -115,8 +115,8 @@ System.register(['./common/defaults', './filterAnnotation'], function(exports_1,
                     filterAnnotation_1.filter({
                         defaultValue: function () { return this.defaultPageSize; },
                         parameterName: defaults_1.Defaults.pagedListSettings.pageSizeParameterName,
-                        parseFormatter: function (proposedParam) {
-                            return isNaN(proposedParam) || !proposedParam ? this.defaultPageSize : proposedParam;
+                        parseFormatter: function (rawValue) {
+                            return isNaN(rawValue) || !rawValue ? this.defaultPageSize : rawValue;
                         },
                         persisted: defaults_1.Defaults.pagedListSettings.persistPageSize
                     }), 
