@@ -11,8 +11,8 @@ export class SortManager implements ISortManager {
     @filter({
         defaultValue: function (): Array<SortParameter> { return this.cloneDefaultSortings(); },
         parameterName: Defaults.listSettings.sortParameterName,
-        parseFormatter: function (proposedValue: any): Array<Object> {
-            return Array.isArray(proposedValue) ? proposedValue.map((sort) => { return new SortParameter(sort.fieldName, sort.direction * 1); }) : [];
+        parseFormatter: function (rawValue: any): Array<Object> {
+            return Array.isArray(rawValue) ? rawValue.map((sort) => { return new SortParameter(sort.fieldName, sort.direction * 1); }) : [];
         },
         persisted: Defaults.listSettings.persistSortings
     } as IFilterConfig)

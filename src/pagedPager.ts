@@ -9,8 +9,8 @@ export class PagedPager implements IPager {
     @filter({
         defaultValue: 1,
         parameterName: Defaults.pagedListSettings.pageNumberParameterName,
-        parseFormatter: function (proposedParam: any): number {
-            return isNaN(proposedParam) || !proposedParam ? 1 : proposedParam;
+        parseFormatter: function (rawValue: any): number {
+            return isNaN(rawValue) || !rawValue ? 1 : rawValue;
         }
     } as IFilterConfig)
     private pageNumberInternal = 1;
@@ -43,8 +43,8 @@ export class PagedPager implements IPager {
     @filter({
         defaultValue: function (): number { return this.defaultPageSize; },
         parameterName: Defaults.pagedListSettings.pageSizeParameterName,
-        parseFormatter: function (proposedParam: any): number {
-            return isNaN(proposedParam) || !proposedParam ? this.defaultPageSize : proposedParam;
+        parseFormatter: function (rawValue: any): number {
+            return isNaN(rawValue) || !rawValue ? this.defaultPageSize : rawValue;
         },
         persisted: Defaults.pagedListSettings.persistPageSize
     })
