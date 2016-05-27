@@ -87,11 +87,7 @@ export class FilterManager implements IFilterManager {
                     continue;
                 }
                 let proposedVal = target[config.propertyName];
-                if (proposedVal && proposedVal.toRequest) {
-                    proposedVal = proposedVal.toRequest();
-                }
-                result[config.parameterName] = config.serializeFormatter
-                    ? config.serializeFormatter.call(target, proposedVal) : (config.emptyIsNull ? proposedVal || null : proposedVal);
+                result[config.parameterName] = FilterManager.buildFilterValue(target, proposedVal, config);
             }
         });
         return result;

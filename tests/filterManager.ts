@@ -133,8 +133,8 @@ describe('FilterManager', () => {
             expect(filterManager.appliedFiltersMap.has(target)).false;
         });
     });
-    describe('persistance management', () => {
-        it('includes only \'persisted\' filters to persisted state', () => {
+    describe('parameters building', () => {
+        it('includes \'persisted\' filters to persisted state and all to requestState', () => {
             class TargetType {
                 @filter({ persisted: true } as IFilterConfig)
                 first = 'first';
@@ -146,6 +146,9 @@ describe('FilterManager', () => {
             let persistedState = filterManager.getPersistedState();
             expect(persistedState.first).eq(target.first);
             expect(persistedState.second).undefined;
+            let requestState = filterManager.getRequestState();
+            expect(requestState.first).eq(target.first);
+            expect(requestState.second).eq(target.second);
         });
 
         it('calls \'toRequest\' method on filter if defined', () => {
@@ -158,7 +161,12 @@ describe('FilterManager', () => {
             let filterManager = new FilterManager(target);
             let persistedState = filterManager.getPersistedState();
             expect(target.first.toRequest.calledOnce).true;
+
+            let requestState = filterManager.getRequestState();
+            expect(target.first.toRequest.calledTwice).true;
+
             expect(persistedState.first).eq(target.first.toRequest());
+            expect(requestState.first).eq(target.first.toRequest());
         });
 
         it('calls \'serializeFormatter\' method of config if defined', () => {
@@ -194,12 +202,38 @@ describe('FilterManager', () => {
             }
             let target = new TargetType();
             let filterManager = new FilterManager(target);
-            let requestState = filterManager.getPersistedState();
-             expect(requestState.zero).null;
-             expect(requestState.emptyString).null;
-             expect(requestState.nullProperty).null;
-             expect(requestState.undefinedProperty).null;
-             expect(requestState.falseProperty).null;
+
+            let persistedState = filterManager.getPersistedState();
+            expect(persistedState.zero).null;
+            expect(persistedState.emptyString).null;
+            expect(persistedState.nullProperty).null;
+            expect(persistedState.undefinedProperty).null;
+            expect(persistedState.falseProperty).null;
+
+            let requestState = filterManager.getRequestState();
+            expect(requestState.zero).null;
+            expect(requestState.emptyString).null;
+            expect(requestState.nullProperty).null;
+            expect(requestState.undefinedProperty).null;
+            expect(requestState.falseProperty).null;
+        });
+        it('handles arrays', () => {
+            let toRequestSpy = sinon.spy(() => { return 'first'; });
+            class TargetType {
+                @filter({ persisted: true } as IFilterConfig)
+                arrayProperty = [{ toRequest: toRequestSpy }, 'first'];
+            }
+
+            let target = new TargetType();
+            let filterManager = new FilterManager(target);
+
+            let persistedState = filterManager.getPersistedState();
+            expect(persistedState.arrayProperty).eql(['first', 'first']);
+            expect(toRequestSpy.calledOnce).true;
+
+            let requestState = filterManager.getRequestState();
+            expect(requestState.arrayProperty).eql(['first', 'first']);
+            expect(toRequestSpy.calledTwice).true;
         });
     });
 });
