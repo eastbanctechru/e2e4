@@ -13,6 +13,7 @@ module.exports = function (config) {
             'tests/common/-ts-emitted-functions.js',
             // all files in "test"
             'tests/**/*.ts'
+            //'tests/filterManager.ts'
             // each file acts as entry point for the webpack configuration
         ],
         preprocessors: {
