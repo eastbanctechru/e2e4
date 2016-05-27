@@ -4,7 +4,7 @@ describe('SelectionEventsHelper', () => {
     describe('ctor', () => {
         it('created with good state', () => {
             let helper = new SelectionEventsHelper(null);
-            //TODO: write meaningful tests
+            // TODO: write meaningful tests
 
         });
     });
