@@ -30,7 +30,6 @@ var FilterManager = (function () {
     };
     FilterManager.prototype.dispose = function () {
         this.appliedFiltersMapInternal.clear();
-        delete this.appliedFiltersMapInternal;
     };
     Object.defineProperty(FilterManager.prototype, "appliedFiltersMap", {
         get: function () {
@@ -96,7 +95,7 @@ var FilterManager = (function () {
         return result;
     };
     FilterManager.prototype.registerFilterTarget = function (target) {
-        var targetConfig = this.appliedFiltersMapInternal.has(target) ? this.appliedFiltersMapInternal.get(target) : new Array();
+        var targetConfig = new Array();
         FilterManager.filterPropertiesMap.forEach(function (typeConfig, type) {
             if (target instanceof type) {
                 targetConfig = targetConfig.concat(typeConfig);

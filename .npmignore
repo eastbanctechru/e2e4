@@ -1,5 +1,6 @@
 .vscode
 node_modules
+reports
 typings
 tests
 build
