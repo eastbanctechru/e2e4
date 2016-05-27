@@ -45,7 +45,7 @@
         return value;
     }
     static coerceTypes = { 'true': !0, 'false': !1, 'null': null };
-    static coerceValue(value: any): Object {
+    static coerceValue(value: any): any {
         if (value === null) {
             return null;
         }

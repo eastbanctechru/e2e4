@@ -53,7 +53,7 @@ export class FilterManager implements IFilterManager {
         this.appliedFiltersMapInternal.forEach((targetConfig, target) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
-                if (params && params[config.parameterName] !== undefined && false === config.ignoreOnAutoMap) {
+                if (params && params.hasOwnProperty(config.parameterName) && false === config.ignoreOnAutoMap) {
                     let proposedVal = config.emptyIsNull ? params[config.parameterName] || null : params[config.parameterName];
                     proposedVal = config.coerce ? Utility.coerceValue(proposedVal) : proposedVal;
                     target[config.propertyName] = config.parseFormatter ? config.parseFormatter.call(target, proposedVal, params) : proposedVal;

@@ -4,6 +4,7 @@ import { FilterManager } from '../src/filterManager';
 import { filter } from '../src/filterAnnotation';
 import { FilterConfig } from '../src/filterConfig';
 import { IFilterConfig } from '../src/contracts/IFilterConfig';
+import { Utility } from '../src/common/utility';
 
 describe('FilterManager', () => {
     afterEach(() => {
@@ -96,7 +97,7 @@ describe('FilterManager', () => {
             expect(filterManager.appliedFiltersMap.get(anotherTarget).length).eql(1);
         });
 
-        it('applies default values on registrtaion', () => {
+        it('applies default values on registration', () => {
             class TargetType {
                 @filter
                 property = 'property';
@@ -165,7 +166,7 @@ describe('FilterManager', () => {
         });
     });
     describe('parameters building', () => {
-        it('includes \'persisted\' filters to persisted state and all to requestState', () => {
+        it('includes \'persisted\' filters to persisted state and all filters to requestState', () => {
             class TargetType {
                 @filter({ persisted: true } as IFilterConfig)
                 first = 'first';
@@ -265,6 +266,132 @@ describe('FilterManager', () => {
             let requestState = filterManager.getRequestState();
             expect(requestState.arrayProperty).eql(['first', 'first']);
             expect(toRequestSpy.calledTwice).true;
+        });
+    });
+    describe('parameters parsing', () => {
+        it('apply coerced values by default', () => {
+            class TargetType {
+                @filter
+                booleanProperty: any;
+                @filter
+                nullProperty: any;
+                @filter
+                numberProperty: number;
+                @filter
+                stringProperty: string;
+                @filter
+                undefinedProperty: any;
+            }
+
+            let target = new TargetType();
+            let filterManager = new FilterManager(target);
+            let params = {
+                booleanProperty: 'false',
+                nullProperty: 'null',
+                numberProperty: '5',
+                stringProperty: 'value',
+                undefinedProperty: 'undefined'
+            };
+            let coercedParams = Utility.coerceValue(Utility.cloneLiteral(params));
+            filterManager.parseParams(params);
+            expect(target).eql(coercedParams);
+        });
+
+        it('doesn\'t coerce values if specified', () => {
+            let cfg = { coerce: false } as IFilterConfig;
+            class TargetType {
+                @filter(cfg)
+                booleanProperty: any;
+                @filter(cfg)
+                nullProperty: any;
+                @filter(cfg)
+                numberProperty: number;
+                @filter(cfg)
+                stringProperty: string;
+                @filter(cfg)
+                undefinedProperty: any;
+            }
+
+            let target = new TargetType();
+            let filterManager = new FilterManager(target);
+            let params = {
+                booleanProperty: 'false',
+                nullProperty: 'null',
+                numberProperty: '5',
+                stringProperty: 'value',
+                undefinedProperty: 'undefined'
+            };
+            filterManager.parseParams(params);
+            expect(target).eql(params);
+        });
+
+        it('skip if ignoreOnAutoMap setted to true', () => {
+            class TargetType {
+                @filter({ ignoreOnAutoMap: true } as IFilterConfig)
+                ignoredProperty: 'old value';
+                @filter
+                mappedProperty: 'old value';
+            }
+
+            let target = new TargetType();
+            let filterManager = new FilterManager(target);
+            let params = {
+                ignoredProperty: 'new value',
+                mappedProperty: 'new value'
+            };
+            filterManager.parseParams(params);
+            expect(target.ignoredProperty).not.eql(params.ignoredProperty);
+            expect(target.mappedProperty).eql(params.mappedProperty);
+        });
+
+        it('handles emptyIsNullFlag', () => {
+            let cfg = { emptyIsNull: true, persisted: true } as IFilterConfig;
+            class TargetType {
+                @filter(cfg)
+                zero = 0;
+
+                @filter(cfg)
+                emptyString = '';
+
+                @filter(cfg)
+                nullProperty = null;
+
+                @filter(cfg)
+                falseProperty = false;
+            }
+            let target = new TargetType();
+            let filterManager = new FilterManager(target);
+
+            let params = {
+                emptyString: '',
+                falseProperty: false,
+                nullProperty: null,
+                zero: 0
+            };
+
+            filterManager.parseParams(params);
+            expect(target.zero).null;
+            expect(target.emptyString).null;
+            expect(target.nullProperty).null;
+            expect(target.falseProperty).null;
+        });
+        it('calls parseFormatter', () => {
+            let parseSpy = sinon.spy((value) => { return 'parsed ' + value; });
+
+            class TargetType {
+                @filter({ parseFormatter: parseSpy } as IFilterConfig)
+                value: string;
+            }
+            let target = new TargetType();
+            let filterManager = new FilterManager(target);
+
+            let params = {
+                value: 'value'
+            };
+            filterManager.parseParams(params);
+
+            expect(parseSpy.calledOnce).true;
+            expect(target.value).eql(parseSpy(params.value));
         });
     });
 });
