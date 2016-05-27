@@ -13,6 +13,9 @@ interface IResponseObject {
 function toResponseObject(): IResponseObject {
     return { displayFrom: 1, displayTo: 20, loadedCount: 20, totalCount: 100 } as IResponseObject;
 }
+function toLastPageResponseObject(): IResponseObject {
+    return { displayFrom: 81, displayTo: 100, loadedCount: 100, totalCount: 100 } as IResponseObject;
+}
 describe('PagedPager', () => {
     describe('ctor', () => {
         it('created with good state', () => {
@@ -163,12 +166,49 @@ describe('PagedPager', () => {
                 expect(pager.pageSize).eq(pager.defaultPageSize);
             });
 
-            it('can have own maxPageSize', () => {
+            it('can have own minPageSize', () => {
                 let pager = new PagedPager();
                 pager.minPageSize = Defaults.pagedListSettings.minPageSize + 10;
                 pager.pageSize = pager.minPageSize - 10;
                 expect(pager.pageSize).eq(pager.defaultPageSize);
                 expect(pager.minPageSize).not.eq(Defaults.pagedListSettings.minPageSize);
+            });
+
+            it('sets pageSize to totalCount when try to set value greater then totalCount', () => {
+                let response = toResponseObject();
+                let pager = new PagedPager();
+                pager.processResponse(response);
+                pager.pageSize = response.totalCount + 1;
+                expect(pager.pageSize).eq(response.totalCount);
+            });
+
+            it('sets pageSize to specified value when totalCount is not zero', () => {
+                let response = toResponseObject();
+                let pager = new PagedPager();
+                pager.processResponse(response);
+                pager.pageSize = response.totalCount - 1;
+                expect(pager.pageSize).eq(response.totalCount - 1);
+            });
+
+            it('sets pageSize to maximum possible for current pageNumber', () => {
+                let response = toResponseObject();
+                let pager = new PagedPager();
+                pager.processResponse(response);
+
+                pager.pageNumber = response.totalCount / response.loadedCount;
+
+                pager.pageSize = response.loadedCount + 1;
+                expect(pager.pageSize).eq(response.loadedCount);
+            });
+
+            it('sets pageSize to maximum possible for current pageNumber and not bigger then maxPageSize', () => {
+                let response = toResponseObject();
+                let pager = new PagedPager();
+                pager.processResponse(response);
+                pager.maxPageSize = response.loadedCount / 2;
+                pager.pageNumber = response.totalCount / response.loadedCount;
+                pager.pageSize = response.loadedCount + 1;
+                expect(pager.pageSize).eq(pager.maxPageSize);
             });
         });
         describe('pageNumber', () => {
@@ -189,7 +229,7 @@ describe('PagedPager', () => {
                 pager.pageNumber = undefined;
                 expect(pager.pageNumber).eq(1);
             });
-            it('sets pageNumber no bigger than pageCount', () => {
+            it('sets pageNumber no bigger then pageCount', () => {
                 let pager = new PagedPager();
                 let response = toResponseObject();
                 pager.processResponse(response);

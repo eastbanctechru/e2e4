@@ -55,9 +55,6 @@ export class PagedPager implements IPager {
         const valueStr = (value + '').replace(/[^0-9]/g, '');
         let pageSize = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : this.defaultPageSize;
 
-        if (pageSize > this.maxPageSize) {
-            pageSize = this.maxPageSize;
-        }
         if (this.totalCount !== 0) {
             if (pageSize > this.totalCount) {
                 pageSize = this.totalCount;
@@ -65,17 +62,15 @@ export class PagedPager implements IPager {
 
             if (this.pageNumber * pageSize > this.totalCount) {
                 pageSize = Math.ceil(this.totalCount / this.pageNumber);
-                if (pageSize > this.maxPageSize) {
-                    pageSize = this.maxPageSize;
-                }
             }
+        }
+        if (pageSize > this.maxPageSize) {
+            pageSize = this.maxPageSize;
         }
         if (pageSize < this.minPageSize || pageSize === 0) {
             pageSize = this.defaultPageSize;
         }
-        if (this.pageNumber === this.pageCount && pageSize > this.pageSizeInternal) {
-            pageSize = this.pageSizeInternal;
-        }
+
         this.pageSizeInternal = pageSize;
     }
 
