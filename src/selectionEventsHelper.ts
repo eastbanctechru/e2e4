@@ -99,9 +99,9 @@ export class SelectionEventsHelper {
     }
     clearWindowSelection(): void {
         try {
-            if (window.getSelection) {
+            if (window && window.getSelection) {
                 window.getSelection().removeAllRanges();
-            } else if (document.hasOwnProperty('selection')) {
+            } else if (document && document.hasOwnProperty('selection')) {
                 /* tslint:disable:no-string-literal */
                 document['selection'].empty();
                 /* tslint:enable:no-string-literal */
