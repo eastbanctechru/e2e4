@@ -1,14 +1,16 @@
-import { expect, assert } from 'chai';
+import { expect } from 'chai';
+import * as sinon from 'sinon';
 import { FilterManager } from '../src/filterManager';
 import { filter } from '../src/filterAnnotation';
 import { FilterConfig } from '../src/filterConfig';
+import { IFilterConfig } from '../src/contracts/IFilterConfig';
 
 describe('FilterManager', () => {
     afterEach(() => {
         FilterManager.filterPropertiesMap.clear();
     });
 
-    describe('Configs rgistration', () => {
+    describe('configs registration', () => {
 
         it('registers filter config for type', () => {
             class TargetType { };
@@ -129,6 +131,75 @@ describe('FilterManager', () => {
             expect(filterManager.appliedFiltersMap.has(target)).true;
             filterManager.dispose();
             expect(filterManager.appliedFiltersMap.has(target)).false;
+        });
+    });
+    describe('persistance management', () => {
+        it('includes only \'persisted\' filters to persisted state', () => {
+            class TargetType {
+                @filter({ persisted: true } as IFilterConfig)
+                first = 'first';
+                @filter
+                second = 'second';
+            }
+            let target = new TargetType();
+            let filterManager = new FilterManager(target);
+            let persistedState = filterManager.getPersistedState();
+            expect(persistedState.first).eq(target.first);
+            expect(persistedState.second).undefined;
+        });
+
+        it('calls \'toRequest\' method on filter if defined', () => {
+
+            class TargetType {
+                @filter({ persisted: true } as IFilterConfig)
+                first = { toRequest: sinon.spy(() => { return 'first'; }) };
+            }
+            let target = new TargetType();
+            let filterManager = new FilterManager(target);
+            let persistedState = filterManager.getPersistedState();
+            expect(target.first.toRequest.calledOnce).true;
+            expect(persistedState.first).eq(target.first.toRequest());
+        });
+
+        it('calls \'serializeFormatter\' method of config if defined', () => {
+            let serializeSpy = sinon.spy(() => { return 'first'; });
+            class TargetType {
+                @filter({ persisted: true, serializeFormatter: serializeSpy } as IFilterConfig)
+                first = 'first';
+            }
+            let target = new TargetType();
+            let filterManager = new FilterManager(target);
+            let persistedState = filterManager.getPersistedState();
+            expect(serializeSpy.calledOnce).true;
+            expect(persistedState.first).eq(serializeSpy());
+        });
+
+        it('handles emptyIsNullFlag', () => {
+            let cfg = { emptyIsNull: true, persisted: true } as IFilterConfig;
+            class TargetType {
+                @filter(cfg)
+                zero = 0;
+
+                @filter(cfg)
+                emptyString = '';
+
+                @filter(cfg)
+                nullProperty = null;
+
+                @filter(cfg)
+                undefinedProperty = undefined;
+
+                @filter(cfg)
+                falseProperty = false;
+            }
+            let target = new TargetType();
+            let filterManager = new FilterManager(target);
+            let requestState = filterManager.getPersistedState();
+             expect(requestState.zero).null;
+             expect(requestState.emptyString).null;
+             expect(requestState.nullProperty).null;
+             expect(requestState.undefinedProperty).null;
+             expect(requestState.falseProperty).null;
         });
     });
 });

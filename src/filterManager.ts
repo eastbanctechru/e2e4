@@ -67,7 +67,7 @@ export class FilterManager implements IFilterManager {
         });
         this.defaultsApplied = true;
     }
-    getRequestState(result?: Object): Object {
+    getRequestState(result?: Object): any {
         result = result || {};
         this.appliedFiltersMapInternal.forEach((targetConfig, target) => {
             for (let i = 0; i < targetConfig.length; i++) {
@@ -78,7 +78,7 @@ export class FilterManager implements IFilterManager {
         });
         return result;
     }
-    getPersistedState(result?: Object): Object {
+    getPersistedState(result?: Object): any {
         result = result || {};
         this.appliedFiltersMapInternal.forEach((targetConfig, target) => {
             for (let i = 0; i < targetConfig.length; i++) {

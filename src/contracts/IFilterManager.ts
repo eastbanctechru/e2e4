@@ -2,7 +2,7 @@
     dispose(): void;
     resetValues(): void;
     parseParams(params: Object): void;
-    getRequestState(result?: Object): Object;
-    getPersistedState(result?: Object): Object;
+    getRequestState(result?: Object): any;
+    getPersistedState(result?: Object): any;
     registerFilterTarget(target: Object): void;
 }
