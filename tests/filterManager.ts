@@ -165,7 +165,7 @@ describe('FilterManager', () => {
             expect(filterManager.appliedFiltersMap.has(target)).false;
         });
     });
-    describe('parameters building', () => {
+    describe('get...State', () => {
         it('includes \'persisted\' filters to persisted state and all filters to requestState', () => {
             class TargetType {
                 @filter({ persisted: true } as IFilterConfig)
@@ -211,6 +211,8 @@ describe('FilterManager', () => {
             let filterManager = new FilterManager(target);
             let persistedState = filterManager.getPersistedState();
             expect(serializeSpy.calledOnce).true;
+            expect(serializeSpy.calledOn(target)).true;
+            expect(serializeSpy.calledWith(target.first)).true;
             expect(persistedState.first).eq(serializeSpy());
         });
 
@@ -268,7 +270,7 @@ describe('FilterManager', () => {
             expect(toRequestSpy.calledTwice).true;
         });
     });
-    describe('parameters parsing', () => {
+    describe('parseParams', () => {
         it('apply coerced values by default', () => {
             class TargetType {
                 @filter
@@ -391,7 +393,58 @@ describe('FilterManager', () => {
             filterManager.parseParams(params);
 
             expect(parseSpy.calledOnce).true;
+            expect(parseSpy.calledOn(target)).true;
+            expect(parseSpy.calledWith(params.value, params)).true;
             expect(target.value).eql(parseSpy(params.value));
+        });
+    });
+    describe('resetValues', () => {
+        it('reset values to defaultValue', () => {
+            let cfg = { defaultValue: 'default value' } as IFilterConfig;
+            class TargetType {
+                @filter(cfg)
+                value: string = 'string value';
+            }
+            let target = new TargetType();
+            let filterManager = new FilterManager(target);
+
+            filterManager.resetValues();
+
+            expect(target.value).eql(cfg.defaultValue);
+        });
+        it('calls defaultValue if it\'s function', () => {
+            let defaultSpy = sinon.spy(() => { return 'default value'; });
+
+            class TargetType {
+                @filter({ defaultValue: defaultSpy } as IFilterConfig)
+                value: string = 'string value';
+            }
+            let target = new TargetType();
+            let filterManager = new FilterManager(target);
+            filterManager.resetValues();
+
+            expect(defaultSpy.calledOnce).true;
+            expect(defaultSpy.calledOn(target)).true;
+            expect(target.value).eql(defaultSpy());
+        });
+
+        it('calls parseFormatter', () => {
+            const defaultValue = 'value';
+            let parseSpy = sinon.spy((value) => { return 'parsed ' + value; });
+
+            class TargetType {
+                @filter({ parseFormatter: parseSpy } as IFilterConfig)
+                value: string = defaultValue;
+            }
+            let target = new TargetType();
+            let filterManager = new FilterManager(target);
+
+            filterManager.resetValues();
+
+            expect(parseSpy.calledOnce).true;
+            expect(parseSpy.calledOn(target)).true;
+            expect(parseSpy.calledWith(defaultValue)).true;
+            expect(target.value).eql(parseSpy(defaultValue));
         });
     });
 });
