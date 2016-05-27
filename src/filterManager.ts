@@ -31,7 +31,6 @@ export class FilterManager implements IFilterManager {
         return value;
     }
 
-    private defaultsApplied = false;
     private appliedFiltersMapInternal = new Map<Object, Array<IFilterConfig>>();
 
     dispose(): void {
@@ -54,10 +53,6 @@ export class FilterManager implements IFilterManager {
         this.appliedFiltersMapInternal.forEach((targetConfig, target) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
-                if (false === this.defaultsApplied && config.defaultValue === undefined) {
-                    config.defaultValue = Utility.cloneLiteral({ defaultValue: target[config.propertyName] }).defaultValue;
-                }
-
                 if (params && params[config.parameterName] !== undefined && false === config.ignoreOnAutoMap) {
                     let proposedVal = config.emptyIsNull ? params[config.parameterName] || null : params[config.parameterName];
                     proposedVal = config.coerce ? Utility.coerceValue(proposedVal) : proposedVal;
@@ -65,7 +60,6 @@ export class FilterManager implements IFilterManager {
                 }
             }
         });
-        this.defaultsApplied = true;
     }
     getRequestState(result?: Object): any {
         result = result || {};
@@ -97,6 +91,12 @@ export class FilterManager implements IFilterManager {
         FilterManager.filterPropertiesMap.forEach((typeConfig, type) => {
             if (target instanceof type) {
                 targetConfig = targetConfig.concat(typeConfig);
+                for (let i = 0; i < targetConfig.length; i++) {
+                    let config = targetConfig[i];
+                    if (config.defaultValue === undefined) {
+                        config.defaultValue = Utility.cloneLiteral({ defaultValue: target[config.propertyName] }).defaultValue;
+                    }
+                }
             }
         });
         if (targetConfig.length > 0) {

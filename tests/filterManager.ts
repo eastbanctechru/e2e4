@@ -81,7 +81,7 @@ describe('FilterManager', () => {
             }
             class AnotherTargetType {
                 @filter
-                anotehrProperty = 'another property';
+                anotherProperty = 'another property';
             }
             let target = new TargetType();
             let anotherTarget = new AnotherTargetType();
@@ -94,6 +94,37 @@ describe('FilterManager', () => {
 
             expect(filterManager.appliedFiltersMap.has(anotherTarget)).true;
             expect(filterManager.appliedFiltersMap.get(anotherTarget).length).eql(1);
+        });
+
+        it('applies default values on registrtaion', () => {
+            class TargetType {
+                @filter
+                property = 'property';
+            }
+            class AnotherTargetType {
+                @filter
+                anotherProperty = 'another property';
+            }
+
+            let target = new TargetType();
+            let anotherTarget = new AnotherTargetType();
+            let filterManager = new FilterManager(target);
+            filterManager.registerFilterTarget(anotherTarget);
+
+            expect(filterManager.appliedFiltersMap.get(target)[0].defaultValue).eq(target.property);
+            expect(filterManager.appliedFiltersMap.get(anotherTarget)[0].defaultValue).eq(anotherTarget.anotherProperty);
+        });
+
+        it('clones default values on registrtaion', () => {
+            class TargetType {
+                @filter
+                property = ['one', 'two', 'three'];
+            }
+
+            let target = new TargetType();
+            let filterManager = new FilterManager(target);
+            expect(filterManager.appliedFiltersMap.get(target)[0].defaultValue).eql(target.property);
+            expect(filterManager.appliedFiltersMap.get(target)[0].defaultValue).not.eq(target.property);
         });
 
         it('handles multiple registrations of same target', () => {
