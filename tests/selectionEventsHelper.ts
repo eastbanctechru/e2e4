@@ -150,6 +150,27 @@ describe('SelectionEventsHelper', () => {
                 helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowUp);
                 expect(config.selectionManager.getSelectedIndexex()).eql([3, 2, 1]);
             });
+            it('don\'t do anything when first index selected', () => {
+                let config = toDefaultSelectionConfig();
+                let helper = new SelectionEventsHelper(config);
+
+                config.selectionManager.selectFirst();
+                helper.keyboardHandler(pressedCtrl, pressedShift, KeyCodes.ArrowUp);
+                expect(config.selectionManager.getSelectedIndexex()).eql([0]);
+                expect(config.selectionManager.lastProcessedIndex).eql(0);
+
+                helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowUp);
+                expect(config.selectionManager.getSelectedIndexex()).eql([0]);
+                expect(config.selectionManager.lastProcessedIndex).eql(0);
+
+                helper.keyboardHandler(notPressedCtrl, notPressedShift, KeyCodes.ArrowUp);
+                expect(config.selectionManager.getSelectedIndexex()).eql([0]);
+                expect(config.selectionManager.lastProcessedIndex).eql(0);
+
+                helper.keyboardHandler(pressedCtrl, notPressedShift, KeyCodes.ArrowUp);
+                expect(config.selectionManager.getSelectedIndexex()).eql([0]);
+                expect(config.selectionManager.lastProcessedIndex).eql(0);
+            });
         });
     });
 });
