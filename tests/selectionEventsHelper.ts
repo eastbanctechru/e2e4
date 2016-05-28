@@ -170,8 +170,6 @@ describe('SelectionEventsHelper', () => {
             });
         });
 
-
-
         describe('onArrowDown', () => {
             it('selects first item on ArrowDown when nothings selected', () => {
                 let config = toDefaultSelectionConfig();
