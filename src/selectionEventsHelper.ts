@@ -24,6 +24,13 @@ export class SelectionEventsHelper {
         }
         return false;
     }
+    private trySelectNextItem(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
+        if (this.selectionConfig.selectionManager.lastProcessedIndex < this.selectionConfig.selectionManager.itemsSource.length - 1) {
+            this.selectionConfig.selectionManager.selectIndex(this.selectionConfig.selectionManager.lastProcessedIndex + 1, shiftKeyPressed && this.selectionConfig.allowMultipleSelection);
+            return true;
+        }
+        return false;
+    }
     private tryDeselectLastItemInRange(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
         if (this.selectionConfig.selectionManager.lastProcessedIndex > 0 && shiftKeyPressed) {
             if (this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex - 1)) {
@@ -34,10 +41,28 @@ export class SelectionEventsHelper {
         }
         return false;
     }
+    private tryDeselectLastItemInReversedRange(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
+        if (this.selectionConfig.selectionManager.lastProcessedIndex < this.selectionConfig.selectionManager.itemsSource.length && shiftKeyPressed) {
+            if (this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex + 1)) {
+                this.selectionConfig.selectionManager.deselectIndex(this.selectionConfig.selectionManager.lastProcessedIndex);
+                this.selectionConfig.selectionManager.lastProcessedIndex = this.selectionConfig.selectionManager.lastProcessedIndex + 1;
+                return true;
+            }
+        }
+        return false;
+    }
 
     private tryBuildRangeWithPreviousItemWhenLastItemWasUnselected(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
         if (!ctrlKeyPressed && shiftKeyPressed && false === this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex)) {
             this.selectionConfig.selectionManager.selectRange(this.selectionConfig.selectionManager.lastProcessedIndex, this.selectionConfig.selectionManager.lastProcessedIndex - 1);
+            return true;
+        }
+        return false;
+    }
+
+    private tryBuildRangeWithNextItemWhenLastItemWasUnselected(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
+        if (!ctrlKeyPressed && shiftKeyPressed && false === this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex)) {
+            this.selectionConfig.selectionManager.selectRange(this.selectionConfig.selectionManager.lastProcessedIndex, this.selectionConfig.selectionManager.lastProcessedIndex + 1);
             return true;
         }
         return false;
@@ -56,6 +81,13 @@ export class SelectionEventsHelper {
         }
         return false;
     }
+    private trySelectAllItemsUpToLast(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
+        if (this.selectionConfig.selectionManager.lastProcessedIndex !== null && ctrlKeyPressed && shiftKeyPressed && this.selectionConfig.allowMultipleSelection) {
+            this.selectionConfig.selectionManager.selectRange(this.selectionConfig.selectionManager.lastProcessedIndex, this.selectionConfig.selectionManager.itemsSource.length - 1);
+            return true;
+        }
+        return false;
+    }
     private trySelectFirstItem(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
         if (ctrlKeyPressed && !shiftKeyPressed) {
             this.selectionConfig.selectionManager.selectFirst();
@@ -63,6 +95,14 @@ export class SelectionEventsHelper {
         }
         return false;
     }
+    private trySelectLastItem(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
+        if (ctrlKeyPressed && !shiftKeyPressed) {
+            this.selectionConfig.selectionManager.selectLast();
+            return true;
+        }
+        return false;
+    }
+
     onArrowUp(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
         return this.tryInitialSelectionOfFirstItem(ctrlKeyPressed, shiftKeyPressed) ||
             this.trySelectFirstItem(ctrlKeyPressed, shiftKeyPressed) ||
@@ -72,26 +112,12 @@ export class SelectionEventsHelper {
             this.trySelectPreviousItem(ctrlKeyPressed, shiftKeyPressed);
     }
     onArrowDown(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
-        if (ctrlKeyPressed) {
-            this.selectionConfig.selectionManager.selectLast();
-            return true;
-        }
-        if (this.selectionConfig.selectionManager.lastProcessedIndex === null) {
-            this.selectionConfig.selectionManager.selectFirst();
-            return true;
-        }
-        if (shiftKeyPressed && false === this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex)) {
-            this.selectionConfig.selectionManager.selectRange(this.selectionConfig.selectionManager.lastProcessedIndex, this.selectionConfig.selectionManager.lastProcessedIndex + 1);
-            return true;
-        }
-        if (this.selectionConfig.selectionManager.lastProcessedIndex < this.selectionConfig.selectionManager.itemsSource.length) {
-            if (this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex + 1)) {
-                this.selectionConfig.selectionManager.deselectIndex(this.selectionConfig.selectionManager.lastProcessedIndex);
-            }
-            this.selectionConfig.selectionManager.selectIndex(this.selectionConfig.selectionManager.lastProcessedIndex + 1, shiftKeyPressed && this.selectionConfig.allowMultipleSelection);
-            return true;
-        }
-        return false;
+        return this.tryInitialSelectionOfFirstItem(ctrlKeyPressed, shiftKeyPressed) ||
+            this.trySelectLastItem(ctrlKeyPressed, shiftKeyPressed) ||
+            this.trySelectAllItemsUpToLast(ctrlKeyPressed, shiftKeyPressed) ||
+            this.tryBuildRangeWithNextItemWhenLastItemWasUnselected(ctrlKeyPressed, shiftKeyPressed) ||
+            this.tryDeselectLastItemInReversedRange(ctrlKeyPressed, shiftKeyPressed) ||
+            this.trySelectNextItem(ctrlKeyPressed, shiftKeyPressed);
     }
     keyboardHandler(ctrlKeyPressed: boolean, shiftKeyPressed: boolean, keyCode: KeyCodes): boolean {
         switch (keyCode) {
