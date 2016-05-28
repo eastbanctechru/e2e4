@@ -4,7 +4,7 @@ var webpackPostprocessor = wallabyWebpack({});
 module.exports = function (wallaby) {
     return {
         files: [
-            { pattern: 'node_modules/core-js/client/core.js', instrument: false, load: true},
+            { pattern: 'node_modules/es6-shim/es6-shim.js', instrument: false, load: true},
             { pattern: 'src/**/*.ts', load: false },
             { pattern: 'src/**/*.d.ts', ignore: true }
         ],
@@ -22,7 +22,7 @@ module.exports = function (wallaby) {
             }
         },
 
-        testFramework: 'mocha@2.2.4',
+        testFramework: 'mocha@2.5.3',
 
         bootstrap: function () {
             window.__moduleBundler.loadTests();
