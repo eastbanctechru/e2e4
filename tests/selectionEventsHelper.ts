@@ -7,6 +7,11 @@ import { ISelectionConfig } from '../src/contracts/ISelectionConfig';
 import { ISelectable } from '../src/contracts/ISelectable';
 import * as sinon from 'sinon';
 
+const notPressedShift = false;
+const pressedShift = true;
+const notPressedCtrl = false;
+const pressedCtrl = true;
+
 function toSelectionManager(): SelectionManager {
     let selectionManager = new SelectionManager();
     selectionManager.itemsSource = [
@@ -34,16 +39,16 @@ describe('SelectionEventsHelper', () => {
             let config = toDefaultSelectionConfig();
             let helper = new SelectionEventsHelper(config);
             let selectAllSpy = sinon.spy(helper.selectionConfig.selectionManager, 'selectAll');
-            helper.keyboardHandler(true, true, KeyCodes.Enter);
+            helper.keyboardHandler(pressedCtrl, pressedShift, KeyCodes.Enter);
             expect(selectAllSpy.notCalled).true;
 
-            helper.keyboardHandler(true, true, KeyCodes.A);
+            helper.keyboardHandler(pressedCtrl, pressedShift, KeyCodes.A);
             expect(selectAllSpy.notCalled).true;
 
-            helper.keyboardHandler(false, true, KeyCodes.A);
+            helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.A);
             expect(selectAllSpy.notCalled).true;
 
-            helper.keyboardHandler(true, false, KeyCodes.A);
+            helper.keyboardHandler(pressedCtrl, notPressedShift, KeyCodes.A);
             expect(selectAllSpy.calledOnce).true;
         });
 
@@ -55,7 +60,7 @@ describe('SelectionEventsHelper', () => {
                 config.selectionManager.deselectAll();
 
                 let selectAllSpy = sinon.spy(helper.selectionConfig.selectionManager, 'selectFirst');
-                helper.keyboardHandler(false, false, KeyCodes.ArrowUp);
+                helper.keyboardHandler(notPressedShift, false, KeyCodes.ArrowUp);
                 expect(selectAllSpy.calledOnce).true;
             });
 
@@ -66,7 +71,7 @@ describe('SelectionEventsHelper', () => {
                 config.selectionManager.selectLast();
 
                 let selectAllSpy = sinon.spy(helper.selectionConfig.selectionManager, 'selectFirst');
-                helper.keyboardHandler(true, false, KeyCodes.ArrowUp);
+                helper.keyboardHandler(pressedCtrl, notPressedShift, KeyCodes.ArrowUp);
                 expect(selectAllSpy.calledOnce).true;
             });
 
@@ -77,15 +82,73 @@ describe('SelectionEventsHelper', () => {
                 config.selectionManager.selectLast();
 
                 let selectAllSpy = sinon.spy(helper.selectionConfig.selectionManager, 'selectRange');
-                helper.keyboardHandler(true, true, KeyCodes.ArrowUp);
+                helper.keyboardHandler(pressedCtrl, pressedShift, KeyCodes.ArrowUp);
                 expect(selectAllSpy.calledOnce).true;
                 expect(selectAllSpy.calledWith(config.selectionManager.itemsSource.length - 1, 0)).true;
 
                 selectAllSpy.reset();
                 config.selectionManager.selectIndex(2);
-                helper.keyboardHandler(true, true, KeyCodes.ArrowUp);
+                helper.keyboardHandler(pressedCtrl, pressedShift, KeyCodes.ArrowUp);
                 expect(selectAllSpy.calledOnce).true;
                 expect(selectAllSpy.calledWith(2, 0)).true;
+            });
+            it('selects two items on Shift+ArrowUp combination when last operation is unselection of item', () => {
+                let config = toDefaultSelectionConfig();
+                let helper = new SelectionEventsHelper(config);
+
+                config.selectionManager.selectIndex(2);
+                config.selectionManager.deselectIndex(2);
+
+                let selectAllSpy = sinon.spy(helper.selectionConfig.selectionManager, 'selectRange');
+                helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowUp);
+                expect(selectAllSpy.calledOnce).true;
+                expect(selectAllSpy.calledWith(2, 1)).true;
+            });
+            it('and resets previous selections on Shift+ArrowUp combination when last operation is unselection of item', () => {
+                let config = toDefaultSelectionConfig();
+                let helper = new SelectionEventsHelper(config);
+
+                config.selectionManager.selectIndex(2);
+                config.selectionManager.deselectIndex(2);
+
+                config.selectionManager.selectAll();
+                config.selectionManager.deselectIndex(2);
+                expect(config.selectionManager.getSelectedIndexex()).eql([0, 1, 3, 4]);
+                helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowUp);
+                expect(config.selectionManager.getSelectedIndexex()).eql([1, 2]);
+            });
+            it('deselects last selected item in range and sets last processed index to previous item', () => {
+                let config = toDefaultSelectionConfig();
+                let helper = new SelectionEventsHelper(config);
+
+                config.selectionManager.selectIndex(2);
+                config.selectionManager.selectIndex(3, true);
+                expect(config.selectionManager.getSelectedIndexex()).eql([2, 3]);
+                helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowUp);
+                expect(config.selectionManager.getSelectedIndexex()).eql([2]);
+                expect(config.selectionManager.lastProcessedIndex).eql(2);
+            });
+            it('moves to previous item on ArrowUp when not first item selected', () => {
+                let config = toDefaultSelectionConfig();
+                let helper = new SelectionEventsHelper(config);
+
+                config.selectionManager.selectIndex(3);
+                expect(config.selectionManager.getSelectedIndexex()).eql([3]);
+                helper.keyboardHandler(notPressedCtrl, notPressedShift, KeyCodes.ArrowUp);
+                expect(config.selectionManager.getSelectedIndexex()).eql([2]);
+                helper.keyboardHandler(notPressedCtrl, notPressedShift, KeyCodes.ArrowUp);
+                expect(config.selectionManager.getSelectedIndexex()).eql([1]);
+            });
+            it('moves to previous item and save on Shift+ArrowUp when not first item selected', () => {
+                let config = toDefaultSelectionConfig();
+                let helper = new SelectionEventsHelper(config);
+
+                config.selectionManager.selectIndex(3);
+                expect(config.selectionManager.getSelectedIndexex()).eql([3]);
+                helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowUp);
+                expect(config.selectionManager.getSelectedIndexex()).eql([3, 2]);
+                helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowUp);
+                expect(config.selectionManager.getSelectedIndexex()).eql([3, 2, 1]);
             });
         });
     });

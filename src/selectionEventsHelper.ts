@@ -24,18 +24,19 @@ export class SelectionEventsHelper {
         }
         return false;
     }
-    private tryDeselectPreviousItem(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
-        if (this.selectionConfig.selectionManager.lastProcessedIndex > 0) {
+    private tryDeselectLastItemInRange(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
+        if (this.selectionConfig.selectionManager.lastProcessedIndex > 0 && shiftKeyPressed) {
             if (this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex - 1)) {
                 this.selectionConfig.selectionManager.deselectIndex(this.selectionConfig.selectionManager.lastProcessedIndex);
+                this.selectionConfig.selectionManager.lastProcessedIndex = this.selectionConfig.selectionManager.lastProcessedIndex - 1;
                 return true;
             }
         }
         return false;
     }
 
-    private tryAddPreviousItemToSelectionRangeWhenLastItemWasUnselected(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
-        if (shiftKeyPressed && false === this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex)) {
+    private tryBuildRangeWithPreviousItemWhenLastItemWasUnselected(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
+        if (!ctrlKeyPressed && shiftKeyPressed && false === this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex)) {
             this.selectionConfig.selectionManager.selectRange(this.selectionConfig.selectionManager.lastProcessedIndex, this.selectionConfig.selectionManager.lastProcessedIndex - 1);
             return true;
         }
@@ -66,8 +67,8 @@ export class SelectionEventsHelper {
         return this.tryInitialSelectionOfFirstItem(ctrlKeyPressed, shiftKeyPressed) ||
             this.trySelectFirstItem(ctrlKeyPressed, shiftKeyPressed) ||
             this.trySelectAllItemsUpToFirst(ctrlKeyPressed, shiftKeyPressed) ||
-            this.tryAddPreviousItemToSelectionRangeWhenLastItemWasUnselected(ctrlKeyPressed, shiftKeyPressed) ||
-            this.tryDeselectPreviousItem(ctrlKeyPressed, shiftKeyPressed) || 
+            this.tryBuildRangeWithPreviousItemWhenLastItemWasUnselected(ctrlKeyPressed, shiftKeyPressed) ||
+            this.tryDeselectLastItemInRange(ctrlKeyPressed, shiftKeyPressed) ||
             this.trySelectPreviousItem(ctrlKeyPressed, shiftKeyPressed);
     }
     onArrowDown(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {

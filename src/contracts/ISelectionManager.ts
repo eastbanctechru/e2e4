@@ -4,7 +4,7 @@ export interface ISelectionManager {
     lastProcessedIndex: number;
     deselectAll(recursive?: boolean): void;
     selectAll(recursive?: boolean): void;
-    selectRange(fromIndex: number, toIndex: number, recursive?: boolean): void;
+    selectRange(fromIndex: number, toIndex: number): void;
     hasSelections(): boolean;
     isIndexSelected(index: number): boolean;
     getMinSelectedIndex(): number;
@@ -12,9 +12,10 @@ export interface ISelectionManager {
     getItemIndex(item: ISelectable): number;
     selectFirst(): void;
     selectLast(): void;
-    selectIndex(index: number, savePrevious?: boolean, recursive?: boolean): void;
-    deselectIndex(index: number, recursive?: boolean): void;
-    toggleSelection(index: number, savePrevious?: boolean, recursive?: boolean): void;
+    selectIndex(index: number, savePrevious?: boolean): void;
+    deselectIndex(index: number): void;
+    toggleSelection(index: number, savePrevious?: boolean): void;
     getSelections(recursive?: boolean): Array<Object>;
+    getSelectedIndexex(): Array<number>;
     dispose(): void;
 }

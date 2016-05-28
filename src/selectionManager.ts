@@ -165,4 +165,7 @@ export class SelectionManager implements ISelectionManager {
     getSelections(): Array<Object> {
         return this.selectionsList.map((selectable) => selectable.item);
     }
+    getSelectedIndexex(): Array<number> {
+        return this.selectionsList.map((selectable) => selectable.index);
+    }
 }
