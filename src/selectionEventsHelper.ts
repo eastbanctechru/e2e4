@@ -9,105 +9,93 @@ export class SelectionEventsHelper {
     constructor(selectionConfig: ISelectionConfig) {
         this.selectionConfig = selectionConfig;
     }
-    trySelectAll(browserEvent: KeyboardEvent): void {
-        if (browserEvent.ctrlKey) {
+    trySelectAll(ctrlPressed: boolean): boolean {
+        if (ctrlPressed) {
             this.selectionConfig.selectionManager.selectAll();
-            browserEvent.stopPropagation();
-            browserEvent.preventDefault();
+            return true;
         }
+        return false;
     }
-    onArrowUp(browserEvent: KeyboardEvent): void {
-        if (browserEvent.ctrlKey) {
+    onArrowUp(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
+        if (ctrlKeyPressed) {
             this.selectionConfig.selectionManager.selectFirst();
-            browserEvent.stopPropagation();
-            browserEvent.preventDefault();
-        } else if (this.selectionConfig.selectionManager.lastProcessedIndex === null || this.selectionConfig.selectionManager.lastProcessedIndex === undefined) {
+            return true;
+        }
+        if (this.selectionConfig.selectionManager.lastProcessedIndex === null || this.selectionConfig.selectionManager.lastProcessedIndex === undefined) {
             this.selectionConfig.selectionManager.selectFirst();
-            browserEvent.stopPropagation();
-            browserEvent.preventDefault();
-        } else if (browserEvent.shiftKey && false === this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex)) {
+            return true;
+        }
+        if (shiftKeyPressed && false === this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex)) {
             this.selectionConfig.selectionManager.selectRange(this.selectionConfig.selectionManager.lastProcessedIndex, this.selectionConfig.selectionManager.lastProcessedIndex - 1);
-        } else if (this.selectionConfig.selectionManager.lastProcessedIndex > 0) {
+            return true;
+        }
+        if (this.selectionConfig.selectionManager.lastProcessedIndex > 0) {
             if (this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex - 1)) {
                 this.selectionConfig.selectionManager.deselectIndex(this.selectionConfig.selectionManager.lastProcessedIndex);
+                return true;
             }
-            this.selectionConfig.selectionManager.selectIndex(this.selectionConfig.selectionManager.lastProcessedIndex - 1, browserEvent.shiftKey && this.selectionConfig.allowMultipleSelection);
-            browserEvent.stopPropagation();
-            browserEvent.preventDefault();
+            this.selectionConfig.selectionManager.selectIndex(this.selectionConfig.selectionManager.lastProcessedIndex - 1, shiftKeyPressed && this.selectionConfig.allowMultipleSelection);
+            return true;
         }
+        return false;
     }
-    onArrowDown(browserEvent: KeyboardEvent): void {
-        if (browserEvent.ctrlKey) {
+    onArrowDown(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
+        if (ctrlKeyPressed) {
             this.selectionConfig.selectionManager.selectLast();
-            browserEvent.stopPropagation();
-            browserEvent.preventDefault();
-        } else if (this.selectionConfig.selectionManager.lastProcessedIndex === null || this.selectionConfig.selectionManager.lastProcessedIndex === undefined) {
+            return true;
+        }
+        if (this.selectionConfig.selectionManager.lastProcessedIndex === null || this.selectionConfig.selectionManager.lastProcessedIndex === undefined) {
             this.selectionConfig.selectionManager.selectFirst();
-            browserEvent.stopPropagation();
-            browserEvent.preventDefault();
-        } else if (browserEvent.shiftKey && false === this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex)) {
+            return true;
+        }
+        if (shiftKeyPressed && false === this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex)) {
             this.selectionConfig.selectionManager.selectRange(this.selectionConfig.selectionManager.lastProcessedIndex, this.selectionConfig.selectionManager.lastProcessedIndex + 1);
-        } else {
+            return true;
+        }
+        if (this.selectionConfig.selectionManager.lastProcessedIndex < this.selectionConfig.selectionManager.itemsSource.length) {
             if (this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex + 1)) {
                 this.selectionConfig.selectionManager.deselectIndex(this.selectionConfig.selectionManager.lastProcessedIndex);
             }
-            this.selectionConfig.selectionManager.selectIndex(this.selectionConfig.selectionManager.lastProcessedIndex + 1, browserEvent.shiftKey && this.selectionConfig.allowMultipleSelection);
-            browserEvent.stopPropagation();
-            browserEvent.preventDefault();
+            this.selectionConfig.selectionManager.selectIndex(this.selectionConfig.selectionManager.lastProcessedIndex + 1, shiftKeyPressed && this.selectionConfig.allowMultipleSelection);
+            return true;
         }
+        return false;
     }
-    keyboardHandler(browserEvent: KeyboardEvent): void {
-        switch (browserEvent.keyCode) {
+    keyboardHandler(ctrlKeyPressed: boolean, shiftKeyPressed: boolean, keyCode: KeyCodes): boolean {
+        switch (keyCode) {
             case KeyCodes.ArrowUp:
-                this.onArrowUp(browserEvent);
-                break;
+                return this.onArrowUp(ctrlKeyPressed, shiftKeyPressed);
             case KeyCodes.ArrowDown:
-                this.onArrowDown(browserEvent);
-                break;
+                return this.onArrowDown(ctrlKeyPressed, shiftKeyPressed);
             case KeyCodes.A:
-                this.trySelectAll(browserEvent);
-                break;
+                return this.trySelectAll(ctrlKeyPressed);
             default:
-                break;
+                return false;
         }
     }
-    mouseHandler(browserEvent: MouseEvent, itemIndex: number): void {
+    mouseHandler(ctrlKeyPressed: boolean, shiftKeyPressed: boolean, mouseButton: MouseButtons, itemIndex: number): boolean {
         const isItemSelected = this.selectionConfig.selectionManager.isIndexSelected(itemIndex);
-        if (isItemSelected !== false && browserEvent.which !== MouseButtons.Left) {
-            return;
+        if (isItemSelected !== false && mouseButton !== MouseButtons.Left) {
+            return false;
         }
 
         if (this.selectionConfig.toggleOnly) {
-            if (browserEvent.shiftKey) {
+            if (shiftKeyPressed) {
                 const minIndex = this.selectionConfig.selectionManager.getMinSelectedIndex();
                 this.selectionConfig.selectionManager.selectRange(minIndex === null ? itemIndex : minIndex, itemIndex);
             } else {
                 this.selectionConfig.selectionManager.toggleSelection(itemIndex, true);
             }
-            setTimeout(this.clearWindowSelection, 0);
-            return;
+            return true;
         }
-        if (browserEvent.ctrlKey && this.selectionConfig.allowMultipleSelection) {
+        if (ctrlKeyPressed && this.selectionConfig.allowMultipleSelection) {
             this.selectionConfig.selectionManager.toggleSelection(itemIndex, true);
-        } else if (browserEvent.shiftKey && this.selectionConfig.allowMultipleSelection) {
+        } else if (shiftKeyPressed && this.selectionConfig.allowMultipleSelection) {
             const minIndex = this.selectionConfig.selectionManager.getMinSelectedIndex();
             this.selectionConfig.selectionManager.selectRange(minIndex === null ? itemIndex : minIndex, itemIndex);
         } else {
             this.selectionConfig.selectionManager.toggleSelection(itemIndex, false);
         }
-        setTimeout(this.clearWindowSelection, 0);
-    }
-    clearWindowSelection(): void {
-        try {
-            if (window && window.getSelection) {
-                window.getSelection().removeAllRanges();
-            } else if (document && document.hasOwnProperty('selection')) {
-                /* tslint:disable:no-string-literal */
-                document['selection'].empty();
-                /* tslint:enable:no-string-literal */
-            }
-        } catch (e) {
-
-        }
+        return true;
     }
 }
