@@ -9,8 +9,8 @@ export class SelectionEventsHelper {
     constructor(selectionConfig: ISelectionConfig) {
         this.selectionConfig = selectionConfig;
     }
-    trySelectAll(ctrlPressed: boolean): boolean {
-        if (ctrlPressed) {
+    trySelectAll(ctrlPressed: boolean, shiftPressed: boolean): boolean {
+        if (ctrlPressed && !shiftPressed) {
             this.selectionConfig.selectionManager.selectAll();
             return true;
         }
@@ -68,7 +68,7 @@ export class SelectionEventsHelper {
             case KeyCodes.ArrowDown:
                 return this.onArrowDown(ctrlKeyPressed, shiftKeyPressed);
             case KeyCodes.A:
-                return this.trySelectAll(ctrlKeyPressed);
+                return this.trySelectAll(ctrlKeyPressed, shiftKeyPressed);
             default:
                 return false;
         }
