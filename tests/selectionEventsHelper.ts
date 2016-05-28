@@ -16,6 +16,7 @@ function toSelectionManager(): SelectionManager {
         { selected: false, title: 'four' } as ISelectable,
         { selected: false, title: 'five' } as ISelectable
     ];
+
     return selectionManager;
 }
 
@@ -29,7 +30,7 @@ function toDefaultSelectionConfig(): ISelectionConfig {
 
 describe('SelectionEventsHelper', () => {
     describe('keyboard', () => {
-        it('selects all on exact Ctrl+A combination', () => {
+        it('selects all items on exact Ctrl+A combination', () => {
             let config = toDefaultSelectionConfig();
             let helper = new SelectionEventsHelper(config);
             let selectAllSpy = sinon.spy(helper.selectionConfig.selectionManager, 'selectAll');
@@ -44,6 +45,48 @@ describe('SelectionEventsHelper', () => {
 
             helper.keyboardHandler(true, false, KeyCodes.A);
             expect(selectAllSpy.calledOnce).true;
+        });
+
+        describe('onArrowUp', () => {
+            it('selects first item on ArrowUp when nothings selected', () => {
+                let config = toDefaultSelectionConfig();
+                let helper = new SelectionEventsHelper(config);
+
+                config.selectionManager.deselectAll();
+
+                let selectAllSpy = sinon.spy(helper.selectionConfig.selectionManager, 'selectFirst');
+                helper.keyboardHandler(false, false, KeyCodes.ArrowUp);
+                expect(selectAllSpy.calledOnce).true;
+            });
+
+            it('selects first item on Ctrl+ArrowUp combination', () => {
+                let config = toDefaultSelectionConfig();
+                let helper = new SelectionEventsHelper(config);
+
+                config.selectionManager.selectLast();
+
+                let selectAllSpy = sinon.spy(helper.selectionConfig.selectionManager, 'selectFirst');
+                helper.keyboardHandler(true, false, KeyCodes.ArrowUp);
+                expect(selectAllSpy.calledOnce).true;
+            });
+
+            it('selects up to first item on Ctrl+Shift+ArrowUp combination', () => {
+                let config = toDefaultSelectionConfig();
+                let helper = new SelectionEventsHelper(config);
+
+                config.selectionManager.selectLast();
+
+                let selectAllSpy = sinon.spy(helper.selectionConfig.selectionManager, 'selectRange');
+                helper.keyboardHandler(true, true, KeyCodes.ArrowUp);
+                expect(selectAllSpy.calledOnce).true;
+                expect(selectAllSpy.calledWith(config.selectionManager.itemsSource.length - 1, 0)).true;
+
+                selectAllSpy.reset();
+                config.selectionManager.selectIndex(2);
+                helper.keyboardHandler(true, true, KeyCodes.ArrowUp);
+                expect(selectAllSpy.calledOnce).true;
+                expect(selectAllSpy.calledWith(2, 0)).true;
+            });
         });
     });
 });
