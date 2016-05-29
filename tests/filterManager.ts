@@ -21,7 +21,6 @@ describe('FilterManager', () => {
             expect(FilterManager.filterPropertiesMap.get(TargetType)).eql([config]);
 
         });
-
         it('registers multiple filter configs for type', () => {
             class TargetType { };
             const config = FilterConfig.getDefaultConfig('propertyName');
@@ -43,6 +42,11 @@ describe('FilterManager', () => {
             let filterManager = new FilterManager(target);
             expect(filterManager.appliedFiltersMap.has(target)).true;
             expect(filterManager.appliedFiltersMap.get(target).length).eql(1);
+        });
+        it('handles null as target object', () => {
+            let filterManager = new FilterManager(null);
+            filterManager.registerFilterTarget(null);
+            expect(filterManager.appliedFiltersMap.size).eq(0);
         });
 
         it('builds filters map for target object with multiple filters', () => {

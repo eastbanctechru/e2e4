@@ -1,15 +1,11 @@
 import { expect } from 'chai';
-import { List } from '../src/list';
-import { SimplePager } from '../src/simplePager';
+import { AbstractLifetime } from '../src/abstractLifetime';
 import { ProgressState } from '../src/common/progressState';
 
-class SutList extends List {
-    getDataReadPromise(): Promise<Object> {
-        return null;
-    }
+class Lifetime extends AbstractLifetime {
 }
-function totarget(): List {
-    return new SutList(new SimplePager());
+function totarget(): AbstractLifetime {
+    return new Lifetime();
 }
 
 describe('List', () => {
