@@ -85,13 +85,8 @@ export abstract class List {
             this.loadData();
         }
     }
-    ///IList
-
-    ///IRequestCanceller
     addToCancellationSequence(promise: Promise<Object>): void { };
     cancelRequests(): void { };
-    ///IRequestCanceller
-    ///IObjectWithState
     useModelState = true;
     stateManager: IStateManager;
     saveRequestState(): void {
@@ -106,7 +101,6 @@ export abstract class List {
         }
         return this.stateManager.mergeStates(params);
     }
-    ///IObjectWithState
     filterManager: IFilterManager;
     pager: IPager;
     abstract getDataReadPromise(requestParams: any): Promise<Object>;
