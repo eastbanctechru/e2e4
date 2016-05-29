@@ -19,9 +19,7 @@ export abstract class List {
     }
     private listLoadDataSuccessBinded: (result: Object) => Object;
     private listLoadDataFailBinded: (error: Object) => void;
-    clearData(): void {
-        this.pager.reset();
-    }
+
     constructor(pager: IPager) {
         this.pager = pager;
         this.filterManager = new FilterManager(this);
@@ -50,7 +48,11 @@ export abstract class List {
         delete this.listLoadDataSuccessBinded;
         delete this.listLoadDataFailBinded;
         this.clearData();
-        this.filterManager.dispose();
+
+    }
+
+    clearData(): void {
+        this.pager.reset();
     }
     toRequest(): any {
         return this.filterManager.getRequestState(null);
@@ -66,7 +68,7 @@ export abstract class List {
 
         this.pager.totalCount = 0;
         this.state = ProgressState.Progress;
-        const promise = this.getDataReadPromise(this.toRequest());
+        const promise = this.getDataReadPromise();
         this.addToCancellationSequence(promise);
         promise.then(this.listLoadDataSuccessBinded, this.listLoadDataFailBinded);
         return promise;
@@ -81,5 +83,5 @@ export abstract class List {
     cancelRequests(): void { };
     filterManager: IFilterManager;
     pager: IPager;
-    abstract getDataReadPromise(requestParams: any): Promise<Object>;
+    abstract getDataReadPromise(): Promise<Object>;
 }
