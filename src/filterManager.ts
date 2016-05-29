@@ -105,7 +105,9 @@ export class FilterManager implements IFilterManager {
             this.appliedFiltersMapInternal.delete(target);
         }
     }
-    constructor(target: Object) {
-        this.registerFilterTarget(target);
+    constructor(target?: Object) {
+        if (target) {
+            this.registerFilterTarget(target);
+        }
     }
 }
