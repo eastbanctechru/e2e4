@@ -22,25 +22,30 @@ To build the project, follow these steps:
   ```shell
   npm install -g typings
   ```
-3. From the project folder, execute the following command to install project dependencies:
+4. Ensure that [Gulp](http://gulpjs.com/) is installed. If you need to install it, use the following command:
+
+  ```shell
+  npm install -g gulp
+  ```
+5. From the project folder, execute the following command to install project dependencies:
 
   ```shell
   npm install
   ```
-4. From the project folder, execute the following command to build the source code:
+6. From the project folder, execute the following command to build the source code:
 
   ```shell
   gulp build
   ```
-5. You will find the compiled code in the dist folder in following module formats: AMD, CommonJS, SystemJS and ES6.
+7. You will find the compiled code in the dist folder in following module formats: AMD, CommonJS, SystemJS and ES6.
 
 ## How to run tests
 
-1. You can run tests in watch mode by executing the following command: 
+1. You can run tests in chrome with watch mode by executing the following command: 
   ```shell
   gulp test
   ```
-or execute single tests run:
+or execute single run in PhantomJS:
   ```shell
   gulp test-single-run
   ```
