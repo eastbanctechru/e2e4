@@ -6,9 +6,9 @@
 [![devDependency Status](https://david-dm.org/fshchudlo/e2e4/dev-status.svg)](https://david-dm.org/fshchudlo/e2e4#info=devDependencies)
 
 Set of base classes and utilities to build unobtrusive list models. 
-This is used as abstract codebase to implement bridges from client side frameworks like [Angular](https://angular.io/) or [Aurelia](http://www.aurelia.io/)
+This library is used as abstract codebase to implement bridges from client side frameworks [Angular](https://angular.io/) and [Aurelia](http://www.aurelia.io/)
 
-## How to build this
+## How to build the project
 
 To build the project, follow these steps:
 1. Ensure that [NodeJS](http://nodejs.org/) is installed. This provides the platform on which the build tooling runs.
@@ -16,6 +16,11 @@ To build the project, follow these steps:
 
   ```shell
   npm install -g typescript
+  ```
+3. Ensure that [Typings](https://github.com/typings/typings/) is installed. If you need to install it, use the following command:
+
+  ```shell
+  npm install -g typings
   ```
 3. From the project folder, execute the following command to install project dependencies:
 
@@ -28,3 +33,14 @@ To build the project, follow these steps:
   gulp build
   ```
 5. You will find the compiled code in the dist folder in following module formats: AMD, CommonJS, SystemJS and ES6.
+
+## How to run tests
+
+1. You can run tests in watch mode by executing the following command: 
+  ```shell
+  gulp test
+  ```
+or execute single tests run:
+  ```shell
+  gulp test-single-run
+  ```
