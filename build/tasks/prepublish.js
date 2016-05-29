@@ -5,7 +5,7 @@ gulp.task('prepublish', function (callback) {
   return runSequence(
     'tslint',
     'build',
-    'test',
+    'test-single-run',
     callback
   );
 });

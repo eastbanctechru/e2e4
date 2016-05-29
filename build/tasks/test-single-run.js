@@ -3,13 +3,13 @@ var Server = require('karma').Server;
 var isVerbose = true;
 
 /**
- * Run tests and watch
+ * Run test once and exit
  */
-gulp.task('test-w', function (done) {
+gulp.task('test-single-run', function (done) {
     new Server({
         configFile: __dirname + '/../../karma.conf.js',
         client: { captureConsole: isVerbose },
-        browsers: ['Chrome'],
-        singleRun: false
+        browsers: ['PhantomJS'],
+        singleRun: true
     }, done).start();
 });
