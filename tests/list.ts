@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { List } from '../src/list';
 
 class UselessList extends List {
-    getDataReadPromise(requestParams: any): Promise<Object> {
+    getDataReadPromise(): Promise<Object> {
         return null;
     }
 }

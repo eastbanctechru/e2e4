@@ -1,6 +1,6 @@
 {
   "name": "e2e4",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Set of base classes and utilities to build unobtrusive list models",
   "main": false,
   "repository": {
