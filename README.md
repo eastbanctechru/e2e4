@@ -45,11 +45,13 @@ To build the project, follow these steps:
 
 ## How to run tests
 
-1. You can run tests in chrome with watch mode by executing the following command: 
+You can run tests in chrome with watch mode by executing the following command: 
+
   ```shell
   gulp test
   ```
-or execute single run in PhantomJS:
+  or execute single run in PhantomJS:
+  
   ```shell
   gulp test-single-run
   ```
