@@ -187,7 +187,7 @@ describe('SortManager', () => {
             const {sortManager} = target;
             let filterManager = new FilterManager(sortManager);
             let params = { sort: { direction: SortDirection.Desc, fieldName: 'id' } };
-            filterManager.parseParams(params);
+            filterManager.applyParams(params);
             expect(sortManager.sortings.length).equal(0);
         });
         it('parse params object to correct sortings array', () => {
@@ -195,7 +195,7 @@ describe('SortManager', () => {
             const {sortManager} = target;
             let filterManager = new FilterManager(sortManager);
             let params = { sort: [{ direction: SortDirection.Desc, fieldName: 'id' }, { direction: SortDirection.Desc, fieldName: 'name' }] };
-            filterManager.parseParams(params);
+            filterManager.applyParams(params);
             expect(sortManager.sortings.length).equal(2);
             expect(sortManager.sortings[0].fieldName).eql(params.sort[0].fieldName);
             expect(sortManager.sortings[0].direction).eql(params.sort[0].direction);

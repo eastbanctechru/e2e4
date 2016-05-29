@@ -1,7 +1,6 @@
 import {Defaults} from './common/defaults';
 import {FilterManager} from './filterManager';
 import {ProgressState} from './common/progressState';
-import {IStateManager} from './contracts/IStateManager';
 import {IPager} from './contracts/IPager';
 import {IFilterManager} from './contracts/IFilterManager';
 
@@ -23,8 +22,7 @@ export abstract class List {
     clearData(): void {
         this.pager.reset();
     }
-    constructor(stateManager: IStateManager, pager: IPager) {
-        this.stateManager = stateManager;
+    constructor(pager: IPager) {
         this.pager = pager;
         this.filterManager = new FilterManager(this);
         this.filterManager.registerFilterTarget(this.pager);
@@ -44,9 +42,8 @@ export abstract class List {
     }
 
     init(queryParams?: Object): void {
+        this.filterManager.applyParams(queryParams);
         this.inited = true;
-        const restoredState = this.stateManager.mergeStates(queryParams);
-        this.filterManager.parseParams(restoredState);
     }
     dispose(): void {
         this.disposed = true;
@@ -72,8 +69,6 @@ export abstract class List {
         const promise = this.getDataReadPromise(this.toRequest());
         this.addToCancellationSequence(promise);
         promise.then(this.listLoadDataSuccessBinded, this.listLoadDataFailBinded);
-        this.stateManager.flushRequestState(this.toRequest());
-        this.stateManager.persistLocalState(this.getLocalState());
         return promise;
     }
     reloadData(): void {
@@ -84,7 +79,6 @@ export abstract class List {
     }
     addToCancellationSequence(promise: Promise<Object>): void { };
     cancelRequests(): void { };
-    stateManager: IStateManager;
     filterManager: IFilterManager;
     pager: IPager;
     abstract getDataReadPromise(requestParams: any): Promise<Object>;

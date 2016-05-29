@@ -10,7 +10,7 @@ class UselessList extends List {
 describe('List', () => {
     describe('display real coverage', () => {
         it('not any meaningfull', () => {
-            let list = new UselessList(null, null);
+            let list = new UselessList(null);
         });
     });
 });

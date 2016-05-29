@@ -72,7 +72,7 @@ describe('BufferedPager', () => {
                 skip: 100,
                 take: 100
             };
-            filterManager.parseParams(params);
+            filterManager.applyParams(params);
             expect(pager.skip).eq(0);
         });
         it('parse takeRowCount as sum of skip and take if both specified', () => {
@@ -86,7 +86,7 @@ describe('BufferedPager', () => {
                 skip: 100,
                 take: 100
             };
-            filterManager.parseParams(params);
+            filterManager.applyParams(params);
             expect(pager.takeRowCount).eq(params.skip + params.take);
         });
         it('parse takeRowCount as defaultRowCount if skip or take not specified', () => {
@@ -95,18 +95,18 @@ describe('BufferedPager', () => {
             let params = {
                 take: 100
             };
-            filterManager.parseParams(params);
+            filterManager.applyParams(params);
             expect(pager.takeRowCount).eq(pager.defaultRowCount);
         });
         it('parse nulls as zeroes for takeRowCount', () => {
             let pager = new BufferedPager();
             let filterManager = new FilterManager(pager);
-            filterManager.parseParams({
+            filterManager.applyParams({
                 skip: 100,
                 take: null
             });
             expect(pager.takeRowCount).eq(100);
-            filterManager.parseParams({
+            filterManager.applyParams({
                 skip: null,
                 take: 100
             });
@@ -115,7 +115,7 @@ describe('BufferedPager', () => {
         it('parse takeRowCount to defaultRowCount if parsed value is invalid', () => {
             let pager = new BufferedPager();
             let filterManager = new FilterManager(pager);
-            filterManager.parseParams({
+            filterManager.applyParams({
                 skip: null,
                 take: null
             });

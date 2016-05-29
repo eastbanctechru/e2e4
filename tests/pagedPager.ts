@@ -77,7 +77,7 @@ describe('PagedPager', () => {
                 pageNumber: 5,
                 pageSize: 100
             };
-            filterManager.parseParams(params);
+            filterManager.applyParams(params);
             expect(pager.pageNumber).eq(params.pageNumber);
         });
         it('parse pageNumber as 1 if invalid', () => {
@@ -89,7 +89,7 @@ describe('PagedPager', () => {
                 pageNumber: null,
                 pageSize: 100
             };
-            filterManager.parseParams(params);
+            filterManager.applyParams(params);
             expect(pager.pageNumber).eq(1);
         });
         it('parse pageSize as defaultPageSize if invalid', () => {
@@ -101,7 +101,7 @@ describe('PagedPager', () => {
                 pageNumber: 1,
                 pageSize: null
             };
-            filterManager.parseParams(params);
+            filterManager.applyParams(params);
             expect(pager.pageSize).eq(pager.defaultPageSize);
         });
         it('parse pageSize param', () => {
@@ -113,7 +113,7 @@ describe('PagedPager', () => {
                 pageNumber: 5,
                 pageSize: 100
             };
-            filterManager.parseParams(params);
+            filterManager.applyParams(params);
             expect(pager.pageSize).eq(params.pageSize);
         });
 

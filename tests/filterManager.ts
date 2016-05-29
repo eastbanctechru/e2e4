@@ -295,7 +295,7 @@ describe('FilterManager', () => {
                 undefinedProperty: 'undefined'
             };
             let coercedParams = Utility.coerceValue(Utility.cloneLiteral(params));
-            filterManager.parseParams(params);
+            filterManager.applyParams(params);
             expect(target).eql(coercedParams);
         });
 
@@ -323,7 +323,7 @@ describe('FilterManager', () => {
                 stringProperty: 'value',
                 undefinedProperty: 'undefined'
             };
-            filterManager.parseParams(params);
+            filterManager.applyParams(params);
             expect(target).eql(params);
         });
 
@@ -341,7 +341,7 @@ describe('FilterManager', () => {
                 ignoredProperty: 'new value',
                 mappedProperty: 'new value'
             };
-            filterManager.parseParams(params);
+            filterManager.applyParams(params);
             expect(target.ignoredProperty).not.eql(params.ignoredProperty);
             expect(target.mappedProperty).eql(params.mappedProperty);
         });
@@ -371,7 +371,7 @@ describe('FilterManager', () => {
                 zero: 0
             };
 
-            filterManager.parseParams(params);
+            filterManager.applyParams(params);
             expect(target.zero).null;
             expect(target.emptyString).null;
             expect(target.nullProperty).null;
@@ -390,7 +390,7 @@ describe('FilterManager', () => {
             let params = {
                 value: 'value'
             };
-            filterManager.parseParams(params);
+            filterManager.applyParams(params);
 
             expect(parseSpy.calledOnce).true;
             expect(parseSpy.calledOn(target)).true;

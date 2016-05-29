@@ -49,7 +49,7 @@ export class FilterManager implements IFilterManager {
             }
         });
     }
-    parseParams(params: Object): void {
+    applyParams(params: Object): void {
         this.appliedFiltersMapInternal.forEach((targetConfig, target) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
