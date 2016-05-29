@@ -1,4 +1,3 @@
-import {Defaults} from './common/defaults';
 import {ProgressState} from './common/progressState';
 import {IPager} from './contracts/IPager';
 
@@ -7,7 +6,7 @@ export abstract class List {
         this.pager.processResponse(result);
         this.state = ProgressState.Done;
         // In case when filter changed from last request and theres no data now
-        if ((result[Defaults.listSettings.totalCountParameterName] || 0) === 0) {
+        if (this.pager.totalCount === 0) {
             this.clearData();
         }
         return result;
