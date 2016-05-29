@@ -10,6 +10,6 @@ script:
   - typings install
   - gulp tslint
   - gulp build
-  - gulp test
+  - gulp test-single-run
 after_success: 
   - 'npm run coveralls'
