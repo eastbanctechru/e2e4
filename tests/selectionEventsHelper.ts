@@ -373,7 +373,7 @@ describe('SelectionEventsHelper', () => {
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
             expect(config.selectionManager.getSelectedIndexex()).eql([]);
         });
-        
+
         it('add item to seletions on ctrl+click', () => {
             let config = toDefaultSelectionConfig();
             let helper = new SelectionEventsHelper(config);
