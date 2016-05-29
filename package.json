@@ -7,10 +7,7 @@
     "type": "git",
     "url": "git+https://github.com/fshchudlo/e2e4.git"
   },
-  "keywords": [
-    "Lists",
-    "MVC-frameworks"
-  ],
+  "keywords": [],
   "author": "Fedor Shchudlo",
   "license": "MIT",
   "bugs": {
