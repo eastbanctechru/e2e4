@@ -136,23 +136,12 @@ export class SelectionEventsHelper {
         if (isItemSelected !== false && mouseButton !== MouseButtons.Left) {
             return false;
         }
-
-        if (this.selectionConfig.toggleOnly) {
-            if (shiftKeyPressed) {
-                const minIndex = this.selectionConfig.selectionManager.getMinSelectedIndex();
-                this.selectionConfig.selectionManager.selectRange(minIndex === null ? itemIndex : minIndex, itemIndex);
-            } else {
-                this.selectionConfig.selectionManager.toggleSelection(itemIndex, true);
-            }
-            return true;
-        }
-        if (ctrlKeyPressed && this.selectionConfig.allowMultipleSelection) {
-            this.selectionConfig.selectionManager.toggleSelection(itemIndex, true);
-        } else if (shiftKeyPressed && this.selectionConfig.allowMultipleSelection) {
+        if (shiftKeyPressed && this.selectionConfig.allowMultipleSelection) {
             const minIndex = this.selectionConfig.selectionManager.getMinSelectedIndex();
             this.selectionConfig.selectionManager.selectRange(minIndex === null ? itemIndex : minIndex, itemIndex);
         } else {
-            this.selectionConfig.selectionManager.toggleSelection(itemIndex, false);
+            let multiple = (ctrlKeyPressed || this.selectionConfig.toggleOnly) && this.selectionConfig.allowMultipleSelection;
+            this.selectionConfig.selectionManager.toggleSelection(itemIndex, multiple);
         }
         return true;
     }

@@ -357,6 +357,14 @@ describe('SelectionEventsHelper', () => {
             let helper = new SelectionEventsHelper(config);
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
             expect(config.selectionManager.getSelectedIndexex()).eql([0]);
+
+            config.selectionManager.deselectAll();
+            helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 0);
+            expect(config.selectionManager.getSelectedIndexex()).eql([0]);
+
+            config.selectionManager.deselectAll();
+            helper.mouseHandler(notPressedCtrl, pressedShift, MouseButtons.Left, 0);
+            expect(config.selectionManager.getSelectedIndexex()).eql([0]);
         });
         it('deselects already selected item on click', () => {
             let config = toDefaultSelectionConfig();
@@ -365,6 +373,7 @@ describe('SelectionEventsHelper', () => {
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
             expect(config.selectionManager.getSelectedIndexex()).eql([]);
         });
+        
         it('add item to seletions on ctrl+click', () => {
             let config = toDefaultSelectionConfig();
             let helper = new SelectionEventsHelper(config);
@@ -404,5 +413,56 @@ describe('SelectionEventsHelper', () => {
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
             expect(config.selectionManager.getSelectedIndexex()).eql([0]);
         });
+        it('select range of items on shift+click', () => {
+            let config = toDefaultSelectionConfig();
+            let helper = new SelectionEventsHelper(config);
+            helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
+            helper.mouseHandler(notPressedCtrl, pressedShift, MouseButtons.Left, 3);
+            expect(config.selectionManager.getSelectedIndexex()).eql([0, 1, 2, 3]);
+        });
+        it('prevents deselection of selected item on non-left button click', () => {
+            let config = toDefaultSelectionConfig();
+            let helper = new SelectionEventsHelper(config);
+            helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
+            expect(config.selectionManager.getSelectedIndexex()).eql([0]);
+            helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Right, 0);
+            expect(config.selectionManager.getSelectedIndexex()).eql([0]);
+        });
+
+        it('saves selection on regular click when toggleOnly=true', () => {
+            let config = toDefaultSelectionConfig();
+            config.toggleOnly = true;
+            let helper = new SelectionEventsHelper(config);
+            helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
+            expect(config.selectionManager.getSelectedIndexex()).eql([0]);
+            helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 3);
+            expect(config.selectionManager.getSelectedIndexex()).eql([0, 3]);
+            helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 1);
+            expect(config.selectionManager.getSelectedIndexex()).eql([0, 3, 1]);
+        });
+        it('doesn\'t reset previous seletions on click item with toggleOnly=true', () => {
+            let config = toDefaultSelectionConfig();
+            config.toggleOnly = true;
+            let helper = new SelectionEventsHelper(config);
+            helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
+            helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 3);
+            helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 4);
+            expect(config.selectionManager.getSelectedIndexex()).eql([0, 3, 4]);
+            helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 2);
+            expect(config.selectionManager.getSelectedIndexex()).eql([0, 3, 4, 2]);
+        });
+
+        it('doesn\'t reset previous seletions on click already selected item with toggleOnly=true', () => {
+            let config = toDefaultSelectionConfig();
+            config.toggleOnly = true;
+            let helper = new SelectionEventsHelper(config);
+            helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
+            helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 3);
+            helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 4);
+            expect(config.selectionManager.getSelectedIndexex()).eql([0, 3, 4]);
+            helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
+            expect(config.selectionManager.getSelectedIndexex()).eql([3, 4]);
+        });
+
     });
 });
