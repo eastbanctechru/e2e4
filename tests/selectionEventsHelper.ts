@@ -92,6 +92,7 @@ describe('SelectionEventsHelper', () => {
                 expect(selectAllSpy.calledOnce).true;
                 expect(selectAllSpy.calledWith(2, 0)).true;
             });
+
             it('selects two items on Shift+ArrowUp combination when last operation is unselection of item', () => {
                 let config = toDefaultSelectionConfig();
                 let helper = new SelectionEventsHelper(config);
@@ -290,6 +291,65 @@ describe('SelectionEventsHelper', () => {
                 expect(config.selectionManager.getSelectedIndexex()).eql([lastIndex]);
                 expect(config.selectionManager.lastProcessedIndex).eql(lastIndex);
             });
+        });
+        describe('allowMultipleSelection setted to false', () => {
+            it('selects previous item on Ctrl?+Shift+ArrowUp combination and allowMultipleSelection setted to false', () => {
+                let config = toDefaultSelectionConfig();
+                config.allowMultipleSelection = false;
+                let helper = new SelectionEventsHelper(config);
+
+                config.selectionManager.selectLast();
+                let lastItemIndex = config.selectionManager.itemsSource.length - 1;
+                expect(config.selectionManager.getSelectedIndexex()).eql([lastItemIndex]);
+                helper.keyboardHandler(pressedCtrl, pressedShift, KeyCodes.ArrowUp);
+                expect(config.selectionManager.getSelectedIndexex()).eql([lastItemIndex - 1]);
+
+                helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowUp);
+                expect(config.selectionManager.getSelectedIndexex()).eql([lastItemIndex - 2]);
+            });
+
+            it('selects up to last item on Ctrl+Shift+ArrowDown combination', () => {
+                let config = toDefaultSelectionConfig();
+                config.allowMultipleSelection = false;
+                let helper = new SelectionEventsHelper(config);
+
+                config.selectionManager.selectFirst();
+                let firstItemIndex = 0;
+
+                expect(config.selectionManager.getSelectedIndexex()).eql([firstItemIndex]);
+                helper.keyboardHandler(pressedCtrl, pressedShift, KeyCodes.ArrowDown);
+                expect(config.selectionManager.getSelectedIndexex()).eql([firstItemIndex + 1]);
+
+                helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowDown);
+                expect(config.selectionManager.getSelectedIndexex()).eql([firstItemIndex + 2]);
+            });
+
+            it('moves to previous item on Shift+ArrowUp when not first item selected', () => {
+                let config = toDefaultSelectionConfig();
+                config.allowMultipleSelection = false;
+                let helper = new SelectionEventsHelper(config);
+
+                config.selectionManager.selectIndex(3);
+                expect(config.selectionManager.getSelectedIndexex()).eql([3]);
+                helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowUp);
+                expect(config.selectionManager.getSelectedIndexex()).eql([2]);
+                helper.keyboardHandler(pressedCtrl, pressedShift, KeyCodes.ArrowUp);
+                expect(config.selectionManager.getSelectedIndexex()).eql([1]);
+            });
+
+            it('moves to next item on Shift+ArrowDown when not last item selected', () => {
+                let config = toDefaultSelectionConfig();
+                config.allowMultipleSelection = false;
+                let helper = new SelectionEventsHelper(config);
+
+                config.selectionManager.selectIndex(1);
+                expect(config.selectionManager.getSelectedIndexex()).eql([1]);
+                helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowDown);
+                expect(config.selectionManager.getSelectedIndexex()).eql([2]);
+                helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowDown);
+                expect(config.selectionManager.getSelectedIndexex()).eql([3]);
+            });
+
         });
     });
 });
