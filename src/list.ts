@@ -46,7 +46,7 @@ export abstract class List {
 
     init(queryParams?: Object): void {
         this.inited = true;
-        const restoredState = this.getRestoredState(queryParams);
+        const restoredState = this.stateManager.mergeStates(queryParams);
         this.filterManager.parseParams(restoredState);
     }
     dispose(): void {
@@ -73,10 +73,8 @@ export abstract class List {
         const promise = this.getDataReadPromise(this.toRequest());
         this.addToCancellationSequence(promise);
         promise.then(this.listLoadDataSuccessBinded, this.listLoadDataFailBinded);
-        if (this.useModelState) {
-            this.saveRequestState();
-            this.saveLocalState();
-        }
+        this.stateManager.flushRequestState(this.toRequest());
+        this.stateManager.persistLocalState(this.getLocalState());
         return promise;
     }
     reloadData(): void {
@@ -87,20 +85,7 @@ export abstract class List {
     }
     addToCancellationSequence(promise: Promise<Object>): void { };
     cancelRequests(): void { };
-    useModelState = true;
     stateManager: IStateManager;
-    saveRequestState(): void {
-        this.stateManager.flushRequestState(this.toRequest());
-    };
-    saveLocalState(): void {
-        this.stateManager.persistLocalState(this.getLocalState());
-    };
-    private getRestoredState(params: Object): Object {
-        if (this.useModelState === false) {
-            return params;
-        }
-        return this.stateManager.mergeStates(params);
-    }
     filterManager: IFilterManager;
     pager: IPager;
     abstract getDataReadPromise(requestParams: any): Promise<Object>;
