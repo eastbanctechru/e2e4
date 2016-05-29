@@ -4,9 +4,12 @@
 [![Coverage Status](https://coveralls.io/repos/github/fshchudlo/e2e4/badge.svg?branch=master)](https://coveralls.io/github/fshchudlo/e2e4?branch=master)
 [![Dependency Status](https://david-dm.org/fshchudlo/e2e4.svg)](https://david-dm.org/fshchudlo/e2e4)
 [![devDependency Status](https://david-dm.org/fshchudlo/e2e4/dev-status.svg)](https://david-dm.org/fshchudlo/e2e4#info=devDependencies)
-
+[![npm version](https://badge.fury.io/js/e2e4.svg)](https://badge.fury.io/js/e2e4)
 Set of base classes and utilities to build unobtrusive list models. 
+
 This library is used as abstract codebase to implement bridges from client side frameworks [Angular](https://angular.io/) and [Aurelia](http://www.aurelia.io/)
+
+This will be in beta until i'v finish to implement Angular bridge for it.
 
 ## How to build the project
 
