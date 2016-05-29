@@ -349,7 +349,60 @@ describe('SelectionEventsHelper', () => {
                 helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowDown);
                 expect(config.selectionManager.getSelectedIndexex()).eql([3]);
             });
-
+        });
+    });
+    describe('mouse', () => {
+        it('selects item on click', () => {
+            let config = toDefaultSelectionConfig();
+            let helper = new SelectionEventsHelper(config);
+            helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
+            expect(config.selectionManager.getSelectedIndexex()).eql([0]);
+        });
+        it('deselects already selected item on click', () => {
+            let config = toDefaultSelectionConfig();
+            let helper = new SelectionEventsHelper(config);
+            helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
+            helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
+            expect(config.selectionManager.getSelectedIndexex()).eql([]);
+        });
+        it('add item to seletions on ctrl+click', () => {
+            let config = toDefaultSelectionConfig();
+            let helper = new SelectionEventsHelper(config);
+            helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
+            expect(config.selectionManager.getSelectedIndexex()).eql([0]);
+            helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 3);
+            expect(config.selectionManager.getSelectedIndexex()).eql([0, 3]);
+            helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 4);
+            expect(config.selectionManager.getSelectedIndexex()).eql([0, 3, 4]);
+        });
+        it('removes item from seletions on ctrl+click selected item', () => {
+            let config = toDefaultSelectionConfig();
+            let helper = new SelectionEventsHelper(config);
+            helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
+            helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 3);
+            expect(config.selectionManager.getSelectedIndexex()).eql([0, 3]);
+            helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 3);
+            expect(config.selectionManager.getSelectedIndexex()).eql([0]);
+        });
+        it('resets previous seletions on click item', () => {
+            let config = toDefaultSelectionConfig();
+            let helper = new SelectionEventsHelper(config);
+            helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
+            helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 3);
+            helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 4);
+            expect(config.selectionManager.getSelectedIndexex()).eql([0, 3, 4]);
+            helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 2);
+            expect(config.selectionManager.getSelectedIndexex()).eql([2]);
+        });
+        it('resets previous seletions on click already selected item', () => {
+            let config = toDefaultSelectionConfig();
+            let helper = new SelectionEventsHelper(config);
+            helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
+            helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 3);
+            helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 4);
+            expect(config.selectionManager.getSelectedIndexex()).eql([0, 3, 4]);
+            helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
+            expect(config.selectionManager.getSelectedIndexex()).eql([0]);
         });
     });
 });
