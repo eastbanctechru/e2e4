@@ -1,5 +1,4 @@
 import {Defaults} from './common/defaults';
-import {Utility} from './common/utility';
 import {FilterManager} from './filterManager';
 import {ProgressState} from './common/progressState';
 import {IStateManager} from './contracts/IStateManager';
