@@ -1,8 +1,6 @@
 import {Defaults} from './common/defaults';
-import {FilterManager} from './filterManager';
 import {ProgressState} from './common/progressState';
 import {IPager} from './contracts/IPager';
-import {IFilterManager} from './contracts/IFilterManager';
 
 export abstract class List {
     private listLoadDataSuccessCallback(result: Object): Object {
@@ -22,8 +20,6 @@ export abstract class List {
 
     constructor(pager: IPager) {
         this.pager = pager;
-        this.filterManager = new FilterManager(this);
-        this.filterManager.registerFilterTarget(this.pager);
         this.listLoadDataSuccessBinded = this.listLoadDataSuccessCallback.bind(this);
         this.listLoadDataFailBinded = this.listLoadDataFailCallback.bind(this);
     }
@@ -39,8 +35,7 @@ export abstract class List {
         return this.state !== ProgressState.Progress;
     }
 
-    init(queryParams?: Object): void {
-        this.filterManager.applyParams(queryParams);
+    init(): void {
         this.inited = true;
     }
     dispose(): void {
@@ -48,24 +43,16 @@ export abstract class List {
         delete this.listLoadDataSuccessBinded;
         delete this.listLoadDataFailBinded;
         this.clearData();
-
     }
 
     clearData(): void {
         this.pager.reset();
-    }
-    toRequest(): any {
-        return this.filterManager.getRequestState(null);
-    }
-    getLocalState(): Object {
-        return this.filterManager.getPersistedState(null);
     }
 
     loadData(): Promise<Object> {
         if (!this.inited) {
             throw new Error('loadData can be called only after activation.');
         }
-
         this.pager.totalCount = 0;
         this.state = ProgressState.Progress;
         const promise = this.getDataReadPromise();
@@ -81,7 +68,6 @@ export abstract class List {
     }
     addToCancellationSequence(promise: Promise<Object>): void { };
     cancelRequests(): void { };
-    filterManager: IFilterManager;
     pager: IPager;
     abstract getDataReadPromise(): Promise<Object>;
 }
