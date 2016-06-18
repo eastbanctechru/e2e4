@@ -1,6 +1,15 @@
 .vscode
+build
 node_modules
 reports
-typings
 tests
-build
+typings
+src/**/*.ts
+
+.travis.yml
+gulpfile.js
+karma.conf.js
+tsconfig.json
+tslint.json
+typings.json
+wallaby.js

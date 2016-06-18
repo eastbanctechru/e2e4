@@ -4,6 +4,6 @@ var del = require('del');
 var vinylPaths = require('vinyl-paths');
 
 gulp.task('clean', function() {
-  return gulp.src([paths.reports, paths.output, paths.transpiled])
+  return gulp.src([paths.reports, paths.esmOutput, 'src/**/*.d.ts', 'src/**/*.js'])
     .pipe(vinylPaths(del));
 });

@@ -1,8 +1,11 @@
 node_modules
 typings
 reports
-dist
 .vscode
+src/**/*.js
+src/**/*.js.map
+src/**/*.d.ts
+esm
 
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio

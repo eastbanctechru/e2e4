@@ -15,21 +15,8 @@ gulp.task('build-es6', function() {
         .pipe(sourcemaps.init())
         .pipe(typescript(options));
     return merge([
-        tsResult.dts.pipe(gulp.dest(paths.output + 'es6')),
-        tsResult.js.pipe(sourcemaps.write()).pipe(gulp.dest(paths.output + 'es6'))
-    ]);
-});
-
-gulp.task('build-amd', function() {
-    var options = require('../../tsconfig.json').compilerOptions;
-    options['module'] = 'amd';
-    options['target'] = 'es5';
-    var tsResult = gulp.src(paths.dtsSrc.concat(paths.source))
-        .pipe(sourcemaps.init())
-        .pipe(typescript(options));
-    return merge([
-        tsResult.dts.pipe(gulp.dest(paths.output + 'amd')),
-        tsResult.js.pipe(sourcemaps.write()).pipe(gulp.dest(paths.output + 'amd'))
+        tsResult.dts.pipe(gulp.dest(paths.esmOutput)),
+        tsResult.js.pipe(sourcemaps.write()).pipe(gulp.dest(paths.esmOutput))
     ]);
 });
 
@@ -40,30 +27,15 @@ gulp.task('build-commonjs', function() {
     var tsResult = gulp.src(paths.dtsSrc.concat(paths.source))
         .pipe(typescript(options));
     return merge([
-        tsResult.dts.pipe(gulp.dest(paths.output + 'commonjs')),
-        tsResult.js.pipe(gulp.dest(paths.output + 'commonjs'))
-    ]);
-});
-
-gulp.task('build-system', function() {
-    var options = require('../../tsconfig.json').compilerOptions;
-    options['module'] = 'system';
-    options['target'] = 'es5';
-    var tsResult = gulp.src(paths.dtsSrc.concat(paths.source))
-        .pipe(typescript(options));
-    return merge([
-        tsResult.dts.pipe(gulp.dest(paths.output + 'system')),
-        tsResult.js.pipe(gulp.dest(paths.output + 'system'))
+        tsResult.dts.pipe(gulp.dest('src/')),
+        tsResult.js.pipe(gulp.dest('src/'))
     ]);
 });
 
 gulp.task('build', function(callback) {
     return runSequence(
-        'clean',
         [
-            'build-amd',
             'build-commonjs',
-            'build-system',
             'build-es6'
         ],
         callback
