@@ -1,6 +1,6 @@
 {
   "name": "e2e4",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "Set of base classes and utilities to build unobtrusive list models",
   "main": "src/index.js",
   "repository": {
@@ -39,7 +39,7 @@
     "gulp-concat": "^2.6.0",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-tslint": "^5.0.0",
-    "gulp-typescript": "^2.13.4",
+    "gulp-typescript": "^2.13.6",
     "istanbul-instrumenter-loader": "^0.2.0",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^1.0.1",
@@ -58,9 +58,9 @@
     "run-sequence": "^1.2.1",
     "sinon": "2.0.0-pre",
     "ts-loader": "0.8.2",
-    "tslint": "^3.10.2",
+    "tslint": "^3.11.0",
     "typescript": "^1.8.10",
-    "typings": "^1.0.4",
+    "typings": "^1.3.0",
     "vinyl": "^1.1.1",
     "vinyl-paths": "^2.1.0",
     "wallaby-webpack": "0.0.22",

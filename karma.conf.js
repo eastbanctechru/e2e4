@@ -1,23 +1,16 @@
 var webpack = require('webpack');
 var path = require('path');
-
 module.exports = function (config) {
     config.set({
         browsers: ['PhantomJS'],
-        singleRun: true, //just run once by default
-        frameworks: ['mocha'], //use the mocha test framework
+        singleRun: true,
+        frameworks: ['mocha'],
         files: [
-            //polyfill
             'node_modules/es6-shim/es6-shim.js',
-            //ts emitted functions replaced to more relevant code coverage
             'tests/common/-ts-emitted-functions.js',
-            // all files in "test"
             'tests/**/*.ts'
-            //'tests/filterManager.ts'
-            // each file acts as entry point for the webpack configuration
         ],
         preprocessors: {
-            // add webpack as preprocessor
             'tests/**/*.ts': ['webpack', 'sourcemap'],
             'src/**/*.js': ['coverage']
         },
@@ -29,7 +22,7 @@ module.exports = function (config) {
             ]
         },
         webpack: {
-            devtool: 'inline-source-map', //just do inline source maps instead of the default
+            devtool: 'inline-source-map',
             ts: {
                 compilerOptions: {
                     noEmitHelpers: true
@@ -61,7 +54,7 @@ module.exports = function (config) {
         },
         webpackServer: {
             noLog: true,
-            noInfo: true //please don't spam the console when running in karma!
+            noInfo: true
         }
     });
 };

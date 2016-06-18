@@ -6,6 +6,7 @@ export * from './src/common/sortDirection';
 export * from './src/common/sortParameter';
 export * from './src/common/status';
 export * from './src/common/utility';
+
 export * from './src/contracts/IFilterConfig';
 export * from './src/contracts/IFilterManager';
 export * from './src/contracts/IPager';
@@ -13,6 +14,7 @@ export * from './src/contracts/ISelectable';
 export * from './src/contracts/ISelectionConfig';
 export * from './src/contracts/ISelectionManager';
 export * from './src/contracts/ISortManager';
+
 export * from './src/abstractLifetime';
 export * from './src/bufferedPager';
 export * from './src/filterAnnotation';
