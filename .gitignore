@@ -2,9 +2,9 @@ node_modules
 typings
 reports
 .vscode
-src/**/*.js
-src/**/*.js.map
-src/**/*.d.ts
+**/*.js
+**/*.js.map
+**/*.d.ts
 esm
 
 ### JetBrains template

@@ -4,7 +4,7 @@ node_modules
 reports
 tests
 typings
-src/**/*[!.][!d].ts
+**/*[!.][!d].ts
 
 .travis.yml
 gulpfile.js
