@@ -36,7 +36,7 @@ describe('FilterManager', () => {
         it('builds filters map for target object', () => {
             class TargetType {
                 @filter
-                first = 'first';
+                public first: string = 'first';
             }
             let target = new TargetType();
             let filterManager = new FilterManager(target);
@@ -52,9 +52,9 @@ describe('FilterManager', () => {
         it('builds filters map for target object with multiple filters', () => {
             class TargetType {
                 @filter
-                first = 'first';
+                public first: string = 'first';
                 @filter
-                second = 'second';
+                public second: string = 'second';
             }
             let target = new TargetType();
             let filterManager = new FilterManager(target);
@@ -65,11 +65,11 @@ describe('FilterManager', () => {
         it('builds filters map for inheritant objects', () => {
             class TargetTypeParent {
                 @filter
-                parent = 'parent property';
+                public parent: string = 'parent property';
             }
             class TargetTypeChild extends TargetTypeParent {
                 @filter
-                child = 'child property';
+                public child: string = 'child property';
             }
             let target = new TargetTypeChild();
             let filterManager = new FilterManager(target);
@@ -82,11 +82,11 @@ describe('FilterManager', () => {
         it('can compose additional objects in filters map', () => {
             class TargetType {
                 @filter
-                property = 'property';
+                public property: string = 'property';
             }
             class AnotherTargetType {
                 @filter
-                anotherProperty = 'another property';
+                public anotherProperty: string = 'another property';
             }
             let target = new TargetType();
             let anotherTarget = new AnotherTargetType();
@@ -104,11 +104,11 @@ describe('FilterManager', () => {
         it('applies default values on registration', () => {
             class TargetType {
                 @filter
-                property = 'property';
+                public property: string = 'property';
             }
             class AnotherTargetType {
                 @filter
-                anotherProperty = 'another property';
+                public anotherProperty: string = 'another property';
             }
 
             let target = new TargetType();
@@ -123,7 +123,7 @@ describe('FilterManager', () => {
         it('clones default values on registrtaion', () => {
             class TargetType {
                 @filter
-                property = ['one', 'two', 'three'];
+                public property: Array<string> = ['one', 'two', 'three'];
             }
 
             let target = new TargetType();
@@ -135,7 +135,7 @@ describe('FilterManager', () => {
         it('handles multiple registrations of same target', () => {
             class TargetType {
                 @filter
-                first: 'first';
+                public first: 'first';
             }
             let target = new TargetType();
             let filterManager = new FilterManager(target);
@@ -148,7 +148,7 @@ describe('FilterManager', () => {
 
         it('ignores targets without filters', () => {
             class TargetType {
-                first: 'first';
+                public first: 'first';
             }
             let target = new TargetType();
             let filterManager = new FilterManager(target);
@@ -160,7 +160,7 @@ describe('FilterManager', () => {
         it('clears targets on dispose', () => {
             class TargetType {
                 @filter
-                first: 'first';
+                public first: 'first';
             }
             let target = new TargetType();
             let filterManager = new FilterManager(target);
@@ -173,9 +173,9 @@ describe('FilterManager', () => {
         it('includes \'persisted\' filters to persisted state and all filters to requestState', () => {
             class TargetType {
                 @filter({ persisted: true } as IFilterConfig)
-                first = 'first';
+                public first: string = 'first';
                 @filter
-                second = 'second';
+                public second: string = 'second';
             }
             let target = new TargetType();
             let filterManager = new FilterManager(target);
@@ -191,7 +191,7 @@ describe('FilterManager', () => {
 
             class TargetType {
                 @filter({ persisted: true } as IFilterConfig)
-                first = { toRequest: sinon.spy(() => { return 'first'; }) };
+                public first: any = { toRequest: sinon.spy(() => { return 'first'; }) };
             }
             let target = new TargetType();
             let filterManager = new FilterManager(target);
@@ -209,7 +209,7 @@ describe('FilterManager', () => {
             let serializeSpy = sinon.spy(() => { return 'first'; });
             class TargetType {
                 @filter({ persisted: true, serializeFormatter: serializeSpy } as IFilterConfig)
-                first = 'first';
+                public first: string = 'first';
             }
             let target = new TargetType();
             let filterManager = new FilterManager(target);
@@ -224,19 +224,19 @@ describe('FilterManager', () => {
             let cfg = { emptyIsNull: true, persisted: true } as IFilterConfig;
             class TargetType {
                 @filter(cfg)
-                zero = 0;
+                public zero: number = 0;
 
                 @filter(cfg)
-                emptyString = '';
+                public emptyString: string = '';
 
                 @filter(cfg)
-                nullProperty = null;
+                public nullProperty: any = null;
 
                 @filter(cfg)
-                undefinedProperty = undefined;
+                public undefinedProperty: any = undefined;
 
                 @filter(cfg)
-                falseProperty = false;
+                public falseProperty: boolean = false;
             }
             let target = new TargetType();
             let filterManager = new FilterManager(target);
@@ -259,7 +259,7 @@ describe('FilterManager', () => {
             let toRequestSpy = sinon.spy(() => { return 'first'; });
             class TargetType {
                 @filter({ persisted: true } as IFilterConfig)
-                arrayProperty = [{ toRequest: toRequestSpy }, 'first'];
+                public arrayProperty: Array<any> = [{ toRequest: toRequestSpy }, 'first'];
             }
 
             let target = new TargetType();
@@ -278,15 +278,15 @@ describe('FilterManager', () => {
         it('apply coerced values by default', () => {
             class TargetType {
                 @filter
-                booleanProperty: any;
+                public booleanProperty: any;
                 @filter
-                nullProperty: any;
+                public nullProperty: any;
                 @filter
-                numberProperty: number;
+                public numberProperty: number;
                 @filter
-                stringProperty: string;
+                public stringProperty: string;
                 @filter
-                undefinedProperty: any;
+                public undefinedProperty: any;
             }
 
             let target = new TargetType();
@@ -307,15 +307,15 @@ describe('FilterManager', () => {
             let cfg = { coerce: false } as IFilterConfig;
             class TargetType {
                 @filter(cfg)
-                booleanProperty: any;
+                public booleanProperty: any;
                 @filter(cfg)
-                nullProperty: any;
+                public nullProperty: any;
                 @filter(cfg)
-                numberProperty: number;
+                public numberProperty: number;
                 @filter(cfg)
-                stringProperty: string;
+                public stringProperty: string;
                 @filter(cfg)
-                undefinedProperty: any;
+                public undefinedProperty: any;
             }
 
             let target = new TargetType();
@@ -334,9 +334,9 @@ describe('FilterManager', () => {
         it('skip if ignoreOnAutoMap setted to true', () => {
             class TargetType {
                 @filter({ ignoreOnAutoMap: true } as IFilterConfig)
-                ignoredProperty: 'old value';
+                public ignoredProperty: 'old value';
                 @filter
-                mappedProperty: 'old value';
+                public mappedProperty: 'old value';
             }
 
             let target = new TargetType();
@@ -354,16 +354,16 @@ describe('FilterManager', () => {
             let cfg = { emptyIsNull: true, persisted: true } as IFilterConfig;
             class TargetType {
                 @filter(cfg)
-                zero = 0;
+                public zero: number = 0;
 
                 @filter(cfg)
-                emptyString = '';
+                public emptyString: string = '';
 
                 @filter(cfg)
-                nullProperty = null;
+                public nullProperty: any = null;
 
                 @filter(cfg)
-                falseProperty = false;
+                public falseProperty: boolean = false;
             }
             let target = new TargetType();
             let filterManager = new FilterManager(target);
@@ -382,11 +382,11 @@ describe('FilterManager', () => {
             expect(target.falseProperty).null;
         });
         it('calls parseFormatter', () => {
-            let parseSpy = sinon.spy((value) => { return 'parsed ' + value; });
+            let parseSpy = sinon.spy((value: string) => { return 'parsed ' + value; });
 
             class TargetType {
                 @filter({ parseFormatter: parseSpy } as IFilterConfig)
-                value: string;
+                public value: string;
             }
             let target = new TargetType();
             let filterManager = new FilterManager(target);
@@ -407,7 +407,7 @@ describe('FilterManager', () => {
             let cfg = { defaultValue: 'default value' } as IFilterConfig;
             class TargetType {
                 @filter(cfg)
-                value: string = 'string value';
+                public value: string = 'string value';
             }
             let target = new TargetType();
             let filterManager = new FilterManager(target);
@@ -421,7 +421,7 @@ describe('FilterManager', () => {
 
             class TargetType {
                 @filter({ defaultValue: defaultSpy } as IFilterConfig)
-                value: string = 'string value';
+                public value: string = 'string value';
             }
             let target = new TargetType();
             let filterManager = new FilterManager(target);
@@ -434,11 +434,11 @@ describe('FilterManager', () => {
 
         it('calls parseFormatter', () => {
             const defaultValue = 'value';
-            let parseSpy = sinon.spy((value) => { return 'parsed ' + value; });
+            let parseSpy = sinon.spy((value: string) => { return 'parsed ' + value; });
 
             class TargetType {
                 @filter({ parseFormatter: parseSpy } as IFilterConfig)
-                value: string = defaultValue;
+                public value: string = defaultValue;
             }
             let target = new TargetType();
             let filterManager = new FilterManager(target);

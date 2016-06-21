@@ -2,7 +2,17 @@ import {IFilterConfig} from './contracts/IFilterConfig';
 import {FilterManager} from './filterManager';
 
 export class FilterConfig implements IFilterConfig {
-    static getDefaultConfig(propertyName: string): IFilterConfig {
+
+    public defaultValue: Object;
+    public propertyName: string;
+    public parameterName: string;
+    public ignoreOnAutoMap: boolean;
+    public emptyIsNull: boolean;
+    public persisted: boolean;
+    public coerce: boolean;
+    public serializeFormatter: (value: Object) => Object;
+    public parseFormatter: (rawValue: Object, allValues?: Object) => Object;
+    public static getDefaultConfig(propertyName: string): IFilterConfig {
         return {
             coerce: true,
             defaultValue: undefined,
@@ -15,19 +25,10 @@ export class FilterConfig implements IFilterConfig {
             serializeFormatter: undefined
         } as IFilterConfig;
     }
-    defaultValue: Object;
-    propertyName: string;
-    parameterName: string;
-    ignoreOnAutoMap: boolean;
-    emptyIsNull: boolean;
-    persisted: boolean;
-    coerce: boolean;
-    serializeFormatter: (value: Object) => Object;
-    parseFormatter: (rawValue: Object, allValues?: Object) => Object;
     constructor(config: IFilterConfig) {
         Object.assign(this, config);
     }
-    register(target: Object): void {
+    public register(target: Object): void {
         FilterManager.registerFilter(target, this);
     }
 }

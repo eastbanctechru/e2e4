@@ -1,29 +1,6 @@
 ﻿export class Utility {
-    static disposeAll(collection: any[], async: boolean = true): void {
-        if (!Array.isArray(collection)) {
-            return;
-        }
-        let items = collection.splice(0, collection.length);
-
-        if (async) {
-            setTimeout(() => {
-                items.forEach(item => {
-                    if (item.dispose) {
-                        item.dispose();
-                    }
-                });
-                items = null;
-            }, 0);
-
-        } else {
-            items.forEach(item => {
-                if (item.dispose) {
-                    item.dispose();
-                }
-            });
-        }
-    }
-    static cloneLiteral(value: any): any {
+    public static coerceTypes: any = { 'true': !0, 'false': !1, 'null': null };
+    public static cloneLiteral(value: any): any {
         if (value === null) {
             return null;
         }
@@ -31,7 +8,7 @@
             return undefined;
         }
         if (Array.isArray(value)) {
-            return value.map(i => Utility.cloneLiteral(i));
+            return value.map((i: any) => Utility.cloneLiteral(i));
         }
         if (typeof value === 'object') {
             let result = {};
@@ -44,8 +21,7 @@
         }
         return value;
     }
-    static coerceTypes = { 'true': !0, 'false': !1, 'null': null };
-    static coerceValue(value: any): any {
+    public static coerceValue(value: any): any {
         if (value === null) {
             return null;
         }
@@ -66,5 +42,29 @@
             value = Utility.coerceTypes[value];
         }
         return value;
+    }
+    public static disposeAll(collection: any[], async: boolean = true): void {
+        if (!Array.isArray(collection)) {
+            return;
+        }
+        let items = collection.splice(0, collection.length);
+
+        if (async) {
+            setTimeout(() => {
+                items.forEach((item: any) => {
+                    if (item.dispose) {
+                        item.dispose();
+                    }
+                });
+                items = null;
+            }, 0);
+
+        } else {
+            items.forEach((item: any) => {
+                if (item.dispose) {
+                    item.dispose();
+                }
+            });
+        }
     }
 }

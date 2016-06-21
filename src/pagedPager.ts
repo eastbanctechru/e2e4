@@ -4,7 +4,7 @@ import {filter} from './filterAnnotation';
 import {IFilterConfig} from './contracts/IFilterConfig';
 
 export class PagedPager implements IPager {
-    private pageSizeInternal = Defaults.pagedListSettings.defaultPageSize;
+    private pageSizeInternal: number = Defaults.pagedListSettings.defaultPageSize;
 
     @filter({
         defaultValue: 1,
@@ -13,23 +13,23 @@ export class PagedPager implements IPager {
             return isNaN(rawValue) || !rawValue ? 1 : rawValue;
         }
     } as IFilterConfig)
-    private pageNumberInternal = 1;
+    private pageNumberInternal: number = 1;
 
-    defaultPageSize = Defaults.pagedListSettings.defaultPageSize;
-    maxPageSize = Defaults.pagedListSettings.maxPageSize;
-    minPageSize = Defaults.pagedListSettings.minPageSize;
-    totalCount: number = 0;
-    loadedCount: number = 0;
-    displayFrom = 0;
-    displayTo = 0;
+    public defaultPageSize: number = Defaults.pagedListSettings.defaultPageSize;
+    public maxPageSize: number = Defaults.pagedListSettings.maxPageSize;
+    public minPageSize: number = Defaults.pagedListSettings.minPageSize;
+    public totalCount: number = 0;
+    public loadedCount: number = 0;
+    public displayFrom: number = 0;
+    public displayTo: number = 0;
 
-    get pageCount(): number {
+    public get pageCount(): number {
         return Math.ceil(this.totalCount / this.pageSizeInternal);
     }
-    get pageNumber(): number {
+    public get pageNumber(): number {
         return this.pageNumberInternal;
     }
-    set pageNumber(value: number) {
+    public set pageNumber(value: number) {
         const valueStr = (value + '').replace(/[^0-9]/g, '');
         let pageNumber = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : 1;
         if (pageNumber > this.pageCount) {
@@ -48,10 +48,10 @@ export class PagedPager implements IPager {
         },
         persisted: Defaults.pagedListSettings.persistPageSize
     })
-    get pageSize(): number {
+    public get pageSize(): number {
         return this.pageSizeInternal;
     }
-    set pageSize(value: number) {
+    public set pageSize(value: number) {
         const valueStr = (value + '').replace(/[^0-9]/g, '');
         let pageSize = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : this.defaultPageSize;
 
@@ -74,7 +74,7 @@ export class PagedPager implements IPager {
         this.pageSizeInternal = pageSize;
     }
 
-    processResponse(result: Object): void {
+    public processResponse(result: Object): void {
         this.loadedCount = result[Defaults.listSettings.loadedCountParameterName] || 0;
         this.totalCount = result[Defaults.listSettings.totalCountParameterName] || 0;
 
@@ -82,7 +82,7 @@ export class PagedPager implements IPager {
         this.displayTo = result[Defaults.pagedListSettings.displayToParameterName] || 0;
 
     }
-    reset(): void {
+    public reset(): void {
         this.totalCount = 0;
         this.pageNumber = 1;
         this.pageSize = this.defaultPageSize;

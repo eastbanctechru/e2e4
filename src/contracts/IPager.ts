@@ -1,6 +1,6 @@
 export interface IPager {
-    reset(): void;
-    processResponse(result: Object): void;
     totalCount: number;
     loadedCount: number;
+    reset(): void;
+    processResponse(result: Object): void;
 }

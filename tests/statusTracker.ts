@@ -24,7 +24,7 @@ describe('StatusTracker', () => {
     });
 
     it('async switches to Progress, when tracking status', () => {
-        const sid = StatusTracker.trackStatus('new status');
+        StatusTracker.trackStatus('new status');
         expect(StatusTracker.statusList.length).eq(0);
         // To the future;
         clock.tick(Defaults.uiSettings.progressDelayInterval);

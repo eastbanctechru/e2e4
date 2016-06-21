@@ -1,12 +1,12 @@
 ﻿export class Defaults {
-    static listSettings =
+    public static listSettings: any =
     {
         loadedCountParameterName: 'loadedCount',
         persistSortings: true,
         sortParameterName: 'sort',
         totalCountParameterName: 'totalCount'
     };
-    static bufferedListSettings =
+    public static bufferedListSettings: any =
     {
         defaultRowCount: 20,
         maxRowCount: 200,
@@ -14,7 +14,7 @@
         skipRowCountParameterName: 'skip',
         takeRowCountParameterName: 'take'
     };
-    static pagedListSettings =
+    public static pagedListSettings: any =
     {
         defaultPageSize: 20,
         displayFromParameterName: 'displayFrom',
@@ -25,7 +25,7 @@
         pageSizeParameterName: 'pageSize',
         persistPageSize: true
     };
-    static uiSettings = {
+    public static uiSettings: any = {
         elementVisibilityInterval: 500,
         progressDelayInterval: 500
     };

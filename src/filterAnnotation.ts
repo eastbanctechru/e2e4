@@ -1,7 +1,7 @@
 import {FilterConfig} from './filterConfig';
 import {IFilterConfig} from './contracts/IFilterConfig';
 export function filter(targetOrNameOrConfig?: string | IFilterConfig, key?: string): any {
-    const configurableDecorate = (target, key2) => {
+    const configurableDecorate = (target: Object, key2: string) => {
         const config = FilterConfig.getDefaultConfig(key2);
         if (typeof targetOrNameOrConfig === 'string') {
             config.parameterName = targetOrNameOrConfig;

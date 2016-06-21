@@ -3,17 +3,17 @@ import {Defaults} from './common/defaults';
 import {ProgressState} from './common/progressState';
 
 export class StatusTracker {
-    static status = ProgressState.Done;
-    static modalDisplayed = false;
-    static statusList = new Array<Status>();
+    public static status: ProgressState = ProgressState.Done;
+    public static modalDisplayed: boolean = false;
+    public static statusList: Array<Status> = new Array<Status>();
 
-    static get statusDisplayed(): boolean {
+    public static get statusDisplayed(): boolean {
         return StatusTracker.status !== ProgressState.Done;
     }
-    static get isActive(): boolean {
+    public static get isActive(): boolean {
         return StatusTracker.statusDisplayed || StatusTracker.modalDisplayed;
     }
-    static trackStatus(title: string): number {
+    public static trackStatus(title: string): number {
         const sid = setTimeout(() => {
             StatusTracker.status = ProgressState.Progress;
             const status = new Status(ProgressState.Progress, title);
@@ -22,16 +22,16 @@ export class StatusTracker {
         }, Defaults.uiSettings.progressDelayInterval);
         return sid;
     }
-    static resolveStatus(sid: number, status: ProgressState): void {
+    public static resolveStatus(sid: number, status: ProgressState): void {
         clearTimeout(sid);
-        const current = StatusTracker.statusList.find(item => {
+        const current = StatusTracker.statusList.find((item: Status) => {
             return item.sid === sid;
         });
         if (current) {
             current.status = status;
         }
         setTimeout((): void => {
-            const undone = StatusTracker.statusList.find(item => {
+            const undone = StatusTracker.statusList.find((item: Status) => {
                 return item.status === ProgressState.Progress;
             });
             if (undone === undefined) {

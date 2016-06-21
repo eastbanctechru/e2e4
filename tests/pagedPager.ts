@@ -13,9 +13,6 @@ interface IResponseObject {
 function toResponseObject(): IResponseObject {
     return { displayFrom: 1, displayTo: 20, loadedCount: 20, totalCount: 100 } as IResponseObject;
 }
-function toLastPageResponseObject(): IResponseObject {
-    return { displayFrom: 81, displayTo: 100, loadedCount: 100, totalCount: 100 } as IResponseObject;
-}
 describe('PagedPager', () => {
     describe('ctor', () => {
         it('created with good state', () => {

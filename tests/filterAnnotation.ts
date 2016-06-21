@@ -5,7 +5,7 @@ import { FilterConfig } from '../src/filterConfig';
 import { IFilterConfig } from '../src/contracts/IFilterConfig';
 
 function parseStub(value: Object): Object { return value; }
-function serializeStub(rawValue: Object, allValues?: Object): Object { return rawValue; }
+function serializeStub(rawValue: Object): Object { return rawValue; }
 
 function checkConfigsEquality(expected: IFilterConfig, actual: IFilterConfig): void {
     expect(actual.coerce).eql(expected.coerce);
@@ -23,7 +23,7 @@ describe('filterAnnotation', () => {
     it('registers config in filterManager', () => {
         class RequestObject {
             @filter()
-            requestProperty: string;
+            public requestProperty: string;
         }
         expect(FilterManager.filterPropertiesMap.has(RequestObject)).true;
         expect(FilterManager.filterPropertiesMap.get(RequestObject).length).equal(1);
@@ -31,7 +31,7 @@ describe('filterAnnotation', () => {
     it('registers default config if no args', () => {
         class RequestObject {
             @filter
-            requestProperty: string;
+            public requestProperty: string;
         }
         let actualConfig = FilterManager.filterPropertiesMap.get(RequestObject)[0];
         let expectedConfig = FilterConfig.getDefaultConfig('requestProperty');
@@ -41,7 +41,7 @@ describe('filterAnnotation', () => {
     it('registers default config with custom parameter name when gets string param', () => {
         class RequestObject {
             @filter('changedName')
-            requestProperty: string;
+            public requestProperty: string;
         }
         let actualConfig = FilterManager.filterPropertiesMap.get(RequestObject)[0];
         let expectedConfig = FilterConfig.getDefaultConfig('requestProperty');
@@ -61,7 +61,7 @@ describe('filterAnnotation', () => {
                 propertyName: 'customName',
                 serializeFormatter: serializeStub
             } as IFilterConfig)
-            requestProperty: string;
+            public requestProperty: string;
         }
 
         let actualConfig = FilterManager.filterPropertiesMap.get(RequestObject)[0];

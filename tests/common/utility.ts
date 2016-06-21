@@ -12,7 +12,7 @@ describe('Utility', () => {
             expect(disposeSpy.calledOnce).eql(true);
         });
 
-        it('disposeAll async', (done) => {
+        it('disposeAll async', (done: () => void) => {
             const disposeSpy = sinon.spy();
             const collection = [{ dispose: disposeSpy }];
 
@@ -43,7 +43,7 @@ describe('Utility', () => {
             expect(collection.length).equals(0);
         });
 
-        it('ignore items without dispose async', (done) => {
+        it('ignore items without dispose async', (done: () => void) => {
             const collection = [{ id: 1 }];
 
             Utility.disposeAll(collection);
@@ -89,6 +89,7 @@ describe('Utility', () => {
             let toClone = {
                 arrayProperty: ['Hello world', 5, null],
                 functionProperty: function (): void {
+                    return;
                 }
             };
             let cloned = Utility.cloneLiteral(toClone);
@@ -154,13 +155,12 @@ describe('Utility', () => {
         });
         it('works only with own properties', () => {
             class ParentRequest {
-                parentProperty: string = 'just a string';
-                parentMethod(): void { }
+                public parentProperty: string = 'just a string';
+                public parentMethod(): void { return; }
             }
             class ChildRequest extends ParentRequest {
-                childProperty: string = 'just a string';
+                public childProperty: string = 'just a string';
             }
-            let toParse = {};
             expect(Utility.coerceValue(new ChildRequest()).hasOwnProperty('parentMethod')).false;
         });
     });

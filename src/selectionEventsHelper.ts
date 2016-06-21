@@ -1,11 +1,9 @@
-import {ISelectable} from './contracts/ISelectable';
-import {ISelectionManager} from './contracts/ISelectionManager';
 import {ISelectionConfig} from './contracts/ISelectionConfig';
 import {KeyCodes} from './common/keyCodes';
 import {MouseButtons} from './common/mouseButtons';
 
 export class SelectionEventsHelper {
-    selectionConfig: ISelectionConfig;
+    public selectionConfig: ISelectionConfig;
     constructor(selectionConfig: ISelectionConfig) {
         this.selectionConfig = selectionConfig;
     }
@@ -17,21 +15,21 @@ export class SelectionEventsHelper {
         return false;
     }
 
-    private trySelectPreviousItem(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
+    private trySelectPreviousItem(shiftKeyPressed: boolean): boolean {
         if (this.selectionConfig.selectionManager.lastProcessedIndex > 0) {
             this.selectionConfig.selectionManager.selectIndex(this.selectionConfig.selectionManager.lastProcessedIndex - 1, shiftKeyPressed && this.selectionConfig.allowMultipleSelection);
             return true;
         }
         return false;
     }
-    private trySelectNextItem(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
+    private trySelectNextItem(shiftKeyPressed: boolean): boolean {
         if (this.selectionConfig.selectionManager.lastProcessedIndex < this.selectionConfig.selectionManager.itemsSource.length - 1) {
             this.selectionConfig.selectionManager.selectIndex(this.selectionConfig.selectionManager.lastProcessedIndex + 1, shiftKeyPressed && this.selectionConfig.allowMultipleSelection);
             return true;
         }
         return false;
     }
-    private tryDeselectLastItemInRange(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
+    private tryDeselectLastItemInRange(shiftKeyPressed: boolean): boolean {
         if (this.selectionConfig.selectionManager.lastProcessedIndex > 0 && shiftKeyPressed) {
             if (this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex - 1)) {
                 this.selectionConfig.selectionManager.deselectIndex(this.selectionConfig.selectionManager.lastProcessedIndex);
@@ -41,7 +39,7 @@ export class SelectionEventsHelper {
         }
         return false;
     }
-    private tryDeselectLastItemInReversedRange(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
+    private tryDeselectLastItemInReversedRange(shiftKeyPressed: boolean): boolean {
         if (this.selectionConfig.selectionManager.lastProcessedIndex < this.selectionConfig.selectionManager.itemsSource.length && shiftKeyPressed) {
             if (this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex + 1)) {
                 this.selectionConfig.selectionManager.deselectIndex(this.selectionConfig.selectionManager.lastProcessedIndex);
@@ -67,7 +65,7 @@ export class SelectionEventsHelper {
         }
         return false;
     }
-    private tryInitialSelectionOfFirstItem(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
+    private tryInitialSelectionOfFirstItem(): boolean {
         if (this.selectionConfig.selectionManager.lastProcessedIndex === null) {
             this.selectionConfig.selectionManager.selectFirst();
             return true;
@@ -103,23 +101,23 @@ export class SelectionEventsHelper {
         return false;
     }
 
-    onArrowUp(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
-        return this.tryInitialSelectionOfFirstItem(ctrlKeyPressed, shiftKeyPressed) ||
+    public onArrowUp(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
+        return this.tryInitialSelectionOfFirstItem() ||
             this.trySelectFirstItem(ctrlKeyPressed, shiftKeyPressed) ||
             this.trySelectAllItemsUpToFirst(ctrlKeyPressed, shiftKeyPressed) ||
             this.tryBuildRangeWithPreviousItemWhenLastItemWasUnselected(ctrlKeyPressed, shiftKeyPressed) ||
-            this.tryDeselectLastItemInRange(ctrlKeyPressed, shiftKeyPressed) ||
-            this.trySelectPreviousItem(ctrlKeyPressed, shiftKeyPressed);
+            this.tryDeselectLastItemInRange(shiftKeyPressed) ||
+            this.trySelectPreviousItem(shiftKeyPressed);
     }
-    onArrowDown(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
-        return this.tryInitialSelectionOfFirstItem(ctrlKeyPressed, shiftKeyPressed) ||
+    public onArrowDown(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
+        return this.tryInitialSelectionOfFirstItem() ||
             this.trySelectLastItem(ctrlKeyPressed, shiftKeyPressed) ||
             this.trySelectAllItemsUpToLast(ctrlKeyPressed, shiftKeyPressed) ||
             this.tryBuildRangeWithNextItemWhenLastItemWasUnselected(ctrlKeyPressed, shiftKeyPressed) ||
-            this.tryDeselectLastItemInReversedRange(ctrlKeyPressed, shiftKeyPressed) ||
-            this.trySelectNextItem(ctrlKeyPressed, shiftKeyPressed);
+            this.tryDeselectLastItemInReversedRange(shiftKeyPressed) ||
+            this.trySelectNextItem(shiftKeyPressed);
     }
-    keyboardHandler(ctrlKeyPressed: boolean, shiftKeyPressed: boolean, keyCode: KeyCodes): boolean {
+    public keyboardHandler(ctrlKeyPressed: boolean, shiftKeyPressed: boolean, keyCode: KeyCodes): boolean {
         switch (keyCode) {
             case KeyCodes.ArrowUp:
                 return this.onArrowUp(ctrlKeyPressed, shiftKeyPressed);
@@ -131,7 +129,7 @@ export class SelectionEventsHelper {
                 return false;
         }
     }
-    mouseHandler(ctrlKeyPressed: boolean, shiftKeyPressed: boolean, mouseButton: MouseButtons, itemIndex: number): boolean {
+    public mouseHandler(ctrlKeyPressed: boolean, shiftKeyPressed: boolean, mouseButton: MouseButtons, itemIndex: number): boolean {
         const isItemSelected = this.selectionConfig.selectionManager.isIndexSelected(itemIndex);
         if (isItemSelected !== false && mouseButton !== MouseButtons.Left) {
             return false;

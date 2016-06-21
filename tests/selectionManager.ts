@@ -575,7 +575,7 @@ describe('SelectionManager', () => {
             target.selectionManager.itemsSource = target.items;
 
             target.selectionManager.selectAll();
-            expect(target.items.map(i => (<any>i.onDeselected).notCalled).reduce((p, c) => p && c, true)).true;
+            expect(target.items.map((i: IItem) => (<any>i.onDeselected).notCalled).reduce((p: boolean, c: boolean) => p && c, true)).true;
         });
     });
 });

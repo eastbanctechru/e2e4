@@ -1,13 +1,13 @@
 ﻿import {ProgressState} from './progressState';
 export class Status {
-    sid: number;
-    status: ProgressState;
-    title: string;
+    public sid: number;
+    public status: ProgressState;
+    public title: string;
     constructor(status: ProgressState, title: string) {
         this.status = status;
         this.title = title;
     }
-    get className(): string {
+    public get className(): string {
         switch (this.status) {
             case ProgressState.Done:
                 return 'status status-resolved';

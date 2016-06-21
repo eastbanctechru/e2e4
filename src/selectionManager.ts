@@ -7,20 +7,18 @@ interface ISelectionTuple {
 }
 
 export class SelectionManager implements ISelectionManager {
-    private selectionsList = new Array<ISelectionTuple>();
+    private selectionsList: Array<ISelectionTuple> = new Array<ISelectionTuple>();
     private items: Array<ISelectable>;
-    private itemsPropertyName: string;
-    dispose(): void {
+    public lastProcessedIndex: number;
+    public dispose(): void {
         this.selectionsList.length = 0;
         this.lastProcessedIndex = null;
         delete this.items;
     }
-
-    lastProcessedIndex: number;
-    get itemsSource(): Array<ISelectable> {
+    public get itemsSource(): Array<ISelectable> {
         return this.items;
     }
-    set itemsSource(value: Array<ISelectable>) {
+    public set itemsSource(value: Array<ISelectable>) {
         this.items = value;
         this.checkSelection();
     }
@@ -38,7 +36,7 @@ export class SelectionManager implements ISelectionManager {
         }
     }
     private deselectItem(selectionTuple: ISelectionTuple): void {
-        const index = this.selectionsList.findIndex(selectedItem => (selectedItem.item === selectionTuple.item));
+        const index = this.selectionsList.findIndex((selectedItem: ISelectionTuple) => (selectedItem.item === selectionTuple.item));
         if (index !== -1) {
             this.selectionsList.splice(index, 1);
         }
@@ -51,7 +49,7 @@ export class SelectionManager implements ISelectionManager {
             this.processSelection(selectionTuple.item, true);
         } else {
             const list = this.selectionsList.splice(0, this.selectionsList.length);
-            list.forEach(selectedItem => { this.processSelection(selectedItem.item, false); });
+            list.forEach((selectedItem: ISelectionTuple) => { this.processSelection(selectedItem.item, false); });
             this.selectionsList.push(selectionTuple);
             this.processSelection(selectionTuple.item, true);
         }
@@ -74,7 +72,7 @@ export class SelectionManager implements ISelectionManager {
     private checkIndexAcceptable(index: number): boolean {
         return index !== null && index !== undefined && index >= 0 && this.itemsSource.length > index;
     }
-    deselectAll(): void {
+    public deselectAll(): void {
         const list = this.selectionsList.splice(0, this.selectionsList.length);
         for (let i = 0; i < list.length; i++) {
             const item = list[i].item;
@@ -82,10 +80,10 @@ export class SelectionManager implements ISelectionManager {
         }
         this.lastProcessedIndex = null;
     }
-    selectAll(): void {
+    public selectAll(): void {
         this.selectRange(0, this.itemsSource.length - 1);
     }
-    selectRange(fromIndex: number, toIndex: number): void {
+    public selectRange(fromIndex: number, toIndex: number): void {
         if (toIndex < 0 || this.itemsSource.length <= toIndex || fromIndex < 0 || this.itemsSource.length <= fromIndex) {
             return;
         }
@@ -102,56 +100,56 @@ export class SelectionManager implements ISelectionManager {
         this.lastProcessedIndex = endIndex;
     }
 
-    hasSelections(): boolean {
+    public hasSelections(): boolean {
         return this.selectionsList.length !== 0;
     }
-    isIndexSelected(index: number): boolean {
+    public isIndexSelected(index: number): boolean {
         if (index >= 0 && this.itemsSource.length > index) {
             return this.itemsSource[index].selected;
         }
         return false;
     }
 
-    getItemIndex(item: ISelectable): number {
-        return this.itemsSource.findIndex(value => value === item);
+    public getItemIndex(item: ISelectable): number {
+        return this.itemsSource.findIndex((value: ISelectable) => value === item);
     }
-    getMinSelectedIndex(): number {
+    public getMinSelectedIndex(): number {
         let minIndex = null;
-        this.selectionsList.forEach(item => {
+        this.selectionsList.forEach((item: ISelectionTuple) => {
             minIndex = (minIndex === null || item.index < minIndex) ? item.index : minIndex;
         });
         return minIndex;
     }
-    getMaxSelectedIndex(): number {
+    public getMaxSelectedIndex(): number {
         let maxIndex = null;
-        this.selectionsList.forEach(item => {
+        this.selectionsList.forEach((item: ISelectionTuple) => {
             maxIndex = (maxIndex === null || item.index > maxIndex) ? item.index : maxIndex;
         });
         return maxIndex;
     }
 
-    selectFirst(): void {
+    public selectFirst(): void {
         if (this.itemsSource.length > 0) {
             this.selectItem(this.getSelectionTuple(0));
         }
     }
-    selectLast(): void {
+    public selectLast(): void {
         if (this.itemsSource.length > 0) {
             this.selectItem(this.getSelectionTuple(this.itemsSource.length - 1));
         }
     }
 
-    selectIndex(index: number, savePrevious: boolean = false): void {
+    public selectIndex(index: number, savePrevious: boolean = false): void {
         if (this.checkIndexAcceptable(index)) {
             this.selectItem(this.getSelectionTuple(index), savePrevious);
         }
     }
-    deselectIndex(index: number): void {
+    public deselectIndex(index: number): void {
         if (this.checkIndexAcceptable(index)) {
             this.deselectItem(this.getSelectionTuple(index));
         }
     }
-    toggleSelection(index: number, savePrevious: boolean = false): void {
+    public toggleSelection(index: number, savePrevious: boolean = false): void {
         if (!this.checkIndexAcceptable(index)) {
             return;
         }
@@ -162,10 +160,10 @@ export class SelectionManager implements ISelectionManager {
         }
         this.selectItem(tuple, savePrevious);
     }
-    getSelections(): Array<Object> {
-        return this.selectionsList.map((selectable) => selectable.item);
+    public getSelections(): Array<Object> {
+        return this.selectionsList.map((selectable: ISelectionTuple) => selectable.item);
     }
-    getSelectedIndexex(): Array<number> {
-        return this.selectionsList.map((selectable) => selectable.index);
+    public getSelectedIndexex(): Array<number> {
+        return this.selectionsList.map((selectable: ISelectionTuple) => selectable.index);
     }
 }

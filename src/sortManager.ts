@@ -5,30 +5,30 @@ import {SortParameter} from './common/sortParameter';
 import {filter} from './filterAnnotation';
 
 export class SortManager implements ISortManager {
-    private cloneDefaultSortings(): Array<SortParameter> {
-        return this.defaultSortingsPrivate.map(s => new SortParameter(s.fieldName, s.direction));
-    }
+    private defaultSortingsPrivate: SortParameter[] = new Array<SortParameter>();
     @filter({
         defaultValue: function (): Array<SortParameter> { return this.cloneDefaultSortings(); },
         parameterName: Defaults.listSettings.sortParameterName,
         parseFormatter: function (rawValue: any): Array<Object> {
-            return Array.isArray(rawValue) ? rawValue.map((sort) => { return new SortParameter(sort.fieldName, sort.direction * 1); }) : [];
+            return Array.isArray(rawValue) ? rawValue.map((sort: SortParameter) => { return new SortParameter(sort.fieldName, sort.direction * 1); }) : [];
         },
         persisted: Defaults.listSettings.persistSortings
     } as IFilterConfig)
-    sortings = new Array<SortParameter>();
+    public sortings: Array<SortParameter> = new Array<SortParameter>();
 
-    private defaultSortingsPrivate: SortParameter[] = new Array<SortParameter>();
-    get defaultSortings(): SortParameter[] {
+    private cloneDefaultSortings(): Array<SortParameter> {
+        return this.defaultSortingsPrivate.map((s: SortParameter) => new SortParameter(s.fieldName, s.direction));
+    }
+    public get defaultSortings(): SortParameter[] {
         return this.defaultSortingsPrivate;
     }
-    set defaultSortings(value: Array<SortParameter>) {
+    public set defaultSortings(value: Array<SortParameter>) {
         this.defaultSortingsPrivate = value || [];
         if (this.sortings.length === 0) {
             this.sortings = this.cloneDefaultSortings();
         }
     }
-    setSort(fieldName: string, savePrevious: boolean): void {
+    public setSort(fieldName: string, savePrevious: boolean): void {
         let newSort = new SortParameter(fieldName);
         for (let i = 0; i < this.sortings.length; i++) {
             if (this.sortings[i].fieldName === fieldName) {
@@ -45,7 +45,7 @@ export class SortManager implements ISortManager {
             this.sortings.push(newSort);
         }
     }
-    dispose(): void {
+    public dispose(): void {
         this.defaultSortingsPrivate.length = 0;
         this.sortings.length = 0;
     }

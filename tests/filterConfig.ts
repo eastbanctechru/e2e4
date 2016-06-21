@@ -1,4 +1,4 @@
-import { expect, assert } from 'chai';
+import { expect } from 'chai';
 import { FilterConfig } from '../src/filterConfig';
 import { FilterManager } from '../src/filterManager';
 
@@ -13,7 +13,7 @@ describe('FilterConfig', () => {
         config.parseFormatter = function (proposedValue: any): any { return proposedValue; };
         config.persisted = !config.persisted;
         config.propertyName = 'propertyName';
-        config.serializeFormatter = function (value: any): any { return ''; };
+        config.serializeFormatter = function (): any { return ''; };
 
         let target = new FilterConfig(config);
         expect(config.coerce).eq(target.coerce);

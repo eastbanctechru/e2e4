@@ -1,23 +1,22 @@
 import {ProgressState} from './common/progressState';
-import {IPager} from './contracts/IPager';
 
 export abstract class AbstractLifetime {
-    disposed = false;
-    inited = false;
-    state: ProgressState = ProgressState.Initial;
+    public disposed: boolean = false;
+    public inited: boolean = false;
+    public state: ProgressState = ProgressState.Initial;
 
-    get busy(): boolean {
+    public get busy(): boolean {
         return this.state === ProgressState.Progress;
     }
 
-    get ready(): boolean {
+    public get ready(): boolean {
         return this.state !== ProgressState.Progress;
     }
 
-    init(): void {
+    public init(): void {
         this.inited = true;
     }
-    dispose(): void {
+    public dispose(): void {
         this.disposed = true;
     }
 }

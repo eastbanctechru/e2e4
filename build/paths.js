@@ -2,7 +2,7 @@ var path = require('path');
 var fs = require('fs');
 
 var appRoot = 'src/';
-var tsGlob = '**/*.ts';
+var tsGlob = '**/*[!.][!d].ts';
 
 var pkg = JSON.parse(fs.readFileSync('./package.json', 'utf-8'));
 
