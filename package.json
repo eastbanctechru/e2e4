@@ -34,7 +34,7 @@
   "devDependencies": {
     "chai": "3.5.0",
     "coveralls": "^2.11.9",
-    "del": "^2.2.0",
+    "del": "^2.2.1",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "gulp-sourcemaps": "^1.6.0",
