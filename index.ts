@@ -13,6 +13,7 @@ export * from './src/contracts/IPager';
 export * from './src/contracts/ISelectable';
 export * from './src/contracts/ISelectionConfig';
 export * from './src/contracts/ISelectionManager';
+export * from './src/contracts/ISelectionTuple';
 export * from './src/contracts/ISortManager';
 
 export * from './src/abstractLifetime';

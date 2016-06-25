@@ -1,10 +1,6 @@
 import {ISelectable} from './contracts/ISelectable';
+import {ISelectionTuple} from './contracts/ISelectionTuple';
 import {ISelectionManager} from './contracts/ISelectionManager';
-
-interface ISelectionTuple {
-    index: number;
-    item: ISelectable;
-}
 
 export class SelectionManager implements ISelectionManager {
     private selectionsList: Array<ISelectionTuple> = new Array<ISelectionTuple>();
@@ -22,17 +18,17 @@ export class SelectionManager implements ISelectionManager {
         this.items = value;
         this.checkSelection();
     }
-    private processSelection(item: ISelectable, selected: boolean): void {
-        const initialSelectState = item.selected;
-        item.selected = selected;
-        if (item.onSelectionChanged !== undefined && initialSelectState !== selected) {
-            item.onSelectionChanged(selected);
+    protected processSelection(tuple: ISelectionTuple, selected: boolean): void {
+        const initialSelectState = tuple.item.selected;
+        tuple.item.selected = selected;
+        if (tuple.item.onSelectionChanged !== undefined && initialSelectState !== selected) {
+            tuple.item.onSelectionChanged(selected);
         }
-        if (selected === true && item.onSelected !== undefined && initialSelectState !== selected) {
-            item.onSelected();
+        if (selected === true && tuple.item.onSelected !== undefined && initialSelectState !== selected) {
+            tuple.item.onSelected();
         }
-        if (selected === false && item.onDeselected !== undefined && initialSelectState !== selected) {
-            item.onDeselected();
+        if (selected === false && tuple.item.onDeselected !== undefined && initialSelectState !== selected) {
+            tuple.item.onDeselected();
         }
     }
     private deselectItem(selectionTuple: ISelectionTuple): void {
@@ -40,18 +36,18 @@ export class SelectionManager implements ISelectionManager {
         if (index !== -1) {
             this.selectionsList.splice(index, 1);
         }
-        this.processSelection(selectionTuple.item, false);
+        this.processSelection(selectionTuple, false);
         this.lastProcessedIndex = selectionTuple.index;
     }
     private selectItem(selectionTuple: ISelectionTuple, savePrevious: boolean = false): void {
         if (savePrevious) {
             this.selectionsList.push(selectionTuple);
-            this.processSelection(selectionTuple.item, true);
+            this.processSelection(selectionTuple, true);
         } else {
             const list = this.selectionsList.splice(0, this.selectionsList.length);
-            list.forEach((selectedItem: ISelectionTuple) => { this.processSelection(selectedItem.item, false); });
+            list.forEach((selectedItem: ISelectionTuple) => { this.processSelection(selectedItem, false); });
             this.selectionsList.push(selectionTuple);
-            this.processSelection(selectionTuple.item, true);
+            this.processSelection(selectionTuple, true);
         }
         this.lastProcessedIndex = selectionTuple.index;
     }
@@ -75,8 +71,7 @@ export class SelectionManager implements ISelectionManager {
     public deselectAll(): void {
         const list = this.selectionsList.splice(0, this.selectionsList.length);
         for (let i = 0; i < list.length; i++) {
-            const item = list[i].item;
-            this.processSelection(item, false);
+            this.processSelection(list[i], false);
         }
         this.lastProcessedIndex = null;
     }
@@ -94,7 +89,7 @@ export class SelectionManager implements ISelectionManager {
         for (let i = startIndex; i <= endIndex; i++) {
             const tuple = this.getSelectionTuple(i);
             tempData.push(tuple);
-            this.processSelection(tuple.item, true);
+            this.processSelection(tuple, true);
         }
         this.selectionsList.splice(0, this.selectionsList.length, ...tempData);
         this.lastProcessedIndex = endIndex;
