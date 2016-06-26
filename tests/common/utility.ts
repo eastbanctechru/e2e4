@@ -24,14 +24,14 @@ describe('Utility', () => {
         });
 
         it('doesn\'t break on invalid collections sync', () => {
-            let callFn = () => {
+            let callFn = (): void => {
                 Utility.disposeAll(null, false);
             };
             expect(callFn).not.throw();
         });
 
         it('doesn\'t break on invalid collections async', () => {
-            let callFn = () => {
+            let callFn = (): void => {
                 Utility.disposeAll(null);
             };
             expect(callFn).not.throw();
