@@ -7,7 +7,7 @@ export class SelectionEventsHelper {
     constructor(selectionConfig: ISelectionConfig) {
         this.selectionConfig = selectionConfig;
     }
-    private trySelectAll(ctrlPressed: boolean, shiftPressed: boolean): boolean {
+    protected trySelectAll(ctrlPressed: boolean, shiftPressed: boolean): boolean {
         if (ctrlPressed && !shiftPressed) {
             this.selectionConfig.selectionManager.selectAll();
             return true;
@@ -15,21 +15,21 @@ export class SelectionEventsHelper {
         return false;
     }
 
-    private trySelectPreviousItem(shiftKeyPressed: boolean): boolean {
+    protected trySelectPreviousItem(shiftKeyPressed: boolean): boolean {
         if (this.selectionConfig.selectionManager.lastProcessedIndex > 0) {
             this.selectionConfig.selectionManager.selectIndex(this.selectionConfig.selectionManager.lastProcessedIndex - 1, shiftKeyPressed && this.selectionConfig.allowMultipleSelection);
             return true;
         }
         return false;
     }
-    private trySelectNextItem(shiftKeyPressed: boolean): boolean {
+    protected trySelectNextItem(shiftKeyPressed: boolean): boolean {
         if (this.selectionConfig.selectionManager.lastProcessedIndex < this.selectionConfig.selectionManager.itemsSource.length - 1) {
             this.selectionConfig.selectionManager.selectIndex(this.selectionConfig.selectionManager.lastProcessedIndex + 1, shiftKeyPressed && this.selectionConfig.allowMultipleSelection);
             return true;
         }
         return false;
     }
-    private tryDeselectLastItemInRange(shiftKeyPressed: boolean): boolean {
+    protected tryDeselectLastItemInRange(shiftKeyPressed: boolean): boolean {
         if (this.selectionConfig.selectionManager.lastProcessedIndex > 0 && shiftKeyPressed) {
             if (this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex - 1)) {
                 this.selectionConfig.selectionManager.deselectIndex(this.selectionConfig.selectionManager.lastProcessedIndex);
@@ -39,7 +39,7 @@ export class SelectionEventsHelper {
         }
         return false;
     }
-    private tryDeselectLastItemInReversedRange(shiftKeyPressed: boolean): boolean {
+    protected tryDeselectLastItemInReversedRange(shiftKeyPressed: boolean): boolean {
         if (this.selectionConfig.selectionManager.lastProcessedIndex < this.selectionConfig.selectionManager.itemsSource.length && shiftKeyPressed) {
             if (this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex + 1)) {
                 this.selectionConfig.selectionManager.deselectIndex(this.selectionConfig.selectionManager.lastProcessedIndex);
@@ -50,7 +50,7 @@ export class SelectionEventsHelper {
         return false;
     }
 
-    private tryBuildRangeWithPreviousItemWhenLastItemWasUnselected(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
+    protected tryBuildRangeWithPreviousItemWhenLastItemWasUnselected(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
         if (!ctrlKeyPressed && shiftKeyPressed && false === this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex)) {
             this.selectionConfig.selectionManager.selectRange(this.selectionConfig.selectionManager.lastProcessedIndex, this.selectionConfig.selectionManager.lastProcessedIndex - 1);
             return true;
@@ -58,42 +58,42 @@ export class SelectionEventsHelper {
         return false;
     }
 
-    private tryBuildRangeWithNextItemWhenLastItemWasUnselected(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
+    protected tryBuildRangeWithNextItemWhenLastItemWasUnselected(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
         if (!ctrlKeyPressed && shiftKeyPressed && false === this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex)) {
             this.selectionConfig.selectionManager.selectRange(this.selectionConfig.selectionManager.lastProcessedIndex, this.selectionConfig.selectionManager.lastProcessedIndex + 1);
             return true;
         }
         return false;
     }
-    private tryInitialSelectionOfFirstItem(): boolean {
+    protected tryInitialSelectionOfFirstItem(): boolean {
         if (this.selectionConfig.selectionManager.lastProcessedIndex === null) {
             this.selectionConfig.selectionManager.selectFirst();
             return true;
         }
         return false;
     }
-    private trySelectAllItemsUpToFirst(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
+    protected trySelectAllItemsUpToFirst(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
         if (this.selectionConfig.selectionManager.lastProcessedIndex !== null && ctrlKeyPressed && shiftKeyPressed && this.selectionConfig.allowMultipleSelection) {
             this.selectionConfig.selectionManager.selectRange(this.selectionConfig.selectionManager.lastProcessedIndex, 0);
             return true;
         }
         return false;
     }
-    private trySelectAllItemsUpToLast(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
+    protected trySelectAllItemsUpToLast(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
         if (this.selectionConfig.selectionManager.lastProcessedIndex !== null && ctrlKeyPressed && shiftKeyPressed && this.selectionConfig.allowMultipleSelection) {
             this.selectionConfig.selectionManager.selectRange(this.selectionConfig.selectionManager.lastProcessedIndex, this.selectionConfig.selectionManager.itemsSource.length - 1);
             return true;
         }
         return false;
     }
-    private trySelectFirstItem(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
+    protected trySelectFirstItem(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
         if (ctrlKeyPressed && !shiftKeyPressed) {
             this.selectionConfig.selectionManager.selectFirst();
             return true;
         }
         return false;
     }
-    private trySelectLastItem(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
+    protected trySelectLastItem(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
         if (ctrlKeyPressed && !shiftKeyPressed) {
             this.selectionConfig.selectionManager.selectLast();
             return true;

@@ -4,7 +4,7 @@ import {IFilterManager} from './contracts/IFilterManager';
 
 export class FilterManager implements IFilterManager {
     public static filterPropertiesMap: Map<any, Array<IFilterConfig>> = new Map<any, Array<IFilterConfig>>();
-    private appliedFiltersMapInternal: Map<Object, Array<IFilterConfig>> = new Map<Object, Array<IFilterConfig>>();
+    protected _appliedFiltersMap: Map<Object, Array<IFilterConfig>> = new Map<Object, Array<IFilterConfig>>();
 
     public static registerFilter(targetType: Object, propertyConfig: IFilterConfig): void {
         const typeConfigs = FilterManager.filterPropertiesMap.has(targetType) ? FilterManager.filterPropertiesMap.get(targetType) : new Array<IFilterConfig>();
@@ -32,13 +32,13 @@ export class FilterManager implements IFilterManager {
     }
 
     public dispose(): void {
-        this.appliedFiltersMapInternal.clear();
+        this._appliedFiltersMap.clear();
     }
     public get appliedFiltersMap(): Map<Object, Array<IFilterConfig>> {
-        return this.appliedFiltersMapInternal;
+        return this._appliedFiltersMap;
     }
     public resetValues(): void {
-        this.appliedFiltersMapInternal.forEach((targetConfig: Array<IFilterConfig>, target: Object) => {
+        this._appliedFiltersMap.forEach((targetConfig: Array<IFilterConfig>, target: Object) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
                 const defaultValue = (typeof config.defaultValue === 'function') ? (config.defaultValue as Function).call(target) : config.defaultValue;
@@ -48,7 +48,7 @@ export class FilterManager implements IFilterManager {
         });
     }
     public applyParams(params: Object): void {
-        this.appliedFiltersMapInternal.forEach((targetConfig: Array<IFilterConfig>, target: Object) => {
+        this._appliedFiltersMap.forEach((targetConfig: Array<IFilterConfig>, target: Object) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
                 if (params && params.hasOwnProperty(config.parameterName) && false === config.ignoreOnAutoMap) {
@@ -61,7 +61,7 @@ export class FilterManager implements IFilterManager {
     }
     public getRequestState(result?: Object): any {
         result = result || {};
-        this.appliedFiltersMapInternal.forEach((targetConfig: Array<IFilterConfig>, target: Object) => {
+        this._appliedFiltersMap.forEach((targetConfig: Array<IFilterConfig>, target: Object) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
                 const proposedVal = target[config.propertyName];
@@ -72,7 +72,7 @@ export class FilterManager implements IFilterManager {
     }
     public getPersistedState(result?: Object): any {
         result = result || {};
-        this.appliedFiltersMapInternal.forEach((targetConfig: Array<IFilterConfig>, target: Object) => {
+        this._appliedFiltersMap.forEach((targetConfig: Array<IFilterConfig>, target: Object) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
                 if (!config.persisted) {
@@ -98,9 +98,9 @@ export class FilterManager implements IFilterManager {
             }
         });
         if (targetConfig.length > 0) {
-            this.appliedFiltersMapInternal.set(target, targetConfig);
+            this._appliedFiltersMap.set(target, targetConfig);
         } else {
-            this.appliedFiltersMapInternal.delete(target);
+            this._appliedFiltersMap.delete(target);
         }
     }
     constructor(target?: Object) {

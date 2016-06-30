@@ -16,7 +16,7 @@ export class BufferedPager implements IPager {
             return result || this.defaultRowCount;
         }
     } as IFilterConfig)
-    private takeRowCountInternal: number = Defaults.bufferedListSettings.defaultRowCount;
+    protected _takeRowCount: number = Defaults.bufferedListSettings.defaultRowCount;
 
     public totalCount: number = 0;
     public loadedCount: number = 0;
@@ -32,7 +32,7 @@ export class BufferedPager implements IPager {
     public skip: number = 0;
 
     public get takeRowCount(): number {
-        return this.takeRowCountInternal;
+        return this._takeRowCount;
     }
 
     public set takeRowCount(value: number) {
@@ -49,7 +49,7 @@ export class BufferedPager implements IPager {
                 rowCount = this.totalCount - this.skip;
             }
         }
-        this.takeRowCountInternal = rowCount;
+        this._takeRowCount = rowCount;
     }
 
     public processResponse(result: Object): void {

@@ -3,8 +3,8 @@ import {ISelectionTuple} from './contracts/ISelectionTuple';
 import {ISelectionManager} from './contracts/ISelectionManager';
 
 export class SelectionManager implements ISelectionManager {
-    private selectionsList: Array<ISelectionTuple> = new Array<ISelectionTuple>();
-    private items: Array<ISelectable>;
+    protected selectionsList: Array<ISelectionTuple> = new Array<ISelectionTuple>();
+    protected items: Array<ISelectable>;
     public lastProcessedIndex: number;
     public dispose(): void {
         this.selectionsList.length = 0;
@@ -31,7 +31,7 @@ export class SelectionManager implements ISelectionManager {
             tuple.item.onDeselected();
         }
     }
-    private deselectItem(selectionTuple: ISelectionTuple): void {
+    protected deselectItem(selectionTuple: ISelectionTuple): void {
         const index = this.selectionsList.findIndex((selectedItem: ISelectionTuple) => (selectedItem.item === selectionTuple.item));
         if (index !== -1) {
             this.selectionsList.splice(index, 1);
@@ -39,7 +39,7 @@ export class SelectionManager implements ISelectionManager {
         this.processSelection(selectionTuple, false);
         this.lastProcessedIndex = selectionTuple.index;
     }
-    private selectItem(selectionTuple: ISelectionTuple, savePrevious: boolean = false): void {
+    protected selectItem(selectionTuple: ISelectionTuple, savePrevious: boolean = false): void {
         if (savePrevious) {
             this.selectionsList.push(selectionTuple);
             this.processSelection(selectionTuple, true);
@@ -51,13 +51,13 @@ export class SelectionManager implements ISelectionManager {
         }
         this.lastProcessedIndex = selectionTuple.index;
     }
-    private getSelectionTuple(index: number): ISelectionTuple {
+    protected getSelectionTuple(index: number): ISelectionTuple {
         return {
             index: index,
             item: this.itemsSource[index]
         };
     }
-    private checkSelection(): void {
+    protected checkSelection(): void {
         for (let i = this.selectionsList.length - 1; i >= 0; i--) {
             const tuple = this.selectionsList[i];
             if (this.itemsSource[tuple.index] !== tuple.item) {
@@ -65,7 +65,7 @@ export class SelectionManager implements ISelectionManager {
             }
         }
     }
-    private checkIndexAcceptable(index: number): boolean {
+    protected checkIndexAcceptable(index: number): boolean {
         return index !== null && index !== undefined && index >= 0 && this.itemsSource.length > index;
     }
     public deselectAll(): void {
