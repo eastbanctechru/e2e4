@@ -7,7 +7,7 @@ var isVerbose = true;
  */
 gulp.task('test', function (done) {
     new Server({
-        configFile: __dirname + '/../../karma.conf.js',
+        configFile: __dirname + '/../../karma.conf.debug.js',
         client: { captureConsole: isVerbose },
         browsers: ['Chrome'],
         singleRun: false

@@ -84,6 +84,9 @@ export class SelectionManager implements ISelectionManager {
         }
         const startIndex = Math.min(fromIndex, toIndex);
         const endIndex = Math.max(fromIndex, toIndex);
+        if (this.isRangeSelected(startIndex, endIndex)) {
+            return;
+        }
         this.deselectAll();
         const tempData = new Array<ISelectionTuple>();
         for (let i = startIndex; i <= endIndex; i++) {
@@ -97,6 +100,18 @@ export class SelectionManager implements ISelectionManager {
 
     public hasSelections(): boolean {
         return this.selectionsList.length !== 0;
+    }
+    public isRangeSelected(from: number, to: number): boolean {
+        // nothing selected
+        if (this.selectionsList.length === 0) {
+            return false;
+        }
+        // entire list selected
+        if (from === 0 && to === this.itemsSource.length - 1 && this.selectionsList.length === this.itemsSource.length) {
+            return true;
+        }
+        let orderedIndexes = this.selectionsList.map((tuple: ISelectionTuple) => tuple.index).sort();
+        return (1 + to - from === orderedIndexes.length) && (orderedIndexes[0] === from) && (orderedIndexes[orderedIndexes.length - 1] === to);
     }
     public isIndexSelected(index: number): boolean {
         if (index >= 0 && this.itemsSource.length > index) {

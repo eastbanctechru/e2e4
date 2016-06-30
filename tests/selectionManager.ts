@@ -31,13 +31,13 @@ function toItemWithHooks(name: string): IItem {
 
 function toTargetWithHooks(): ISelectionableObject {
     return {
-        items: ['first', 'second'].map(toItemWithHooks),
+        items: ['first', 'second', 'third', 'fourth', 'fifth'].map(toItemWithHooks),
         selectionManager: null
     };
 }
 function toTarget(): ISelectionableObject {
     return {
-        items: ['first', 'second', 'third'].map(toItem),
+        items: ['first', 'second', 'third', 'fourth', 'fifth'].map(toItem),
         selectionManager: null
     };
 }
@@ -63,7 +63,7 @@ describe('SelectionManager', () => {
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
             target.selectionManager.selectFirst();
-            expect(target.selectionManager.getSelections()).eql([{ name: 'first', selected: true }]);
+            expect(target.selectionManager.getSelections()).eql([target.items[0]]);
         });
     });
 
@@ -74,21 +74,19 @@ describe('SelectionManager', () => {
             target.selectionManager.itemsSource = target.items;
             target.selectionManager.selectFirst();
 
-            expect(target.selectionManager.getSelections()).eql([{ name: 'first', selected: true }]);
+            expect(target.selectionManager.getSelections()).eql([target.items[0]]);
         });
 
         it(`doesn't affect previously selected items`, () => {
             const target = toTarget();
+            const firstSelectionIndex = 2;
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
-            target.items[2].selected = true;
+            target.items[firstSelectionIndex].selected = true;
             target.selectionManager.selectFirst();
 
-            expect(target.selectionManager.getSelections()).eql([{ name: 'first', selected: true }]);
-
-            expect(target.items[0].selected).eql(true);
-            expect(target.items[1].selected).eql(false);
-            expect(target.items[2].selected).eql(true);
+            expect(target.selectionManager.getSelections()).eql([target.items[0]]);
+            expect(target.items.every((item: IItem, index: number, array: Array<IItem>) => !item.selected || index === firstSelectionIndex || index === 0)).eql(true);
         });
 
         it(`doesn't throw on empty collection`, () => {
@@ -107,25 +105,20 @@ describe('SelectionManager', () => {
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
             target.selectionManager.selectLast();
-
-            expect(target.selectionManager.getSelections()).eql([{ name: 'third', selected: true }]);
-
-            expect(target.items[0].selected).eql(false);
-            expect(target.items[1].selected).eql(false);
-            expect(target.items[2].selected).eql(true);
+            expect(target.selectionManager.getSelections()).eql([target.items[target.items.length - 1]]);
+            expect(target.items.every((item: IItem, index: number, array: Array<IItem>) => !item.selected || index === array.length - 1)).eql(true);
         });
 
         it(`doesn't affect previously selected items`, () => {
             const target = toTarget();
+            const firstSelectionIndex = 0;
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
-            target.items[0].selected = true;
+            target.items[firstSelectionIndex].selected = true;
             target.selectionManager.selectLast();
 
-            expect(target.selectionManager.getSelections()).eql([{ name: 'third', selected: true }]);
-            expect(target.items[0].selected).eql(true);
-            expect(target.items[1].selected).eql(false);
-            expect(target.items[2].selected).eql(true);
+            expect(target.selectionManager.getSelections()).eql([target.items[target.items.length - 1]]);
+            expect(target.items.every((item: IItem, index: number, array: Array<IItem>) => !item.selected || index === firstSelectionIndex || index === array.length - 1)).eql(true);
         });
 
         it(`doesn't throw on empty collection`, () => {
@@ -156,7 +149,7 @@ describe('SelectionManager', () => {
             target.selectionManager.itemsSource = target.items;
             target.selectionManager.selectFirst();
             target.selectionManager.selectIndex(1, savePrevious);
-            expect(target.selectionManager.getSelections()).eql([{ name: 'first', selected: true }, { name: 'second', selected: true }]);
+            expect(target.selectionManager.getSelections()).eql([target.items[0], target.items[1]]);
 
             expect(target.items[0].selected).eql(true);
             expect(target.items[1].selected).eql(true);
@@ -169,7 +162,7 @@ describe('SelectionManager', () => {
             target.selectionManager.itemsSource = target.items;
             target.selectionManager.selectFirst();
             target.selectionManager.selectIndex(1, doNotSavePrevious);
-            expect(target.selectionManager.getSelections()).eql([{ name: 'second', selected: true }]);
+            expect(target.selectionManager.getSelections()).eql([target.items[1]]);
 
             expect(target.items[0].selected).eql(false);
             expect(target.items[1].selected).eql(true);
@@ -198,7 +191,7 @@ describe('SelectionManager', () => {
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
             target.selectionManager.selectIndex(1, savePrevious);
-            expect(target.selectionManager.getSelections()).eql([{ name: 'second', selected: true }]);
+            expect(target.selectionManager.getSelections()).eql([target.items[1]]);
 
             expect(target.items[0].selected).eql(false);
             expect(target.items[1].selected).eql(true);
@@ -231,7 +224,7 @@ describe('SelectionManager', () => {
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
             target.selectionManager.toggleSelection(1, savePrevious);
-            expect(target.selectionManager.getSelections()).eql([{ name: 'second', selected: true }]);
+            expect(target.selectionManager.getSelections()).eql([target.items[1]]);
 
             expect(target.items[0].selected).eql(false);
             expect(target.items[1].selected).eql(true);
@@ -247,14 +240,14 @@ describe('SelectionManager', () => {
             target.selectionManager.itemsSource = target.items;
             target.selectionManager.toggleSelection(1, savePrevious);
             target.selectionManager.toggleSelection(2, savePrevious);
-            expect(target.selectionManager.getSelections()).eql([{ name: 'second', selected: true }, { name: 'third', selected: true }]);
+            expect(target.selectionManager.getSelections()).eql([target.items[1], target.items[2]]);
 
             expect(target.items[0].selected).eql(false);
             expect(target.items[1].selected).eql(true);
             expect(target.items[2].selected).eql(true);
 
             target.selectionManager.toggleSelection(1, savePrevious);
-            expect(target.selectionManager.getSelections()).eql([{ name: 'third', selected: true }]);
+            expect(target.selectionManager.getSelections()).eql([target.items[2]]);
             expect(target.items[1].selected).eql(false);
         });
 
@@ -264,14 +257,14 @@ describe('SelectionManager', () => {
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
             target.selectionManager.toggleSelection(1, doNotSavePrevious);
-            expect(target.selectionManager.getSelections()).eql([{ name: 'second', selected: true }]);
+            expect(target.selectionManager.getSelections()).eql([target.items[1]]);
 
             expect(target.items[0].selected).eql(false);
             expect(target.items[1].selected).eql(true);
             expect(target.items[2].selected).eql(false);
 
             target.selectionManager.toggleSelection(2, doNotSavePrevious);
-            expect(target.selectionManager.getSelections()).eql([{ name: 'third', selected: true }]);
+            expect(target.selectionManager.getSelections()).eql([target.items[2]]);
             expect(target.items[1].selected).eql(false);
             expect(target.items[2].selected).eql(true);
         });
@@ -281,7 +274,7 @@ describe('SelectionManager', () => {
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
             target.selectionManager.toggleSelection(1, savePrevious);
-            expect(target.selectionManager.getSelections()).eql([{ name: 'second', selected: true }]);
+            expect(target.selectionManager.getSelections()).eql([target.items[1]]);
 
             expect(target.items[0].selected).eql(false);
             expect(target.items[1].selected).eql(true);
@@ -290,8 +283,8 @@ describe('SelectionManager', () => {
             target.selectionManager.toggleSelection(2, savePrevious);
             expect(target.selectionManager.getSelections())
                 .eql([
-                    { name: 'second', selected: true },
-                    { name: 'third', selected: true }
+                    target.items[1],
+                    target.items[2]
                 ]);
             expect(target.items[1].selected).eql(true);
             expect(target.items[2].selected).eql(true);
@@ -396,7 +389,7 @@ describe('SelectionManager', () => {
             target.selectionManager.itemsSource = target.items;
             expect(target.selectionManager.getItemIndex(
                 {
-                    name: 'four',
+                    name: 'cadabra',
                     selected: false
                 } as ISelectable)).eq(-1);
         });
@@ -407,10 +400,10 @@ describe('SelectionManager', () => {
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
             target.selectionManager.selectAll();
-            expect(target.selectionManager.getSelections().length).eq(3);
+            expect(target.selectionManager.getSelections().length).eq(target.items.length);
             target.items.pop();
             target.selectionManager.itemsSource = target.items;
-            expect(target.selectionManager.getSelections().length).eq(2);
+            expect(target.selectionManager.getSelections().length).eq(target.items.length);
         });
         it('remove shifted items from selections on set', () => {
             const target = toTarget();
@@ -455,8 +448,8 @@ describe('SelectionManager', () => {
 
             expect(target.selectionManager.getSelections())
                 .eql([
-                    { name: 'first', selected: true },
-                    { name: 'second', selected: true }
+                    target.items[0],
+                    target.items[1]
                 ]);
         });
 
@@ -464,18 +457,48 @@ describe('SelectionManager', () => {
             const target = toTarget();
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
-
             target.selectionManager.toggleSelection(2, savePrevious);
-
             target.selectionManager.selectRange(0, 1);
+            expect(target.selectionManager.getSelections()).eql([target.items[0], target.items[1]]);
+        });
 
-            expect(target.selectionManager.getSelections())
-                .eql([
-                    { name: 'first', selected: true },
-                    { name: 'second', selected: true }
-                ]);
+        it('checks that range already selected', () => {
+            const target = toTarget();
+            target.selectionManager = new SelectionManager();
+            target.selectionManager.itemsSource = target.items;
+            let spy = sinon.spy(target.selectionManager, 'isRangeSelected');
+            target.selectionManager.selectRange(0, 1);
+            target.selectionManager.selectRange(0, 1);
+            expect(spy.calledTwice).eq(true);
+            expect(spy.returnValues[0]).eq(false);
+            expect(spy.returnValues[1]).eq(true);
+            spy.restore();
         });
     });
+    describe('isRangeSelected', () => {
+        it('returns false if nothing selected at all', () => {
+            const target = toTarget();
+            target.selectionManager = new SelectionManager();
+            target.selectionManager.itemsSource = target.items;
+            expect(target.selectionManager.isRangeSelected(0, 1)).eq(false);
+        });
+        it('returns true if all items selected', () => {
+            const target = toTarget();
+            target.selectionManager = new SelectionManager();
+            target.selectionManager.itemsSource = target.items;
+            target.selectionManager.selectAll();
+            expect(target.selectionManager.isRangeSelected(0, target.items.length - 1)).eq(true);
+        });
+        it('handles by element checks', () => {
+            const target = toTarget();
+            target.selectionManager = new SelectionManager();
+            target.selectionManager.itemsSource = target.items;
+            target.selectionManager.selectRange(1, 3);
+            expect(target.selectionManager.isRangeSelected(1, 3)).eq(true);
+            expect(target.selectionManager.isRangeSelected(0, 2)).eq(false);
+        });
+    });
+
     describe('selection hooks', () => {
         it('onSelected hook called if defined', () => {
             const target = toTargetWithHooks();
@@ -548,7 +571,7 @@ describe('SelectionManager', () => {
             target.selectionManager = new SelectionManager();
             target.selectionManager.itemsSource = target.items;
             target.selectionManager.selectAll();
-            expect(target.selectionManager.getSelections().length).equal(3);
+            expect(target.selectionManager.getSelections().length).equal(target.items.length);
             target.selectionManager.dispose();
             expect(target.selectionManager.getSelections().length).equal(0);
             expect(target.selectionManager.lastProcessedIndex).null;
