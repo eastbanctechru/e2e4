@@ -8,7 +8,7 @@ export class BufferedPager implements IPager {
         defaultValue: function (): number { return this.defaultRowCount; },
         parameterName: Defaults.bufferedListSettings.takeRowCountParameterName,
         parseFormatter: function (
-            /* tslint:disable:no-unused-variable */rawValue: any/* tslint:enable:no-unused-variable */, allValues: any): number {
+            rawValue: any, allValues: any): number {
             let result;
             if (allValues && !isNaN(allValues.skip) && !isNaN(allValues.take)) {
                 result = (allValues.skip || 0) + (allValues.take || 0);
