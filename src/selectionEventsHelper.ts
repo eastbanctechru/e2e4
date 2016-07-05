@@ -101,7 +101,7 @@ export class SelectionEventsHelper {
         return false;
     }
 
-    public onArrowUp(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
+    protected onPreviousKey(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
         return this.tryInitialSelectionOfFirstItem() ||
             this.trySelectFirstItem(ctrlKeyPressed, shiftKeyPressed) ||
             this.trySelectAllItemsUpToFirst(ctrlKeyPressed, shiftKeyPressed) ||
@@ -109,7 +109,7 @@ export class SelectionEventsHelper {
             this.tryDeselectLastItemInRange(shiftKeyPressed) ||
             this.trySelectPreviousItem(shiftKeyPressed);
     }
-    public onArrowDown(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
+    protected onNextKey(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
         return this.tryInitialSelectionOfFirstItem() ||
             this.trySelectLastItem(ctrlKeyPressed, shiftKeyPressed) ||
             this.trySelectAllItemsUpToLast(ctrlKeyPressed, shiftKeyPressed) ||
@@ -120,9 +120,9 @@ export class SelectionEventsHelper {
     public keyboardHandler(ctrlKeyPressed: boolean, shiftKeyPressed: boolean, keyCode: KeyCodes): boolean {
         switch (keyCode) {
             case KeyCodes.ArrowUp:
-                return this.onArrowUp(ctrlKeyPressed, shiftKeyPressed);
+                return this.onPreviousKey(ctrlKeyPressed, shiftKeyPressed);
             case KeyCodes.ArrowDown:
-                return this.onArrowDown(ctrlKeyPressed, shiftKeyPressed);
+                return this.onNextKey(ctrlKeyPressed, shiftKeyPressed);
             case KeyCodes.A:
                 return this.trySelectAll(ctrlKeyPressed, shiftKeyPressed);
             default:
