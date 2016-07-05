@@ -120,9 +120,13 @@ export class SelectionEventsHelper {
     public keyboardHandler(ctrlKeyPressed: boolean, shiftKeyPressed: boolean, keyCode: KeyCodes): boolean {
         switch (keyCode) {
             case KeyCodes.ArrowUp:
-                return this.onPreviousKey(ctrlKeyPressed, shiftKeyPressed);
+                return !this.selectionConfig.horizontal && this.onPreviousKey(ctrlKeyPressed, shiftKeyPressed);
+            case KeyCodes.ArrowLeft:
+                return this.selectionConfig.horizontal && this.onPreviousKey(ctrlKeyPressed, shiftKeyPressed);
             case KeyCodes.ArrowDown:
-                return this.onNextKey(ctrlKeyPressed, shiftKeyPressed);
+                return !this.selectionConfig.horizontal && this.onNextKey(ctrlKeyPressed, shiftKeyPressed);
+            case KeyCodes.ArrowRight:
+                return this.selectionConfig.horizontal && this.onNextKey(ctrlKeyPressed, shiftKeyPressed);
             case KeyCodes.A:
                 return this.trySelectAll(ctrlKeyPressed, shiftKeyPressed);
             default:
