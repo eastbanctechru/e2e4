@@ -1,17 +1,17 @@
 import { expect } from 'chai';
-import { PagedPager } from '../src/pagedPager';
+import { PagedPager } from '../src/paged-pager';
 import { Defaults } from '../src/common/defaults';
-import { FilterManager } from '../src/filterManager';
+import { FiltersService } from '../src/filters-service';
 
-interface IResponseObject {
+interface ResponseObject {
     loadedCount: number;
     totalCount: number;
     displayFrom: number;
     displayTo: number;
 }
 
-function toResponseObject(): IResponseObject {
-    return { displayFrom: 1, displayTo: 20, loadedCount: 20, totalCount: 100 } as IResponseObject;
+function toResponseObject(): ResponseObject {
+    return { displayFrom: 1, displayTo: 20, loadedCount: 20, totalCount: 100 } as ResponseObject;
 }
 describe('PagedPager', () => {
     describe('ctor', () => {
@@ -67,67 +67,67 @@ describe('PagedPager', () => {
     describe('as filter target', () => {
         it('parse pageNumber param', () => {
             let pager = new PagedPager();
-            let filterManager = new FilterManager(pager);
+            let filtersService = new FiltersService(pager);
 
             expect(pager.pageNumber).eq(1);
             let params = {
                 pageNumber: 5,
                 pageSize: 100
             };
-            filterManager.applyParams(params);
+            filtersService.applyParams(params);
             expect(pager.pageNumber).eq(params.pageNumber);
         });
         it('parse pageNumber as 1 if invalid', () => {
             let pager = new PagedPager();
-            let filterManager = new FilterManager(pager);
+            let filtersService = new FiltersService(pager);
 
             expect(pager.pageNumber).eq(1);
             let params = {
                 pageNumber: null,
                 pageSize: 100
             };
-            filterManager.applyParams(params);
+            filtersService.applyParams(params);
             expect(pager.pageNumber).eq(1);
         });
         it('parse pageSize as defaultPageSize if invalid', () => {
             let pager = new PagedPager();
-            let filterManager = new FilterManager(pager);
+            let filtersService = new FiltersService(pager);
 
             expect(pager.pageNumber).eq(1);
             let params = {
                 pageNumber: 1,
                 pageSize: null
             };
-            filterManager.applyParams(params);
+            filtersService.applyParams(params);
             expect(pager.pageSize).eq(pager.defaultPageSize);
         });
         it('parse pageSize param', () => {
             let pager = new PagedPager();
-            let filterManager = new FilterManager(pager);
+            let filtersService = new FiltersService(pager);
 
             expect(pager.pageNumber).eq(1);
             let params = {
                 pageNumber: 5,
                 pageSize: 100
             };
-            filterManager.applyParams(params);
+            filtersService.applyParams(params);
             expect(pager.pageSize).eq(params.pageSize);
         });
 
         it('sets pageSize to defaultPageSize on reset', () => {
             let pager = new PagedPager();
-            let filterManager = new FilterManager(pager);
+            let filtersService = new FiltersService(pager);
             pager.pageSize = 40;
             expect(pager.pageSize).eq(40);
-            filterManager.resetValues();
+            filtersService.resetValues();
             expect(pager.pageSize).eq(pager.defaultPageSize);
         });
 
         it('can have own defaultPageSize', () => {
             let pager = new PagedPager();
-            let filterManager = new FilterManager(pager);
+            let filtersService = new FiltersService(pager);
             pager.defaultPageSize = 5;
-            filterManager.resetValues();
+            filtersService.resetValues();
             expect(pager.pageSize).eq(5);
             expect(Defaults.pagedListSettings.defaultPageSize).not.eq(pager.defaultPageSize);
         });

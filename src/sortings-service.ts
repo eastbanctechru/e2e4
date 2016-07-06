@@ -1,10 +1,9 @@
-import {ISortManager} from './contracts/ISortManager';
 import {Defaults} from './common/defaults';
-import {IFilterConfig} from './contracts/IFilterConfig';
-import {SortParameter} from './common/sortParameter';
-import {filter} from './filterAnnotation';
+import {FilterConfig} from './contracts/filter-config';
+import {SortParameter} from './common/sort-parameter';
+import {filter} from './filter-annotation';
 
-export class SortManager implements ISortManager {
+export class SortingsService {
     protected _defaultSortings: SortParameter[] = new Array<SortParameter>();
     @filter({
         defaultValue: function (): Array<SortParameter> { return this.cloneDefaultSortings(); },
@@ -13,7 +12,7 @@ export class SortManager implements ISortManager {
             return Array.isArray(rawValue) ? rawValue.map((sort: SortParameter) => { return new SortParameter(sort.fieldName, sort.direction * 1); }) : [];
         },
         persisted: Defaults.listSettings.persistSortings
-    } as IFilterConfig)
+    } as FilterConfig)
     public sortings: Array<SortParameter> = new Array<SortParameter>();
 
     protected cloneDefaultSortings(): Array<SortParameter> {

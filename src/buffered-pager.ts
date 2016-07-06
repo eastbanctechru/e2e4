@@ -1,9 +1,9 @@
 import {Defaults} from './common/defaults';
-import {IPager} from './contracts/IPager';
-import {filter} from './filterAnnotation';
-import {IFilterConfig} from './contracts/IFilterConfig';
+import {Pager} from './contracts/pager';
+import {filter} from './filter-annotation';
+import {FilterConfig} from './contracts/filter-config';
 
-export class BufferedPager implements IPager {
+export class BufferedPager implements Pager {
     @filter({
         defaultValue: function (): number { return this.defaultRowCount; },
         parameterName: Defaults.bufferedListSettings.takeRowCountParameterName,
@@ -15,7 +15,7 @@ export class BufferedPager implements IPager {
             }
             return result || this.defaultRowCount;
         }
-    } as IFilterConfig)
+    } as FilterConfig)
     protected _takeRowCount: number = Defaults.bufferedListSettings.defaultRowCount;
 
     public totalCount: number = 0;
@@ -28,7 +28,7 @@ export class BufferedPager implements IPager {
         defaultValue: 0,
         parameterName: Defaults.bufferedListSettings.skipRowCountParameterName,
         parseFormatter: function (): number { return 0; }
-    } as IFilterConfig)
+    } as FilterConfig)
     public skip: number = 0;
 
     public get takeRowCount(): number {

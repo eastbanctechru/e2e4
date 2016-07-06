@@ -1,24 +1,24 @@
-import {ISelectable} from './contracts/ISelectable';
-import {ISelectionTuple} from './contracts/ISelectionTuple';
-import {ISelectionManager} from './contracts/ISelectionManager';
+import {SelectableItem} from './contracts/selectable-item';
+import {SelectionTuple} from './contracts/selection-tuple';
+import {SelectionService} from './contracts/selection-service';
 
-export class SelectionManager implements ISelectionManager {
-    protected selectionsList: Array<ISelectionTuple> = new Array<ISelectionTuple>();
-    protected items: Array<ISelectable>;
+export class DefaultSelectionService implements SelectionService {
+    protected selectionsList: Array<SelectionTuple> = new Array<SelectionTuple>();
+    protected items: Array<SelectableItem>;
     public lastProcessedIndex: number;
     public dispose(): void {
         this.selectionsList.length = 0;
         this.lastProcessedIndex = null;
         delete this.items;
     }
-    public get itemsSource(): Array<ISelectable> {
+    public get itemsSource(): Array<SelectableItem> {
         return this.items;
     }
-    public set itemsSource(value: Array<ISelectable>) {
+    public set itemsSource(value: Array<SelectableItem>) {
         this.items = value;
         this.checkSelection();
     }
-    protected processSelection(tuple: ISelectionTuple, selected: boolean): void {
+    protected processSelection(tuple: SelectionTuple, selected: boolean): void {
         const initialSelectState = tuple.item.selected;
         tuple.item.selected = selected;
         if (tuple.item.onSelectionChanged !== undefined && initialSelectState !== selected) {
@@ -31,27 +31,27 @@ export class SelectionManager implements ISelectionManager {
             tuple.item.onDeselected();
         }
     }
-    protected deselectItem(selectionTuple: ISelectionTuple): void {
-        const index = this.selectionsList.findIndex((selectedItem: ISelectionTuple) => (selectedItem.item === selectionTuple.item));
+    protected deselectItem(selectionTuple: SelectionTuple): void {
+        const index = this.selectionsList.findIndex((selectedItem: SelectionTuple) => (selectedItem.item === selectionTuple.item));
         if (index !== -1) {
             this.selectionsList.splice(index, 1);
         }
         this.processSelection(selectionTuple, false);
         this.lastProcessedIndex = selectionTuple.index;
     }
-    protected selectItem(selectionTuple: ISelectionTuple, savePrevious: boolean = false): void {
+    protected selectItem(selectionTuple: SelectionTuple, savePrevious: boolean = false): void {
         if (savePrevious) {
             this.selectionsList.push(selectionTuple);
             this.processSelection(selectionTuple, true);
         } else {
             const list = this.selectionsList.splice(0, this.selectionsList.length);
-            list.forEach((selectedItem: ISelectionTuple) => { this.processSelection(selectedItem, false); });
+            list.forEach((selectedItem: SelectionTuple) => { this.processSelection(selectedItem, false); });
             this.selectionsList.push(selectionTuple);
             this.processSelection(selectionTuple, true);
         }
         this.lastProcessedIndex = selectionTuple.index;
     }
-    protected getSelectionTuple(index: number): ISelectionTuple {
+    protected getSelectionTuple(index: number): SelectionTuple {
         return {
             index: index,
             item: this.itemsSource[index]
@@ -88,7 +88,7 @@ export class SelectionManager implements ISelectionManager {
             return;
         }
         this.deselectAll();
-        const tempData = new Array<ISelectionTuple>();
+        const tempData = new Array<SelectionTuple>();
         for (let i = startIndex; i <= endIndex; i++) {
             const tuple = this.getSelectionTuple(i);
             tempData.push(tuple);
@@ -110,7 +110,7 @@ export class SelectionManager implements ISelectionManager {
         if (from === 0 && to === this.itemsSource.length - 1 && this.selectionsList.length === this.itemsSource.length) {
             return true;
         }
-        let orderedIndexes = this.selectionsList.map((tuple: ISelectionTuple) => tuple.index).sort();
+        let orderedIndexes = this.selectionsList.map((tuple: SelectionTuple) => tuple.index).sort();
         return (1 + to - from === orderedIndexes.length) && (orderedIndexes[0] === from) && (orderedIndexes[orderedIndexes.length - 1] === to);
     }
     public isIndexSelected(index: number): boolean {
@@ -120,19 +120,19 @@ export class SelectionManager implements ISelectionManager {
         return false;
     }
 
-    public getItemIndex(item: ISelectable): number {
-        return this.itemsSource.findIndex((value: ISelectable) => value === item);
+    public getItemIndex(item: SelectableItem): number {
+        return this.itemsSource.findIndex((value: SelectableItem) => value === item);
     }
     public getMinSelectedIndex(): number {
         let minIndex = null;
-        this.selectionsList.forEach((item: ISelectionTuple) => {
+        this.selectionsList.forEach((item: SelectionTuple) => {
             minIndex = (minIndex === null || item.index < minIndex) ? item.index : minIndex;
         });
         return minIndex;
     }
     public getMaxSelectedIndex(): number {
         let maxIndex = null;
-        this.selectionsList.forEach((item: ISelectionTuple) => {
+        this.selectionsList.forEach((item: SelectionTuple) => {
             maxIndex = (maxIndex === null || item.index > maxIndex) ? item.index : maxIndex;
         });
         return maxIndex;
@@ -171,9 +171,9 @@ export class SelectionManager implements ISelectionManager {
         this.selectItem(tuple, savePrevious);
     }
     public getSelections(): Array<Object> {
-        return this.selectionsList.map((selectable: ISelectionTuple) => selectable.item);
+        return this.selectionsList.map((selectable: SelectionTuple) => selectable.item);
     }
     public getSelectedIndexex(): Array<number> {
-        return this.selectionsList.map((selectable: ISelectionTuple) => selectable.index);
+        return this.selectionsList.map((selectable: SelectionTuple) => selectable.index);
     }
 }

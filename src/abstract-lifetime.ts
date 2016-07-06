@@ -1,4 +1,4 @@
-import {ProgressState} from './common/progressState';
+import {ProgressState} from './common/progress-state';
 
 export abstract class AbstractLifetime {
     public disposed: boolean = false;

@@ -1,4 +1,4 @@
-﻿import {SortDirection} from './sortDirection';
+﻿import {SortDirection} from './sort-direction';
 export class SortParameter {
     public direction: SortDirection;
     public fieldName: string = null;

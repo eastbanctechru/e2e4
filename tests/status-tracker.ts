@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 
-import { StatusTracker } from '../src/statusTracker';
+import { StatusTracker } from '../src/status-tracker';
 import { Defaults } from '../src/common/defaults';
-import { ProgressState } from '../src/common/progressState';
+import { ProgressState } from '../src/common/progress-state';
 
 describe('StatusTracker', () => {
     let clock;

@@ -1,15 +1,15 @@
 import { expect } from 'chai';
-import { BufferedPager } from '../src/bufferedPager';
+import { BufferedPager } from '../src/buffered-pager';
 import { Defaults } from '../src/common/defaults';
-import { FilterManager } from '../src/filterManager';
+import { FiltersService } from '../src/filters-service';
 
-interface IResponseObject {
+interface ResponseObject {
     loadedCount: number;
     totalCount: number;
 }
 
-function toResponseObject(): IResponseObject {
-    return { loadedCount: 20, totalCount: 100 } as IResponseObject;
+function toResponseObject(): ResponseObject {
+    return { loadedCount: 20, totalCount: 100 } as ResponseObject;
 }
 describe('BufferedPager', () => {
     describe('ctor', () => {
@@ -64,7 +64,7 @@ describe('BufferedPager', () => {
 
         it('parse skip param as 0', () => {
             let pager = new BufferedPager();
-            let filterManager = new FilterManager(pager);
+            let filtersService = new FiltersService(pager);
 
             expect(pager.takeRowCount).eq(pager.defaultRowCount);
             expect(pager.skip).eq(0);
@@ -72,12 +72,12 @@ describe('BufferedPager', () => {
                 skip: 100,
                 take: 100
             };
-            filterManager.applyParams(params);
+            filtersService.applyParams(params);
             expect(pager.skip).eq(0);
         });
         it('parse takeRowCount as sum of skip and take if both specified', () => {
             let pager = new BufferedPager();
-            let filterManager = new FilterManager(pager);
+            let filtersService = new FiltersService(pager);
 
             expect(pager.takeRowCount).eq(pager.defaultRowCount);
             expect(pager.skip).eq(0);
@@ -86,27 +86,27 @@ describe('BufferedPager', () => {
                 skip: 100,
                 take: 100
             };
-            filterManager.applyParams(params);
+            filtersService.applyParams(params);
             expect(pager.takeRowCount).eq(params.skip + params.take);
         });
         it('parse takeRowCount as defaultRowCount if skip or take not specified', () => {
             let pager = new BufferedPager();
-            let filterManager = new FilterManager(pager);
+            let filtersService = new FiltersService(pager);
             let params = {
                 take: 100
             };
-            filterManager.applyParams(params);
+            filtersService.applyParams(params);
             expect(pager.takeRowCount).eq(pager.defaultRowCount);
         });
         it('parse nulls as zeroes for takeRowCount', () => {
             let pager = new BufferedPager();
-            let filterManager = new FilterManager(pager);
-            filterManager.applyParams({
+            let filtersService = new FiltersService(pager);
+            filtersService.applyParams({
                 skip: 100,
                 take: null
             });
             expect(pager.takeRowCount).eq(100);
-            filterManager.applyParams({
+            filtersService.applyParams({
                 skip: null,
                 take: 100
             });
@@ -114,8 +114,8 @@ describe('BufferedPager', () => {
         });
         it('parse takeRowCount to defaultRowCount if parsed value is invalid', () => {
             let pager = new BufferedPager();
-            let filterManager = new FilterManager(pager);
-            filterManager.applyParams({
+            let filtersService = new FiltersService(pager);
+            filtersService.applyParams({
                 skip: null,
                 take: null
             });
@@ -123,18 +123,18 @@ describe('BufferedPager', () => {
         });
         it('sets takeRowCount to defaultRowCount on reset', () => {
             let pager = new BufferedPager();
-            let filterManager = new FilterManager(pager);
+            let filtersService = new FiltersService(pager);
             pager.takeRowCount = 40;
             expect(pager.takeRowCount).eq(40);
-            filterManager.resetValues();
+            filtersService.resetValues();
             expect(pager.takeRowCount).eq(pager.defaultRowCount);
         });
 
         it('can have own defaultRowCount', () => {
             let pager = new BufferedPager();
-            let filterManager = new FilterManager(pager);
+            let filtersService = new FiltersService(pager);
             pager.defaultRowCount = 5;
-            filterManager.resetValues();
+            filtersService.resetValues();
             expect(pager.takeRowCount).eq(5);
             expect(Defaults.bufferedListSettings.defaultRowCount).not.eq(pager.defaultRowCount);
         });

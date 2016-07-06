@@ -1,11 +1,15 @@
 {
     "extends": "tslint:recommended",
     "rules": {
+        "interface-name": [
+            true,
+            "never-prefix"
+        ],
+        "linebreak-style": "CRLF",
         "max-line-length": [
             true,
             240
         ],
-        "linebreak-style": "CRLF",
         "member-access": [
             true,
             "check-accessor"

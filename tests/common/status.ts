@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { Status } from '../../src/common/status';
-import { ProgressState } from '../../src/common/progressState';
+import { ProgressState } from '../../src/common/progress-state';
 
 describe('Status', () => {
     it('creates new model', () => {

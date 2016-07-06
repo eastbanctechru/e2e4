@@ -1,7 +1,7 @@
 import {Defaults} from './common/defaults';
-import {IPager} from './contracts/IPager';
+import {Pager} from './contracts/pager';
 
-export class SimplePager implements IPager {
+export class SimplePager implements Pager {
     public totalCount: number = 0;
     public loadedCount: number = 0;
 

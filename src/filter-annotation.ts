@@ -1,14 +1,15 @@
-import {FilterConfig} from './filterConfig';
-import {IFilterConfig} from './contracts/IFilterConfig';
-export function filter(targetOrNameOrConfig?: string | IFilterConfig, key?: string): any {
+import {FilterConfig, getDefaultFilterConfig} from './contracts/filter-config';
+import {FiltersService} from './filters-service';
+
+export function filter(targetOrNameOrConfig?: string | FilterConfig, key?: string): any {
     const configurableDecorate = (target: Object, key2: string): void => {
-        const config = FilterConfig.getDefaultConfig(key2);
+        const config = getDefaultFilterConfig(key2);
         if (typeof targetOrNameOrConfig === 'string') {
             config.parameterName = targetOrNameOrConfig;
         } else {
             Object.assign(config, targetOrNameOrConfig);
         }
-        return new FilterConfig(config).register(target.constructor);
+        return FiltersService.registerFilter(target.constructor, config);
     };
 
     if (key) {

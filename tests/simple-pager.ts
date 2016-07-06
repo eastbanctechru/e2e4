@@ -1,13 +1,13 @@
 import { expect } from 'chai';
-import { SimplePager } from '../src/simplePager';
+import { SimplePager } from '../src/simple-pager';
 
-interface IResponseObject {
+interface ResponseObject {
     loadedCount: number;
     totalCount: number;
 }
 
-function toResponseObject(): IResponseObject {
-    return { loadedCount: 20, totalCount: 100 } as IResponseObject;
+function toResponseObject(): ResponseObject {
+    return { loadedCount: 20, totalCount: 100 } as ResponseObject;
 }
 describe('SimplePager', () => {
 

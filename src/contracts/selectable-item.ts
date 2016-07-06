@@ -1,4 +1,4 @@
-﻿export interface ISelectable {
+﻿export interface SelectableItem {
     selected: boolean;
     onSelected?(): void;
     onDeselected?(): void;

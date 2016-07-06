@@ -1,6 +1,6 @@
 ﻿import {Status} from './common/status';
 import {Defaults} from './common/defaults';
-import {ProgressState} from './common/progressState';
+import {ProgressState} from './common/progress-state';
 
 export class StatusTracker {
     public static status: ProgressState = ProgressState.Done;

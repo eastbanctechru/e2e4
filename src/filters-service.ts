@@ -1,17 +1,16 @@
-import {IFilterConfig} from './contracts/IFilterConfig';
+import {FilterConfig} from './contracts/filter-config';
 import {Utility} from './common/utility';
-import {IFilterManager} from './contracts/IFilterManager';
 
-export class FilterManager implements IFilterManager {
-    public static filterPropertiesMap: Map<any, Array<IFilterConfig>> = new Map<any, Array<IFilterConfig>>();
-    protected _appliedFiltersMap: Map<Object, Array<IFilterConfig>> = new Map<Object, Array<IFilterConfig>>();
+export class FiltersService {
+    public static filterPropertiesMap: Map<any, Array<FilterConfig>> = new Map<any, Array<FilterConfig>>();
+    protected _appliedFiltersMap: Map<Object, Array<FilterConfig>> = new Map<Object, Array<FilterConfig>>();
 
-    public static registerFilter(targetType: Object, propertyConfig: IFilterConfig): void {
-        const typeConfigs = FilterManager.filterPropertiesMap.has(targetType) ? FilterManager.filterPropertiesMap.get(targetType) : new Array<IFilterConfig>();
+    public static registerFilter(targetType: Object, propertyConfig: FilterConfig): void {
+        const typeConfigs = FiltersService.filterPropertiesMap.has(targetType) ? FiltersService.filterPropertiesMap.get(targetType) : new Array<FilterConfig>();
         typeConfigs.push(propertyConfig);
-        FilterManager.filterPropertiesMap.set(targetType, typeConfigs);
+        FiltersService.filterPropertiesMap.set(targetType, typeConfigs);
     }
-    public static buildFilterValue(target: Object, value: any, config: IFilterConfig): Object {
+    public static buildFilterValue(target: Object, value: any, config: FilterConfig): Object {
         if (config && config.serializeFormatter) {
             return config.serializeFormatter.call(target, value);
         }
@@ -24,7 +23,7 @@ export class FilterManager implements IFilterManager {
         if (Array.isArray(value)) {
             const temp = [];
             for (let i = 0; i < value.length; i++) {
-                temp[i] = FilterManager.buildFilterValue(target, value[i], null);
+                temp[i] = FiltersService.buildFilterValue(target, value[i], null);
             }
             return temp;
         }
@@ -34,11 +33,11 @@ export class FilterManager implements IFilterManager {
     public dispose(): void {
         this._appliedFiltersMap.clear();
     }
-    public get appliedFiltersMap(): Map<Object, Array<IFilterConfig>> {
+    public get appliedFiltersMap(): Map<Object, Array<FilterConfig>> {
         return this._appliedFiltersMap;
     }
     public resetValues(): void {
-        this._appliedFiltersMap.forEach((targetConfig: Array<IFilterConfig>, target: Object) => {
+        this._appliedFiltersMap.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
                 const defaultValue = (typeof config.defaultValue === 'function') ? (config.defaultValue as Function).call(target) : config.defaultValue;
@@ -48,7 +47,7 @@ export class FilterManager implements IFilterManager {
         });
     }
     public applyParams(params: Object): void {
-        this._appliedFiltersMap.forEach((targetConfig: Array<IFilterConfig>, target: Object) => {
+        this._appliedFiltersMap.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
                 if (params && params.hasOwnProperty(config.parameterName) && false === config.ignoreOnAutoMap) {
@@ -61,32 +60,32 @@ export class FilterManager implements IFilterManager {
     }
     public getRequestState(result?: Object): any {
         result = result || {};
-        this._appliedFiltersMap.forEach((targetConfig: Array<IFilterConfig>, target: Object) => {
+        this._appliedFiltersMap.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
                 const proposedVal = target[config.propertyName];
-                result[config.parameterName] = FilterManager.buildFilterValue(target, proposedVal, config);
+                result[config.parameterName] = FiltersService.buildFilterValue(target, proposedVal, config);
             }
         });
         return result;
     }
     public getPersistedState(result?: Object): any {
         result = result || {};
-        this._appliedFiltersMap.forEach((targetConfig: Array<IFilterConfig>, target: Object) => {
+        this._appliedFiltersMap.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
                 if (!config.persisted) {
                     continue;
                 }
                 let proposedVal = target[config.propertyName];
-                result[config.parameterName] = FilterManager.buildFilterValue(target, proposedVal, config);
+                result[config.parameterName] = FiltersService.buildFilterValue(target, proposedVal, config);
             }
         });
         return result;
     }
     public registerFilterTarget(target: Object): void {
-        let targetConfig = new Array<IFilterConfig>();
-        FilterManager.filterPropertiesMap.forEach((typeConfig: Array<IFilterConfig>, type: any) => {
+        let targetConfig = new Array<FilterConfig>();
+        FiltersService.filterPropertiesMap.forEach((typeConfig: Array<FilterConfig>, type: any) => {
             if (target instanceof type) {
                 targetConfig = targetConfig.concat(typeConfig);
                 for (let i = 0; i < targetConfig.length; i++) {

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { SortParameter } from '../../src/common/sortParameter';
-import { SortDirection } from '../../src/common/sortDirection';
+import { SortParameter } from '../../src/common/sort-parameter';
+import { SortDirection } from '../../src/common/sort-direction';
 
 describe('SortParameter', () => {
     it('creates new SortParameter with default ASC direction', () => {

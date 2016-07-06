@@ -1,36 +1,35 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
-import { FilterManager } from '../src/filterManager';
-import { filter } from '../src/filterAnnotation';
-import { FilterConfig } from '../src/filterConfig';
-import { IFilterConfig } from '../src/contracts/IFilterConfig';
+import { FiltersService } from '../src/filters-service';
+import { filter } from '../src/filter-annotation';
+import { FilterConfig, getDefaultFilterConfig } from '../src/contracts/filter-config';
 import { Utility } from '../src/common/utility';
 
-describe('FilterManager', () => {
+describe('FiltersService', () => {
     afterEach(() => {
-        FilterManager.filterPropertiesMap.clear();
+        FiltersService.filterPropertiesMap.clear();
     });
 
     describe('configs registration', () => {
 
         it('registers filter config for type', () => {
             class TargetType { };
-            const config = FilterConfig.getDefaultConfig('propertyName');
-            FilterManager.registerFilter(TargetType, config);
-            expect(FilterManager.filterPropertiesMap.has(TargetType)).true;
-            expect(FilterManager.filterPropertiesMap.get(TargetType)).eql([config]);
+            const config = getDefaultFilterConfig('propertyName');
+            FiltersService.registerFilter(TargetType, config);
+            expect(FiltersService.filterPropertiesMap.has(TargetType)).true;
+            expect(FiltersService.filterPropertiesMap.get(TargetType)).eql([config]);
 
         });
         it('registers multiple filter configs for type', () => {
             class TargetType { };
-            const config = FilterConfig.getDefaultConfig('propertyName');
-            const anotherConfig = FilterConfig.getDefaultConfig('anotherPropertyName');
+            const config = getDefaultFilterConfig('propertyName');
+            const anotherConfig = getDefaultFilterConfig('anotherPropertyName');
 
-            FilterManager.registerFilter(TargetType, config);
-            FilterManager.registerFilter(TargetType, anotherConfig);
+            FiltersService.registerFilter(TargetType, config);
+            FiltersService.registerFilter(TargetType, anotherConfig);
 
-            expect(FilterManager.filterPropertiesMap.has(TargetType)).true;
-            expect(FilterManager.filterPropertiesMap.get(TargetType)).eql([config, anotherConfig]);
+            expect(FiltersService.filterPropertiesMap.has(TargetType)).true;
+            expect(FiltersService.filterPropertiesMap.get(TargetType)).eql([config, anotherConfig]);
         });
 
         it('builds filters map for target object', () => {
@@ -39,14 +38,14 @@ describe('FilterManager', () => {
                 public first: string = 'first';
             }
             let target = new TargetType();
-            let filterManager = new FilterManager(target);
-            expect(filterManager.appliedFiltersMap.has(target)).true;
-            expect(filterManager.appliedFiltersMap.get(target).length).eql(1);
+            let filtersService = new FiltersService(target);
+            expect(filtersService.appliedFiltersMap.has(target)).true;
+            expect(filtersService.appliedFiltersMap.get(target).length).eql(1);
         });
         it('handles null as target object', () => {
-            let filterManager = new FilterManager(null);
-            filterManager.registerFilterTarget(null);
-            expect(filterManager.appliedFiltersMap.size).eq(0);
+            let filtersService = new FiltersService(null);
+            filtersService.registerFilterTarget(null);
+            expect(filtersService.appliedFiltersMap.size).eq(0);
         });
 
         it('builds filters map for target object with multiple filters', () => {
@@ -57,9 +56,9 @@ describe('FilterManager', () => {
                 public second: string = 'second';
             }
             let target = new TargetType();
-            let filterManager = new FilterManager(target);
-            expect(filterManager.appliedFiltersMap.has(target)).true;
-            expect(filterManager.appliedFiltersMap.get(target).length).eql(2);
+            let filtersService = new FiltersService(target);
+            expect(filtersService.appliedFiltersMap.has(target)).true;
+            expect(filtersService.appliedFiltersMap.get(target).length).eql(2);
         });
 
         it('builds filters map for inheritant objects', () => {
@@ -72,11 +71,11 @@ describe('FilterManager', () => {
                 public child: string = 'child property';
             }
             let target = new TargetTypeChild();
-            let filterManager = new FilterManager(target);
-            expect(filterManager.appliedFiltersMap.has(target)).true;
-            expect(filterManager.appliedFiltersMap.get(target).length).eql(2);
-            expect(filterManager.appliedFiltersMap.get(target)[0].propertyName).eql('parent');
-            expect(filterManager.appliedFiltersMap.get(target)[1].propertyName).eql('child');
+            let filtersService = new FiltersService(target);
+            expect(filtersService.appliedFiltersMap.has(target)).true;
+            expect(filtersService.appliedFiltersMap.get(target).length).eql(2);
+            expect(filtersService.appliedFiltersMap.get(target)[0].propertyName).eql('parent');
+            expect(filtersService.appliedFiltersMap.get(target)[1].propertyName).eql('child');
         });
 
         it('can compose additional objects in filters map', () => {
@@ -91,14 +90,14 @@ describe('FilterManager', () => {
             let target = new TargetType();
             let anotherTarget = new AnotherTargetType();
 
-            let filterManager = new FilterManager(target);
-            filterManager.registerFilterTarget(anotherTarget);
+            let filtersService = new FiltersService(target);
+            filtersService.registerFilterTarget(anotherTarget);
 
-            expect(filterManager.appliedFiltersMap.has(target)).true;
-            expect(filterManager.appliedFiltersMap.get(target).length).eql(1);
+            expect(filtersService.appliedFiltersMap.has(target)).true;
+            expect(filtersService.appliedFiltersMap.get(target).length).eql(1);
 
-            expect(filterManager.appliedFiltersMap.has(anotherTarget)).true;
-            expect(filterManager.appliedFiltersMap.get(anotherTarget).length).eql(1);
+            expect(filtersService.appliedFiltersMap.has(anotherTarget)).true;
+            expect(filtersService.appliedFiltersMap.get(anotherTarget).length).eql(1);
         });
 
         it('applies default values on registration', () => {
@@ -113,11 +112,11 @@ describe('FilterManager', () => {
 
             let target = new TargetType();
             let anotherTarget = new AnotherTargetType();
-            let filterManager = new FilterManager(target);
-            filterManager.registerFilterTarget(anotherTarget);
+            let filtersService = new FiltersService(target);
+            filtersService.registerFilterTarget(anotherTarget);
 
-            expect(filterManager.appliedFiltersMap.get(target)[0].defaultValue).eq(target.property);
-            expect(filterManager.appliedFiltersMap.get(anotherTarget)[0].defaultValue).eq(anotherTarget.anotherProperty);
+            expect(filtersService.appliedFiltersMap.get(target)[0].defaultValue).eq(target.property);
+            expect(filtersService.appliedFiltersMap.get(anotherTarget)[0].defaultValue).eq(anotherTarget.anotherProperty);
         });
 
         it('clones default values on registrtaion', () => {
@@ -127,9 +126,9 @@ describe('FilterManager', () => {
             }
 
             let target = new TargetType();
-            let filterManager = new FilterManager(target);
-            expect(filterManager.appliedFiltersMap.get(target)[0].defaultValue).eql(target.property);
-            expect(filterManager.appliedFiltersMap.get(target)[0].defaultValue).not.eq(target.property);
+            let filtersService = new FiltersService(target);
+            expect(filtersService.appliedFiltersMap.get(target)[0].defaultValue).eql(target.property);
+            expect(filtersService.appliedFiltersMap.get(target)[0].defaultValue).not.eq(target.property);
         });
 
         it('handles multiple registrations of same target', () => {
@@ -138,12 +137,12 @@ describe('FilterManager', () => {
                 public first: 'first';
             }
             let target = new TargetType();
-            let filterManager = new FilterManager(target);
+            let filtersService = new FiltersService(target);
 
-            filterManager.registerFilterTarget(target);
+            filtersService.registerFilterTarget(target);
 
-            expect(filterManager.appliedFiltersMap.has(target)).true;
-            expect(filterManager.appliedFiltersMap.get(target).length).eql(1);
+            expect(filtersService.appliedFiltersMap.has(target)).true;
+            expect(filtersService.appliedFiltersMap.get(target).length).eql(1);
         });
 
         it('ignores targets without filters', () => {
@@ -151,10 +150,10 @@ describe('FilterManager', () => {
                 public first: 'first';
             }
             let target = new TargetType();
-            let filterManager = new FilterManager(target);
-            filterManager.registerFilterTarget(target);
+            let filtersService = new FiltersService(target);
+            filtersService.registerFilterTarget(target);
 
-            expect(filterManager.appliedFiltersMap.has(target)).false;
+            expect(filtersService.appliedFiltersMap.has(target)).false;
         });
 
         it('clears targets on dispose', () => {
@@ -163,26 +162,26 @@ describe('FilterManager', () => {
                 public first: 'first';
             }
             let target = new TargetType();
-            let filterManager = new FilterManager(target);
-            expect(filterManager.appliedFiltersMap.has(target)).true;
-            filterManager.dispose();
-            expect(filterManager.appliedFiltersMap.has(target)).false;
+            let filtersService = new FiltersService(target);
+            expect(filtersService.appliedFiltersMap.has(target)).true;
+            filtersService.dispose();
+            expect(filtersService.appliedFiltersMap.has(target)).false;
         });
     });
     describe('get...State', () => {
         it('includes \'persisted\' filters to persisted state and all filters to requestState', () => {
             class TargetType {
-                @filter({ persisted: true } as IFilterConfig)
+                @filter({ persisted: true } as FilterConfig)
                 public first: string = 'first';
                 @filter
                 public second: string = 'second';
             }
             let target = new TargetType();
-            let filterManager = new FilterManager(target);
-            let persistedState = filterManager.getPersistedState();
+            let filtersService = new FiltersService(target);
+            let persistedState = filtersService.getPersistedState();
             expect(persistedState.first).eq(target.first);
             expect(persistedState.second).undefined;
-            let requestState = filterManager.getRequestState();
+            let requestState = filtersService.getRequestState();
             expect(requestState.first).eq(target.first);
             expect(requestState.second).eq(target.second);
         });
@@ -190,15 +189,15 @@ describe('FilterManager', () => {
         it('calls \'toRequest\' method on filter if defined', () => {
 
             class TargetType {
-                @filter({ persisted: true } as IFilterConfig)
+                @filter({ persisted: true } as FilterConfig)
                 public first: any = { toRequest: sinon.spy(() => { return 'first'; }) };
             }
             let target = new TargetType();
-            let filterManager = new FilterManager(target);
-            let persistedState = filterManager.getPersistedState();
+            let filtersService = new FiltersService(target);
+            let persistedState = filtersService.getPersistedState();
             expect(target.first.toRequest.calledOnce).true;
 
-            let requestState = filterManager.getRequestState();
+            let requestState = filtersService.getRequestState();
             expect(target.first.toRequest.calledTwice).true;
 
             expect(persistedState.first).eq(target.first.toRequest());
@@ -208,12 +207,12 @@ describe('FilterManager', () => {
         it('calls \'serializeFormatter\' method of config if defined', () => {
             let serializeSpy = sinon.spy(() => { return 'first'; });
             class TargetType {
-                @filter({ persisted: true, serializeFormatter: serializeSpy } as IFilterConfig)
+                @filter({ persisted: true, serializeFormatter: serializeSpy } as FilterConfig)
                 public first: string = 'first';
             }
             let target = new TargetType();
-            let filterManager = new FilterManager(target);
-            let persistedState = filterManager.getPersistedState();
+            let filtersService = new FiltersService(target);
+            let persistedState = filtersService.getPersistedState();
             expect(serializeSpy.calledOnce).true;
             expect(serializeSpy.calledOn(target)).true;
             expect(serializeSpy.calledWith(target.first)).true;
@@ -221,7 +220,7 @@ describe('FilterManager', () => {
         });
 
         it('handles emptyIsNullFlag', () => {
-            let cfg = { emptyIsNull: true, persisted: true } as IFilterConfig;
+            let cfg = { emptyIsNull: true, persisted: true } as FilterConfig;
             class TargetType {
                 @filter(cfg)
                 public zero: number = 0;
@@ -239,16 +238,16 @@ describe('FilterManager', () => {
                 public falseProperty: boolean = false;
             }
             let target = new TargetType();
-            let filterManager = new FilterManager(target);
+            let filtersService = new FiltersService(target);
 
-            let persistedState = filterManager.getPersistedState();
+            let persistedState = filtersService.getPersistedState();
             expect(persistedState.zero).null;
             expect(persistedState.emptyString).null;
             expect(persistedState.nullProperty).null;
             expect(persistedState.undefinedProperty).null;
             expect(persistedState.falseProperty).null;
 
-            let requestState = filterManager.getRequestState();
+            let requestState = filtersService.getRequestState();
             expect(requestState.zero).null;
             expect(requestState.emptyString).null;
             expect(requestState.nullProperty).null;
@@ -258,18 +257,18 @@ describe('FilterManager', () => {
         it('handles arrays', () => {
             let toRequestSpy = sinon.spy(() => { return 'first'; });
             class TargetType {
-                @filter({ persisted: true } as IFilterConfig)
+                @filter({ persisted: true } as FilterConfig)
                 public arrayProperty: Array<any> = [{ toRequest: toRequestSpy }, 'first'];
             }
 
             let target = new TargetType();
-            let filterManager = new FilterManager(target);
+            let filtersService = new FiltersService(target);
 
-            let persistedState = filterManager.getPersistedState();
+            let persistedState = filtersService.getPersistedState();
             expect(persistedState.arrayProperty).eql(['first', 'first']);
             expect(toRequestSpy.calledOnce).true;
 
-            let requestState = filterManager.getRequestState();
+            let requestState = filtersService.getRequestState();
             expect(requestState.arrayProperty).eql(['first', 'first']);
             expect(toRequestSpy.calledTwice).true;
         });
@@ -290,7 +289,7 @@ describe('FilterManager', () => {
             }
 
             let target = new TargetType();
-            let filterManager = new FilterManager(target);
+            let filtersService = new FiltersService(target);
             let params = {
                 booleanProperty: 'false',
                 nullProperty: 'null',
@@ -299,12 +298,12 @@ describe('FilterManager', () => {
                 undefinedProperty: 'undefined'
             };
             let coercedParams = Utility.coerceValue(Utility.cloneLiteral(params));
-            filterManager.applyParams(params);
+            filtersService.applyParams(params);
             expect(target).eql(coercedParams);
         });
 
         it('doesn\'t coerce values if specified', () => {
-            let cfg = { coerce: false } as IFilterConfig;
+            let cfg = { coerce: false } as FilterConfig;
             class TargetType {
                 @filter(cfg)
                 public booleanProperty: any;
@@ -319,7 +318,7 @@ describe('FilterManager', () => {
             }
 
             let target = new TargetType();
-            let filterManager = new FilterManager(target);
+            let filtersService = new FiltersService(target);
             let params = {
                 booleanProperty: 'false',
                 nullProperty: 'null',
@@ -327,31 +326,31 @@ describe('FilterManager', () => {
                 stringProperty: 'value',
                 undefinedProperty: 'undefined'
             };
-            filterManager.applyParams(params);
+            filtersService.applyParams(params);
             expect(target).eql(params);
         });
 
         it('skip if ignoreOnAutoMap setted to true', () => {
             class TargetType {
-                @filter({ ignoreOnAutoMap: true } as IFilterConfig)
+                @filter({ ignoreOnAutoMap: true } as FilterConfig)
                 public ignoredProperty: 'old value';
                 @filter
                 public mappedProperty: 'old value';
             }
 
             let target = new TargetType();
-            let filterManager = new FilterManager(target);
+            let filtersService = new FiltersService(target);
             let params = {
                 ignoredProperty: 'new value',
                 mappedProperty: 'new value'
             };
-            filterManager.applyParams(params);
+            filtersService.applyParams(params);
             expect(target.ignoredProperty).not.eql(params.ignoredProperty);
             expect(target.mappedProperty).eql(params.mappedProperty);
         });
 
         it('handles emptyIsNullFlag', () => {
-            let cfg = { emptyIsNull: true, persisted: true } as IFilterConfig;
+            let cfg = { emptyIsNull: true, persisted: true } as FilterConfig;
             class TargetType {
                 @filter(cfg)
                 public zero: number = 0;
@@ -366,7 +365,7 @@ describe('FilterManager', () => {
                 public falseProperty: boolean = false;
             }
             let target = new TargetType();
-            let filterManager = new FilterManager(target);
+            let filtersService = new FiltersService(target);
 
             let params = {
                 emptyString: '',
@@ -375,7 +374,7 @@ describe('FilterManager', () => {
                 zero: 0
             };
 
-            filterManager.applyParams(params);
+            filtersService.applyParams(params);
             expect(target.zero).null;
             expect(target.emptyString).null;
             expect(target.nullProperty).null;
@@ -385,16 +384,16 @@ describe('FilterManager', () => {
             let parseSpy = sinon.spy((value: string) => { return 'parsed ' + value; });
 
             class TargetType {
-                @filter({ parseFormatter: parseSpy } as IFilterConfig)
+                @filter({ parseFormatter: parseSpy } as FilterConfig)
                 public value: string;
             }
             let target = new TargetType();
-            let filterManager = new FilterManager(target);
+            let filtersService = new FiltersService(target);
 
             let params = {
                 value: 'value'
             };
-            filterManager.applyParams(params);
+            filtersService.applyParams(params);
 
             expect(parseSpy.calledOnce).true;
             expect(parseSpy.calledOn(target)).true;
@@ -404,15 +403,15 @@ describe('FilterManager', () => {
     });
     describe('resetValues', () => {
         it('reset values to defaultValue', () => {
-            let cfg = { defaultValue: 'default value' } as IFilterConfig;
+            let cfg = { defaultValue: 'default value' } as FilterConfig;
             class TargetType {
                 @filter(cfg)
                 public value: string = 'string value';
             }
             let target = new TargetType();
-            let filterManager = new FilterManager(target);
+            let filtersService = new FiltersService(target);
 
-            filterManager.resetValues();
+            filtersService.resetValues();
 
             expect(target.value).eql(cfg.defaultValue);
         });
@@ -420,12 +419,12 @@ describe('FilterManager', () => {
             let defaultSpy = sinon.spy(() => { return 'default value'; });
 
             class TargetType {
-                @filter({ defaultValue: defaultSpy } as IFilterConfig)
+                @filter({ defaultValue: defaultSpy } as FilterConfig)
                 public value: string = 'string value';
             }
             let target = new TargetType();
-            let filterManager = new FilterManager(target);
-            filterManager.resetValues();
+            let filtersService = new FiltersService(target);
+            filtersService.resetValues();
 
             expect(defaultSpy.calledOnce).true;
             expect(defaultSpy.calledOn(target)).true;
@@ -437,13 +436,13 @@ describe('FilterManager', () => {
             let parseSpy = sinon.spy((value: string) => { return 'parsed ' + value; });
 
             class TargetType {
-                @filter({ parseFormatter: parseSpy } as IFilterConfig)
+                @filter({ parseFormatter: parseSpy } as FilterConfig)
                 public value: string = defaultValue;
             }
             let target = new TargetType();
-            let filterManager = new FilterManager(target);
+            let filtersService = new FiltersService(target);
 
-            filterManager.resetValues();
+            filtersService.resetValues();
 
             expect(parseSpy.calledOnce).true;
             expect(parseSpy.calledOn(target)).true;

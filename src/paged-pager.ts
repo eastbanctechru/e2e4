@@ -1,9 +1,9 @@
 import {Defaults} from './common/defaults';
-import {IPager} from './contracts/IPager';
-import {filter} from './filterAnnotation';
-import {IFilterConfig} from './contracts/IFilterConfig';
+import {Pager} from './contracts/pager';
+import {filter} from './filter-annotation';
+import {FilterConfig} from './contracts/filter-config';
 
-export class PagedPager implements IPager {
+export class PagedPager implements Pager {
     protected _pageSize: number = Defaults.pagedListSettings.defaultPageSize;
     @filter({
         defaultValue: 1,
@@ -11,7 +11,7 @@ export class PagedPager implements IPager {
         parseFormatter: function (rawValue: any): number {
             return isNaN(rawValue) || !rawValue ? 1 : rawValue;
         }
-    } as IFilterConfig)
+    } as FilterConfig)
     protected _pageNumber: number = 1;
 
     public defaultPageSize: number = Defaults.pagedListSettings.defaultPageSize;

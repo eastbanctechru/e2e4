@@ -1,4 +1,4 @@
-export interface IPager {
+export interface Pager {
     totalCount: number;
     loadedCount: number;
     reset(): void;

@@ -1,49 +1,49 @@
-import {ISelectionConfig} from './contracts/ISelectionConfig';
-import {KeyCodes} from './common/keyCodes';
-import {MouseButtons} from './common/mouseButtons';
+import {SelectionAreaConfig} from './contracts/selection-area-config';
+import {KeyCodes} from './common/key-codes';
+import {MouseButtons} from './common/mouse-buttons';
 
 export class SelectionEventsHelper {
-    public selectionConfig: ISelectionConfig;
-    constructor(selectionConfig: ISelectionConfig) {
+    public selectionConfig: SelectionAreaConfig;
+    constructor(selectionConfig: SelectionAreaConfig) {
         this.selectionConfig = selectionConfig;
     }
     protected trySelectAll(ctrlPressed: boolean, shiftPressed: boolean): boolean {
         if (ctrlPressed && !shiftPressed) {
-            this.selectionConfig.selectionManager.selectAll();
+            this.selectionConfig.selectionService.selectAll();
             return true;
         }
         return false;
     }
 
     protected trySelectPreviousItem(shiftKeyPressed: boolean): boolean {
-        if (this.selectionConfig.selectionManager.lastProcessedIndex > 0) {
-            this.selectionConfig.selectionManager.selectIndex(this.selectionConfig.selectionManager.lastProcessedIndex - 1, shiftKeyPressed && this.selectionConfig.allowMultipleSelection);
+        if (this.selectionConfig.selectionService.lastProcessedIndex > 0) {
+            this.selectionConfig.selectionService.selectIndex(this.selectionConfig.selectionService.lastProcessedIndex - 1, shiftKeyPressed && this.selectionConfig.allowMultipleSelection);
             return true;
         }
         return false;
     }
     protected trySelectNextItem(shiftKeyPressed: boolean): boolean {
-        if (this.selectionConfig.selectionManager.lastProcessedIndex < this.selectionConfig.selectionManager.itemsSource.length - 1) {
-            this.selectionConfig.selectionManager.selectIndex(this.selectionConfig.selectionManager.lastProcessedIndex + 1, shiftKeyPressed && this.selectionConfig.allowMultipleSelection);
+        if (this.selectionConfig.selectionService.lastProcessedIndex < this.selectionConfig.selectionService.itemsSource.length - 1) {
+            this.selectionConfig.selectionService.selectIndex(this.selectionConfig.selectionService.lastProcessedIndex + 1, shiftKeyPressed && this.selectionConfig.allowMultipleSelection);
             return true;
         }
         return false;
     }
     protected tryDeselectLastItemInRange(shiftKeyPressed: boolean): boolean {
-        if (this.selectionConfig.selectionManager.lastProcessedIndex > 0 && shiftKeyPressed) {
-            if (this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex - 1)) {
-                this.selectionConfig.selectionManager.deselectIndex(this.selectionConfig.selectionManager.lastProcessedIndex);
-                this.selectionConfig.selectionManager.lastProcessedIndex = this.selectionConfig.selectionManager.lastProcessedIndex - 1;
+        if (this.selectionConfig.selectionService.lastProcessedIndex > 0 && shiftKeyPressed) {
+            if (this.selectionConfig.selectionService.isIndexSelected(this.selectionConfig.selectionService.lastProcessedIndex - 1)) {
+                this.selectionConfig.selectionService.deselectIndex(this.selectionConfig.selectionService.lastProcessedIndex);
+                this.selectionConfig.selectionService.lastProcessedIndex = this.selectionConfig.selectionService.lastProcessedIndex - 1;
                 return true;
             }
         }
         return false;
     }
     protected tryDeselectLastItemInReversedRange(shiftKeyPressed: boolean): boolean {
-        if (this.selectionConfig.selectionManager.lastProcessedIndex < this.selectionConfig.selectionManager.itemsSource.length && shiftKeyPressed) {
-            if (this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex + 1)) {
-                this.selectionConfig.selectionManager.deselectIndex(this.selectionConfig.selectionManager.lastProcessedIndex);
-                this.selectionConfig.selectionManager.lastProcessedIndex = this.selectionConfig.selectionManager.lastProcessedIndex + 1;
+        if (this.selectionConfig.selectionService.lastProcessedIndex < this.selectionConfig.selectionService.itemsSource.length && shiftKeyPressed) {
+            if (this.selectionConfig.selectionService.isIndexSelected(this.selectionConfig.selectionService.lastProcessedIndex + 1)) {
+                this.selectionConfig.selectionService.deselectIndex(this.selectionConfig.selectionService.lastProcessedIndex);
+                this.selectionConfig.selectionService.lastProcessedIndex = this.selectionConfig.selectionService.lastProcessedIndex + 1;
                 return true;
             }
         }
@@ -51,51 +51,51 @@ export class SelectionEventsHelper {
     }
 
     protected tryBuildRangeWithPreviousItemWhenLastItemWasUnselected(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
-        if (!ctrlKeyPressed && shiftKeyPressed && false === this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex)) {
-            this.selectionConfig.selectionManager.selectRange(this.selectionConfig.selectionManager.lastProcessedIndex, this.selectionConfig.selectionManager.lastProcessedIndex - 1);
+        if (!ctrlKeyPressed && shiftKeyPressed && false === this.selectionConfig.selectionService.isIndexSelected(this.selectionConfig.selectionService.lastProcessedIndex)) {
+            this.selectionConfig.selectionService.selectRange(this.selectionConfig.selectionService.lastProcessedIndex, this.selectionConfig.selectionService.lastProcessedIndex - 1);
             return true;
         }
         return false;
     }
 
     protected tryBuildRangeWithNextItemWhenLastItemWasUnselected(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
-        if (!ctrlKeyPressed && shiftKeyPressed && false === this.selectionConfig.selectionManager.isIndexSelected(this.selectionConfig.selectionManager.lastProcessedIndex)) {
-            this.selectionConfig.selectionManager.selectRange(this.selectionConfig.selectionManager.lastProcessedIndex, this.selectionConfig.selectionManager.lastProcessedIndex + 1);
+        if (!ctrlKeyPressed && shiftKeyPressed && false === this.selectionConfig.selectionService.isIndexSelected(this.selectionConfig.selectionService.lastProcessedIndex)) {
+            this.selectionConfig.selectionService.selectRange(this.selectionConfig.selectionService.lastProcessedIndex, this.selectionConfig.selectionService.lastProcessedIndex + 1);
             return true;
         }
         return false;
     }
     protected tryInitialSelectionOfFirstItem(): boolean {
-        if (this.selectionConfig.selectionManager.lastProcessedIndex === null) {
-            this.selectionConfig.selectionManager.selectFirst();
+        if (this.selectionConfig.selectionService.lastProcessedIndex === null) {
+            this.selectionConfig.selectionService.selectFirst();
             return true;
         }
         return false;
     }
     protected trySelectAllItemsUpToFirst(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
-        if (this.selectionConfig.selectionManager.lastProcessedIndex !== null && ctrlKeyPressed && shiftKeyPressed && this.selectionConfig.allowMultipleSelection) {
-            this.selectionConfig.selectionManager.selectRange(this.selectionConfig.selectionManager.lastProcessedIndex, 0);
+        if (this.selectionConfig.selectionService.lastProcessedIndex !== null && ctrlKeyPressed && shiftKeyPressed && this.selectionConfig.allowMultipleSelection) {
+            this.selectionConfig.selectionService.selectRange(this.selectionConfig.selectionService.lastProcessedIndex, 0);
             return true;
         }
         return false;
     }
     protected trySelectAllItemsUpToLast(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
-        if (this.selectionConfig.selectionManager.lastProcessedIndex !== null && ctrlKeyPressed && shiftKeyPressed && this.selectionConfig.allowMultipleSelection) {
-            this.selectionConfig.selectionManager.selectRange(this.selectionConfig.selectionManager.lastProcessedIndex, this.selectionConfig.selectionManager.itemsSource.length - 1);
+        if (this.selectionConfig.selectionService.lastProcessedIndex !== null && ctrlKeyPressed && shiftKeyPressed && this.selectionConfig.allowMultipleSelection) {
+            this.selectionConfig.selectionService.selectRange(this.selectionConfig.selectionService.lastProcessedIndex, this.selectionConfig.selectionService.itemsSource.length - 1);
             return true;
         }
         return false;
     }
     protected trySelectFirstItem(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
         if (ctrlKeyPressed && !shiftKeyPressed) {
-            this.selectionConfig.selectionManager.selectFirst();
+            this.selectionConfig.selectionService.selectFirst();
             return true;
         }
         return false;
     }
     protected trySelectLastItem(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
         if (ctrlKeyPressed && !shiftKeyPressed) {
-            this.selectionConfig.selectionManager.selectLast();
+            this.selectionConfig.selectionService.selectLast();
             return true;
         }
         return false;
@@ -134,16 +134,16 @@ export class SelectionEventsHelper {
         }
     }
     public mouseHandler(ctrlKeyPressed: boolean, shiftKeyPressed: boolean, mouseButton: MouseButtons, itemIndex: number): boolean {
-        const isItemSelected = this.selectionConfig.selectionManager.isIndexSelected(itemIndex);
+        const isItemSelected = this.selectionConfig.selectionService.isIndexSelected(itemIndex);
         if (isItemSelected !== false && mouseButton !== MouseButtons.Left) {
             return false;
         }
         if (shiftKeyPressed && this.selectionConfig.allowMultipleSelection) {
-            const minIndex = this.selectionConfig.selectionManager.getMinSelectedIndex();
-            this.selectionConfig.selectionManager.selectRange(minIndex === null ? itemIndex : minIndex, itemIndex);
+            const minIndex = this.selectionConfig.selectionService.getMinSelectedIndex();
+            this.selectionConfig.selectionService.selectRange(minIndex === null ? itemIndex : minIndex, itemIndex);
         } else {
             let multiple = (ctrlKeyPressed || this.selectionConfig.toggleOnly) && this.selectionConfig.allowMultipleSelection;
-            this.selectionConfig.selectionManager.toggleSelection(itemIndex, multiple);
+            this.selectionConfig.selectionService.toggleSelection(itemIndex, multiple);
         }
         return true;
     }

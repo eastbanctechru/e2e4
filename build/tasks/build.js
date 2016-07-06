@@ -47,6 +47,7 @@ gulp.task('build-commonjs', function () {
 gulp.task('build', function (callback) {
     return runSequence(
         [
+            'clean',
             'build-commonjs',
             'build-es6'
         ],
