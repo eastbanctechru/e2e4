@@ -27,7 +27,7 @@ function toSelectionService(): DefaultSelectionService {
 
 function toDefaultSelectionHelper(): SelectionEventsHelper {
     return new SelectionEventsHelper({
-        allowMultipleSelection: true,
+        multiple: true,
         horizontal: false,
         selectionService: toSelectionService(),
         toggleOnly: false
@@ -315,7 +315,7 @@ describe('SelectionEventsHelper', () => {
         describe('allowMultipleSelection setted to false', () => {
             it('selects previous item on Ctrl?+Shift+ArrowUp combination and allowMultipleSelection setted to false', () => {
                 let helper = toDefaultSelectionHelper();
-                helper.selectionConfig.allowMultipleSelection = false;
+                helper.selectionConfig.multiple = false;
                 helper.selectionConfig.selectionService.selectLast();
                 let lastItemIndex = helper.selectionConfig.selectionService.itemsSource.length - 1;
                 expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([lastItemIndex]);
@@ -328,7 +328,7 @@ describe('SelectionEventsHelper', () => {
 
             it('selects up to last item on Ctrl+Shift+ArrowDown combination', () => {
                 let helper = toDefaultSelectionHelper();
-                helper.selectionConfig.allowMultipleSelection = false;
+                helper.selectionConfig.multiple = false;
                 helper.selectionConfig.selectionService.selectFirst();
                 let firstItemIndex = 0;
 
@@ -342,7 +342,7 @@ describe('SelectionEventsHelper', () => {
 
             it('moves to previous item on Shift+ArrowUp when not first item selected', () => {
                 let helper = toDefaultSelectionHelper();
-                helper.selectionConfig.allowMultipleSelection = false;
+                helper.selectionConfig.multiple = false;
                 helper.selectionConfig.selectionService.selectIndex(3);
                 expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([3]);
                 helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowUp);
@@ -353,7 +353,7 @@ describe('SelectionEventsHelper', () => {
 
             it('moves to next item on Shift+ArrowDown when not last item selected', () => {
                 let helper = toDefaultSelectionHelper();
-                helper.selectionConfig.allowMultipleSelection = false;
+                helper.selectionConfig.multiple = false;
                 helper.selectionConfig.selectionService.selectIndex(1);
                 expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([1]);
                 helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowDown);

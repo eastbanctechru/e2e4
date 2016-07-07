@@ -17,14 +17,14 @@ export class SelectionEventsHelper {
 
     protected trySelectPreviousItem(shiftKeyPressed: boolean): boolean {
         if (this.selectionConfig.selectionService.lastProcessedIndex > 0) {
-            this.selectionConfig.selectionService.selectIndex(this.selectionConfig.selectionService.lastProcessedIndex - 1, shiftKeyPressed && this.selectionConfig.allowMultipleSelection);
+            this.selectionConfig.selectionService.selectIndex(this.selectionConfig.selectionService.lastProcessedIndex - 1, shiftKeyPressed && this.selectionConfig.multiple);
             return true;
         }
         return false;
     }
     protected trySelectNextItem(shiftKeyPressed: boolean): boolean {
         if (this.selectionConfig.selectionService.lastProcessedIndex < this.selectionConfig.selectionService.itemsSource.length - 1) {
-            this.selectionConfig.selectionService.selectIndex(this.selectionConfig.selectionService.lastProcessedIndex + 1, shiftKeyPressed && this.selectionConfig.allowMultipleSelection);
+            this.selectionConfig.selectionService.selectIndex(this.selectionConfig.selectionService.lastProcessedIndex + 1, shiftKeyPressed && this.selectionConfig.multiple);
             return true;
         }
         return false;
@@ -73,14 +73,14 @@ export class SelectionEventsHelper {
         return false;
     }
     protected trySelectAllItemsUpToFirst(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
-        if (this.selectionConfig.selectionService.lastProcessedIndex !== null && ctrlKeyPressed && shiftKeyPressed && this.selectionConfig.allowMultipleSelection) {
+        if (this.selectionConfig.selectionService.lastProcessedIndex !== null && ctrlKeyPressed && shiftKeyPressed && this.selectionConfig.multiple) {
             this.selectionConfig.selectionService.selectRange(this.selectionConfig.selectionService.lastProcessedIndex, 0);
             return true;
         }
         return false;
     }
     protected trySelectAllItemsUpToLast(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
-        if (this.selectionConfig.selectionService.lastProcessedIndex !== null && ctrlKeyPressed && shiftKeyPressed && this.selectionConfig.allowMultipleSelection) {
+        if (this.selectionConfig.selectionService.lastProcessedIndex !== null && ctrlKeyPressed && shiftKeyPressed && this.selectionConfig.multiple) {
             this.selectionConfig.selectionService.selectRange(this.selectionConfig.selectionService.lastProcessedIndex, this.selectionConfig.selectionService.itemsSource.length - 1);
             return true;
         }
@@ -138,11 +138,11 @@ export class SelectionEventsHelper {
         if (isItemSelected !== false && mouseButton !== MouseButtons.Left) {
             return false;
         }
-        if (shiftKeyPressed && this.selectionConfig.allowMultipleSelection) {
+        if (shiftKeyPressed && this.selectionConfig.multiple) {
             const minIndex = this.selectionConfig.selectionService.getMinSelectedIndex();
             this.selectionConfig.selectionService.selectRange(minIndex === null ? itemIndex : minIndex, itemIndex);
         } else {
-            let multiple = (ctrlKeyPressed || this.selectionConfig.toggleOnly) && this.selectionConfig.allowMultipleSelection;
+            let multiple = (ctrlKeyPressed || this.selectionConfig.toggleOnly) && this.selectionConfig.multiple;
             this.selectionConfig.selectionService.toggleSelection(itemIndex, multiple);
         }
         return true;
