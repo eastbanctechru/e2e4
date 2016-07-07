@@ -6,6 +6,7 @@ reports
 **/*.js.map
 **/*.d.ts
 esm
+npm-debug.log
 
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio
