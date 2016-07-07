@@ -16,7 +16,7 @@ export class BufferedPager implements Pager {
             return result || this.defaultRowCount;
         }
     } as FilterConfig)
-    protected _takeRowCount: number = Defaults.bufferedListSettings.defaultRowCount;
+    protected takeRowCountInternal: number = Defaults.bufferedListSettings.defaultRowCount;
 
     public totalCount: number = 0;
     public loadedCount: number = 0;
@@ -32,7 +32,7 @@ export class BufferedPager implements Pager {
     public skip: number = 0;
 
     public get takeRowCount(): number {
-        return this._takeRowCount;
+        return this.takeRowCountInternal;
     }
 
     public set takeRowCount(value: number) {
@@ -49,7 +49,7 @@ export class BufferedPager implements Pager {
                 rowCount = this.totalCount - this.skip;
             }
         }
-        this._takeRowCount = rowCount;
+        this.takeRowCountInternal = rowCount;
     }
 
     public processResponse(result: Object): void {

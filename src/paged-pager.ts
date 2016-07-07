@@ -4,7 +4,7 @@ import {filter} from './filter-annotation';
 import {FilterConfig} from './contracts/filter-config';
 
 export class PagedPager implements Pager {
-    protected _pageSize: number = Defaults.pagedListSettings.defaultPageSize;
+    protected pageSizeInternal: number = Defaults.pagedListSettings.defaultPageSize;
     @filter({
         defaultValue: 1,
         parameterName: Defaults.pagedListSettings.pageNumberParameterName,
@@ -12,7 +12,7 @@ export class PagedPager implements Pager {
             return isNaN(rawValue) || !rawValue ? 1 : rawValue;
         }
     } as FilterConfig)
-    protected _pageNumber: number = 1;
+    protected pageNumberInternal: number = 1;
 
     public defaultPageSize: number = Defaults.pagedListSettings.defaultPageSize;
     public maxPageSize: number = Defaults.pagedListSettings.maxPageSize;
@@ -23,10 +23,10 @@ export class PagedPager implements Pager {
     public displayTo: number = 0;
 
     public get pageCount(): number {
-        return Math.ceil(this.totalCount / this._pageSize);
+        return Math.ceil(this.totalCount / this.pageSizeInternal);
     }
     public get pageNumber(): number {
-        return this._pageNumber;
+        return this.pageNumberInternal;
     }
     public set pageNumber(value: number) {
         const valueStr = (value + '').replace(/[^0-9]/g, '');
@@ -37,7 +37,7 @@ export class PagedPager implements Pager {
         if (pageNumber < 1) {
             pageNumber = 1;
         }
-        this._pageNumber = pageNumber;
+        this.pageNumberInternal = pageNumber;
     }
     @filter({
         defaultValue: function (): number { return this.defaultPageSize; },
@@ -48,7 +48,7 @@ export class PagedPager implements Pager {
         persisted: Defaults.pagedListSettings.persistPageSize
     })
     public get pageSize(): number {
-        return this._pageSize;
+        return this.pageSizeInternal;
     }
     public set pageSize(value: number) {
         const valueStr = (value + '').replace(/[^0-9]/g, '');
@@ -70,7 +70,7 @@ export class PagedPager implements Pager {
             pageSize = this.defaultPageSize;
         }
 
-        this._pageSize = pageSize;
+        this.pageSizeInternal = pageSize;
     }
 
     public processResponse(result: Object): void {

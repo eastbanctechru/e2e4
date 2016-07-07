@@ -4,7 +4,7 @@ import {SortParameter} from './common/sort-parameter';
 import {filter} from './filter-annotation';
 
 export class SortingsService {
-    protected _defaultSortings: SortParameter[] = new Array<SortParameter>();
+    protected defaultSortingsInternal: SortParameter[] = new Array<SortParameter>();
     @filter({
         defaultValue: function (): Array<SortParameter> { return this.cloneDefaultSortings(); },
         parameterName: Defaults.listSettings.sortParameterName,
@@ -16,13 +16,13 @@ export class SortingsService {
     public sortings: Array<SortParameter> = new Array<SortParameter>();
 
     protected cloneDefaultSortings(): Array<SortParameter> {
-        return this._defaultSortings.map((s: SortParameter) => new SortParameter(s.fieldName, s.direction));
+        return this.defaultSortingsInternal.map((s: SortParameter) => new SortParameter(s.fieldName, s.direction));
     }
     public get defaultSortings(): SortParameter[] {
-        return this._defaultSortings;
+        return this.defaultSortingsInternal;
     }
     public set defaultSortings(value: Array<SortParameter>) {
-        this._defaultSortings = value || [];
+        this.defaultSortingsInternal = value || [];
         if (this.sortings.length === 0) {
             this.sortings = this.cloneDefaultSortings();
         }
@@ -45,7 +45,7 @@ export class SortingsService {
         }
     }
     public dispose(): void {
-        this._defaultSortings.length = 0;
+        this.defaultSortingsInternal.length = 0;
         this.sortings.length = 0;
     }
 }

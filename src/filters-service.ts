@@ -3,7 +3,7 @@ import {Utility} from './common/utility';
 
 export class FiltersService {
     public static filterPropertiesMap: Map<any, Array<FilterConfig>> = new Map<any, Array<FilterConfig>>();
-    protected _appliedFiltersMap: Map<Object, Array<FilterConfig>> = new Map<Object, Array<FilterConfig>>();
+    protected appliedFiltersMapInternal: Map<Object, Array<FilterConfig>> = new Map<Object, Array<FilterConfig>>();
 
     public static registerFilter(targetType: Object, propertyConfig: FilterConfig): void {
         const typeConfigs = FiltersService.filterPropertiesMap.has(targetType) ? FiltersService.filterPropertiesMap.get(targetType) : new Array<FilterConfig>();
@@ -31,13 +31,13 @@ export class FiltersService {
     }
 
     public dispose(): void {
-        this._appliedFiltersMap.clear();
+        this.appliedFiltersMapInternal.clear();
     }
     public get appliedFiltersMap(): Map<Object, Array<FilterConfig>> {
-        return this._appliedFiltersMap;
+        return this.appliedFiltersMapInternal;
     }
     public resetValues(): void {
-        this._appliedFiltersMap.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
+        this.appliedFiltersMapInternal.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
                 const defaultValue = (typeof config.defaultValue === 'function') ? (config.defaultValue as Function).call(target) : config.defaultValue;
@@ -47,7 +47,7 @@ export class FiltersService {
         });
     }
     public applyParams(params: Object): void {
-        this._appliedFiltersMap.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
+        this.appliedFiltersMapInternal.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
                 if (params && params.hasOwnProperty(config.parameterName) && false === config.ignoreOnAutoMap) {
@@ -60,7 +60,7 @@ export class FiltersService {
     }
     public getRequestState(result?: Object): any {
         result = result || {};
-        this._appliedFiltersMap.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
+        this.appliedFiltersMapInternal.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
                 const proposedVal = target[config.propertyName];
@@ -71,7 +71,7 @@ export class FiltersService {
     }
     public getPersistedState(result?: Object): any {
         result = result || {};
-        this._appliedFiltersMap.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
+        this.appliedFiltersMapInternal.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
                 if (!config.persisted) {
@@ -97,9 +97,9 @@ export class FiltersService {
             }
         });
         if (targetConfig.length > 0) {
-            this._appliedFiltersMap.set(target, targetConfig);
+            this.appliedFiltersMapInternal.set(target, targetConfig);
         } else {
-            this._appliedFiltersMap.delete(target);
+            this.appliedFiltersMapInternal.delete(target);
         }
     }
     constructor(target?: Object) {
