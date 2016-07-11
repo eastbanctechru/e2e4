@@ -27,8 +27,8 @@ function toSelectionService(): DefaultSelectionService {
 
 function toDefaultSelectionHelper(): SelectionEventsHelper {
     return new SelectionEventsHelper({
-        multiple: true,
         horizontal: false,
+        multiple: true,
         selectionService: toSelectionService(),
         toggleOnly: false
     } as SelectionAreaConfig);
