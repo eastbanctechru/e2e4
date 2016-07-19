@@ -3,9 +3,7 @@ import {KeyCodes} from './common/key-codes';
 import {MouseButtons} from './common/mouse-buttons';
 
 export class SelectionEventsHelper {
-    public selectionConfig: SelectionAreaConfig;
-    constructor(selectionConfig: SelectionAreaConfig) {
-        this.selectionConfig = selectionConfig;
+    constructor(public selectionConfig: SelectionAreaConfig) {
     }
     protected trySelectAll(ctrlPressed: boolean, shiftPressed: boolean): boolean {
         if (ctrlPressed && !shiftPressed) {

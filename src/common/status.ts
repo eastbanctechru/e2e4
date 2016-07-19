@@ -1,9 +1,7 @@
 ﻿import {ProgressState} from './progress-state';
 export class Status {
     public sid: number;
-    public status: ProgressState;
-    public title: string;
-    constructor(status: ProgressState, title: string) {
+    constructor(public status: ProgressState, public title: string) {
         this.status = status;
         this.title = title;
     }

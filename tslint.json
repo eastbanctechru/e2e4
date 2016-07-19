@@ -19,7 +19,6 @@
             "static-before-instance",
             "variables-before-functions"
         ],
-        "no-constructor-vars": true,
         "no-default-export": true,
         "no-inferrable-types": false,
         "no-mergeable-namespace": true,
