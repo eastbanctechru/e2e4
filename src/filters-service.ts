@@ -4,6 +4,7 @@ import {Utility} from './common/utility';
 export class FiltersService {
     public static filterPropertiesMap: Map<any, Array<FilterConfig>> = new Map<any, Array<FilterConfig>>();
     protected appliedFiltersMapInternal: Map<Object, Array<FilterConfig>> = new Map<Object, Array<FilterConfig>>();
+    protected filtersMapBuilded: boolean = false;
 
     public static registerFilter(targetType: Object, propertyConfig: FilterConfig): void {
         const typeConfigs = FiltersService.filterPropertiesMap.has(targetType) ? FiltersService.filterPropertiesMap.get(targetType) : new Array<FilterConfig>();
@@ -34,10 +35,13 @@ export class FiltersService {
         this.appliedFiltersMapInternal.clear();
     }
     public get appliedFiltersMap(): Map<Object, Array<FilterConfig>> {
+        if (!this.filtersMapBuilded) {
+            this.buildFiltersMap();
+        }
         return this.appliedFiltersMapInternal;
     }
     public resetValues(): void {
-        this.appliedFiltersMapInternal.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
+        this.appliedFiltersMap.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
                 const defaultValue = (typeof config.defaultValue === 'function') ? (config.defaultValue as Function).call(target) : config.defaultValue;
@@ -47,7 +51,7 @@ export class FiltersService {
         });
     }
     public applyParams(params: Object): void {
-        this.appliedFiltersMapInternal.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
+        this.appliedFiltersMap.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
                 if (params && params.hasOwnProperty(config.parameterName) && false === config.ignoreOnAutoMap) {
@@ -60,7 +64,7 @@ export class FiltersService {
     }
     public getRequestState(result?: Object): any {
         result = result || {};
-        this.appliedFiltersMapInternal.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
+        this.appliedFiltersMap.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
                 const proposedVal = target[config.propertyName];
@@ -71,7 +75,7 @@ export class FiltersService {
     }
     public getPersistedState(result?: Object): any {
         result = result || {};
-        this.appliedFiltersMapInternal.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
+        this.appliedFiltersMap.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
                 if (!config.persisted) {
@@ -84,23 +88,29 @@ export class FiltersService {
         return result;
     }
     public registerFilterTarget(target: Object): void {
-        let targetConfig = new Array<FilterConfig>();
-        FiltersService.filterPropertiesMap.forEach((typeConfig: Array<FilterConfig>, type: any) => {
-            if (target instanceof type) {
-                targetConfig = targetConfig.concat(typeConfig);
-                for (let i = 0; i < targetConfig.length; i++) {
-                    let config = targetConfig[i];
-                    if (config.defaultValue === undefined) {
-                        config.defaultValue = Utility.cloneLiteral({ defaultValue: target[config.propertyName] }).defaultValue;
+        this.appliedFiltersMapInternal.set(target, null);
+    }
+    private buildFiltersMap(): void {
+        this.appliedFiltersMapInternal.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
+            targetConfig = new Array<FilterConfig>();
+            FiltersService.filterPropertiesMap.forEach((typeConfig: Array<FilterConfig>, type: any) => {
+                if (target instanceof type) {
+                    targetConfig = targetConfig.concat(typeConfig);
+                    for (let i = 0; i < targetConfig.length; i++) {
+                        let config = targetConfig[i];
+                        if (config.defaultValue === undefined) {
+                            config.defaultValue = Utility.cloneLiteral({ defaultValue: target[config.propertyName] }).defaultValue;
+                        }
                     }
                 }
+            });
+            if (targetConfig.length > 0) {
+                this.appliedFiltersMapInternal.set(target, targetConfig);
+            } else {
+                this.appliedFiltersMapInternal.delete(target);
             }
         });
-        if (targetConfig.length > 0) {
-            this.appliedFiltersMapInternal.set(target, targetConfig);
-        } else {
-            this.appliedFiltersMapInternal.delete(target);
-        }
+        this.filtersMapBuilded = true;
     }
     constructor(target?: Object) {
         if (target) {
