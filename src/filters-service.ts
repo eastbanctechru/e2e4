@@ -87,8 +87,10 @@ export class FiltersService {
         });
         return result;
     }
-    public registerFilterTarget(target: Object): void {
-        this.appliedFiltersMapInternal.set(target, null);
+    public registerFilterTarget(...targets: Object[]): void {
+        targets.forEach((target: Object) => {
+            this.appliedFiltersMapInternal.set(target, null);
+        });
     }
     private buildFiltersMap(): void {
         this.appliedFiltersMapInternal.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
