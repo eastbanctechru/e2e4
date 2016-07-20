@@ -14,6 +14,7 @@ export class PagedPager implements Pager {
     } as FilterConfig)
     protected pageNumberInternal: number = 1;
 
+    public appendedOnLoad: boolean = false;
     public defaultPageSize: number = Defaults.pagedListSettings.defaultPageSize;
     public maxPageSize: number = Defaults.pagedListSettings.maxPageSize;
     public minPageSize: number = Defaults.pagedListSettings.minPageSize;

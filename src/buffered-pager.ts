@@ -18,6 +18,7 @@ export class BufferedPager implements Pager {
     } as FilterConfig)
     protected takeRowCountInternal: number = Defaults.bufferedListSettings.defaultRowCount;
 
+    public appendedOnLoad: boolean = true;
     public totalCount: number = 0;
     public loadedCount: number = 0;
     public defaultRowCount: number = Defaults.bufferedListSettings.defaultRowCount;
