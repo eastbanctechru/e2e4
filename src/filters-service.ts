@@ -17,7 +17,7 @@ export class FiltersService {
         }
 
         value = config && config.emptyIsNull ? value || null : value;
-
+        value = config && config.coerce ? Utility.coerceValue(value) : value;
         if (value && value.toRequest) {
             return value.toRequest();
         }
