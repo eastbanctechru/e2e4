@@ -395,6 +395,16 @@ describe('SelectionService', () => {
         });
     });
     describe('itemsSource', () => {
+        it('clear selection when pass null as source', () => {
+            const target = toTarget();
+            target.selectionService = new DefaultSelectionService();
+            target.selectionService.itemsSource = target.items;
+            target.selectionService.selectAll();
+            expect(target.selectionService.getSelections().length).eq(target.items.length);
+            target.items.pop();
+            target.selectionService.itemsSource = null;
+            expect(target.selectionService.getSelections().length).eq(0);
+        });
         it('remove deleted item from selections on set', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();

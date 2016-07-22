@@ -58,11 +58,15 @@ export class DefaultSelectionService implements SelectionService {
         };
     }
     protected checkSelection(): void {
-        for (let i = this.selectionsList.length - 1; i >= 0; i--) {
-            const tuple = this.selectionsList[i];
-            if (this.itemsSource[tuple.index] !== tuple.item) {
-                this.deselectItem(tuple);
+        if (this.itemsSource !== null && this.itemsSource !== undefined) {
+            for (let i = this.selectionsList.length - 1; i >= 0; i--) {
+                const tuple = this.selectionsList[i];
+                if (this.itemsSource[tuple.index] !== tuple.item) {
+                    this.deselectItem(tuple);
+                }
             }
+        } else {
+            this.deselectAll();
         }
     }
     protected checkIndexAcceptable(index: number): boolean {
