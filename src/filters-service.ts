@@ -1,5 +1,5 @@
 import {FilterConfig} from './contracts/filter-config';
-import {Utility} from './common/utility';
+import {Utility} from './utility';
 
 export class FiltersService {
     public static filterPropertiesMap: Map<any, Array<FilterConfig>> = new Map<any, Array<FilterConfig>>();

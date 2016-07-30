@@ -8,9 +8,7 @@
 
 Set of base classes and utilities to build unobtrusive list models. 
 
-This library is used as abstract codebase to implement bridges from client side frameworks [Angular](https://angular.io/) and [Aurelia](http://www.aurelia.io/)
-
-This will be in beta until I finish to implement Angular bridge for it.
+This is abstract codebase which can be used to implement bridges for [Angular](https://github.com/fshchudlo/right-angled) for example.
 
 ## How to build the project
 

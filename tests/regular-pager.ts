@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { SimplePager } from '../src/simple-pager';
+import { RegularPager } from '../src/regular-pager';
 
 interface ResponseObject {
     loadedCount: number;
@@ -12,13 +12,13 @@ function toResponseObject(): ResponseObject {
 describe('SimplePager', () => {
 
     it('created with good state', () => {
-        let pager = new SimplePager();
+        let pager = new RegularPager();
         expect(pager.totalCount).eq(0);
         expect(pager.loadedCount).eq(0);
     });
 
     it('process response values', () => {
-        let pager = new SimplePager();
+        let pager = new RegularPager();
         let response = toResponseObject();
         pager.processResponse(response);
         expect(pager.totalCount).eq(response.totalCount);
@@ -26,7 +26,7 @@ describe('SimplePager', () => {
     });
 
     it('process incorrect values as 0', () => {
-        let pager = new SimplePager();
+        let pager = new RegularPager();
         let response = toResponseObject();
         pager.processResponse(response);
 
@@ -42,7 +42,7 @@ describe('SimplePager', () => {
     });
 
     it('resets contract properties', () => {
-        let pager = new SimplePager();
+        let pager = new RegularPager();
         let response = toResponseObject();
         pager.processResponse(response);
         pager.reset();

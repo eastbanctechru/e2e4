@@ -1,4 +1,4 @@
-import { SortParameter } from '../common/sort-parameter';
+import { SortParameter } from '../sort-parameter';
 
 export interface ListRequest {
     sort: Array<SortParameter>;

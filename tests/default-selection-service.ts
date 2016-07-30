@@ -143,6 +143,15 @@ describe('SelectionService', () => {
             expect(target.items[2].selected).eql(false);
         });
 
+        it('handles duplicate selection', () => {
+            const target = toTarget();
+            target.selectionService = new DefaultSelectionService();
+            target.selectionService.itemsSource = target.items;
+            target.selectionService.selectIndex(1, savePrevious);
+            target.selectionService.selectIndex(1, savePrevious);
+            expect(target.selectionService.getSelectedIndexes()).eql([1]);
+        });
+
         it(`can save previously selected`, () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
@@ -201,6 +210,7 @@ describe('SelectionService', () => {
             expect(target.selectionService.getSelections()).eql([]);
             expect(target.items[1].selected).eql(false);
         });
+
         it(`ignores incorrect values`, () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
@@ -423,6 +433,23 @@ describe('SelectionService', () => {
             target.items.unshift(target.items.pop());
             target.selectionService.itemsSource = target.items;
             expect(target.selectionService.getSelections().length).eq(0);
+        });
+        it('use referential equals as trackBy function by default', () => {
+            const target = toTarget();
+            target.selectionService = new DefaultSelectionService();
+            target.selectionService.itemsSource = target.items;
+            target.selectionService.selectAll();
+            target.selectionService.itemsSource = target.items.map((item: Item) => ({ name: item.name } as Item));
+            expect(target.selectionService.getSelections().length).eq(0);
+        });
+        it('can use custom trackBy function', () => {
+            const target = toTarget();
+            target.selectionService = new DefaultSelectionService();
+            target.selectionService.itemsSource = target.items;
+            target.selectionService.trackByFn = (index: number, item: any) => item.name;
+            target.selectionService.selectAll();
+            target.selectionService.itemsSource = target.items.map((item: Item) => ({ name: item.name } as Item));
+            expect(target.selectionService.getSelections().length).eq(5);
         });
     });
 

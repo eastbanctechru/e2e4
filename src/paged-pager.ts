@@ -1,13 +1,25 @@
-import {Defaults} from './common/defaults';
 import {Pager} from './contracts/pager';
 import {filter} from './filter-annotation';
 import {FilterConfig} from './contracts/filter-config';
 
 export class PagedPager implements Pager {
-    protected pageSizeInternal: number = Defaults.pagedListSettings.defaultPageSize;
+    public static settings: any =
+    {
+        defaultPageSize: 20,
+        displayFromParameterName: 'displayFrom',
+        displayToParameterName: 'displayTo',
+        loadedCountParameterName: 'loadedCount',
+        maxPageSize: 200,
+        minPageSize: 1,
+        pageNumberParameterName: 'pageNumber',
+        pageSizeParameterName: 'pageSize',
+        persistPageSize: true,
+        totalCountParameterName: 'totalCount'
+    };
+    protected pageSizeInternal: number = PagedPager.settings.defaultPageSize;
     @filter({
         defaultValue: 1,
-        parameterName: Defaults.pagedListSettings.pageNumberParameterName,
+        parameterName: PagedPager.settings.pageNumberParameterName,
         parseFormatter: function (rawValue: any): number {
             return isNaN(rawValue) || !rawValue ? 1 : rawValue;
         }
@@ -15,9 +27,9 @@ export class PagedPager implements Pager {
     protected pageNumberInternal: number = 1;
 
     public appendedOnLoad: boolean = false;
-    public defaultPageSize: number = Defaults.pagedListSettings.defaultPageSize;
-    public maxPageSize: number = Defaults.pagedListSettings.maxPageSize;
-    public minPageSize: number = Defaults.pagedListSettings.minPageSize;
+    public defaultPageSize: number = PagedPager.settings.defaultPageSize;
+    public maxPageSize: number = PagedPager.settings.maxPageSize;
+    public minPageSize: number = PagedPager.settings.minPageSize;
     public totalCount: number = 0;
     public loadedCount: number = 0;
     public displayFrom: number = 0;
@@ -42,11 +54,11 @@ export class PagedPager implements Pager {
     }
     @filter({
         defaultValue: function (): number { return this.defaultPageSize; },
-        parameterName: Defaults.pagedListSettings.pageSizeParameterName,
+        parameterName: PagedPager.settings.pageSizeParameterName,
         parseFormatter: function (rawValue: any): number {
             return isNaN(rawValue) || !rawValue ? this.defaultPageSize : rawValue;
         },
-        persisted: Defaults.pagedListSettings.persistPageSize
+        persisted: PagedPager.settings.persistPageSize
     })
     public get pageSize(): number {
         return this.pageSizeInternal;
@@ -75,11 +87,11 @@ export class PagedPager implements Pager {
     }
 
     public processResponse(result: Object): void {
-        this.loadedCount = result[Defaults.listSettings.loadedCountParameterName] || 0;
-        this.totalCount = result[Defaults.listSettings.totalCountParameterName] || 0;
+        this.loadedCount = result[PagedPager.settings.loadedCountParameterName] || 0;
+        this.totalCount = result[PagedPager.settings.totalCountParameterName] || 0;
 
-        this.displayFrom = result[Defaults.pagedListSettings.displayFromParameterName] || 0;
-        this.displayTo = result[Defaults.pagedListSettings.displayToParameterName] || 0;
+        this.displayFrom = result[PagedPager.settings.displayFromParameterName] || 0;
+        this.displayTo = result[PagedPager.settings.displayToParameterName] || 0;
 
     }
     public reset(): void {

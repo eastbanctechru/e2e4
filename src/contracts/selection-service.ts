@@ -16,6 +16,6 @@ export interface SelectionService {
     deselectIndex(index: number): void;
     toggleSelection(index: number, savePrevious?: boolean): void;
     getSelections(recursive?: boolean): Array<Object>;
-    getSelectedIndexex(): Array<number>;
+    getSelectedIndexes(): Array<number>;
     dispose(): void;
 }

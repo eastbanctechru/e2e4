@@ -1,17 +1,20 @@
-import {Defaults} from './common/defaults';
 import {FilterConfig} from './contracts/filter-config';
-import {SortParameter} from './common/sort-parameter';
+import { SortParameter } from './sort-parameter';
 import {filter} from './filter-annotation';
 
 export class SortingsService {
+    public static settings: any = {
+        persistSortings: true,
+        sortParameterName: 'sort'
+    };
     protected defaultSortingsInternal: SortParameter[] = new Array<SortParameter>();
     @filter({
         defaultValue: function (): Array<SortParameter> { return this.cloneDefaultSortings(); },
-        parameterName: Defaults.listSettings.sortParameterName,
+        parameterName: SortingsService.settings.sortParameterName,
         parseFormatter: function (rawValue: any): Array<Object> {
             return Array.isArray(rawValue) ? rawValue.map((sort: SortParameter) => { return new SortParameter(sort.fieldName, sort.direction * 1); }) : [];
         },
-        persisted: Defaults.listSettings.persistSortings
+        persisted: SortingsService.settings.persistSortings
     } as FilterConfig)
     public sortings: Array<SortParameter> = new Array<SortParameter>();
 

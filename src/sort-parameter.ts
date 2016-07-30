@@ -1,4 +1,8 @@
-﻿import {SortDirection} from './sort-direction';
+﻿export enum SortDirection {
+    Asc = 0,
+    Desc = 1
+}
+
 export class SortParameter {
     public direction: SortDirection;
     public fieldName: string = null;

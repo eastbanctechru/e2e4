@@ -1,7 +1,5 @@
 import { expect } from 'chai';
-import { KeyCodes } from '../src/common/key-codes';
-import { MouseButtons } from '../src/common/mouse-buttons';
-import { SelectionEventsHelper } from '../src/selection-events-helper';
+import { SelectionEventsHelper, KeyCodes, MouseButtons } from '../src/selection-events-helper';
 import { DefaultSelectionService } from '../src/default-selection-service';
 import { SelectionAreaConfig } from '../src/contracts/selection-area-config';
 import { SelectableItem } from '../src/contracts/selectable-item';
@@ -144,58 +142,58 @@ describe('SelectionEventsHelper', () => {
 
                 helper.selectionConfig.selectionService.selectAll();
                 helper.selectionConfig.selectionService.deselectIndex(2);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([0, 1, 3, 4]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([0, 1, 3, 4]);
                 helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowUp);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([1, 2]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([1, 2]);
             });
             it('deselects last selected item in range and sets last processed index to previous item', () => {
                 let helper = toDefaultSelectionHelper();
 
                 helper.selectionConfig.selectionService.selectIndex(2);
                 helper.selectionConfig.selectionService.selectIndex(3, true);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([2, 3]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([2, 3]);
                 helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowUp);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([2]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([2]);
                 expect(helper.selectionConfig.selectionService.lastProcessedIndex).eql(2);
             });
             it('moves to previous item on ArrowUp when not first item selected', () => {
                 let helper = toDefaultSelectionHelper();
 
                 helper.selectionConfig.selectionService.selectIndex(3);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([3]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([3]);
                 helper.keyboardHandler(notPressedCtrl, notPressedShift, KeyCodes.ArrowUp);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([2]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([2]);
                 helper.keyboardHandler(notPressedCtrl, notPressedShift, KeyCodes.ArrowUp);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([1]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([1]);
             });
             it('moves to previous item and save on Shift+ArrowUp when not first item selected', () => {
                 let helper = toDefaultSelectionHelper();
 
                 helper.selectionConfig.selectionService.selectIndex(3);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([3]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([3]);
                 helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowUp);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([3, 2]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([3, 2]);
                 helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowUp);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([3, 2, 1]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([3, 2, 1]);
             });
             it('don\'t do anything when first index selected', () => {
                 let helper = toDefaultSelectionHelper();
 
                 helper.selectionConfig.selectionService.selectFirst();
                 helper.keyboardHandler(pressedCtrl, pressedShift, KeyCodes.ArrowUp);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([0]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([0]);
                 expect(helper.selectionConfig.selectionService.lastProcessedIndex).eql(0);
 
                 helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowUp);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([0]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([0]);
                 expect(helper.selectionConfig.selectionService.lastProcessedIndex).eql(0);
 
                 helper.keyboardHandler(notPressedCtrl, notPressedShift, KeyCodes.ArrowUp);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([0]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([0]);
                 expect(helper.selectionConfig.selectionService.lastProcessedIndex).eql(0);
 
                 helper.keyboardHandler(pressedCtrl, notPressedShift, KeyCodes.ArrowUp);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([0]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([0]);
                 expect(helper.selectionConfig.selectionService.lastProcessedIndex).eql(0);
             });
         });
@@ -254,40 +252,40 @@ describe('SelectionEventsHelper', () => {
 
                 helper.selectionConfig.selectionService.selectAll();
                 helper.selectionConfig.selectionService.deselectIndex(2);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([0, 1, 3, 4]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([0, 1, 3, 4]);
                 helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowDown);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([2, 3]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([2, 3]);
             });
             it('deselects last selected item in range and sets last processed index to previous item', () => {
                 let helper = toDefaultSelectionHelper();
 
                 helper.selectionConfig.selectionService.selectIndex(3);
                 helper.selectionConfig.selectionService.selectIndex(2, true);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([3, 2]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([3, 2]);
                 helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowDown);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([3]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([3]);
                 expect(helper.selectionConfig.selectionService.lastProcessedIndex).eql(3);
             });
             it('moves to next item on ArrowDown when not last item selected', () => {
                 let helper = toDefaultSelectionHelper();
 
                 helper.selectionConfig.selectionService.selectIndex(1);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([1]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([1]);
                 helper.keyboardHandler(notPressedCtrl, notPressedShift, KeyCodes.ArrowDown);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([2]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([2]);
                 helper.keyboardHandler(notPressedCtrl, notPressedShift, KeyCodes.ArrowDown);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([3]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([3]);
             });
             it('moves to next item and save on Shift+ArrowDown when not last item selected', () => {
 
                 let helper = toDefaultSelectionHelper();
 
                 helper.selectionConfig.selectionService.selectIndex(1);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([1]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([1]);
                 helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowDown);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([1, 2]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([1, 2]);
                 helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowDown);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([1, 2, 3]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([1, 2, 3]);
             });
             it('don\'t do anything when last index selected', () => {
                 let helper = toDefaultSelectionHelper();
@@ -296,19 +294,19 @@ describe('SelectionEventsHelper', () => {
                 let lastIndex = helper.selectionConfig.selectionService.lastProcessedIndex;
 
                 helper.keyboardHandler(pressedCtrl, pressedShift, KeyCodes.ArrowDown);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([lastIndex]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([lastIndex]);
                 expect(helper.selectionConfig.selectionService.lastProcessedIndex).eql(lastIndex);
 
                 helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowDown);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([lastIndex]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([lastIndex]);
                 expect(helper.selectionConfig.selectionService.lastProcessedIndex).eql(lastIndex);
 
                 helper.keyboardHandler(notPressedCtrl, notPressedShift, KeyCodes.ArrowDown);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([lastIndex]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([lastIndex]);
                 expect(helper.selectionConfig.selectionService.lastProcessedIndex).eql(lastIndex);
 
                 helper.keyboardHandler(pressedCtrl, notPressedShift, KeyCodes.ArrowDown);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([lastIndex]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([lastIndex]);
                 expect(helper.selectionConfig.selectionService.lastProcessedIndex).eql(lastIndex);
             });
         });
@@ -318,12 +316,12 @@ describe('SelectionEventsHelper', () => {
                 helper.selectionConfig.multiple = false;
                 helper.selectionConfig.selectionService.selectLast();
                 let lastItemIndex = helper.selectionConfig.selectionService.itemsSource.length - 1;
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([lastItemIndex]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([lastItemIndex]);
                 helper.keyboardHandler(pressedCtrl, pressedShift, KeyCodes.ArrowUp);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([lastItemIndex - 1]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([lastItemIndex - 1]);
 
                 helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowUp);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([lastItemIndex - 2]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([lastItemIndex - 2]);
             });
 
             it('selects up to last item on Ctrl+Shift+ArrowDown combination', () => {
@@ -332,34 +330,34 @@ describe('SelectionEventsHelper', () => {
                 helper.selectionConfig.selectionService.selectFirst();
                 let firstItemIndex = 0;
 
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([firstItemIndex]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([firstItemIndex]);
                 helper.keyboardHandler(pressedCtrl, pressedShift, KeyCodes.ArrowDown);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([firstItemIndex + 1]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([firstItemIndex + 1]);
 
                 helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowDown);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([firstItemIndex + 2]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([firstItemIndex + 2]);
             });
 
             it('moves to previous item on Shift+ArrowUp when not first item selected', () => {
                 let helper = toDefaultSelectionHelper();
                 helper.selectionConfig.multiple = false;
                 helper.selectionConfig.selectionService.selectIndex(3);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([3]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([3]);
                 helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowUp);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([2]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([2]);
                 helper.keyboardHandler(pressedCtrl, pressedShift, KeyCodes.ArrowUp);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([1]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([1]);
             });
 
             it('moves to next item on Shift+ArrowDown when not last item selected', () => {
                 let helper = toDefaultSelectionHelper();
                 helper.selectionConfig.multiple = false;
                 helper.selectionConfig.selectionService.selectIndex(1);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([1]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([1]);
                 helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowDown);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([2]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([2]);
                 helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowDown);
-                expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([3]);
+                expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([3]);
             });
         });
     });
@@ -367,81 +365,81 @@ describe('SelectionEventsHelper', () => {
         it('selects item on click', () => {
             let helper = toDefaultSelectionHelper();
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
-            expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([0]);
+            expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([0]);
 
             helper.selectionConfig.selectionService.deselectAll();
             helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 0);
-            expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([0]);
+            expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([0]);
 
             helper.selectionConfig.selectionService.deselectAll();
             helper.mouseHandler(notPressedCtrl, pressedShift, MouseButtons.Left, 0);
-            expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([0]);
+            expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([0]);
         });
         it('deselects already selected item on click', () => {
             let helper = toDefaultSelectionHelper();
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
-            expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([]);
+            expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([]);
         });
 
         it('add item to seletions on ctrl+click', () => {
             let helper = toDefaultSelectionHelper();
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
-            expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([0]);
+            expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([0]);
             helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 3);
-            expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([0, 3]);
+            expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([0, 3]);
             helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 4);
-            expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([0, 3, 4]);
+            expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([0, 3, 4]);
         });
         it('removes item from seletions on ctrl+click selected item', () => {
             let helper = toDefaultSelectionHelper();
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
             helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 3);
-            expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([0, 3]);
+            expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([0, 3]);
             helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 3);
-            expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([0]);
+            expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([0]);
         });
         it('resets previous seletions on click item', () => {
             let helper = toDefaultSelectionHelper();
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
             helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 3);
             helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 4);
-            expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([0, 3, 4]);
+            expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([0, 3, 4]);
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 2);
-            expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([2]);
+            expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([2]);
         });
         it('resets previous seletions on click already selected item', () => {
             let helper = toDefaultSelectionHelper();
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
             helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 3);
             helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 4);
-            expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([0, 3, 4]);
+            expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([0, 3, 4]);
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
-            expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([0]);
+            expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([0]);
         });
         it('select range of items on shift+click', () => {
             let helper = toDefaultSelectionHelper();
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
             helper.mouseHandler(notPressedCtrl, pressedShift, MouseButtons.Left, 3);
-            expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([0, 1, 2, 3]);
+            expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([0, 1, 2, 3]);
         });
         it('prevents deselection of selected item on non-left button click', () => {
             let helper = toDefaultSelectionHelper();
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
-            expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([0]);
+            expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([0]);
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Right, 0);
-            expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([0]);
+            expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([0]);
         });
 
         it('saves selection on regular click when toggleOnly=true', () => {
             let helper = toDefaultSelectionHelper();
             helper.selectionConfig.toggleOnly = true;
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
-            expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([0]);
+            expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([0]);
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 3);
-            expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([0, 3]);
+            expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([0, 3]);
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 1);
-            expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([0, 3, 1]);
+            expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([0, 3, 1]);
         });
         it('doesn\'t reset previous seletions on click item with toggleOnly=true', () => {
             let helper = toDefaultSelectionHelper();
@@ -449,9 +447,9 @@ describe('SelectionEventsHelper', () => {
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
             helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 3);
             helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 4);
-            expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([0, 3, 4]);
+            expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([0, 3, 4]);
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 2);
-            expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([0, 3, 4, 2]);
+            expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([0, 3, 4, 2]);
         });
 
         it('doesn\'t reset previous seletions on click already selected item with toggleOnly=true', () => {
@@ -460,9 +458,9 @@ describe('SelectionEventsHelper', () => {
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
             helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 3);
             helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 4);
-            expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([0, 3, 4]);
+            expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([0, 3, 4]);
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
-            expect(helper.selectionConfig.selectionService.getSelectedIndexex()).eql([3, 4]);
+            expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([3, 4]);
         });
 
     });
