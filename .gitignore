@@ -2,9 +2,11 @@ node_modules
 typings
 reports
 .vscode
-**/*.js
-**/*.js.map
-**/*.d.ts
+index.js
+index.d.ts
+src/**/*.js
+src/**/*.js.map
+src/**/*.d.ts
 esm
 npm-debug.log
 
