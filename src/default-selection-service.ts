@@ -3,9 +3,11 @@ import {SelectionTuple} from './contracts/selection-tuple';
 import {SelectionService} from './contracts/selection-service';
 
 export class DefaultSelectionService implements SelectionService {
+    public lastProcessedIndex: number;
+    public trackByFn: (index: number, item: any) => any = this.trackByIdentity;
     protected selectionsList: Array<SelectionTuple> = new Array<SelectionTuple>();
     protected items: Array<SelectableItem>;
-    public lastProcessedIndex: number;
+    protected trackByIdentity: (index: number, item: any) => any = (index: number, item: any) => { return item; };
     public dispose(): void {
         this.selectionsList.length = 0;
         this.lastProcessedIndex = null;
@@ -41,6 +43,10 @@ export class DefaultSelectionService implements SelectionService {
     }
     protected selectItem(selectionTuple: SelectionTuple, savePrevious: boolean = false): void {
         if (savePrevious) {
+            const index = this.selectionsList.findIndex((selectedItem: SelectionTuple) => (selectedItem.item === selectionTuple.item));
+            if (index !== -1) {
+                this.selectionsList.splice(index, 1);
+            }
             this.selectionsList.push(selectionTuple);
             this.processSelection(selectionTuple, true);
         } else {
@@ -61,7 +67,12 @@ export class DefaultSelectionService implements SelectionService {
         if (this.itemsSource !== null && this.itemsSource !== undefined) {
             for (let i = this.selectionsList.length - 1; i >= 0; i--) {
                 const tuple = this.selectionsList[i];
-                if (this.itemsSource[tuple.index] !== tuple.item) {
+                const trackFn = this.trackByFn || this.trackByIdentity;
+                if (this.checkIndexAcceptable(tuple.index) && trackFn(tuple.index, this.itemsSource[tuple.index]) === trackFn(tuple.index, tuple.item)) {
+                    tuple.item = this.itemsSource[tuple.index];
+                    this.selectItem(tuple, true);
+
+                } else {
                     this.deselectItem(tuple);
                 }
             }
@@ -70,7 +81,7 @@ export class DefaultSelectionService implements SelectionService {
         }
     }
     protected checkIndexAcceptable(index: number): boolean {
-        return index !== null && index !== undefined && index >= 0 && this.itemsSource.length > index;
+        return index !== null && index !== undefined && index >= 0 && this.itemsSource && this.itemsSource.length > index;
     }
     public deselectAll(): void {
         const list = this.selectionsList.splice(0, this.selectionsList.length);
@@ -177,7 +188,7 @@ export class DefaultSelectionService implements SelectionService {
     public getSelections(): Array<Object> {
         return this.selectionsList.map((selectable: SelectionTuple) => selectable.item);
     }
-    public getSelectedIndexex(): Array<number> {
+    public getSelectedIndexes(): Array<number> {
         return this.selectionsList.map((selectable: SelectionTuple) => selectable.index);
     }
 }

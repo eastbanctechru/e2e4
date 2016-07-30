@@ -1,6 +1,24 @@
 import {SelectionAreaConfig} from './contracts/selection-area-config';
-import {KeyCodes} from './common/key-codes';
-import {MouseButtons} from './common/mouse-buttons';
+
+export enum KeyCodes {
+    Enter = 13,
+    Shift = 16,
+    Ctrl = 17,
+    Alt = 18,
+    Esc = 27,
+    ArrowLeft = 37,
+    ArrowUp = 38,
+    ArrowRight = 39,
+    ArrowDown = 40,
+    A = 65
+}
+
+export enum MouseButtons {
+    None = 0,
+    Left = 1,
+    Middle = 2,
+    Right = 3
+}
 
 export class SelectionEventsHelper {
     constructor(public selectionConfig: SelectionAreaConfig) {

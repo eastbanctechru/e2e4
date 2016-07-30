@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import { PagedPager } from '../src/paged-pager';
-import { Defaults } from '../src/common/defaults';
 import { FiltersService } from '../src/filters-service';
 
 interface ResponseObject {
@@ -129,7 +128,7 @@ describe('PagedPager', () => {
             pager.defaultPageSize = 5;
             filtersService.resetValues();
             expect(pager.pageSize).eq(5);
-            expect(Defaults.pagedListSettings.defaultPageSize).not.eq(pager.defaultPageSize);
+            expect(PagedPager.settings.defaultPageSize).not.eq(pager.defaultPageSize);
         });
     });
     describe('internal state', () => {
@@ -145,30 +144,30 @@ describe('PagedPager', () => {
             });
             it('sets pageSize to maxPageSize when try to set bigger value', () => {
                 let pager = new PagedPager();
-                pager.pageSize = Defaults.pagedListSettings.maxPageSize + 100;
-                expect(pager.pageSize).eq(Defaults.pagedListSettings.maxPageSize);
+                pager.pageSize = PagedPager.settings.maxPageSize + 100;
+                expect(pager.pageSize).eq(PagedPager.settings.maxPageSize);
             });
 
             it('can have own maxPageSize', () => {
                 let pager = new PagedPager();
-                pager.maxPageSize = Defaults.pagedListSettings.maxPageSize + 100;
+                pager.maxPageSize = PagedPager.settings.maxPageSize + 100;
                 pager.pageSize = pager.maxPageSize + 100;
                 expect(pager.pageSize).eq(pager.maxPageSize);
-                expect(pager.maxPageSize).not.eq(Defaults.pagedListSettings.maxPageSize);
+                expect(pager.maxPageSize).not.eq(PagedPager.settings.maxPageSize);
             });
 
             it('sets pageSize to defaultPageSize when try to set value less then minPageSize', () => {
                 let pager = new PagedPager();
-                pager.pageSize = Defaults.pagedListSettings.minPageSize - 1;
+                pager.pageSize = PagedPager.settings.minPageSize - 1;
                 expect(pager.pageSize).eq(pager.defaultPageSize);
             });
 
             it('can have own minPageSize', () => {
                 let pager = new PagedPager();
-                pager.minPageSize = Defaults.pagedListSettings.minPageSize + 10;
+                pager.minPageSize = PagedPager.settings.minPageSize + 10;
                 pager.pageSize = pager.minPageSize - 10;
                 expect(pager.pageSize).eq(pager.defaultPageSize);
-                expect(pager.minPageSize).not.eq(Defaults.pagedListSettings.minPageSize);
+                expect(pager.minPageSize).not.eq(PagedPager.settings.minPageSize);
             });
 
             it('sets pageSize to totalCount when try to set value greater then totalCount', () => {

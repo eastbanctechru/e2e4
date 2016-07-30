@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { AbstractLifetime } from '../src/abstract-lifetime';
-import { ProgressState } from '../src/common/progress-state';
+import { ProgressState } from '../src/progress-state';
 
 class Lifetime extends AbstractLifetime {
 }

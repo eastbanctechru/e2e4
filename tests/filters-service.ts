@@ -3,7 +3,7 @@ import * as sinon from 'sinon';
 import { FiltersService } from '../src/filters-service';
 import { filter } from '../src/filter-annotation';
 import { FilterConfig, getDefaultFilterConfig } from '../src/contracts/filter-config';
-import { Utility } from '../src/common/utility';
+import { Utility } from '../src/utility';
 
 describe('FiltersService', () => {
     afterEach(() => {

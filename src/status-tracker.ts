@@ -1,8 +1,28 @@
-﻿import {Status} from './common/status';
-import {Defaults} from './common/defaults';
-import {ProgressState} from './common/progress-state';
+﻿import {ProgressState} from './progress-state';
+
+export class Status {
+    public sid: number;
+    constructor(public status: ProgressState, public title: string) {
+        this.status = status;
+        this.title = title;
+    }
+    public get className(): string {
+        switch (this.status) {
+            case ProgressState.Done:
+                return 'status status-resolved';
+            case ProgressState.Progress:
+                return 'status status-progress';
+            case ProgressState.Fail:
+                return 'status status-fail';
+            default:
+                return '';
+        }
+    }
+}
 
 export class StatusTracker {
+    public static elementVisibilityInterval: number = 500;
+    public static progressDelayInterval: number = 500;
     public static status: ProgressState = ProgressState.Done;
     public static modalDisplayed: boolean = false;
     public static statusList: Array<Status> = new Array<Status>();
@@ -19,7 +39,7 @@ export class StatusTracker {
             const status = new Status(ProgressState.Progress, title);
             status.sid = sid;
             StatusTracker.statusList.push(status);
-        }, Defaults.uiSettings.progressDelayInterval);
+        }, StatusTracker.progressDelayInterval);
         return sid;
     }
     public static resolveStatus(sid: number, status: ProgressState): void {
@@ -44,6 +64,6 @@ export class StatusTracker {
                     }
                 }
             }
-        }, Defaults.uiSettings.elementVisibilityInterval);
+        }, StatusTracker.elementVisibilityInterval);
     };
 }
