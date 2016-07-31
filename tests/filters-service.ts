@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 import { FiltersService } from '../src/filters-service';
-import { filter } from '../src/filter-annotation';
-import { FilterConfig, getDefaultFilterConfig } from '../src/contracts/filter-config';
+import { filter, getDefaultFilterConfig } from '../src/filter-annotation';
+import { FilterConfig } from '../src/contracts/filter-config';
 import { Utility } from '../src/utility';
 
 describe('FiltersService', () => {
