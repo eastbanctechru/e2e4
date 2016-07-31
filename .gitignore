@@ -3,6 +3,7 @@ typings
 reports
 docs
 .vscode
+.publish
 index.js
 index.d.ts
 src/**/*.js
