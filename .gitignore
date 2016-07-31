@@ -1,6 +1,7 @@
 node_modules
 typings
 reports
+docs
 .vscode
 index.js
 index.d.ts
