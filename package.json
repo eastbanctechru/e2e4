@@ -41,6 +41,7 @@
   "devDependencies": {
     "chai": "3.5.0",
     "coveralls": "^2.11.11",
+    "cz-conventional-changelog": "^1.1.6",
     "del": "^2.2.1",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
@@ -76,5 +77,10 @@
     "wallaby-webpack": "0.0.22",
     "webpack": "1.13.1",
     "yargs": "^4.8.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
