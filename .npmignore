@@ -2,6 +2,7 @@
 build
 node_modules
 reports
+docs
 tests
 typings
 **/*[!.][!d].ts

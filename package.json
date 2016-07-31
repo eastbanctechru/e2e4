@@ -45,6 +45,7 @@
     "del": "^2.2.1",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
+    "gulp-gh-pages": "^0.5.4",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-tslint": "^6.0.1",
     "gulp-typedoc": "^2.0.0",
