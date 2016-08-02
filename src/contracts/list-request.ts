@@ -4,5 +4,8 @@ import { SortParameter } from '../sort-parameter';
  * Предназначен для типизации конечного кода извлечения данных. 
  */
 export interface ListRequest {
+    /**
+     * Сортировки, которые необходимо применить при запросе.
+     */
     sort: Array<SortParameter>;
 }
