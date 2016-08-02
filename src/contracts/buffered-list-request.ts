@@ -4,6 +4,12 @@ import { ListRequest } from './list-request';
  * Предназначен для типизации конечного кода извлечения данных. 
  */
 export interface BufferedListRequest extends ListRequest {
+    /**
+     * Указывает, сколько записей уже загружено в список и их необходимо пропустить.
+     */
     skip: number;
+    /**
+     * Указывает, сколько записей необходимо загрузить.
+     */
     take: number;
 }
