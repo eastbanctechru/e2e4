@@ -1,6 +1,13 @@
 import {SelectableItem} from './contracts/selectable-item';
-import {SelectionTuple} from './contracts/selection-tuple';
 import {SelectionService} from './contracts/selection-service';
+
+/**
+ * Вспомогательный контракт для типизации кода {@link DefaultSelectionService}.
+ */
+export interface SelectionTuple {
+    index: number;
+    item: SelectableItem;
+}
 
 export class DefaultSelectionService implements SelectionService {
     public lastProcessedIndex: number;
@@ -139,16 +146,16 @@ export class DefaultSelectionService implements SelectionService {
         return this.itemsSource.findIndex((value: SelectableItem) => value === item);
     }
     public getMinSelectedIndex(): number {
-        let minIndex = null;
+        let minIndex = -1;
         this.selectionsList.forEach((item: SelectionTuple) => {
-            minIndex = (minIndex === null || item.index < minIndex) ? item.index : minIndex;
+            minIndex = (minIndex === -1 || item.index < minIndex) ? item.index : minIndex;
         });
         return minIndex;
     }
     public getMaxSelectedIndex(): number {
-        let maxIndex = null;
+        let maxIndex = -1;
         this.selectionsList.forEach((item: SelectionTuple) => {
-            maxIndex = (maxIndex === null || item.index > maxIndex) ? item.index : maxIndex;
+            maxIndex = (maxIndex === -1 || item.index > maxIndex) ? item.index : maxIndex;
         });
         return maxIndex;
     }
@@ -185,7 +192,7 @@ export class DefaultSelectionService implements SelectionService {
         }
         this.selectItem(tuple, savePrevious);
     }
-    public getSelections(): Array<Object> {
+    public getSelectedElements(): Array<Object> {
         return this.selectionsList.map((selectable: SelectionTuple) => selectable.item);
     }
     public getSelectedIndexes(): Array<number> {

@@ -5,11 +5,11 @@ import { ListRequest } from './list-request';
  */
 export interface PagedListRequest extends ListRequest {
     /**
-     * Размер страницы данных, которую надо загрузить.
+     * Размер страницы данных, которую необходимо загрузить.
      */
     pageSize: number;
     /**
-     * Номер страницы, которую надо загрузить.
+     * Номер страницы, которую необходимо загрузить.
      */
     pageNumber: number;
 }

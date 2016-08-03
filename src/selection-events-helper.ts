@@ -156,7 +156,7 @@ export class SelectionEventsHelper {
         }
         if (shiftKeyPressed && this.selectionConfig.multiple) {
             const minIndex = this.selectionConfig.selectionService.getMinSelectedIndex();
-            this.selectionConfig.selectionService.selectRange(minIndex === null ? itemIndex : minIndex, itemIndex);
+            this.selectionConfig.selectionService.selectRange(minIndex === -1 ? itemIndex : minIndex, itemIndex);
         } else {
             let multiple = (ctrlKeyPressed || this.selectionConfig.toggleOnly) && this.selectionConfig.multiple;
             this.selectionConfig.selectionService.toggleSelection(itemIndex, multiple);
