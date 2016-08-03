@@ -12,7 +12,6 @@ export * from './src/contracts/pager';
 export * from './src/contracts/selectable-item';
 export * from './src/contracts/selection-area-config';
 export * from './src/contracts/selection-service';
-export * from './src/contracts/selection-tuple';
 
 export * from './src/abstract-lifetime';
 export * from './src/buffered-pager';

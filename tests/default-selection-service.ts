@@ -50,12 +50,12 @@ function toEmptyTarget(): SelectionableObject {
 }
 
 describe('SelectionService', () => {
-    describe('getSelections', () => {
+    describe('getSelectedElements', () => {
         it('returns empty array if nothing is selected', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
             target.selectionService.itemsSource = target.items;
-            expect(target.selectionService.getSelections()).eql([]);
+            expect(target.selectionService.getSelectedElements()).eql([]);
         });
 
         it('returns selections array', () => {
@@ -63,7 +63,7 @@ describe('SelectionService', () => {
             target.selectionService = new DefaultSelectionService();
             target.selectionService.itemsSource = target.items;
             target.selectionService.selectFirst();
-            expect(target.selectionService.getSelections()).eql([target.items[0]]);
+            expect(target.selectionService.getSelectedElements()).eql([target.items[0]]);
         });
     });
 
@@ -74,7 +74,7 @@ describe('SelectionService', () => {
             target.selectionService.itemsSource = target.items;
             target.selectionService.selectFirst();
 
-            expect(target.selectionService.getSelections()).eql([target.items[0]]);
+            expect(target.selectionService.getSelectedElements()).eql([target.items[0]]);
         });
 
         it(`doesn't affect previously selected items`, () => {
@@ -85,7 +85,7 @@ describe('SelectionService', () => {
             target.items[firstSelectionIndex].selected = true;
             target.selectionService.selectFirst();
 
-            expect(target.selectionService.getSelections()).eql([target.items[0]]);
+            expect(target.selectionService.getSelectedElements()).eql([target.items[0]]);
             expect(target.items.every((item: Item, index: number, array: Array<Item>) => !item.selected || index === firstSelectionIndex || index === 0)).eql(true);
         });
 
@@ -105,7 +105,7 @@ describe('SelectionService', () => {
             target.selectionService = new DefaultSelectionService();
             target.selectionService.itemsSource = target.items;
             target.selectionService.selectLast();
-            expect(target.selectionService.getSelections()).eql([target.items[target.items.length - 1]]);
+            expect(target.selectionService.getSelectedElements()).eql([target.items[target.items.length - 1]]);
             expect(target.items.every((item: Item, index: number, array: Array<Item>) => !item.selected || index === array.length - 1)).eql(true);
         });
 
@@ -117,7 +117,7 @@ describe('SelectionService', () => {
             target.items[firstSelectionIndex].selected = true;
             target.selectionService.selectLast();
 
-            expect(target.selectionService.getSelections()).eql([target.items[target.items.length - 1]]);
+            expect(target.selectionService.getSelectedElements()).eql([target.items[target.items.length - 1]]);
             expect(target.items.every((item: Item, index: number, array: Array<Item>) => !item.selected || index === firstSelectionIndex || index === array.length - 1)).eql(true);
         });
 
@@ -158,7 +158,7 @@ describe('SelectionService', () => {
             target.selectionService.itemsSource = target.items;
             target.selectionService.selectFirst();
             target.selectionService.selectIndex(1, savePrevious);
-            expect(target.selectionService.getSelections()).eql([target.items[0], target.items[1]]);
+            expect(target.selectionService.getSelectedElements()).eql([target.items[0], target.items[1]]);
 
             expect(target.items[0].selected).eql(true);
             expect(target.items[1].selected).eql(true);
@@ -171,7 +171,7 @@ describe('SelectionService', () => {
             target.selectionService.itemsSource = target.items;
             target.selectionService.selectFirst();
             target.selectionService.selectIndex(1, doNotSavePrevious);
-            expect(target.selectionService.getSelections()).eql([target.items[1]]);
+            expect(target.selectionService.getSelectedElements()).eql([target.items[1]]);
 
             expect(target.items[0].selected).eql(false);
             expect(target.items[1].selected).eql(true);
@@ -184,13 +184,13 @@ describe('SelectionService', () => {
             target.selectionService.itemsSource = target.items;
 
             target.selectionService.selectIndex(-20);
-            expect(target.selectionService.getSelections()).empty;
+            expect(target.selectionService.getSelectedElements()).empty;
 
             target.selectionService.selectIndex(null);
-            expect(target.selectionService.getSelections()).empty;
+            expect(target.selectionService.getSelectedElements()).empty;
 
             target.selectionService.selectIndex(150);
-            expect(target.selectionService.getSelections()).empty;
+            expect(target.selectionService.getSelectedElements()).empty;
         });
     });
 
@@ -200,14 +200,14 @@ describe('SelectionService', () => {
             target.selectionService = new DefaultSelectionService();
             target.selectionService.itemsSource = target.items;
             target.selectionService.selectIndex(1, savePrevious);
-            expect(target.selectionService.getSelections()).eql([target.items[1]]);
+            expect(target.selectionService.getSelectedElements()).eql([target.items[1]]);
 
             expect(target.items[0].selected).eql(false);
             expect(target.items[1].selected).eql(true);
             expect(target.items[2].selected).eql(false);
 
             target.selectionService.deselectIndex(1);
-            expect(target.selectionService.getSelections()).eql([]);
+            expect(target.selectionService.getSelectedElements()).eql([]);
             expect(target.items[1].selected).eql(false);
         });
 
@@ -217,13 +217,13 @@ describe('SelectionService', () => {
             target.selectionService.itemsSource = target.items;
 
             target.selectionService.deselectIndex(-20);
-            expect(target.selectionService.getSelections()).empty;
+            expect(target.selectionService.getSelectedElements()).empty;
 
             target.selectionService.deselectIndex(null);
-            expect(target.selectionService.getSelections()).empty;
+            expect(target.selectionService.getSelectedElements()).empty;
 
             target.selectionService.deselectIndex(150);
-            expect(target.selectionService.getSelections()).empty;
+            expect(target.selectionService.getSelectedElements()).empty;
         });
 
     });
@@ -234,14 +234,14 @@ describe('SelectionService', () => {
             target.selectionService = new DefaultSelectionService();
             target.selectionService.itemsSource = target.items;
             target.selectionService.toggleSelection(1, savePrevious);
-            expect(target.selectionService.getSelections()).eql([target.items[1]]);
+            expect(target.selectionService.getSelectedElements()).eql([target.items[1]]);
 
             expect(target.items[0].selected).eql(false);
             expect(target.items[1].selected).eql(true);
             expect(target.items[2].selected).eql(false);
 
             target.selectionService.toggleSelection(1, savePrevious);
-            expect(target.selectionService.getSelections()).eql([]);
+            expect(target.selectionService.getSelectedElements()).eql([]);
             expect(target.items[1].selected).eql(false);
         });
         it('toggle element selection only at index when multiple items selected', () => {
@@ -250,14 +250,14 @@ describe('SelectionService', () => {
             target.selectionService.itemsSource = target.items;
             target.selectionService.toggleSelection(1, savePrevious);
             target.selectionService.toggleSelection(2, savePrevious);
-            expect(target.selectionService.getSelections()).eql([target.items[1], target.items[2]]);
+            expect(target.selectionService.getSelectedElements()).eql([target.items[1], target.items[2]]);
 
             expect(target.items[0].selected).eql(false);
             expect(target.items[1].selected).eql(true);
             expect(target.items[2].selected).eql(true);
 
             target.selectionService.toggleSelection(1, savePrevious);
-            expect(target.selectionService.getSelections()).eql([target.items[2]]);
+            expect(target.selectionService.getSelectedElements()).eql([target.items[2]]);
             expect(target.items[1].selected).eql(false);
         });
 
@@ -267,14 +267,14 @@ describe('SelectionService', () => {
             target.selectionService = new DefaultSelectionService();
             target.selectionService.itemsSource = target.items;
             target.selectionService.toggleSelection(1, doNotSavePrevious);
-            expect(target.selectionService.getSelections()).eql([target.items[1]]);
+            expect(target.selectionService.getSelectedElements()).eql([target.items[1]]);
 
             expect(target.items[0].selected).eql(false);
             expect(target.items[1].selected).eql(true);
             expect(target.items[2].selected).eql(false);
 
             target.selectionService.toggleSelection(2, doNotSavePrevious);
-            expect(target.selectionService.getSelections()).eql([target.items[2]]);
+            expect(target.selectionService.getSelectedElements()).eql([target.items[2]]);
             expect(target.items[1].selected).eql(false);
             expect(target.items[2].selected).eql(true);
         });
@@ -284,14 +284,14 @@ describe('SelectionService', () => {
             target.selectionService = new DefaultSelectionService();
             target.selectionService.itemsSource = target.items;
             target.selectionService.toggleSelection(1, savePrevious);
-            expect(target.selectionService.getSelections()).eql([target.items[1]]);
+            expect(target.selectionService.getSelectedElements()).eql([target.items[1]]);
 
             expect(target.items[0].selected).eql(false);
             expect(target.items[1].selected).eql(true);
             expect(target.items[2].selected).eql(false);
 
             target.selectionService.toggleSelection(2, savePrevious);
-            expect(target.selectionService.getSelections())
+            expect(target.selectionService.getSelectedElements())
                 .eql([
                     target.items[1],
                     target.items[2]
@@ -306,19 +306,19 @@ describe('SelectionService', () => {
             target.selectionService.itemsSource = target.items;
 
             target.selectionService.toggleSelection(-20);
-            expect(target.selectionService.getSelections()).empty;
+            expect(target.selectionService.getSelectedElements()).empty;
 
             target.selectionService.toggleSelection(null);
-            expect(target.selectionService.getSelections()).empty;
+            expect(target.selectionService.getSelectedElements()).empty;
 
             target.selectionService.toggleSelection(150);
-            expect(target.selectionService.getSelections()).empty;
+            expect(target.selectionService.getSelectedElements()).empty;
         });
 
     });
 
     describe('getMinSelectedIndex', () => {
-        it('for single selected item', () => {
+        it('works when single item  selected', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
             target.selectionService.itemsSource = target.items;
@@ -326,7 +326,7 @@ describe('SelectionService', () => {
             expect(target.selectionService.getMinSelectedIndex()).eql(1);
         });
 
-        it('for multiple selected item', () => {
+        it('works when multiple items selected', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
             target.selectionService.itemsSource = target.items;
@@ -334,11 +334,24 @@ describe('SelectionService', () => {
             target.selectionService.toggleSelection(1, savePrevious);
             expect(target.selectionService.getMinSelectedIndex()).eql(0);
         });
-
+        it('works when selection order reversed', () => {
+            const target = toTarget();
+            target.selectionService = new DefaultSelectionService();
+            target.selectionService.itemsSource = target.items;
+            target.selectionService.toggleSelection(1, savePrevious);
+            target.selectionService.toggleSelection(0, savePrevious);
+            expect(target.selectionService.getMinSelectedIndex()).eql(0);
+        });
+        it('works when nothing selected', () => {
+            const target = toTarget();
+            target.selectionService = new DefaultSelectionService();
+            target.selectionService.itemsSource = target.items;
+            expect(target.selectionService.getMinSelectedIndex()).eql(-1);
+        });
     });
 
     describe('getMaxSelectedIndex', () => {
-        it('for single selected item', () => {
+        it('works when single item selected', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
             target.selectionService.itemsSource = target.items;
@@ -346,7 +359,7 @@ describe('SelectionService', () => {
             expect(target.selectionService.getMaxSelectedIndex()).eql(1);
         });
 
-        it('for multiple selected item', () => {
+        it('works when multiple items selected', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
             target.selectionService.itemsSource = target.items;
@@ -355,7 +368,7 @@ describe('SelectionService', () => {
             expect(target.selectionService.getMaxSelectedIndex()).eql(1);
         });
 
-        it('for reversed selection order', () => {
+        it('works when selection order reversed', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
             target.selectionService.itemsSource = target.items;
@@ -363,7 +376,12 @@ describe('SelectionService', () => {
             target.selectionService.toggleSelection(0, savePrevious);
             expect(target.selectionService.getMaxSelectedIndex()).eql(1);
         });
-
+        it('works when nothing selected', () => {
+            const target = toTarget();
+            target.selectionService = new DefaultSelectionService();
+            target.selectionService.itemsSource = target.items;
+            expect(target.selectionService.getMaxSelectedIndex()).eql(-1);
+        });
     });
 
     describe('isIndexSelected', () => {
@@ -410,20 +428,20 @@ describe('SelectionService', () => {
             target.selectionService = new DefaultSelectionService();
             target.selectionService.itemsSource = target.items;
             target.selectionService.selectAll();
-            expect(target.selectionService.getSelections().length).eq(target.items.length);
+            expect(target.selectionService.getSelectedElements().length).eq(target.items.length);
             target.items.pop();
             target.selectionService.itemsSource = null;
-            expect(target.selectionService.getSelections().length).eq(0);
+            expect(target.selectionService.getSelectedElements().length).eq(0);
         });
         it('remove deleted item from selections on set', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
             target.selectionService.itemsSource = target.items;
             target.selectionService.selectAll();
-            expect(target.selectionService.getSelections().length).eq(target.items.length);
+            expect(target.selectionService.getSelectedElements().length).eq(target.items.length);
             target.items.pop();
             target.selectionService.itemsSource = target.items;
-            expect(target.selectionService.getSelections().length).eq(target.items.length);
+            expect(target.selectionService.getSelectedElements().length).eq(target.items.length);
         });
         it('remove shifted items from selections on set', () => {
             const target = toTarget();
@@ -432,7 +450,7 @@ describe('SelectionService', () => {
             target.selectionService.selectAll();
             target.items.unshift(target.items.pop());
             target.selectionService.itemsSource = target.items;
-            expect(target.selectionService.getSelections().length).eq(0);
+            expect(target.selectionService.getSelectedElements().length).eq(0);
         });
         it('use referential equals as trackBy function by default', () => {
             const target = toTarget();
@@ -440,7 +458,7 @@ describe('SelectionService', () => {
             target.selectionService.itemsSource = target.items;
             target.selectionService.selectAll();
             target.selectionService.itemsSource = target.items.map((item: Item) => ({ name: item.name } as Item));
-            expect(target.selectionService.getSelections().length).eq(0);
+            expect(target.selectionService.getSelectedElements().length).eq(0);
         });
         it('can use custom trackBy function', () => {
             const target = toTarget();
@@ -449,7 +467,7 @@ describe('SelectionService', () => {
             target.selectionService.trackByFn = (index: number, item: any) => item.name;
             target.selectionService.selectAll();
             target.selectionService.itemsSource = target.items.map((item: Item) => ({ name: item.name } as Item));
-            expect(target.selectionService.getSelections().length).eq(5);
+            expect(target.selectionService.getSelectedElements().length).eq(5);
         });
     });
 
@@ -472,7 +490,7 @@ describe('SelectionService', () => {
 
             target.selectionService.selectRange(-1, 5);
 
-            expect(target.selectionService.getSelections())
+            expect(target.selectionService.getSelectedElements())
                 .eql([]);
         });
 
@@ -483,7 +501,7 @@ describe('SelectionService', () => {
 
             target.selectionService.selectRange(0, 1);
 
-            expect(target.selectionService.getSelections())
+            expect(target.selectionService.getSelectedElements())
                 .eql([
                     target.items[0],
                     target.items[1]
@@ -496,7 +514,7 @@ describe('SelectionService', () => {
             target.selectionService.itemsSource = target.items;
             target.selectionService.toggleSelection(2, savePrevious);
             target.selectionService.selectRange(0, 1);
-            expect(target.selectionService.getSelections()).eql([target.items[0], target.items[1]]);
+            expect(target.selectionService.getSelectedElements()).eql([target.items[0], target.items[1]]);
         });
 
         it('checks that range already selected', () => {
@@ -608,9 +626,9 @@ describe('SelectionService', () => {
             target.selectionService = new DefaultSelectionService();
             target.selectionService.itemsSource = target.items;
             target.selectionService.selectAll();
-            expect(target.selectionService.getSelections().length).equal(target.items.length);
+            expect(target.selectionService.getSelectedElements().length).equal(target.items.length);
             target.selectionService.dispose();
-            expect(target.selectionService.getSelections().length).equal(0);
+            expect(target.selectionService.getSelectedElements().length).equal(0);
             expect(target.selectionService.lastProcessedIndex).null;
         });
         it('removes items source', () => {
