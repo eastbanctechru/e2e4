@@ -77,10 +77,5 @@
     "wallaby-webpack": "0.0.22",
     "webpack": "1.13.1",
     "yargs": "^4.8.1"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   }
 }
