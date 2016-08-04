@@ -31,13 +31,13 @@ export abstract class AbstractLifetime {
         return this.state !== ProgressState.Progress;
     }
     /**
-     * Выставляет свойство {@link AbstractLifetime.inited} в true. Данный метод необходимо вызывать из классов-наследников после инициализации.  
+     * Выставляет свойство {@link inited} в true. Данный метод необходимо вызывать из классов-наследников после инициализации.  
      */
     public init(): void {
         this.inited = true;
     }
     /**
-     * Выставляет свойство {@link AbstractLifetime.disposed} в true. Данный метод необходимо вызывать из классов-наследников при уничтожении.  
+     * Выставляет свойство {@link disposed} в true. Данный метод необходимо вызывать из классов-наследников при уничтожении.  
      */
     public dispose(): void {
         this.disposed = true;

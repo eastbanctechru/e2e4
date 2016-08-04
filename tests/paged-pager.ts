@@ -62,6 +62,25 @@ describe('PagedPager', () => {
             expect(pager.pageNumber).eq(1);
             expect(pager.pageSize).eq(pager.defaultPageSize);
         });
+        it('process response with custom properties names', () => {
+            let pager = new PagedPager();
+            pager.totalCountParameterName = 'customTotal';
+            pager.loadedCountParameterName = 'customLoaded';
+            pager.displayFromParameterName = 'customDisplayFrom';
+            pager.displayToParameterName = 'customDisplayTo';
+            const response = {
+                customDisplayFrom: 20,
+                customDisplayTo: 40,
+                customLoaded: 20,
+                customTotal: 100
+            };
+            pager.processResponse(response);
+            expect(pager.loadedCount).eq(response.customLoaded);
+            expect(pager.totalCount).eq(response.customTotal);
+            expect(pager.displayFrom).eq(response.customDisplayFrom);
+            expect(pager.displayTo).eq(response.customDisplayTo);
+        });
+
     });
     describe('as filter target', () => {
         it('parse pageNumber param', () => {
@@ -129,6 +148,17 @@ describe('PagedPager', () => {
             filtersService.resetValues();
             expect(pager.pageSize).eq(5);
             expect(PagedPager.settings.defaultPageSize).not.eq(pager.defaultPageSize);
+        });
+
+        it('can use custom parameter names', () => {
+            let pager = new PagedPager();
+            let filtersService = new FiltersService(pager);
+
+            pager.pageNumberParameterName = 'customPageNumber';
+            pager.pageSizeParameterName = 'customPageSize';
+            const request = filtersService.getRequestState();
+            expect(request).haveOwnProperty(pager.pageNumberParameterName);
+            expect(request).haveOwnProperty(pager.pageSizeParameterName);
         });
     });
     describe('internal state', () => {

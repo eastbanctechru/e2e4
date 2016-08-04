@@ -30,6 +30,20 @@ describe('BufferedPager', () => {
             expect(pager.loadedCount).eq(response.loadedCount);
             expect(pager.skip).eq(response.loadedCount);
         });
+
+        it('process response with custom properties names', () => {
+            let pager = new BufferedPager();
+            pager.totalCountParameterName = 'customTotal';
+            pager.loadedCountParameterName = 'customLoaded';
+            const response = {
+                customLoaded: 20,
+                customTotal: 100
+            };
+            pager.processResponse(response);
+            expect(pager.loadedCount).eq(response.customLoaded);
+            expect(pager.totalCount).eq(response.customTotal);
+        });
+
         it('increments skip on each load callback execution', () => {
             let pager = new BufferedPager();
             let response = toResponseObject();
@@ -60,7 +74,6 @@ describe('BufferedPager', () => {
         });
     });
     describe('as filter target', () => {
-
         it('parse skip param as 0', () => {
             let pager = new BufferedPager();
             let filtersService = new FiltersService(pager);
@@ -80,7 +93,6 @@ describe('BufferedPager', () => {
 
             expect(pager.takeRowCount).eq(pager.defaultRowCount);
             expect(pager.skip).eq(0);
-
             let params = {
                 skip: 100,
                 take: 100
@@ -136,6 +148,17 @@ describe('BufferedPager', () => {
             filtersService.resetValues();
             expect(pager.takeRowCount).eq(5);
             expect(BufferedPager.settings.defaultRowCount).not.eq(pager.defaultRowCount);
+        });
+
+        it('can use custom parameter names', () => {
+            let pager = new BufferedPager();
+            let filtersService = new FiltersService(pager);
+
+            pager.takeRowCountParameterName = 'customTake';
+            pager.skipRowCountParameterName = 'customSkip';
+            const request = filtersService.getRequestState();
+            expect(request).haveOwnProperty(pager.takeRowCountParameterName);
+            expect(request).haveOwnProperty(pager.skipRowCountParameterName);
         });
     });
     describe('internal state', () => {
