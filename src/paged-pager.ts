@@ -19,7 +19,7 @@ export class PagedPager implements Pager {
     protected pageSizeInternal: number = PagedPager.settings.defaultPageSize;
     @filter({
         defaultValue: 1,
-        parameterName: PagedPager.settings.pageNumberParameterName,
+        parameterName: function (): string { return (<PagedPager>this).pageNumberParameterName; },
         parseFormatter: function (rawValue: any): number {
             return isNaN(rawValue) || !rawValue ? 1 : rawValue;
         }
@@ -30,6 +30,13 @@ export class PagedPager implements Pager {
     public defaultPageSize: number = PagedPager.settings.defaultPageSize;
     public maxPageSize: number = PagedPager.settings.maxPageSize;
     public minPageSize: number = PagedPager.settings.minPageSize;
+    public displayFromParameterName: string = PagedPager.settings.displayFromParameterName;
+    public displayToParameterName: string = PagedPager.settings.displayToParameterName;
+    public loadedCountParameterName: string = PagedPager.settings.loadedCountParameterName;
+    public totalCountParameterName: string = PagedPager.settings.totalCountParameterName;
+    public pageNumberParameterName: string = PagedPager.settings.pageNumberParameterName;
+    public pageSizeParameterName: string = PagedPager.settings.pageSizeParameterName;
+
     public totalCount: number = 0;
     public loadedCount: number = 0;
     public displayFrom: number = 0;
@@ -53,8 +60,8 @@ export class PagedPager implements Pager {
         this.pageNumberInternal = pageNumber;
     }
     @filter({
-        defaultValue: function (): number { return this.defaultPageSize; },
-        parameterName: PagedPager.settings.pageSizeParameterName,
+        defaultValue: function (): number { return (<PagedPager>this).defaultPageSize; },
+        parameterName: function (): string { return (<PagedPager>this).pageSizeParameterName; },
         parseFormatter: function (rawValue: any): number {
             return isNaN(rawValue) || !rawValue ? this.defaultPageSize : rawValue;
         },
@@ -87,11 +94,11 @@ export class PagedPager implements Pager {
     }
 
     public processResponse(result: Object): void {
-        this.loadedCount = result[PagedPager.settings.loadedCountParameterName] || 0;
-        this.totalCount = result[PagedPager.settings.totalCountParameterName] || 0;
+        this.loadedCount = result[this.loadedCountParameterName] || 0;
+        this.totalCount = result[this.totalCountParameterName] || 0;
 
-        this.displayFrom = result[PagedPager.settings.displayFromParameterName] || 0;
-        this.displayTo = result[PagedPager.settings.displayToParameterName] || 0;
+        this.displayFrom = result[this.displayFromParameterName] || 0;
+        this.displayTo = result[this.displayToParameterName] || 0;
 
     }
     public reset(): void {

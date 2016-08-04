@@ -54,8 +54,9 @@ export class FiltersService {
         this.appliedFiltersMap.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
-                if (params && params.hasOwnProperty(config.parameterName) && false === config.ignoreOnAutoMap) {
-                    let proposedVal = config.emptyIsNull ? params[config.parameterName] || null : params[config.parameterName];
+                const parameterName = this.getParameterName(target, config);
+                if (params && params.hasOwnProperty(parameterName) && false === config.ignoreOnAutoMap) {
+                    let proposedVal = config.emptyIsNull ? params[parameterName] || null : params[parameterName];
                     proposedVal = config.coerce ? Utility.coerceValue(proposedVal) : proposedVal;
                     target[config.propertyName] = config.parseFormatter ? config.parseFormatter.call(target, proposedVal, params) : proposedVal;
                 }
@@ -68,7 +69,7 @@ export class FiltersService {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
                 const proposedVal = target[config.propertyName];
-                result[config.parameterName] = FiltersService.buildFilterValue(target, proposedVal, config);
+                result[this.getParameterName(target, config)] = FiltersService.buildFilterValue(target, proposedVal, config);
             }
         });
         return result;
@@ -81,8 +82,9 @@ export class FiltersService {
                 if (!config.persisted) {
                     continue;
                 }
-                let proposedVal = target[config.propertyName];
-                result[config.parameterName] = FiltersService.buildFilterValue(target, proposedVal, config);
+                const proposedVal = target[config.propertyName];
+                const parameterName = this.getParameterName(target, config);
+                result[parameterName] = FiltersService.buildFilterValue(target, proposedVal, config);
             }
         });
         return result;
@@ -91,6 +93,9 @@ export class FiltersService {
         targets.forEach((target: Object) => {
             this.appliedFiltersMapInternal.set(target, null);
         });
+    }
+    private getParameterName(target: Object, config: FilterConfig): string {
+        return (typeof config.parameterName === 'function') ? (config.parameterName as any).call(target) : config.parameterName;
     }
     private buildFiltersMap(): void {
         this.appliedFiltersMapInternal.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
