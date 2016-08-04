@@ -10,17 +10,19 @@ export class SortingsService {
     protected defaultSortingsInternal: SortParameter[] = new Array<SortParameter>();
     @filter({
         defaultValue: function (): Array<SortParameter> { return this.cloneDefaultSortings(); },
-        parameterName: SortingsService.settings.sortParameterName,
+        parameterName: function (): string { return (<SortingsService>this).sortParameterName; },
         parseFormatter: function (rawValue: any): Array<Object> {
             return Array.isArray(rawValue) ? rawValue.map((sort: SortParameter) => { return new SortParameter(sort.fieldName, sort.direction * 1); }) : [];
         },
         persisted: SortingsService.settings.persistSortings
     } as FilterConfig)
     public sortings: Array<SortParameter> = new Array<SortParameter>();
+    public sortParameterName: string = SortingsService.settings.sortParameterName;
 
     protected cloneDefaultSortings(): Array<SortParameter> {
         return this.defaultSortingsInternal.map((s: SortParameter) => new SortParameter(s.fieldName, s.direction));
     }
+
     public get defaultSortings(): SortParameter[] {
         return this.defaultSortingsInternal;
     }

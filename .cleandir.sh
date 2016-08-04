@@ -1,2 +1,2 @@
 echo Cleaning up project directory...
-rm -rf node_modules esm reports typings src/*.d.ts src/*.js
+rm -rf node_modules esm docs reports typings src/*.d.ts src/*.js
