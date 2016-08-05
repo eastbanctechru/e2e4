@@ -10,7 +10,7 @@ export interface SelectionTuple {
      */
     index: number;
     /**
-     * Элемент из коллекцити {@link DefaultSelectionService.itemsSource}.
+     * Элемент из коллекции {@link DefaultSelectionService.itemsSource}.
      */
     item: SelectableItem;
 }

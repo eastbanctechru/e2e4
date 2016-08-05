@@ -8,10 +8,12 @@ export interface Pager {
     appendedOnLoad: boolean;
     /**
      * Общее количество записей в источнике данных. В имеющихся конечных реализациях заполняется методом {@link processResponse} из ответа сервера подобного {@link ListResponse.totalCount}
+     * См. также {@link ListResponse}
      */
     totalCount: number;
     /**
      * Количество записей, загруженных в результате последнего запроса. В имеющихся конечных реализациях заполняется методом {@link processResponse} из ответа сервера подобного {@link ListResponse.loadedCount}
+     * См. также {@link ListResponse}
      */
     loadedCount: number;
     /**

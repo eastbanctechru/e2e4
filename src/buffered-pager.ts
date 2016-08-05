@@ -2,7 +2,7 @@ import {Pager} from './contracts/pager';
 import {filter} from './filter-annotation';
 import {FilterConfig} from './contracts/filter-config';
 /**
- * Имплементация контракта {@link Pager} реализующая поведения буферного (догружаемого) списка.
+ * Имплементация контракта {@link Pager} реализующая поведение буферного (догружаемого) списка.
  */
 export class BufferedPager implements Pager {
     /**
@@ -97,10 +97,10 @@ export class BufferedPager implements Pager {
      * Имя параметра при запросе на сервер, в котором будет передано значение свойства {@link takeRowCount}. 
      */
     public takeRowCountParameterName: string = BufferedPager.settings.takeRowCountParameterName;
-
     /**
      * Параметр, передаваемый на сервер и указывающий, сколько записей уже загружено в список и, соответственно, их надо пропустить при загрузке данных.
      * Имя параметра в запросе будет выставлено в соответствии со свойством {@link skipRowCountParameterName}.
+     * См. также {@link BufferedListRequest.skip}
      */
     @filter({
         defaultValue: 0,
@@ -108,11 +108,11 @@ export class BufferedPager implements Pager {
         parseFormatter: function (): number { return 0; }
     } as FilterConfig)
     public skip: number = 0;
-
     /**
      * Параметр, передаваемый на сервер и указывающий, сколько записей необходимо загрузить за следующий запрос.
      * Имя параметра в запросе будет выставлено в соответствии со свойством {@link takeRowCountParameterName}.
-     * Setter данного своства выполняет ряд проверок не давая, к примеру, отправить в качестве параметра значение, превышающее значение {@link maxRowCount}
+     * Setter данного свойства выполняет ряд проверок не давая, к примеру, отправить в качестве параметра значение, превышающее значение {@link maxRowCount}
+     * См. также {@link BufferedListRequest.take}
      */
     public get takeRowCount(): number {
         return this.takeRowCountInternal;
