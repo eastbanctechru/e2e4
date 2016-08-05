@@ -12,6 +12,8 @@ export interface SelectionService {
     /**
      * Опциональная функция, при помощи которой будут сравниваться элементы коллекции {@link itemsSource}.
      * Данная функция должна вызываться при изменении значения свойства {@link itemsSource}, а также при вызове метода {@link getItemIndex}.
+     * @param index индекс элемента в коллекции {@link itemsSource}
+     * @param элемент из коллекции {@link itemsSource}
      */
     trackByFn: (index: number, item: any) => any;
     /**
@@ -32,6 +34,13 @@ export interface SelectionService {
      * @param toIndex - индекс, вплоть до которого будут выбраны элементы. 
      */
     selectRange(fromIndex: number, toIndex: number): void;
+    /**
+     * Проверяет, что все элементы внутри заданного диапазона в коллекции {@link itemsSource} выбраны.
+     * @param fromIndex - индекс, начиная с которого будут выбраны элементы.
+     * @param toIndex - индекс, вплоть до которого будут выбраны элементы.
+     * @returns true если все элементы внутри заданного диапазона в коллекции {@link itemsSource} выбраны. 
+     */
+    isRangeSelected(from: number, to: number): boolean;
     /**
      * Определяет, выбран ли хотя бы один элемент в коллекции {@link itemsSource}.
      * @returns true если выбран хотя бы один элемент.
