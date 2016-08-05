@@ -1,6 +1,31 @@
 import {FilterConfig} from './contracts/filter-config';
 import {Utility} from './utility';
-
+/**
+ * Используется для декларативного построения объектов-запросов, представляющих собой значимое состояние объекта. Поскольку звучит это достаточно абстрактно, рассмотрим на конкретном примере.
+ * Типичный сценарий использования выглядит следующим образом: 
+ * ```JavaScript
+ *      class EndUserClass {
+ *         @filter
+ *         public parameter1 = 'Hey';
+ *         @filter
+ *         public parameter2 = 'There';
+ *      }
+ *      let endUserClassInstance = new EndUserClass();
+ *      let filterService = new FilterService(endUserClassInstance);
+ * ```
+ * Теперь мы можем использовать созданный filterService следующим образом:
+ *  - вызвав метод {@link FiltersService.getRequestState} сгенерировать объект-литерал вида
+ * ```JavaScript
+ *      {
+ *         parameter1: 'Hey',
+ *         parameter2: 'There'
+ *      }
+ * ```
+ *  - вызвав метод {@link FiltersService.resetValues} восстановить исходные (или настроенные при помощи {@link FilterConfig.defaultValue}) значения полей объекта. 
+ *  - вызвав метод {@link FiltersService.applyParams} автоматичеcки применить значения к полям объекта из переданных параметров (например, можно передать параметры из queryString, и они будут автоматически применены к полям объекта). 
+ *  - вызвав метод {@link FiltersService.getPersistedState} сгенерировать объект-литерал аналогично {@link getRequestState}. Однако, в него будут записаны только свойства, отмеченные при помощи свойства {@link FilterConfig.persisted}.
+ * (Например, вы можете сохранить полученный литерал в localStorage или на сервере, а в следующий раз применить к объекту при помощи {@link FiltersService.applyParams}, восстановив его последнее состояние.) 
+ */
 export class FiltersService {
     public static filterPropertiesMap: Map<any, Array<FilterConfig>> = new Map<any, Array<FilterConfig>>();
     protected appliedFiltersMapInternal: Map<Object, Array<FilterConfig>> = new Map<Object, Array<FilterConfig>>();
