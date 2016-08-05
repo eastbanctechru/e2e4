@@ -33,6 +33,13 @@ export interface SelectionService {
      */
     selectRange(fromIndex: number, toIndex: number): void;
     /**
+     * Проверяет, что все элементы внутри заданного диапазона в коллекции {@link itemsSource} выбраны.
+     * @param fromIndex - индекс, начиная с которого будут выбраны элементы.
+     * @param toIndex - индекс, вплоть до которого будут выбраны элементы.
+     * @returns true если все элементы внутри заданного диапазона в коллекции {@link itemsSource} выбраны. 
+     */
+    isRangeSelected(from: number, to: number);
+    /**
      * Определяет, выбран ли хотя бы один элемент в коллекции {@link itemsSource}.
      * @returns true если выбран хотя бы один элемент.
      */
