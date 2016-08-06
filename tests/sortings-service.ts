@@ -104,6 +104,16 @@ describe('SortingsService', () => {
             expect(sortingsService.defaultSortings).eql(sortingsService.sortings);
         });
 
+        it('can persist sortings', () => {
+            const target = toTargetWithDefault();
+            const {sortingsService} = target;
+            const filtersService = new FiltersService(sortingsService);
+            sortingsService.persistSortings = true;
+            const persistedState = filtersService.getPersistedState();
+
+            expect(persistedState).eql(filtersService.getRequestState());
+        });
+
         it('can save previous sorting', () => {
             const target = toTarget();
             const {sortingsService} = target;

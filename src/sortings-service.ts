@@ -4,7 +4,7 @@ import {filter} from './filter-annotation';
 
 export class SortingsService {
     public static settings: any = {
-        persistSortings: true,
+        persistSortings: false,
         sortParameterName: 'sort'
     };
     protected defaultSortingsInternal: SortParameter[] = new Array<SortParameter>();
@@ -14,10 +14,16 @@ export class SortingsService {
         parseFormatter: function (rawValue: any): Array<Object> {
             return Array.isArray(rawValue) ? rawValue.map((sort: SortParameter) => { return new SortParameter(sort.fieldName, sort.direction * 1); }) : [];
         },
-        persisted: SortingsService.settings.persistSortings
+        persisted: function (): boolean { return (<SortingsService>this).persistSortings; }
     } as FilterConfig)
     public sortings: Array<SortParameter> = new Array<SortParameter>();
     public sortParameterName: string = SortingsService.settings.sortParameterName;
+
+    /**
+     * Указывает, нужно ли сохранять сортировки на постоянной основе.
+     * Смотри {@link FilterConfig.persisted} а также {@link FiltersService.getPersistedState}
+     */
+    public persistSortings: boolean = SortingsService.settings.persistSortings;
 
     protected cloneDefaultSortings(): Array<SortParameter> {
         return this.defaultSortingsInternal.map((s: SortParameter) => new SortParameter(s.fieldName, s.direction));
