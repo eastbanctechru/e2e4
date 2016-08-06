@@ -25,7 +25,8 @@ import {Utility} from './utility';
  *  - вызвав метод {@link applyParams} автоматичеcки применить значения к полям объекта из переданных параметров (например, можно передать параметры из queryString, и они будут автоматически применены к полям объекта). 
  *  - вызвав метод {@link getPersistedState} сгенерировать объект-литерал аналогично {@link getRequestState}. Однако, в него будут записаны только свойства, отмеченные при помощи свойства {@link FilterConfig.persisted}.
  * (Например, вы можете сохранить полученный литерал в localStorage или на сервере, а в следующий раз применить к объекту при помощи {@link applyParams}, восстановив его последнее состояние.)
- *  - вызвав метод {@link registerFilterTarget} добавить любое количество других объектов. В результате, методы {@link resetValues}, {@link applyParams}, {@link getPersistedState}, {@link getRequestState} будут работать для всех них.
+ *  - вызвав метод {@link registerFilterTarget} добавить любое количество других объектов (будем называть их "целевые объекты"). 
+ * В результате, методы {@link resetValues}, {@link applyParams}, {@link getPersistedState}, {@link getRequestState} будут работать для всех них.
  */
 export class FiltersService {
     /**
@@ -89,7 +90,7 @@ export class FiltersService {
         return value;
     }
     /**
-     * Подготавливает класс к уничтожению.
+     * Подготавливает объект к уничтожению.
      */
     public dispose(): void {
         this.appliedFiltersMapInternal.clear();
@@ -127,6 +128,13 @@ export class FiltersService {
             }
         });
     }
+    /**
+     * Перебирает свойства переданного объекта и ищет совпадениям по именам свойств с настроенными целевыми объектами.
+     * Если совпадения найдено, то переданное значение применяется к соответствующему свойству целевого объекта.
+     * При этом, переданный объект воспринимается как набор "сырых" значений. 
+     * Итоговые же значения будут получены в результате обработки таких настроек как: {@link FilterConfig.ignoreOnAutoMap}, {@link FilterConfig.emptyIsNull}, {@link FilterConfig.coerce}, {@link FilterConfig.parseFormatter}
+     * @param params - объект с "сырыми" значениями для разбора. Типичный кандидат для данного параметра - набор пар ключ-значение из queryString.
+     */
     public applyParams(params: Object): void {
         this.appliedFiltersMap.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
             for (let i = 0; i < targetConfig.length; i++) {
@@ -140,6 +148,13 @@ export class FiltersService {
             }
         });
     }
+    /**
+     * Перебирает свойства всех целевых объектов, которые настроены как фильтры и собирает их значения в один итоговый объект-литерал.
+     * Типичный пример использования данного метода - автоматическое построение запроса на сервер.
+     * Имя свойства в полученном объекте зависит от настройки {@link FilterConfig.parameterName}. Итоговые значения строятся при помощи метода {@link buildFilterValue}. 
+     * @param result - объект в который необходимо дописать полученные значения. Если ничего не передано, то будет сконструирован новый объект.
+     * @returns итоговый объект-литерал. 
+     */
     public getRequestState(result?: Object): any {
         result = result || {};
         this.appliedFiltersMap.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
@@ -151,6 +166,11 @@ export class FiltersService {
         });
         return result;
     }
+    /**
+     * Аналогичен методу {@link FiltersService.getRequestState}, но в результат включены только те свойства, для которых указано значение true для {@link FilterConfig.persisted}. 
+     * @param result - объект в который необходимо дописать полученные значения. Если ничего не передано, то будет сконструирован новый объект.
+     * @returns итоговый объект-литерал. 
+     */
     public getPersistedState(result?: Object): any {
         result = result || {};
         this.appliedFiltersMap.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
@@ -167,14 +187,28 @@ export class FiltersService {
         });
         return result;
     }
+    /**
+     * Добавляет переданный(е) объект(ы) в коллекцию целевых объектов текущего сервиса.
+     * На основании объектов и будут строиться значения методами {@link getRequestState} и {@link getPersistedState}, так же переданные объекты будут обрабатываться методами {@link applyParams} и {@link resetValues}.   
+     * @param targets объект который необходимо зарегистрировать как целевой.
+     */
     public registerFilterTarget(...targets: Object[]): void {
         targets.forEach((target: Object) => {
             this.appliedFiltersMapInternal.set(target, null);
         });
     }
+    /**
+     * Внутренняя функция для получения имени параметра  методами {@link getRequestState} и {@link getPersistedState}.
+     * @param target объект, которому принадлежит целевое свойство. Используется для передачи в качестве this методу {@link FilterConfig.parameterName}.
+     * @returns итоговое имя параметра.
+     */
     private getParameterName(target: Object, config: FilterConfig): string {
         return (typeof config.parameterName === 'function') ? (config.parameterName as any).call(target) : config.parameterName;
     }
+    /**
+     * Внутренняя функция, строящая итоговую схему настроек для переданных целевых объектов.
+     * Вызывается автоматически при первом образении к свойству {@link appliedFiltersMap}.
+     */
     private buildFiltersMap(): void {
         this.appliedFiltersMapInternal.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
             targetConfig = new Array<FilterConfig>();
@@ -197,6 +231,9 @@ export class FiltersService {
         });
         this.filtersMapBuilded = true;
     }
+    /**
+     * @param target целевой объект, который будет зарегистрирован при помощи метода {@link registerFilterTarget}.
+     */
     constructor(target?: Object) {
         if (target) {
             this.registerFilterTarget(target);
