@@ -45,7 +45,7 @@ export function filter(targetOrNameOrConfig?: string | FilterConfig, key?: strin
         } else {
             Object.assign(config, targetOrNameOrConfig);
         }
-        return FiltersService.registerFilter(target.constructor, config);
+        return FiltersService.registerFilterConfig(target.constructor, config);
     };
 
     if (key) {
