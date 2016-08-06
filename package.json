@@ -20,7 +20,7 @@
     "precommit-msg": "echo 'Run pre-commit checks...' && exit 0",
     "ci": "gulp test",
     "postinstall": "typings install",
-    "coveralls": "cat ./reports/coverage/lcov.info | ./node_modules/.bin/coveralls"
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
   },
   "jspm": {
     "registry": "npm",

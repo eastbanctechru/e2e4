@@ -2,7 +2,7 @@
 publish
 build
 node_modules
-reports
+coverage
 tests
 typings
 **/*[!.][!d].ts
