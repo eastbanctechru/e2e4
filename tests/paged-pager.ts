@@ -160,6 +160,15 @@ describe('PagedPager', () => {
             expect(request).haveOwnProperty(pager.pageNumberParameterName);
             expect(request).haveOwnProperty(pager.pageSizeParameterName);
         });
+        it('can persist pageSize', () => {
+            let pager = new PagedPager();
+            let filtersService = new FiltersService(pager);
+            pager.persistPageSize = true;
+            const persistedState = filtersService.getPersistedState();
+
+            expect(persistedState).eql({ pageSize: pager.pageSize });
+        });
+
     });
     describe('internal state', () => {
         describe('pageSize', () => {

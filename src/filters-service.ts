@@ -104,7 +104,8 @@ export class FiltersService {
         this.appliedFiltersMap.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
-                if (!config.persisted) {
+                const persisted = (typeof config.persisted === 'function') ? (config.persisted as any).call(target) : config.persisted;
+                if (!persisted) {
                     continue;
                 }
                 const proposedVal = target[config.propertyName];

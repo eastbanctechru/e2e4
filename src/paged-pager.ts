@@ -48,7 +48,7 @@ export class PagedPager implements Pager {
         /**
          * Смотри {@link PagedPager.persistPageSize}. 
          */
-        persistPageSize: true,
+        persistPageSize: false,
         /**
          * Смотри {@link PagedPager.totalCountParameterName}. 
          */
@@ -112,6 +112,11 @@ export class PagedPager implements Pager {
      */
     public pageSizeParameterName: string = PagedPager.settings.pageSizeParameterName;
     /**
+     * Указывает, нужно ли сохранять размер страницы списка постоянно.
+     * Смотри {@link FilterConfig.persisted} а также {@link FiltersService.getPersistedState}
+     */
+    public persistPageSize: boolean = PagedPager.settings.persistPageSize;
+    /**
      * Смотри {@link Pager.totalCount}.
      */
     public totalCount: number = 0;
@@ -164,7 +169,7 @@ export class PagedPager implements Pager {
         parseFormatter: function (rawValue: any): number {
             return isNaN(rawValue) || !rawValue ? this.defaultPageSize : rawValue;
         },
-        persisted: PagedPager.settings.persistPageSize
+        persisted: function (): boolean { return (<PagedPager>this).persistPageSize; }
     })
     /**
      * Размер страницы, которую необходимо загрузить при запросе на сервер.
