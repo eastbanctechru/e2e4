@@ -15,7 +15,7 @@ describe('FiltersService', () => {
         it('registers filter config for type', () => {
             class TargetType { };
             const config = getDefaultFilterConfig('propertyName');
-            FiltersService.registerFilter(TargetType, config);
+            FiltersService.registerFilterConfig(TargetType, config);
             expect(FiltersService.filterPropertiesMap.has(TargetType)).true;
             expect(FiltersService.filterPropertiesMap.get(TargetType)).eql([config]);
 
@@ -25,8 +25,8 @@ describe('FiltersService', () => {
             const config = getDefaultFilterConfig('propertyName');
             const anotherConfig = getDefaultFilterConfig('anotherPropertyName');
 
-            FiltersService.registerFilter(TargetType, config);
-            FiltersService.registerFilter(TargetType, anotherConfig);
+            FiltersService.registerFilterConfig(TargetType, config);
+            FiltersService.registerFilterConfig(TargetType, anotherConfig);
 
             expect(FiltersService.filterPropertiesMap.has(TargetType)).true;
             expect(FiltersService.filterPropertiesMap.get(TargetType)).eql([config, anotherConfig]);
