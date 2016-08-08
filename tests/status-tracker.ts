@@ -17,13 +17,13 @@ describe('Status', () => {
         expect(model.className).eql('');
 
         model.status = ProgressState.Done;
-        expect(model.className).eql('status status-resolved');
+        expect(model.className).eql(Status.settings.statusDoneClassName);
 
         model.status = ProgressState.Fail;
-        expect(model.className).eql('status status-fail');
+        expect(model.className).eql(Status.settings.statusFailClassName);
 
         model.status = ProgressState.Progress;
-        expect(model.className).eql('status status-progress');
+        expect(model.className).eql(Status.settings.statusProgressClassName);
 
         model.status = ProgressState.Cancelled;
         expect(model.className).eql('');
@@ -39,10 +39,6 @@ describe('StatusTracker', () => {
     afterEach(() => {
         StatusTracker.statusList = [];
         clock.restore();
-    });
-
-    it('tracks if status is displayed', () => {
-        expect(StatusTracker.statusDisplayed).eq(false);
     });
 
     it('tracks if status is active', () => {
