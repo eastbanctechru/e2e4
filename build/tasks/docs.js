@@ -21,7 +21,7 @@ gulp.task("docs-build", function () {
         }));
 });
 
-gulp.task('docs-deploy', function() {
+gulp.task('docs-publish', function() {
   return gulp.src('./docs/**/*')
     .pipe(ghPages());
 });

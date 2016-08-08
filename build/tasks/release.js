@@ -7,11 +7,11 @@ var bump = require('gulp-bump');
 var gutil = require('gulp-util');
 var releaseAs = '';
 
-gulp.task('github-release', function (done) {
+gulp.task('conventional-release', function (done) {
     conventionalGithubReleaser({ type: 'oauth' }, { preset: 'angular' }, done);
 });
 
-gulp.task('get-bump', function () {
+gulp.task('conventional-get-bump', function () {
     conventionalRecommendedBump({ preset: 'angular' }, function (err, result) {
         releaseAs = result.releaseAs;
     });
@@ -31,13 +31,13 @@ gulp.task('write-changelog', function () {
 
 gulp.task('release', function (callback) {
     runSequence(
-        'get-bump',
+        'conventional-get-bump',
         'bump-version',
         'write-changelog',
-        // 'commit-changes',
-        // 'push-changes',
-        // 'create-new-tag',
-        // 'github-release',
+        'git-commit-changes',
+        'git-push-changes',
+        'git-create-new-tag',
+         'conventional-release',
         function (error) {
             if (error) {
                 console.log(error.message);
