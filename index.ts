@@ -22,4 +22,4 @@ export * from './src/selection-events-helper';
 export * from './src/default-selection-service';
 export * from './src/regular-pager';
 export * from './src/sortings-service';
-export * from './src/status-tracker';
+export * from './src/status-tracking-service';
