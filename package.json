@@ -16,16 +16,13 @@
   },
   "homepage": "https://github.com/fshchudlo/e2e4#readme",
   "scripts": {
-    "precommit-check": "gulp prepublish",
-    "precommit-msg": "echo 'Run pre-commit checks...' && exit 0",
-    "ci": "gulp test",
     "postinstall": "typings install",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
   },
   "jspm": {
     "registry": "npm",
-    "main": "src/index.js",
-    "format": "amd",
+    "main": "index.js",
+    "format": "commonjs",
     "directories": {
       "dist": "src",
       "lib": "src"
