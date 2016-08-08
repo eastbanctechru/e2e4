@@ -1,6 +1,11 @@
 ﻿import {ProgressState} from './progress-state';
 
 export class Status {
+    public static settings: any = {
+        statusDoneClassName: 'status-done',
+        statusFailClassName: 'status-fail',
+        statusProgressClassName: 'status-progress'
+    };
     public sid: number;
     constructor(public status: ProgressState, public title: string) {
         this.status = status;
@@ -9,11 +14,11 @@ export class Status {
     public get className(): string {
         switch (this.status) {
             case ProgressState.Done:
-                return 'status status-resolved';
+                return Status.settings.statusDoneClassName;
             case ProgressState.Progress:
-                return 'status status-progress';
+                return Status.settings.statusProgressClassName;
             case ProgressState.Fail:
-                return 'status status-fail';
+                return Status.settings.statusFailClassName;
             default:
                 return '';
         }
@@ -24,14 +29,10 @@ export class StatusTracker {
     public static elementVisibilityInterval: number = 500;
     public static progressDelayInterval: number = 500;
     public static status: ProgressState = ProgressState.Done;
-    public static modalDisplayed: boolean = false;
     public static statusList: Array<Status> = new Array<Status>();
 
-    public static get statusDisplayed(): boolean {
-        return StatusTracker.status !== ProgressState.Done;
-    }
     public static get isActive(): boolean {
-        return StatusTracker.statusDisplayed || StatusTracker.modalDisplayed;
+        return StatusTracker.status !== ProgressState.Done;
     }
     public static trackStatus(title: string): number {
         const sid = setTimeout(() => {
