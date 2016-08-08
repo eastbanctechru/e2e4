@@ -55,15 +55,15 @@ describe('Utility', () => {
     });
     describe('cloneLiteral', () => {
         it('clones simple values', () => {
-            expect(Utility.cloneLiteral(5)).equals(5);
-            expect(Utility.cloneLiteral('Hello world')).equals('Hello world');
-            expect(Utility.cloneLiteral(null)).null;
-            expect(Utility.cloneLiteral(undefined)).undefined;
+            expect(Utility.cloneAsLiteral(5)).equals(5);
+            expect(Utility.cloneAsLiteral('Hello world')).equals('Hello world');
+            expect(Utility.cloneAsLiteral(null)).null;
+            expect(Utility.cloneAsLiteral(undefined)).undefined;
         });
 
         it('clones arrays', () => {
             let toClone = ['Hello world', 5, null];
-            let cloned = Utility.cloneLiteral(toClone);
+            let cloned = Utility.cloneAsLiteral(toClone);
             expect(cloned).to.not.equal(toClone);
             expect(cloned).to.deep.equal(toClone);
         });
@@ -81,7 +81,7 @@ describe('Utility', () => {
                 numberProperty: 5,
                 stringProperty: 'Hello world'
             };
-            let cloned = Utility.cloneLiteral(toClone);
+            let cloned = Utility.cloneAsLiteral(toClone);
             expect(cloned).to.not.equal(toClone);
             expect(cloned).to.deep.equal(toClone);
         });
@@ -92,7 +92,7 @@ describe('Utility', () => {
                     return;
                 }
             };
-            let cloned = Utility.cloneLiteral(toClone);
+            let cloned = Utility.cloneAsLiteral(toClone);
             expect(cloned).to.not.equal(toClone);
             expect(cloned).to.not.deep.equal(toClone);
             expect(cloned.functionProperty).undefined;

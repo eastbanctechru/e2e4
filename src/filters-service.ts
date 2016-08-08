@@ -123,7 +123,7 @@ export class FiltersService {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
                 const defaultValue = (typeof config.defaultValue === 'function') ? (config.defaultValue as Function).call(target) : config.defaultValue;
-                const clonedObject = Utility.cloneLiteral({ defaultValue: defaultValue });
+                const clonedObject = Utility.cloneAsLiteral({ defaultValue: defaultValue });
                 target[config.propertyName] = config.parseFormatter ? config.parseFormatter.call(target, clonedObject.defaultValue) : clonedObject.defaultValue;
             }
         });
@@ -218,7 +218,7 @@ export class FiltersService {
                     for (let i = 0; i < targetConfig.length; i++) {
                         let config = targetConfig[i];
                         if (config.defaultValue === undefined) {
-                            config.defaultValue = Utility.cloneLiteral({ defaultValue: target[config.propertyName] }).defaultValue;
+                            config.defaultValue = Utility.cloneAsLiteral({ defaultValue: target[config.propertyName] }).defaultValue;
                         }
                     }
                 }

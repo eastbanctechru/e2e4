@@ -309,7 +309,7 @@ describe('FiltersService', () => {
                 stringProperty: 'value',
                 undefinedProperty: 'undefined'
             };
-            let coercedParams = Utility.coerceValue(Utility.cloneLiteral(params));
+            let coercedParams = Utility.coerceValue(Utility.cloneAsLiteral(params));
             filtersService.applyParams(params);
             expect(target).eql(coercedParams);
         });
