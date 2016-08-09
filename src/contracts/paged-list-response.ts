@@ -1,20 +1,20 @@
 import { ListResponse } from './list-response';
 /**
- * Опциональный контракт, олицетворяющий собой ответ сервера при запросе постраничного списка.
- * Предназначен для типизации конечного кода извлечения данных.
+ * Optional contract which represents server response to paged list data request.
+ * If you don't need to change default parameters names when use {@link PagedPager}, you can use this contract in your end-user code for better code completion. 
  */
 export interface PagedListResponse<TItem> extends ListResponse<TItem> {
     /**
-     * Коллекция возвращенных записей.
+     * Returned collection of records.
      */
     items: Array<TItem>;
     /**
-     * Номер записи, с которой загружены данные. Например для второй страницы списка с разбивкой по 20 записей на страницу будет равен 21.
+     * Number of record from which data was loaded on last request. It will be 21 when loads second page of list with page size of 20, for example.
      */
     displayFrom: number;
     /**
-     * Номер записи, до которой загружены данные. 
-     * Например для второй страницы списка с разбивкой по 20 записей на страницу будет равен 40 или меньше, если в списке содержится меньше, чем 40 записей.
+     * Number of record to which data was loaded on last request. 
+     * For example, it will be equal to 40 when loads second page of list with page size of 20. Or it will be equal to total count of available records if records count is less than 40.
      */
     displayTo: number;
 }

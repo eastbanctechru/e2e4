@@ -1,15 +1,15 @@
 import { ListRequest } from './list-request';
 /**
- * Опциональный контракт, олицетворяющий собой запрос на сервер для получения буферного списка.
- * Предназначен для типизации конечного кода извлечения данных. 
+ * Optional contract which represents request to the server for getting buffered list data.
+ * If you don't need to change default parameters names when use {@link BufferedPager}, you can use this contract in your end-user code for better code completion.
  */
 export interface BufferedListRequest extends ListRequest {
     /**
-     * Указывает, сколько записей уже загружено в список и их необходимо пропустить.
+     * How many items already loaded to the list and must be skipped on next request.
      */
     skip: number;
     /**
-     * Указывает, сколько записей необходимо загрузить.
+     * How many items must be loaded on next request.
      */
     take: number;
 }

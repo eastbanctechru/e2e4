@@ -1,19 +1,20 @@
 /**
- * Опциональный контракт, олицетворяющий собой ответ сервера при запросе простого списка.
- * Предназначен для типизации конечного кода извлечения данных.
+ * Optional contract which represents server response to regular list data request.
+ * If you don't need to change default parameters names when use {@link RegularPager}, you can use this contract in your end-user code for better code completion. 
  */
 export interface ListResponse<TItem> {
     /**
-     * Коллекция возвращенных записей.
+     * Returned collection of records.
      */
     items: Array<TItem>;
     /**
-     * Количество записей в источнике данных с учетом переданных при запросе фильтров, но без учета разбивки по страницам.
+     * Total count of records in remote data source after filters from last request was applied, but without paging applied.
+     * This property is used internally by pagers (to calculate total pages count in ({@link PagedPager} for example) and can be used to display on UI.
      */
     totalCount: number;
     /**
-     * Сколько  записей загружено в результате выполненного запроса. 
-     * Чаще всего совпадает со свойством items.length ответа. Однако, для группированных списков значение может отличаться, а потому вынесено в отдельное свойство. 
+     * Count of records that was loaded by last request.
+     * Typically this is the same as {@link items}.length value. But it's placed in to separate property since it can differ for grouped lists, for example.
      */
     loadedCount: number;
 }

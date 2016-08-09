@@ -1,11 +1,11 @@
 import { SortParameter } from '../sort-parameter';
 /**
- * Опциональный контракт, олицетворяющий собой запрос на сервер для получения простого списка.
- * Предназначен для типизации конечного кода извлечения данных. 
+ * Optional contract which represents request to the server for getting reguar list data.
+ * If you don't need to change default parameters names when use {@link RegularPager}, you can use this contract in your end-user code for better code completion. 
  */
 export interface ListRequest {
     /**
-     * Сортировки, которые необходимо применить при запросе.
+     * Sortings, wich must be applied to the data on next request.
      */
     sort: Array<SortParameter>;
 }

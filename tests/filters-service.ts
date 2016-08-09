@@ -285,7 +285,7 @@ describe('FiltersService', () => {
             expect(toRequestSpy.calledTwice).true;
         });
     });
-    describe('parseParams', () => {
+    describe('applyParams', () => {
         it('apply coerced values by default', () => {
             class TargetType {
                 @filter
@@ -411,6 +411,20 @@ describe('FiltersService', () => {
             expect(parseSpy.calledOn(target)).true;
             expect(parseSpy.calledWith(params.value, params)).true;
             expect(target.value).eql(parseSpy(params.value));
+        });
+        it('handles situation when paramaterName and propertyName are different', () => {
+            class TargetType {
+                @filter({ parameterName: 'parameter' } as FilterConfig)
+                public value: string;
+            }
+            let target = new TargetType();
+            let filtersService = new FiltersService(target);
+
+            let params = {
+                parameter: 'parameter value'
+            };
+            filtersService.applyParams(params);
+            expect(target.value).eql(params.parameter);
         });
     });
     describe('resetValues', () => {

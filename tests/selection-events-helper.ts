@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { SelectionEventsHelper, KeyCodes, MouseButtons } from '../src/selection-events-helper';
 import { DefaultSelectionService } from '../src/default-selection-service';
 import { SelectionAreaConfig } from '../src/contracts/selection-area-config';
-import { SelectableItem } from '../src/contracts/selectable-item';
+import { SelectableItem } from '../src/contracts/selection-service';
 import * as sinon from 'sinon';
 
 const notPressedShift = false;

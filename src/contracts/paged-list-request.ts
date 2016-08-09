@@ -1,15 +1,15 @@
 import { ListRequest } from './list-request';
 /**
- * Опциональный контракт, олицетворяющий собой запрос на сервер для получения постраничного списка.
- * Предназначен для типизации конечного кода извлечения данных. 
+ * Optional contract which represents request to the server for getting paged list data.
+ * If you don't need to change default parameters names when use {@link PagedPager}, you can use this contract in your end-user code for better code completion.
  */
 export interface PagedListRequest extends ListRequest {
     /**
-     * Размер страницы данных, которую необходимо загрузить.
+     * Size of page that must be loaded to the list on next request.
      */
     pageSize: number;
     /**
-     * Номер страницы, которую необходимо загрузить.
+     * Number of page that must be loaded to the list on next request.
      */
     pageNumber: number;
 }

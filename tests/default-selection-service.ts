@@ -209,6 +209,15 @@ describe('SelectionService', () => {
             target.selectionService.deselectIndex(150);
             expect(target.selectionService.getSelectedElements()).empty;
         });
+        it(`normally handles deselection of itam that wasn't selected`, () => {
+            const target = toTarget();
+            target.selectionService = new DefaultSelectionService();
+            target.selectionService.itemsSource = target.items;
+
+            target.selectionService.deselectAll();
+            target.selectionService.deselectIndex(1);
+            expect(target.selectionService.getSelectedElements()).empty;
+        });
 
     });
 
