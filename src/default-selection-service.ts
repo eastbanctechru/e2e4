@@ -1,5 +1,4 @@
-import {SelectableItem} from './contracts/selectable-item';
-import {SelectionService} from './contracts/selection-service';
+import {SelectionService, SelectableItem} from './contracts/selection-service';
 
 /**
  * Вспомогательный контракт для типизации кода {@link DefaultSelectionService}.
@@ -63,17 +62,7 @@ export class DefaultSelectionService implements SelectionService {
      * вызывает хуки {@link SelectableItem.onSelectionChanged}, {@link SelectableItem.onSelected}, {@link SelectableItem.onDeselected}
      */
     protected processSelection(tuple: SelectionTuple, selected: boolean): void {
-        const initialSelectState = tuple.item.selected;
         tuple.item.selected = selected;
-        if (tuple.item.onSelectionChanged !== undefined && initialSelectState !== selected) {
-            tuple.item.onSelectionChanged(selected);
-        }
-        if (selected === true && tuple.item.onSelected !== undefined && initialSelectState !== selected) {
-            tuple.item.onSelected();
-        }
-        if (selected === false && tuple.item.onDeselected !== undefined && initialSelectState !== selected) {
-            tuple.item.onDeselected();
-        }
     }
     /**
      * Внутренний метод, реализующий отмену выбора элемента.

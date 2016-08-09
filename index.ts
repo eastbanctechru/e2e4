@@ -9,7 +9,6 @@ export * from './src/contracts/list-response';
 export * from './src/contracts/paged-list-request';
 export * from './src/contracts/paged-list-response';
 export * from './src/contracts/pager';
-export * from './src/contracts/selectable-item';
 export * from './src/contracts/selection-area-config';
 export * from './src/contracts/selection-service';
 

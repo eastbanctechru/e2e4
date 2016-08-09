@@ -1,7 +1,7 @@
 import { expect, assert } from 'chai';
 
 import * as sinon from 'sinon';
-import { SelectableItem } from '../src/contracts/selectable-item';
+import { SelectableItem } from '../src/contracts/selection-service';
 import { DefaultSelectionService } from '../src/default-selection-service';
 
 const savePrevious = true;
@@ -19,22 +19,6 @@ function toItem(name: string): Item {
     return { name, selected: false };
 }
 
-function toItemWithHooks(name: string): Item {
-    return {
-        name,
-        onDeselected: sinon.spy(),
-        onSelected: sinon.spy(),
-        onSelectionChanged: sinon.spy(),
-        selected: false
-    };
-}
-
-function toTargetWithHooks(): SelectionableObject {
-    return {
-        items: ['first', 'second', 'third', 'fourth', 'fifth'].map(toItemWithHooks),
-        selectionService: null
-    };
-}
 function toTarget(): SelectionableObject {
     return {
         items: ['first', 'second', 'third', 'fourth', 'fifth'].map(toItem),
@@ -554,72 +538,6 @@ describe('SelectionService', () => {
         });
     });
 
-    describe('selection hooks', () => {
-        it('onSelected hook called if defined', () => {
-            const target = toTargetWithHooks();
-            target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
-
-            target.selectionService.selectIndex(0);
-            let processed = target.items[0] as SelectableItem;
-            let untouched = target.items[1] as SelectableItem;
-
-            expect((<any>processed.onSelected).calledOnce).true;
-            expect((<any>untouched.onSelected).notCalled).true;
-        });
-        it('onDeselected hook called if defined', () => {
-            const target = toTargetWithHooks();
-            target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
-
-            target.selectionService.selectIndex(0);
-            target.selectionService.deselectIndex(0);
-            let processed = target.items[0] as SelectableItem;
-            let untouched = target.items[1] as SelectableItem;
-
-            expect((<any>processed.onDeselected).calledOnce).true;
-            expect((<any>untouched.onDeselected).notCalled).true;
-        });
-
-        it('onSelectionChanged hook called on every manipulation if defined', () => {
-            const target = toTargetWithHooks();
-            target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
-
-            target.selectionService.selectIndex(0);
-            target.selectionService.deselectIndex(0);
-            let processed = target.items[0] as SelectableItem;
-            let untouched = target.items[1] as SelectableItem;
-
-            expect((<any>processed.onSelectionChanged).calledTwice).true;
-            expect((<any>untouched.onSelectionChanged).notCalled).true;
-        });
-        it('onDeselected hook not called when deselect item that not selected', () => {
-            const target = toTargetWithHooks();
-            target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
-
-            target.selectionService.deselectIndex(0);
-            let processed = target.items[0] as SelectableItem;
-            let untouched = target.items[1] as SelectableItem;
-
-            expect((<any>processed.onDeselected).notCalled).true;
-            expect((<any>untouched.onDeselected).notCalled).true;
-        });
-
-        it('onSelectionChanged hook not called when deselect item that not selected', () => {
-            const target = toTargetWithHooks();
-            target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
-
-            target.selectionService.deselectIndex(0);
-            let processed = target.items[0] as SelectableItem;
-            let untouched = target.items[1] as SelectableItem;
-
-            expect((<any>processed.onSelectionChanged).notCalled).true;
-            expect((<any>untouched.onSelectionChanged).notCalled).true;
-        });
-    });
     describe('dispose', () => {
         it('clears selections list and last processed index', () => {
             const target = toTarget();
@@ -646,14 +564,6 @@ describe('SelectionService', () => {
             target.selectionService.itemsSource = target.items;
             target.selectionService.dispose();
             expect(target.items).eql(tempItems);
-        });
-        it('doesn\'t call onDeselected hook', () => {
-            const target = toTargetWithHooks();
-            target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
-
-            target.selectionService.selectAll();
-            expect(target.items.map((i: Item) => (<any>i.onDeselected).notCalled).reduce((p: boolean, c: boolean) => p && c, true)).true;
         });
     });
 });

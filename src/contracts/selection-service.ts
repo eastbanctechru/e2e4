@@ -1,4 +1,10 @@
-﻿import {SelectableItem} from './selectable-item';
+﻿/**
+ * Опциональный контракт, олицетворяющий собой элемент, который может быть выбран при помощи сервиса, реализующего контракт {@link SelectionService}.
+ */
+export interface SelectableItem {
+    selected: boolean;
+}
+
 /**
  * Абстракция, описывающая работу с моделью selection. 
  * Реализацией в данной библиотеке является {@link DefaultSelectionService}, однако данный класс может быть расширен или заменен.
