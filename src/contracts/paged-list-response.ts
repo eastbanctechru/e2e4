@@ -1,6 +1,6 @@
 import { ListResponse } from './list-response';
 /**
- * Optional contract which represents server response to paged list data request.
+ * Represents server response to paged list data request.
  * If you don't need to change default parameters names when use {@link PagedPager}, you can use this contract in your end-user code for better code completion. 
  */
 export interface PagedListResponse<TItem> extends ListResponse<TItem> {

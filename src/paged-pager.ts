@@ -14,43 +14,43 @@ export class PagedPager implements Pager {
     public static settings: any =
     {
         /**
-         * Смотри {@link PagedPager.defaultPageSize}. 
+         * @see {@link PagedPager.defaultPageSize}. 
          */
         defaultPageSize: 20,
         /**
-         * Смотри {@link PagedPager.displayFromParameterName}. 
+         * @see {@link PagedPager.displayFromParameterName}. 
          */
         displayFromParameterName: 'displayFrom',
         /**
-         * Смотри {@link PagedPager.displayToParameterName}. 
+         * @see {@link PagedPager.displayToParameterName}. 
          */
         displayToParameterName: 'displayTo',
         /**
-         * Смотри {@link PagedPager.loadedCountParameterName}. 
+         * @see {@link PagedPager.loadedCountParameterName}. 
          */
         loadedCountParameterName: 'loadedCount',
         /**
-         * Смотри {@link PagedPager.maxPageSize}. 
+         * @see {@link PagedPager.maxPageSize}. 
          */
         maxPageSize: 200,
         /**
-         * Смотри {@link PagedPager.minPageSize}. 
+         * @see {@link PagedPager.minPageSize}. 
          */
         minPageSize: 1,
         /**
-         * Смотри {@link PagedPager.pageNumberParameterName}. 
+         * @see {@link PagedPager.pageNumberParameterName}. 
          */
         pageNumberParameterName: 'pageNumber',
         /**
-         * Смотри {@link PagedPager.pageSizeParameterName}. 
+         * @see {@link PagedPager.pageSizeParameterName}. 
          */
         pageSizeParameterName: 'pageSize',
         /**
-         * Смотри {@link PagedPager.persistPageSize}. 
+         * @see {@link PagedPager.persistPageSize}. 
          */
         persistPageSize: false,
         /**
-         * Смотри {@link PagedPager.totalCountParameterName}. 
+         * @see {@link PagedPager.totalCountParameterName}. 
          */
         totalCountParameterName: 'totalCount'
     };
@@ -71,7 +71,7 @@ export class PagedPager implements Pager {
      */
     protected pageNumberInternal: number = 1;
     /**
-     * Смотри {@link Pager.appendedOnLoad}. 
+     * @see {@link Pager.appendedOnLoad}. 
      */
     public appendedOnLoad: boolean = false;
     /**
@@ -113,15 +113,15 @@ export class PagedPager implements Pager {
     public pageSizeParameterName: string = PagedPager.settings.pageSizeParameterName;
     /**
      * Указывает, нужно ли сохранять размер страницы списка постоянно.
-     * Смотри {@link FilterConfig.persisted} а также {@link FiltersService.getPersistedState}
+     * @see {@link FilterConfig.persisted} and {@link FiltersService.getPersistedState}
      */
     public persistPageSize: boolean = PagedPager.settings.persistPageSize;
     /**
-     * Смотри {@link Pager.totalCount}.
+     * @see {@link Pager.totalCount}.
      */
     public totalCount: number = 0;
     /**
-     * Смотри {@link Pager.loadedCount}. 
+     * @see {@link Pager.loadedCount}. 
      */
     public loadedCount: number = 0;
     /**
@@ -203,7 +203,7 @@ export class PagedPager implements Pager {
         this.pageSizeInternal = pageSize;
     }
     /**
-     * Смотри {@link Pager.processResponse}. 
+     * @see {@link Pager.processResponse}. 
      */
     public processResponse(result: Object): void {
         this.loadedCount = result[this.loadedCountParameterName] || 0;
@@ -214,7 +214,7 @@ export class PagedPager implements Pager {
 
     }
     /**
-     * Смотри {@link Pager.reset}. 
+     * @see {@link Pager.reset}. 
      */
     public reset(): void {
         this.totalCount = 0;

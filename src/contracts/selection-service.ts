@@ -1,116 +1,124 @@
 ﻿/**
- * Опциональный контракт, олицетворяющий собой элемент, который может быть выбран при помощи сервиса, реализующего контракт {@link SelectionService}.
+ * Represents selectable element which can be processed by any implementation of {@link SelectionService}.
  */
 export interface SelectableItem {
     selected: boolean;
 }
 
 /**
- * Абстракция, описывающая работу с моделью selection. 
- * Реализацией в данной библиотеке является {@link DefaultSelectionService}, однако данный класс может быть расширен или заменен.
+ * Describes possible operations with selection model.
+ * Default implementation in this library is {@link DefaultSelectionService}, but you can extend it or replace with your own implementation.
  */
 export interface SelectionService {
     /**
-     * Коллекция элементов, с которой будут выполняться операции выбора. Предполагается, что конечные реализации данного контракта при изменении значения данного поля 
-     * будут оценивать, по прежнему ли находятся ли по выбранным ранее индексам те же элементы, что были выбраны. 
+     * Collection of elements that will be selected.
+     * Application-defined implementations of this contact must perform {@link checkSelection} when this property is setted to new value.
+     * @see {@link trackByFn} 
      */
     itemsSource: Array<SelectableItem>;
     /**
-     * Опциональная функция, при помощи которой будут сравниваться элементы коллекции {@link itemsSource}.
-     * Данная функция должна вызываться при изменении значения свойства {@link itemsSource}, а также при вызове метода {@link getItemIndex}.
-     * @param index индекс элемента в коллекции {@link itemsSource}
-     * @param элемент из коллекции {@link itemsSource}
+     * Optional function which can be used for comparison of {@link itemsSource} elements.
+     * If specified, this function must be used {@link checkSelection} implementation.
+     * Also it's reasonable to use this function for {@link getItemIndex} implementation.
+     * @param index index of element in {@link itemsSource} collection.
+     * @param actual element from {@link itemsSource} collection.
      */
     trackByFn: (index: number, item: any) => any;
     /**
-     * Индекс последнего обработанного (выбранного, или наоборот) элемента в коллекции {@link itemsSource}. 
+     * Index of last selected/deselected element in {@link itemsSource} collection. 
      */
     lastProcessedIndex: number;
     /**
-     * Отмена выбора всех элементов коллекции {@link itemsSource}.
+     * In application-defined implementations must perform checks that every selected element is actually selected.
+     * It's reasonable to use this when {@link itemsSource} was changed and some items was selected previously.
+     */
+    checkSelection(): void;
+    /**
+     * Deselects all elements in {@link itemsSource} collection.
      */
     deselectAll(): void;
     /**
-     * Выбор всех элементов коллекции {@link itemsSource}. 
+     * Selects all elements in {@link itemsSource} collection.
      */
     selectAll(): void;
     /**
-     * Выбор диапазона элементов в коллекции {@link itemsSource}.
-     * @param fromIndex - индекс, начиная с которого будут выбраны элементы.
-     * @param toIndex - индекс, вплоть до которого будут выбраны элементы. 
+     * Selects range of elements in {@link itemsSource} collection.
+     * @param fromIndex index from wich elements must be selected.
+     * @param toIndex index to wich elements must be selected. 
      */
     selectRange(fromIndex: number, toIndex: number): void;
     /**
-     * Проверяет, что все элементы внутри заданного диапазона в коллекции {@link itemsSource} выбраны.
-     * @param fromIndex - индекс, начиная с которого будут выбраны элементы.
-     * @param toIndex - индекс, вплоть до которого будут выбраны элементы.
-     * @returns true если все элементы внутри заданного диапазона в коллекции {@link itemsSource} выбраны. 
+     * Checks, that all elements inside specified range is selected in {@link itemsSource} collection.
+     * @param fromIndex index of element from wich check must be performed.
+     * @param toIndex index of element to wich check must be performed.
+     * @returns true if all elements inside specified range is selected. 
      */
     isRangeSelected(from: number, to: number): boolean;
     /**
-     * Определяет, выбран ли хотя бы один элемент в коллекции {@link itemsSource}.
-     * @returns true если выбран хотя бы один элемент.
+     * Checks that at least one element selected in {@link itemsSource} collection.
+     * @returns true if anything selected.
      */
     hasSelections(): boolean;
     /**
-     * Определяет, выбран ли элемент в коллекции {@link itemsSource} по указанному индексу.
-     * @param index - индекс элемента для проверки.
-     * @returns true если элемент выбран.
+     * Checks that element at specified index is selected.
+     * @param index index of element in {@link itemsSource} collection to check.
+     * @returns true if element is selected.
      */
     isIndexSelected(index: number): boolean;
     /**
-     * Возвращает индекс первого элемента коллекции {@link itemsSource}, который помечен как выбранный.
-     * @returns индекс первого выбранного элемента. -1 если ничего не выбрано.
+     * Returns index of first selected element from {@link itemsSource}.
+     * @returns index of first selected element. -1 if nothing's selected.
      */
     getMinSelectedIndex(): number;
     /**
-     * Возвращает индекс последнего элемента коллекции {@link itemsSource}, который помечен как выбранный.
-     * @returns индекс последнего выбранного элемента. -1 если ничего не выбрано.
+     * Returns index of last selected element from {@link itemsSource}.
+     * @returns index of last selected element. -1 if nothing's selected.
      */
     getMaxSelectedIndex(): number;
     /**
-     * Возвращает индекс, по которому размещен переданный элемент в коллекции {@link itemsSource}.
-     * @param item - элемент, индекс которого требуется найти.
-     * @returns индекс указанного элемента.
+     * Returns index of specified element in {@link itemsSource} collection.
+     * @param item element to find.
+     * @returns index of specified element in {@link itemsSource} collection. -1 if element not found.
+     * @see {@link trackByFn}
      */
     getItemIndex(item: SelectableItem): number;
     /**
-     * Возвращает первый элемент в коллекции {@link itemsSource}.
+     * Selects first element in {@link itemsSource} collection.
      */
     selectFirst(): void;
     /**
-     * Возвращает последний элемент в коллекции {@link itemsSource}.
+     * Selects last element in {@link itemsSource} collection.
      */
     selectLast(): void;
     /**
-     * Выбирает элемент в коллекции {@link itemsSource} по заданному индексу.
-     * @param index - номер элемента, который требуется выбрать.
-     * @param savePrevious - опциональный признак, указывающий, сохранять ли предыдущие выбранные записи. По умолчанию равен false.
+     * Selects element at specified index in {@link itemsSource} collection.
+     * @param index index of element in {@link itemsSource} collection.
+     * @param savePrevious true if previously selected elements must stay selected after current selection.
      */
     selectIndex(index: number, savePrevious?: boolean): void;
     /**
-     * Отменяет выбор элемента в коллекции {@link itemsSource} по заданному индексу.
-     * @param index - номер элемента, выбор которого необходимо отменить.
+     * Deselects element at specified index in {@link itemsSource} collection.
+     * @param index index of element in {@link itemsSource} collection.
      */
     deselectIndex(index: number): void;
     /**
-     * Изменяет на противоположное состояние выбора для элемента в коллекции {@link itemsSource} по заданному индексу.
-     * @param index - номер элемента, состояние выбора которого требуется изменить.
-     * @param savePrevious - опциональный признак, указывающий, сохранять ли предыдущие выбранные записи. По умолчанию равен false.
+     * Toggles selection state of element from {@link itemsSource} collection at specified index.
+     * @param index index of element in {@link itemsSource} collection.
+     * @param savePrevious true if previously selected elements must stay selected after current selection.
      */
     toggleSelection(index: number, savePrevious?: boolean): void;
     /**
-     * Возвращает все элементы коллекции {@link itemsSource}, которые отмечены как выбранные.
-     * @returns массив выбранных элементов.
+     * Returns all elements from {@link itemsSource} collection which marked as selected.
+     * @returns collection of selected elements.
      */
     getSelectedElements(): Array<Object>;
     /**
-     * Возвращает индексы всех элементов коллекции {@link itemsSource}, которые отмечены как выбранные.
-     * @returns массив индексов выбранных элементов.
+     * Returns indexes of all elements from {@link itemsSource} collection which marked as selected.
+     * @returns collection of selected elements indexes in {@link itemsSource} collection.
      */
     getSelectedIndexes(): Array<number>;
     /**
-     * В конечной реализации подготавливает класс к уничтожению.
+     * Performs application-defined logic associated with class destroy.
      */
     dispose(): void;
 }

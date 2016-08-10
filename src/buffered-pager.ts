@@ -14,31 +14,31 @@ export class BufferedPager implements Pager {
     public static settings: any =
     {
         /**
-         * Смотри {@link BufferedPager.defaultRowCount}. 
+         * @see {@link BufferedPager.defaultRowCount}. 
          */
         defaultRowCount: 20,
         /**
-         * Смотри {@link BufferedPager.loadedCountParameterName}. 
+         * @see {@link BufferedPager.loadedCountParameterName}. 
          */
         loadedCountParameterName: 'loadedCount',
         /**
-         * Смотри {@link BufferedPager.maxRowCount}. 
+         * @see {@link BufferedPager.maxRowCount}. 
          */
         maxRowCount: 200,
         /**
-         * Смотри {@link BufferedPager.minRowCount}. 
+         * @see {@link BufferedPager.minRowCount}. 
          */
         minRowCount: 1,
         /**
-         * Смотри {@link BufferedPager.skipRowCountParameterName}. 
+         * @see {@link BufferedPager.skipRowCountParameterName}. 
          */
         skipRowCountParameterName: 'skip',
         /**
-         * Смотри {@link BufferedPager.takeRowCountParameterName}. 
+         * @see {@link BufferedPager.takeRowCountParameterName}. 
          */
         takeRowCountParameterName: 'take',
         /**
-         * Смотри {@link BufferedPager.totalCountParameterName}. 
+         * @see {@link BufferedPager.totalCountParameterName}. 
          */
         totalCountParameterName: 'totalCount'
     };
@@ -57,15 +57,15 @@ export class BufferedPager implements Pager {
     } as FilterConfig)
     protected takeRowCountInternal: number = BufferedPager.settings.defaultRowCount;
     /**
-     * Смотри {@link Pager.appendedOnLoad}. 
+     * @see {@link Pager.appendedOnLoad}. 
      */
     public appendedOnLoad: boolean = true;
     /**
-     * Смотри {@link Pager.totalCount}. 
+     * @see {@link Pager.totalCount}. 
      */
     public totalCount: number = 0;
     /**
-     * Смотри {@link Pager.loadedCount}. 
+     * @see {@link Pager.loadedCount}. 
      */
     public loadedCount: number = 0;
     /**
@@ -134,7 +134,7 @@ export class BufferedPager implements Pager {
         this.takeRowCountInternal = rowCount;
     }
     /**
-     * Смотри {@link Pager.processResponse}. 
+     * @see {@link Pager.processResponse}. 
      */
     public processResponse(result: Object): void {
         this.totalCount = result[this.totalCountParameterName] || 0;
@@ -143,7 +143,7 @@ export class BufferedPager implements Pager {
         this.loadedCount = this.skip;
     }
     /**
-     * Смотри {@link Pager.reset}. 
+     * @see {@link Pager.reset}. 
      */
     public reset(): void {
         this.totalCount = 0;

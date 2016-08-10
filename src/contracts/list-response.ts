@@ -1,5 +1,5 @@
 /**
- * Optional contract which represents server response to regular list data request.
+ * Represents server response to regular list data request.
  * If you don't need to change default parameters names when use {@link RegularPager}, you can use this contract in your end-user code for better code completion. 
  */
 export interface ListResponse<TItem> {

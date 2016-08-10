@@ -12,25 +12,25 @@ export class RegularPager implements Pager {
     public static settings: any =
     {
         /**
-         * Смотри {@link RegularPager.loadedCountParameterName}. 
+         * @see {@link RegularPager.loadedCountParameterName}. 
          */
         loadedCountParameterName: 'loadedCount',
         /**
-         * Смотри {@link RegularPager.loadedCountParameterName}. 
+         * @see {@link RegularPager.loadedCountParameterName}. 
          */
         totalCountParameterName: 'totalCount'
     };
     /**
-     * Смотри {@link Pager.appendedOnLoad}. 
+     * @see {@link Pager.appendedOnLoad}. 
      */
     public appendedOnLoad: boolean = false;
 
     /**
-     * Смотри {@link Pager.totalCount}. 
+     * @see {@link Pager.totalCount}. 
      */
     public totalCount: number = 0;
     /**
-     * Смотри {@link Pager.loadedCount}. 
+     * @see {@link Pager.loadedCount}. 
      */
     public loadedCount: number = 0;
     /**
@@ -42,14 +42,14 @@ export class RegularPager implements Pager {
      */
     public loadedCountParameterName: string = RegularPager.settings.loadedCountParameterName;
     /**
-     * Смотри {@link Pager.processResponse}. 
+     * @see {@link Pager.processResponse}. 
      */
     public processResponse(result: Object): void {
         this.loadedCount = result[this.loadedCountParameterName] || 0;
         this.totalCount = result[this.totalCountParameterName] || 0;
     }
     /**
-     * Смотри {@link Pager.reset}. 
+     * @see {@link Pager.reset}. 
      */
     public reset(): void {
         this.totalCount = 0;

@@ -1,28 +1,32 @@
 /**
- * Базовый контракт pager.
+ * Base contract that must be implemented by specific pagers.
  */
 export interface Pager {
     /**
-     * Указывает, догружает данная реализация данные при загрузке и уже загруженные данные нужно оставить, или же при каждой загрузке уничтожать ранее загруженные записи.
+     * Must be true for those pager implementations which destroys previously loaded data only on full reload, but keeps data on next chunk loading.
+     * This is the case for {@link BufferedPager} for example.
      */
     appendedOnLoad: boolean;
     /**
-     * Общее количество записей в источнике данных. В имеющихся конечных реализациях заполняется методом {@link processResponse} из ответа сервера подобного {@link ListResponse.totalCount}
-     * См. также {@link ListResponse}
+     * Total count of records in remote data source after filters from last request was applied, but without paging applied.
+     * Application-defined {@link Pager} implementations must set this value in {@link processResponse} implementation from server response.
+     * @see {@link ListResponse}
      */
     totalCount: number;
     /**
-     * Количество записей, загруженных в результате последнего запроса. В имеющихся конечных реализациях заполняется методом {@link processResponse} из ответа сервера подобного {@link ListResponse.loadedCount}
-     * См. также {@link ListResponse}
+     * Count of records that was loaded by last request to the server.
+     * Application-defined {@link Pager} implementations must set this value in {@link processResponse} implementation from server response.
+     * @see {@link ListResponse}
      */
     loadedCount: number;
     /**
-     * Используется для сброса параметров pager-а в начальное состояние. 
+     * Performs application-defined logic associated with cleaning of pager state.
      */
     reset(): void;
     /**
-     * Данный метод вызывается для обработки результата, полученного при запросе данных. Как минимум, данный метод должен прочитать из ответа значения для полей {@link totalCount} и {@link loadedCount}.
-     * @param result ответ от сервера для разбора
+     * Performs application-defined logic associated with parsing of server response returned on data request. 
+     * At least must set response values to {@link totalCount} and {@link loadedCount} properties.
+     * @param result server response to process.
      */
     processResponse(result: Object): void;
 }

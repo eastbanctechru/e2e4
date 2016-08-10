@@ -14,15 +14,15 @@ export interface SelectionTuple {
     item: SelectableItem;
 }
 /**
- * Имплементация по умолчанию для контракта {@link SelectionService}.
+ * Default implementation of {@link SelectionService}.
  */
 export class DefaultSelectionService implements SelectionService {
     /**
-     * Смотри {@link SelectionService.lastProcessedIndex}
+     * @see {@link SelectionService.lastProcessedIndex}
      */
     public lastProcessedIndex: number;
     /**
-     * Смотри {@link SelectionService.trackByFn}
+     * @see {@link SelectionService.trackByFn}
      */
     public trackByFn: (index: number, item: any) => any = this.trackByIdentity;
     /**
@@ -30,7 +30,7 @@ export class DefaultSelectionService implements SelectionService {
      */
     protected selectionsList: Array<SelectionTuple> = new Array<SelectionTuple>();
     /**
-     * Internal реализация {@link SelectionService.itemsSource}.  
+     * Internal implementation of {@link SelectionService.itemsSource}.  
      */
     protected items: Array<SelectableItem>;
     /**
@@ -39,7 +39,7 @@ export class DefaultSelectionService implements SelectionService {
      */
     protected trackByIdentity: (index: number, item: any) => any = (index: number, item: any) => { return item; };
     /**
-     * Смотри {@link SelectionService.dispose}
+     * @see {@link SelectionService.dispose}
      */
     public dispose(): void {
         this.selectionsList.length = 0;
@@ -47,7 +47,7 @@ export class DefaultSelectionService implements SelectionService {
         delete this.items;
     }
     /**
-     * Смотри {@link SelectionService.itemsSource}
+     * @see {@link SelectionService.itemsSource}
      */
     public get itemsSource(): Array<SelectableItem> {
         return this.items;
@@ -107,7 +107,7 @@ export class DefaultSelectionService implements SelectionService {
      * Вызывается setter-ом {@link SelectionService.itemsSource} для проверки, какие элементы выбраны после смены значения.
      * Смотри также {@link SelectionService.trackByFn}
      */
-    protected checkSelection(): void {
+    public checkSelection(): void {
         if (this.itemsSource !== null && this.itemsSource !== undefined) {
             for (let i = this.selectionsList.length - 1; i >= 0; i--) {
                 const tuple = this.selectionsList[i];
@@ -131,7 +131,7 @@ export class DefaultSelectionService implements SelectionService {
         return index !== null && index !== undefined && index >= 0 && this.itemsSource && this.itemsSource.length > index;
     }
     /**
-     * Смотри {@link SelectionService.deselectAll}
+     * @see {@link SelectionService.deselectAll}
      */
     public deselectAll(): void {
         const list = this.selectionsList.splice(0, this.selectionsList.length);
@@ -141,13 +141,13 @@ export class DefaultSelectionService implements SelectionService {
         this.lastProcessedIndex = null;
     }
     /**
-     * Смотри {@link SelectionService.selectAll}
+     * @see {@link SelectionService.selectAll}
      */
     public selectAll(): void {
         this.selectRange(0, this.itemsSource.length - 1);
     }
     /**
-     * Смотри {@link SelectionService.selectRange}
+     * @see {@link SelectionService.selectRange}
      */
     public selectRange(fromIndex: number, toIndex: number): void {
         if (toIndex < 0 || this.itemsSource.length <= toIndex || fromIndex < 0 || this.itemsSource.length <= fromIndex) {
@@ -169,13 +169,13 @@ export class DefaultSelectionService implements SelectionService {
         this.lastProcessedIndex = endIndex;
     }
     /**
-     * Смотри {@link SelectionService.hasSelections}
+     * @see {@link SelectionService.hasSelections}
      */
     public hasSelections(): boolean {
         return this.selectionsList.length !== 0;
     }
     /**
-     * Смотри {@link SelectionService.isRangeSelected}
+     * @see {@link SelectionService.isRangeSelected}
      */
     public isRangeSelected(from: number, to: number): boolean {
         // nothing selected
@@ -190,7 +190,7 @@ export class DefaultSelectionService implements SelectionService {
         return (1 + to - from === orderedIndexes.length) && (orderedIndexes[0] === from) && (orderedIndexes[orderedIndexes.length - 1] === to);
     }
     /**
-     * Смотри {@link SelectionService.isIndexSelected}
+     * @see {@link SelectionService.isIndexSelected}
      */
     public isIndexSelected(index: number): boolean {
         if (index >= 0 && this.itemsSource.length > index) {
@@ -199,13 +199,13 @@ export class DefaultSelectionService implements SelectionService {
         return false;
     }
     /**
-     * Смотри {@link SelectionService.getItemIndex}
+     * @see {@link SelectionService.getItemIndex}
      */
     public getItemIndex(item: SelectableItem): number {
         return this.itemsSource.findIndex((value: SelectableItem) => value === item);
     }
     /**
-     * Смотри {@link SelectionService.getMinSelectedIndex}
+     * @see {@link SelectionService.getMinSelectedIndex}
      */
     public getMinSelectedIndex(): number {
         let minIndex = -1;
@@ -215,7 +215,7 @@ export class DefaultSelectionService implements SelectionService {
         return minIndex;
     }
     /**
-     * Смотри {@link SelectionService.getMaxSelectedIndex}
+     * @see {@link SelectionService.getMaxSelectedIndex}
      */
     public getMaxSelectedIndex(): number {
         let maxIndex = -1;
@@ -225,7 +225,7 @@ export class DefaultSelectionService implements SelectionService {
         return maxIndex;
     }
     /**
-     * Смотри {@link SelectionService.selectFirst}
+     * @see {@link SelectionService.selectFirst}
      */
     public selectFirst(): void {
         if (this.itemsSource.length > 0) {
@@ -233,7 +233,7 @@ export class DefaultSelectionService implements SelectionService {
         }
     }
     /**
-     * Смотри {@link SelectionService.selectLast}
+     * @see {@link SelectionService.selectLast}
      */
     public selectLast(): void {
         if (this.itemsSource.length > 0) {
@@ -241,7 +241,7 @@ export class DefaultSelectionService implements SelectionService {
         }
     }
     /**
-     * Смотри {@link SelectionService.selectIndex}
+     * @see {@link SelectionService.selectIndex}
      */
     public selectIndex(index: number, savePrevious: boolean = false): void {
         if (this.checkIndexAcceptable(index)) {
@@ -249,7 +249,7 @@ export class DefaultSelectionService implements SelectionService {
         }
     }
     /**
-     * Смотри {@link SelectionService.deselectIndex}
+     * @see {@link SelectionService.deselectIndex}
      */
     public deselectIndex(index: number): void {
         if (this.checkIndexAcceptable(index)) {
@@ -257,7 +257,7 @@ export class DefaultSelectionService implements SelectionService {
         }
     }
     /**
-     * Смотри {@link SelectionService.toggleSelection}
+     * @see {@link SelectionService.toggleSelection}
      */
     public toggleSelection(index: number, savePrevious: boolean = false): void {
         if (!this.checkIndexAcceptable(index)) {
@@ -271,13 +271,13 @@ export class DefaultSelectionService implements SelectionService {
         this.selectItem(tuple, savePrevious);
     }
     /**
-     * Смотри {@link SelectionService.getSelectedElements}
+     * @see {@link SelectionService.getSelectedElements}
      */
     public getSelectedElements(): Array<Object> {
         return this.selectionsList.map((selectable: SelectionTuple) => selectable.item);
     }
     /**
-     * Смотри {@link SelectionService.getSelectedIndexes}
+     * @see {@link SelectionService.getSelectedIndexes}
      */
     public getSelectedIndexes(): Array<number> {
         return this.selectionsList.map((selectable: SelectionTuple) => selectable.index);

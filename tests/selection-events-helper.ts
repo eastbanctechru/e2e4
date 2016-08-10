@@ -50,7 +50,7 @@ describe('SelectionEventsHelper', () => {
             expect(selectAllSpy.calledOnce).true;
         });
 
-        describe('horizontal behaviour', () => {
+        describe('horizontal behavior', () => {
             it('calls onPreviousKey for ArrowUp or horizontal and ArrowLeft', () => {
                 let helper = toDefaultSelectionHelper();
                 let onPreviousKeySpy = sinon.spy(helper, 'onPreviousKey');

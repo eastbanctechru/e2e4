@@ -1,23 +1,24 @@
 import {SelectionService} from './selection-service';
 /**
- * Контракт, которому должен удовлетворять визуальный компонент, реализующий модель selection-а и использующий класс {@link SelectionEventsHelper}.
+ * Must be implemented by application-defined UI component for selection which can be used in pair with {@link SelectionEventsHelper}
  */
 export interface SelectionAreaConfig {
     /**
-     * Если true, то перемещение по элементам выполняется про помощи клавиш Left Arrow и Right Arrow. В противном случае перемещение выполняется при помощи клавиш Up Arrow и Down Arrow.
+     * True for shifting to next/previous item in list of selectable items by `Left Arrow`/`Right Arrow` keys instead of `Arrow Up`/`Arrow Down` keys.
      */
     horizontal: boolean;
     /**
-     * Указывает, возможен ли выбор нескольких элементов одновременно (например, при выборе нескольких элементов с зажатой клавишей Shift).
+     * True for ability to pick several items in list of selectable items (by clicking range of items with pressed `Shift` key, for example).
      */
     multiple: boolean;
     /**
-     * Если true, то выбор очередной записи не будет сбрасывать предыдущие выбранные элементы и единственным способ снять выделение с элемента будет повторный клик по элементу.
-     * Данный признак может быть использован для реализации поведения наподобие accordion
+     * If true, then next item selection doesn't clear selection of previously selected items. The only way to clean selection is second click on previously selected element.
+     * This can be used to implement accordion-like behavior in application-defined UI component.
      */
     toggleOnly: boolean;
     /**
-     * Реализация контракта {@link SelectionService}, при помощи которой и будет выполняться фактический selection.
+     * Any implementation of {@link SelectionService} to perform actual selection.
+     * @see {@link DefaultSelectionService}
      */
     selectionService: SelectionService;
 }
