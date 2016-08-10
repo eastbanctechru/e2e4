@@ -57,16 +57,13 @@ export class Operation {
 }
 
 /**
- * Сервис для управления набором операций, состояние которых необходимо отобразить на UI.
- * Может быть использован в конечных реализациях как основа для, к примеру, визуальной маски, закрывающей часть компонент до окончания выполнения всех необходимых операций.
- * Общая логика использования данного сервиса следующая:
- *  - Операции регистрируются при помощи метода {@link trackStatus}, который возвращает нам идентификатор статуса.
- *  - Изменение состояния статуса выполняется при помощи метода {@link changeStatus}.
- *  - Зарегистрированный статус попадает в коллекцию выполняемых операций {@link } только спустя timeout в размере {@link progressDelayInterval}.
- * То есть, если операция будет выполнена быстрее, чем указанный промежуток времени, то она не будет отображена в списке статусов. 
- * Такой подход позволяет избежать ситауций, когда маска была нарисована и тут же пропала, нервируя пользователя.
- *  - При вызове метода {@link changeStatus} состояние соответствующей операции выставляется в переданное значение.
- *  - Спустя интервал {@link elementVisibilityInterval} из коллекции {@link operationsList} удаляются все операции со статусом {@link ProgressState.Done}
+ * Used to manage state of operation wich description must be displayed on UI.
+ * Can be used to implement application-defined UI component to display, for example, visual mask that hides part of UI controls until any operations completed.
+ * The typical usage scenario is:
+ *  - Operation is registered with {@link trackStatus}, which returns unique identifier of operation.
+ *  - Registered operation would be added to the {@link operationsList} after ellapsing of {@link progressDelayInterval} timeout.
+ *  - Operation state can be changed via {@link changeStatus}.
+ *  - When {@link elementVisibilityInterval} interval is ellapsed all operations with status different than {@link ProgressState.Progress} will be removed from {@link operationsList}.
  */
 export class StateTrackingService {
     /**
@@ -94,6 +91,7 @@ export class StateTrackingService {
     /**
      * Specifies how much time must ellapse from start of operation to it's appearance on UI.
      * This means that if operation was performed faster than that interval it wouldn't be displayed on UI at all.
+     * This approach helps to avoid situations when mask is hiddened right after it was rendered since it can be pretty irritating.
      */
     public static progressDelayInterval: number = StateTrackingService.progressDelayInterval;
     /**

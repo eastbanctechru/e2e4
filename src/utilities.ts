@@ -1,8 +1,9 @@
 ﻿/**
- * Выполняет копирование всех свойств переданного объекта в новый объект. В случае, если свойство так же является объектом, то выполняется рекурсивное копирование всех его свойств. 
- * Функции при переборе свойств игнорируются.
- * @param value значение, которое необходимо склонировать.
- * @returns полученный результат клонирования. 
+ * Copies all properties values from passed object to the new object literal. 
+ * If any of the properties of passed object is also complex object then {@link cloneAsLiteral} will be called recursivelly. 
+ * Function declarations are ignored.
+ * @param value value to clone.
+ * @returns resulted literal. 
  */
 export function cloneAsLiteral(value: any): any {
     if (value === null) {
@@ -27,16 +28,16 @@ export function cloneAsLiteral(value: any): any {
 }
 
 /**
- * Коллекция значений, которые используются для принудительного приведения типов методом {@link coerceValue}. 
+ * Set of key-value pairs which used {@link coerceValue} method to coerce specific values. 
  */
 export var coerceTypes: any = { 'true': !0, 'false': !1, 'null': null };
 
 /**
- * Выполняет принудительное приведение типа для переданного параметра.
- * Например, строка 'null' будет преобразована в значение null, 'true' в булево значение true, '1.0' в число 1.0 и т.д.
- * В случае, если передан составной объект или массив, метод будет вызван рекурсивно для всех вложенных свойств или элементов массива.
- * @param value значение для обработки.
- * @returns полученный результат приведения типа.
+ * Coerce type of passed value.
+ * This means that passed string 'null' becomes `null`, 'true' becomes `true`, '1.0' becomes `1.0` etc.
+ * If passed value is complex object or array this method will be called for each property or array item.
+ * @param value to coerce.
+ * @returns resulted value.
  * @see {@link coerceTypes}
  */
 export function coerceValue(value: any): any {
@@ -62,10 +63,10 @@ export function coerceValue(value: any): any {
     return value;
 }
 /**
- * Выполняет splice переданного массива, тем самым очищая его.
- * Далее, каждый элемент исходного массива оценивается на наличие метода dispose и, если таковой имеется, то он вызывается.
- * @param collection массив, элементы которого необходимо уничтожить.
- * @param async если true, то перебор элементов и вызов dispose будет вызван через setTimeout (,0).
+ * Executes clean up of passed array by calling splice function.
+ * Next, each element of passed array will be checked for existance of `dispose` method and if it exists this method will be called.
+ * @param collection array of elements to dispose.
+ * @param async if true then elements iteration and dispose will be called via setTimeout (,0).
  */
 export function disposeAll(collection: any[], async: boolean = true): void {
     if (!Array.isArray(collection)) {
