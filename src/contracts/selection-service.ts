@@ -43,14 +43,14 @@ export interface SelectionService {
     selectAll(): void;
     /**
      * Selects range of elements in {@link itemsSource} collection.
-     * @param fromIndex index from wich elements must be selected.
-     * @param toIndex index to wich elements must be selected. 
+     * @param fromIndex index from which elements must be selected.
+     * @param toIndex index to which elements must be selected. 
      */
     selectRange(fromIndex: number, toIndex: number): void;
     /**
      * Checks, that all elements inside specified range is selected in {@link itemsSource} collection.
-     * @param fromIndex index of element from wich check must be performed.
-     * @param toIndex index of element to wich check must be performed.
+     * @param fromIndex index of element from which check must be performed.
+     * @param toIndex index of element to which check must be performed.
      * @returns true if all elements inside specified range is selected. 
      */
     isRangeSelected(from: number, to: number): boolean;

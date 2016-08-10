@@ -1,13 +1,14 @@
 import {Pager} from './contracts/pager';
 /**
- * Простейшая имплементация контракта {@link Pager} реализующая поведение простого списка без разбивки.
+ * Implementation of {@link Pager} contract that represents behavior of simple list without any paging mechanics.
+ * Can be used with {@link FiltersService} to automatic request building, settings resetting etc.
  */
 export class RegularPager implements Pager {
     /**
-     * Настройки имен свойств в ответе с данными от сервера.
-     * Данные настройки являются статическими и копируются при создании каждой новой копии класса {@link RegularPager} в его одноименные свойства.
-     * Изменение данных настроек затронет все объекты типа {@link RegularPager}.
-     * Для изменения настроек конкретного объекта вы можете конфигурировать его одноименные свойства.
+     * Global settings for response parameters names.
+     * These settings are static and they are copied to the properties of the same name for each instance of {@link RegularPager}.
+     * So, changing of this settings will affect all instances of {@link RegularPager} that will be created after change.
+     * If you want to change settings of concrete object you can use it the same name properties.
      */
     public static settings: any =
     {
@@ -34,11 +35,11 @@ export class RegularPager implements Pager {
      */
     public loadedCount: number = 0;
     /**
-     * Имя свойства в ответе от сервера, из которого будет считано значение свойства {@link totalCount}. 
+     * Specifies name of property in server response from wich value for {@link totalCount} will be readed by {@link processResponse} method.
      */
     public totalCountParameterName: string = RegularPager.settings.totalCountParameterName;
     /**
-     * Имя свойства в ответе от сервера, из которого будет считано значение свойства {@link loadedCount}. 
+     * Specifies name of property in server response from wich value for {@link loadedCount} will be readed by {@link processResponse} method.
      */
     public loadedCountParameterName: string = RegularPager.settings.loadedCountParameterName;
     /**

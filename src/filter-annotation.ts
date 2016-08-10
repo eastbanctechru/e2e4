@@ -1,20 +1,22 @@
 import {FilterConfig} from './contracts/filter-config';
 import {FiltersService} from './filters-service';
 /**
- * Возвращает конфигурацию {@link FilterConfig} следующего вида:
+ * Returns object literal that meets {@link FilterConfig} contract with next values:
+ * ```Javascript
  * {
  *        coerce: true,
  *        defaultValue: undefined,
  *        emptyIsNull: false,
  *        ignoreOnAutoMap: false,
- *        parameterName: <значение параметра @param propertyName>,
+ *        parameterName: <value of propertyName param>,
  *        parseFormatter: undefined,
  *        persisted: false,
- *        propertyName:  <значение параметра @param propertyName>,
+ *        propertyName: <value of propertyName param>,
  *        serializeFormatter: undefined
  * }
- * @internal
- * @param propertyName имя свойства, для которого создается конфигурация. Будет проставлено в {@link FilterConfig.propertyName}
+ * ```
+ * @param propertyName name of the property in `target type`, for which configuration is created. This value will be used to set {@link FilterConfig.propertyName} and {@link FilterConfig.parameterName} values.
+ * @see {@link FilterConfig}
  */
 export function getDefaultFilterConfig(propertyName: string): FilterConfig {
     return {
@@ -30,12 +32,14 @@ export function getDefaultFilterConfig(propertyName: string): FilterConfig {
     } as FilterConfig;
 }
 /**
- * Аннотация, с помощью которой можно в упрощенной манере конфигурировать свойство типа как фильтр в {@link FiltersService} 
+ * Annotation that can be used to configure type property as filter to use with {@link FiltersService}
  * @param targetOrNameOrConfig 
- *  - если аннотация применена без параметров, то будет создана конфигурация при помощи метода {@link getDefaultFilterConfig}. Свойство {@link FilterConfig.parameterName} будет равно имени свойства, к которому применена аннотация.
- *  - если аннотация применена с параметром-строкой, то будет создана конфигурация при помощи метода {@link getDefaultFilterConfig}. Свойство {@link FilterConfig.parameterName} будет равно переданному параметру.
- *  - если аннотация применена с параметром-объектом, то будет создана конфигурация при помощи метода {@link getDefaultFilterConfig}. Далее, все свойства, переданные в параметре-объекте, будут присвоены полученной конфигурации.
- * @param key: данный параметр заполянется компилятором TypeScript автоматически
+ *  - if annotation is applied without any parameters then value returned by {@link getDefaultFilterConfig} will be used. {@link FilterConfig.parameterName} value will be equal to annotated property name.
+ *  - if annotation is applied with string parameter then value returned by {@link getDefaultFilterConfig} will be used. {@link FilterConfig.parameterName} value will be equal to applied parameter value.
+ *  - if annotation is applied with object as parameter then value returned by {@link getDefaultFilterConfig} will be used. 
+ * All properties that was specified in applied parameter would be applied to result configuration via Object.assign.
+ * @param key specified by TypeScript automatically.
+ * @see {@link FilterConfig}
  */
 export function filter(targetOrNameOrConfig?: string | FilterConfig, key?: string): any {
     const configurableDecorate = (target: Object, key2: string): void => {

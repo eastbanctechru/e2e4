@@ -2,14 +2,15 @@ import {Pager} from './contracts/pager';
 import {filter} from './filter-annotation';
 import {FilterConfig} from './contracts/filter-config';
 /**
- * Имплементация контракта {@link Pager} реализующая поведение списка с постраничной разбивкой.
+ * Implementation of {@link Pager} contract that represents behavior of list with pages.
+ * Can be used with {@link FiltersService} to automatic request building, settings resetting etc. 
  */
 export class PagedPager implements Pager {
     /**
-     * Настройки таких свойств, как имена параметров и значения по умолчанию при построении запроса и разборе ответа от сервера.
-     * Данные настройки являются статическими и копируются при создании каждой новой копии класса {@link PagedPager} в его одноименные свойства.
-     * Изменение данных настроек затронет все объекты типа {@link PagedPager}.
-     * Для изменения настроек конкретного объекта вы можете конфигурировать его одноименные свойства.
+     * Global settings for properties such as request and response parameters names, default values and constraints for pager properties.
+     * These settings are static and they are copied to the properties of the same name for each instance of {@link PagedPager}.
+     * So, changing of this settings will affect all instances of {@link PagedPager} that will be created after change.
+     * If you want to change settings of concrete object you can use it the same name properties.
      */
     public static settings: any =
     {
@@ -55,7 +56,7 @@ export class PagedPager implements Pager {
         totalCountParameterName: 'totalCount'
     };
     /**
-     * Внутренняя реализация свойства {@link pageSize}. 
+     * Internal implementation of {@link pageSize}. 
      */
     protected pageSizeInternal: number = PagedPager.settings.defaultPageSize;
 
@@ -67,7 +68,8 @@ export class PagedPager implements Pager {
         }
     } as FilterConfig)
     /**
-     * Внутренняя реализация свойства {@link pageNumber}. 
+     * Internal implementation of {@link pageNumber}.
+     * This property is annotated with {@link filter}. So it's ready to use with {@link FiltersService}.
      */
     protected pageNumberInternal: number = 1;
     /**
@@ -75,44 +77,43 @@ export class PagedPager implements Pager {
      */
     public appendedOnLoad: boolean = false;
     /**
-     * Количество записей по умолчанию, которое будет загружаться с сервера. 
-     * Является исходным значением для свойства {@link pageSize}, и в данное же значение будет сбрасываться свойство {@link pageSize} при вызове метода {@link reset}. 
+     * This is both initial value and value to wich {@link pageSize} property will be resetted on {@link reset} method execution. 
      */
     public defaultPageSize: number = PagedPager.settings.defaultPageSize;
     /**
-     * Максимальное значение в которое может быть установлен параметр {@link pageSize}. 
+     * Biggest value that can be applied to {@link pageSize}. 
      */
     public maxPageSize: number = PagedPager.settings.maxPageSize;
     /**
-     * Минимальное значение в которое может быть установлен параметр {@link pageSize}. 
+     * Smallest value that can be applied to {@link pageSize}. 
      */
     public minPageSize: number = PagedPager.settings.minPageSize;
     /**
-     * Имя свойства в ответе от сервера, из которого будет считано значение свойства {@link displayFrom}. 
+     * Specifies name of property in server response from wich value for {@link displayFrom} will be readed by {@link processResponse} method.
      */
     public displayFromParameterName: string = PagedPager.settings.displayFromParameterName;
     /**
-     * Имя свойства в ответе от сервера, из которого будет считано значение свойства {@link displayTo}. 
+     * Specifies name of property in server response from wich value for {@link displayTo} will be readed by {@link processResponse} method.
      */
     public displayToParameterName: string = PagedPager.settings.displayToParameterName;
     /**
-     * Имя свойства в ответе от сервера, из которого будет считано значение свойства {@link loadedCount}. 
+     * Specifies name of property in server response from wich value for {@link loadedCount} will be readed by {@link processResponse} method.
      */
     public loadedCountParameterName: string = PagedPager.settings.loadedCountParameterName;
     /**
-     * Имя свойства в ответе от сервера, из которого будет считано значение свойства {@link totalCount}. 
+     * Specifies name of property in server response from wich value for {@link totalCount} will be readed by {@link processResponse} method.
      */
     public totalCountParameterName: string = PagedPager.settings.totalCountParameterName;
     /**
-     * Имя параметра при запросе на сервер, в котором будет передано значение свойства {@link pageNumber}. 
+     * Specifies name of parameter that will be used to apply {@link pageNumber} property value when builds server request.
      */
     public pageNumberParameterName: string = PagedPager.settings.pageNumberParameterName;
     /**
-     * Имя параметра при запросе на сервер, в котором будет передано значение свойства {@link pageSize}. 
+     * Specifies name of parameter that will be used to apply {@link pageSize} property value when builds server request.
      */
     public pageSizeParameterName: string = PagedPager.settings.pageSizeParameterName;
     /**
-     * Указывает, нужно ли сохранять размер страницы списка постоянно.
+     * Specifies that {@link pageSize} property value must be persisted.
      * @see {@link FilterConfig.persisted} and {@link FiltersService.getPersistedState}
      */
     public persistPageSize: boolean = PagedPager.settings.persistPageSize;
@@ -124,30 +125,31 @@ export class PagedPager implements Pager {
      * @see {@link Pager.loadedCount}. 
      */
     public loadedCount: number = 0;
+
     /**
-     * Разбирается методом {@link processResponse} из ответа сервера. 
-     * Представляет собой номер записи, с которой загружены данные. Например для второй страницы списка с разбивкой по 20 записей на страницу будет равен 21.
-     * См. также {@link PagedListResponse.displayFrom}
+     * Number of record in remote data source from which data was loaded by last request to the server.
+     * Value for this property is readed by {@link processResponse} method from server response.
+     * @see {@link PagedListResponse.displayFrom}
      */
     public displayFrom: number = 0;
     /**
-     * Разбирается методом {@link processResponse} из ответа сервера. Представляет собой номер записи, вплоть до которой загружены данные. 
-     * Например для второй страницы списка с разбивкой по 20 записей на страницу будет равен 40 (или меньше, если в списке содержится меньшее количество записей).
-     * См. также {@link PagedListResponse.displayTo}
+     * Number of record in remote data source to which data was loaded by last request to the server.
+     * Value for this property is readed by {@link processResponse} method from server response.
+     * @see {@link PagedListResponse.displayTo}
      */
     public displayTo: number = 0;
     /**
-     * Количество страниц, расчитанное как {@link totalCount} / {@link pageSize}.
-     * Используется для проверки на корректность возможных значений {@link pageNumber}.
+     * Total pages count computed as {@link totalCount} / {@link pageSize}.
+     * Used to check correctness of values applied to {@link pageNumber}.
      */
     public get pageCount(): number {
         return Math.ceil(this.totalCount / this.pageSizeInternal);
     }
     /**
-     * Номер страницы, которую необходимо загрузить при запросе на сервер.
-     * Имя параметра в запросе будет выставлено в соответствии со свойством {@link pageNumberParameterName}.
-     * Setter данного свойства выполняет ряд проверок не давая, к примеру, отправить в качестве параметра значение, превышающее значение {@link pageCount}
-     * См. также {@link PagedListRequest.pageNumber}
+     * This property is applied to the server request and it specifies number of page that must be loaded on next data loading. 
+     * Parameter name in request will be setted in accordance with {@link pageNumberParameterName} property.
+     * Setter of this property executes several checks. For example, it doesn't accept value that is bigger than {@link pageCount}.
+     * @see {@link PagedListRequest.pageNumber}
      */
     public get pageNumber(): number {
         return this.pageNumberInternal;
@@ -172,10 +174,11 @@ export class PagedPager implements Pager {
         persisted: function (): boolean { return (<PagedPager>this).persistPageSize; }
     })
     /**
-     * Размер страницы, которую необходимо загрузить при запросе на сервер.
-     * Имя параметра в запросе будет выставлено в соответствии со свойством {@link pageSizeParameterName}.
-     * Setter данного свойства выполняет ряд проверок не давая, к примеру, отправить в качестве параметра значение, превышающее значение {@link maxPageSize}
-     * См. также {@link PagedListRequest.pageSize}
+     * This property is applied to the server request and it specifies size of page that must be loaded on next data loading. 
+     * Parameter name in request will be setted in accordance with {@link pageSizeParameterName} property.
+     * Setter of this property executes several checks. For example, it doesn't accept value that is bigger than {@link maxPageSize}.
+     * This property is annotated with {@link filter}. So it's ready to use with {@link FiltersService}.
+     * @see {@link PagedListRequest.pageSize}
      */
     public get pageSize(): number {
         return this.pageSizeInternal;

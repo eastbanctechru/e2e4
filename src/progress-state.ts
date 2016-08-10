@@ -1,25 +1,25 @@
 ﻿/**
- * Представляет собой набор возможных состояний для объекта, выполняющего обращения к каким-либо внешним ресурсам.  
+ * Represents possible values for progress state. Can be used with object which executes any requests to external resources, for example.  
  */
 export enum ProgressState {
     /**
-     * Никакие запросы еще не выполнялись.  
+     * No operations were performed.
      */
     Initial = 0,
     /**
-     * Последний запрос выполнен успешно.  
+     * Last operation completed successfully.
      */
     Done = 1,
     /**
-     * Последний запрос в процессе выполнения.  
+     * Operation is performing right now.  
      */
     Progress = 2,
     /**
-     * Последний запрос окончился ошибкой.  
+     * Last operation completed with failure.  
      */
     Fail = 3,
     /**
-     * Последний запрос был отменен.  
+     * Last operation was cancelled.
      */
     Cancelled = 4
 }

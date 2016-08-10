@@ -2,14 +2,15 @@ import {Pager} from './contracts/pager';
 import {filter} from './filter-annotation';
 import {FilterConfig} from './contracts/filter-config';
 /**
- * Имплементация контракта {@link Pager} реализующая поведение буферного (догружаемого) списка.
+ * Implementation of {@link Pager} contract that represents buffered list behavior. 
+ * Can be used with {@link FiltersService} to automatic request building, settings resetting etc.
  */
 export class BufferedPager implements Pager {
     /**
-     * Настройки таких свойств, как имена параметров и значения по умолчанию при построении запроса и разборе ответа от сервера.
-     * Данные настройки являются статическими и копируются при создании каждой новой копии класса {@link BufferedPager} в его одноименные свойства.
-     * Изменение данных настроек затронет все объекты типа {@link BufferedPager}.
-     * Для изменения настроек конкретного объекта вы можете конфигурировать его одноименные свойства.
+     * Global settings for properties such as request and response parameters names, default values and constraints for pager properties.
+     * These settings are static and they are copied to the properties of the same name for each instance of {@link BufferedPager}.
+     * So, changing of this settings will affect all instances of {@link BufferedPager} that will be created after change.
+     * If you want to change settings of concrete object you can use it the same name properties.
      */
     public static settings: any =
     {
@@ -69,38 +70,39 @@ export class BufferedPager implements Pager {
      */
     public loadedCount: number = 0;
     /**
-     * Количество записей по умолчанию, которое будет загружаться с сервера. 
-     * Является исходным значением для свойства {@link takeRowCount}, и в данное же значение будет сбрасываться свойство {@link takeRowCount} при вызове метода {@link reset}. 
+     * This is both initial value and value to wich {@link takeRowCount} property will be resetted on {@link reset} method execution. 
      */
     public defaultRowCount: number = BufferedPager.settings.defaultRowCount;
     /**
-     * Минимальное значение в которое может быть установлен параметр {@link takeRowCount}. 
+     * Smallest value that can be applied to {@link takeRowCount}. 
      */
     public minRowCount: number = BufferedPager.settings.minRowCount;
     /**
-     * Максимальное значение в которое может быть установлен параметр {@link takeRowCount}. 
+     * Biggest value that can be applied to {@link takeRowCount}. 
      */
     public maxRowCount: number = BufferedPager.settings.maxRowCount;
     /**
-     * Имя свойства в ответе от сервера, из которого будет считано значение свойства {@link loadedCount}. 
+     * Specifies name of property in server response from wich value for {@link loadedCount} will be readed by {@link processResponse} method.
      */
     public loadedCountParameterName: string = BufferedPager.settings.loadedCountParameterName;
     /**
-     * Имя параметра при запросе на сервер, в котором будет передано значение свойства {@link skip}. 
+     * Specifies name of parameter that will be used to apply {@link skip} property value when builds server request.
      */
     public skipRowCountParameterName: string = BufferedPager.settings.skipRowCountParameterName;
     /**
-     * Имя свойства в ответе от сервера, из которого будет считано значение свойства {@link totalCount}. 
+     * Specifies name of property in server response from wich value for {@link totalCount} will be readed by {@link processResponse} method.
      */
     public totalCountParameterName: string = BufferedPager.settings.totalCountParameterName;
     /**
-     * Имя параметра при запросе на сервер, в котором будет передано значение свойства {@link takeRowCount}. 
+     * Specifies name of parameter that will be used to apply {@link takeRowCount} property value when builds server request.
      */
     public takeRowCountParameterName: string = BufferedPager.settings.takeRowCountParameterName;
+
     /**
-     * Параметр, передаваемый на сервер и указывающий, сколько записей уже загружено в список и, соответственно, их надо пропустить при загрузке данных.
-     * Имя параметра в запросе будет выставлено в соответствии со свойством {@link skipRowCountParameterName}.
-     * См. также {@link BufferedListRequest.skip}
+     * This property is applied to the server request and it specifies how many rows already loaded and must be skipped on next data loading. 
+     * Parameter name in request will be setted in accordance with {@link skipRowCountParameterName} property.
+     * This property is annotated with {@link filter}. So it's ready to use with {@link FiltersService}.
+     * @see {@link BufferedListRequest.skip}
      */
     @filter({
         defaultValue: 0,
@@ -108,11 +110,13 @@ export class BufferedPager implements Pager {
         parseFormatter: function (): number { return 0; }
     } as FilterConfig)
     public skip: number = 0;
+
     /**
-     * Параметр, передаваемый на сервер и указывающий, сколько записей необходимо загрузить за следующий запрос.
-     * Имя параметра в запросе будет выставлено в соответствии со свойством {@link takeRowCountParameterName}.
-     * Setter данного свойства выполняет ряд проверок не давая, к примеру, отправить в качестве параметра значение, превышающее значение {@link maxRowCount}
-     * См. также {@link BufferedListRequest.take}
+     * This property is applied to the server request and it specifies how many rows must be loaded on next data loading. 
+     * Parameter name in request will be setted in accordance with {@link takeRowCountParameterName} property.
+     * Setter of this property executes several checks. For example, it doesn't accept value that is bigger than {@link maxRowCount}.
+     * This property is annotated with {@link filter}. So it's ready to use with {@link FiltersService}.
+     * @see {@link BufferedListRequest.take}
      */
     public get takeRowCount(): number {
         return this.takeRowCountInternal;

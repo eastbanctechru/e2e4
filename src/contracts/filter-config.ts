@@ -1,5 +1,5 @@
 ﻿/**
- * Represents settings wich can be used to configure {@link FiltersService} behavior (via {@link filter} annotation for example).
+ * Represents settings which can be used to configure {@link FiltersService} behavior (via {@link filter} annotation for example).
  * Let's define several terms for better understanding.
  * 
  * ```JavaScript

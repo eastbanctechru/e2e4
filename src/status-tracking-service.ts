@@ -1,38 +1,38 @@
 ﻿import {ProgressState} from './progress-state';
 /**
- * Представляет собой прогресс операции, состояние которой необходимо отобразить на UI.
- * Используется совместно с {@link StatusTracker}. 
+ * Represents state of operation that must be displayed on UI.
+ * Used by {@link StatusTracker}. 
  */
 export class Status {
     /**
-     * Настройки названий css-классов, соответствующих определенным статусам объекта.
-     * Изменение данных настроек затронет все объекты типа {@link Status}.
+     * Settings for names of css classes that are relevant to {@link status} value.
+     * This settings is used by {@link className} property and changing of this settings affects every object of {@link Status} type.
      */
     public static settings: any = {
         /**
-         * Название css-класса, соответствующее статусу {@link ProgressState.Done}.
+         * Name of css class that corresponds to {@link ProgressState.Done}.
          */
         statusDoneClassName: 'status-done',
         /**
-         * Название css-класса, соответствующее статусу {@link ProgressState.Fail}.
+         * Name of css class that corresponds to {@link ProgressState.Fail}.
          */
         statusFailClassName: 'status-fail',
         /**
-         * Название css-класса, соответствующее статусу {@link ProgressState.Progress}.
+         * Name of css class that corresponds to {@link ProgressState.Progress}.
          */
         statusProgressClassName: 'status-progress'
     };
     /**
-     * Идентификатор, возвращаемый методом setTimeout.
-     * Используется как идентификатор статуса, для дальнейшего reolve-а.
+     * Identifier that was returned by `setTimeout` method.
+     * Used to track object in {@link StatusTrackingService}
      */
     public sid: number;
     /**
-     * Текущее состояние прогресса операции.
+     * Current progress state.
      */
     public status: ProgressState;
     /**
-     * Описание, используемое для отображения на UI.
+     * Description that will be displayed on UI.
      */
     public title: string;
     constructor(status: ProgressState, title: string) {
@@ -40,7 +40,7 @@ export class Status {
         this.title = title;
     }
     /**
-     * Возвращает название css-класса из набора {@link Status.settings}, соответствующее текущему состоянию объекта.
+     * Returns class name from {@link Status.settings} that corresponds to current {@link status} value.
      */
     public get className(): string {
         switch (this.status) {

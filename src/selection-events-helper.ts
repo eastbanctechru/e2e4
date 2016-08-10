@@ -1,6 +1,6 @@
 import {SelectionAreaConfig} from './contracts/selection-area-config';
 /**
- * Используется классом {@link SelectionEventsHelper} в обработчиках событий клавиатуры вместо использования magic numbers.  
+ * Used by {@link SelectionEventsHelper} handlers to determine which key was pressed on keyboard.  
  */
 export enum KeyCodes {
     Enter = 13,
@@ -16,7 +16,7 @@ export enum KeyCodes {
 }
 
 /**
- * Используется классом {@link SelectionEventsHelper} в обработчиках событий мыши вместо использования magic numbers.  
+ * Used by {@link SelectionEventsHelper} handlers to determine which mouse button is pressed.  
  */
 export enum MouseButtons {
     None = 0,
@@ -25,22 +25,22 @@ export enum MouseButtons {
     Right = 3
 }
 /**
- * Вспомогательный класс, который может быть использован в конечных реализациях визуальных компонент для обработки событий мыши и клавиатуры для работы с selection.
- * Реализует модель selection, схожую с поведением таблиц Excel или Google Sheets. Описание конкретных обрабатываемых шаблонов действий вы можете увидеть в документации методов.
- * Класс не привязан к конкретным событиям браузера и не использует специфичное для браузеров API.  
+ * Helper class that can be used by application-defined UI components for handling keyboard and mouse interaction with component.
+ * Implements selection model that similar to Excel or Google Sheets. Concrete handled patterns you can see in concrete methods documentation.
+ * This implementation doesn't use any browser specific objects such as events and doesn't use any browser API.
  */
 export class SelectionEventsHelper {
     /**
-     * @param selectionConfig используется для декларативного взаимодействия с конечной реализацией визуального компонента, доступа к его настройкам selection
-     * а так же к объекту, реализующему контракт {@link SelectionService} именно в конечном компоненте.
+     * @param selectionConfig used for declarative interaction with application-defined UI component and access to it's selection settings
+     * as well as {@link SelectionService} implementation, that was configured in application-defined UI component.
      */
     constructor(public selectionConfig: SelectionAreaConfig) {
     }
     /**
-     * Попытка выбора всех элементов при нажатии Ctrl+A.
-     * @param ctrlKeyPressed - признак, была ли зажата  клавиша Ctrl.
-     * @param shiftKeyPressed - признак, была ли зажата клавиша Shift (при нажатом Shift команда не срабатывает).
-     * @returns признак, была ли выполнена команда.
+     * Tries to select all items if Ctrl+A combination was pressed.
+     * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
+     * @param shiftKeyPressed - `true` if `Shift` key was pressed (with pressed `Shift` this command would not be applied).
+     * @returns `true` if command was applied.
      */
     protected trySelectAll(ctrlPressed: boolean, shiftPressed: boolean): boolean {
         if (ctrlPressed && !shiftPressed) {
@@ -50,10 +50,10 @@ export class SelectionEventsHelper {
         return false;
     }
     /**
-     * Попытка выбора предыдущего элемента при нажатии Arrow Up (Arrow Left при установленном {@link SelectionAreaConfig.horizontal}). 
-     * При зажатой клавише Shift и {@link SelectionAreaConfig.multiple} выбранные прежде элементы остаются выбранными.
-     * @param shiftKeyPressed - признак, была ли зажата клавиша Shift.
-     * @returns признак, была ли выполнена команда.
+     * Tries to select previous item when `Arrow Up` was pressed (`Arrow Left` if {@link SelectionAreaConfig.horizontal} is `true`). 
+     * If `Shift` was pressed and {@link SelectionAreaConfig.multiple} is 'true' then elements selected before stays selected.
+     * @param shiftKeyPressed - `true` if `Shift` key was pressed.
+     * @returns `true` if command was applied.
      */
     protected trySelectPreviousItem(shiftKeyPressed: boolean): boolean {
         if (this.selectionConfig.selectionService.lastProcessedIndex > 0) {
@@ -63,10 +63,10 @@ export class SelectionEventsHelper {
         return false;
     }
     /**
-     * Попытка выбора предыдущего элемента при нажатии Arrow Up (Arrow Left при установленном {@link SelectionAreaConfig.horizontal}). 
-     * При зажатой клавише Shift и {@link SelectionAreaConfig.multiple} выбранные прежде элементы остаются выбранными.
-     * @param shiftKeyPressed - признак, была ли зажата клавиша Shift.
-     * @returns признак, была ли выполнена команда
+     * Tries to select next item when `Arrow Down` was pressed (`Right Arrow` if {@link SelectionAreaConfig.horizontal} is `true`). 
+     * If `Shift` was pressed and {@link SelectionAreaConfig.multiple} is 'true' then elements selected before stays selected.
+     * @param shiftKeyPressed - `true` if `Shift` key was pressed.
+     * @returns `true` if command was applied.
      */
     protected trySelectNextItem(shiftKeyPressed: boolean): boolean {
         if (this.selectionConfig.selectionService.lastProcessedIndex < this.selectionConfig.selectionService.itemsSource.length - 1) {
@@ -76,9 +76,9 @@ export class SelectionEventsHelper {
         return false;
     }
     /**
-     * Попытка снятия выбора с последнего элемента, добавленного в коллекцию выбранных элементов при нажатии Shift+Arrow Up (Arrow Left при установленном {@link SelectionAreaConfig.horizontal}). 
-     * @param shiftKeyPressed - признак, была ли зажата клавиша Shift.
-     * @returns признак, была ли выполнена команда
+     * Tries to deselect last selected element when `Shift+Arrow Up` combination pressed (`Shift+Arrow Left` if {@link SelectionAreaConfig.horizontal} is `true`). 
+     * @param shiftKeyPressed - `true` if `Shift` key was pressed.
+     * @returns `true` if command was applied.
      */
     protected tryDeselectLastItemInRange(shiftKeyPressed: boolean): boolean {
         if (this.selectionConfig.selectionService.lastProcessedIndex > 0 && shiftKeyPressed) {
@@ -91,9 +91,9 @@ export class SelectionEventsHelper {
         return false;
     }
     /**
-     * Попытка снятия выбора с последнего элемента, добавленного в коллекцию выбранных элементов при помощи зажатого Shift. 
-     * @param shiftKeyPressed - признак, была ли зажата клавиша Shift.
-     * @returns признак, была ли выполнена команда
+     * Tries to deselect last selected element when `Shift+Arrow Down` combination pressed (`Shift+Arrow Right` if {@link SelectionAreaConfig.horizontal} is `true`). 
+     * @param shiftKeyPressed - `true` if `Shift` key was pressed.
+     * @returns `true` if command was applied.
      */
     protected tryDeselectLastItemInReversedRange(shiftKeyPressed: boolean): boolean {
         if (this.selectionConfig.selectionService.lastProcessedIndex < this.selectionConfig.selectionService.itemsSource.length && shiftKeyPressed) {
@@ -106,10 +106,10 @@ export class SelectionEventsHelper {
         return false;
     }
     /**
-     * Попытка выбора элемента предыдущего от последнего обработанного при условии, что предыдущим действием было снятие выбора. 
-     * @param ctrlKeyPressed - признак, была ли зажата клавиша Ctrl.
-     * @param shiftKeyPressed - признак, была ли зажата клавиша Shift.
-     * @returns признак, была ли выполнена команда
+     * Tries to select element that is previous to the last processed element and last operation is deselection.
+     * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
+     * @param shiftKeyPressed - `true` if `Shift` key was pressed.
+     * @returns `true` if command was applied.
      */
     protected tryBuildRangeWithPreviousItemWhenLastItemWasUnselected(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
         if (!ctrlKeyPressed && shiftKeyPressed && false === this.selectionConfig.selectionService.isIndexSelected(this.selectionConfig.selectionService.lastProcessedIndex)) {
@@ -119,10 +119,10 @@ export class SelectionEventsHelper {
         return false;
     }
     /**
-     * Попытка выбора элемента следующего за последним обработанным при условии, что предыдущим действием было снятие выбора. 
-     * @param ctrlKeyPressed - признак, была ли зажата клавиша Ctrl.
-     * @param shiftKeyPressed - признак, была ли зажата клавиша Shift.
-     * @returns признак, была ли выполнена команда
+     * Tries to select element that is next to the last processed element and last operation is deselection. 
+     * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
+     * @param shiftKeyPressed - `true` if `Shift` key was pressed.
+     * @returns `true` if command was applied.
      */
     protected tryBuildRangeWithNextItemWhenLastItemWasUnselected(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
         if (!ctrlKeyPressed && shiftKeyPressed && false === this.selectionConfig.selectionService.isIndexSelected(this.selectionConfig.selectionService.lastProcessedIndex)) {
@@ -132,8 +132,8 @@ export class SelectionEventsHelper {
         return false;
     }
     /**
-     * Попытка первой обработки события. Если пока еще не выполнялось никаких действий, то выбирает первый элемент в коллекции. 
-     * @returns признак, была ли выполнена команда
+     * Tries to handle first action on UI component. Selects first element in {@link SelectionService.itemsSource} if nothing was selected before.
+     * @returns `true` if command was applied.
      */
     protected tryInitialSelectionOfFirstItem(): boolean {
         if (this.selectionConfig.selectionService.lastProcessedIndex === null) {
@@ -143,10 +143,11 @@ export class SelectionEventsHelper {
         return false;
     }
     /**
-     * Попытка выбора всех элементов от последнего выбранного, до первого в коллекции при нажатых Crl+Shift+Arrow Up (Arrow Left при установленном {@link SelectionAreaConfig.horizontal}). 
-     * @param ctrlKeyPressed - признак, была ли зажата клавиша Ctrl.
-     * @param shiftKeyPressed - признак, была ли зажата клавиша Shift.
-     * @returns признак, была ли выполнена команда
+     * Tries to select all elements starting from last selected element up to first element in {@link SelectionService.itemsSource} when `Ctrl+Shift+Arrow Up` combination was pressed
+     * (`Ctrl+Shift+Arrow Left` if {@link SelectionAreaConfig.horizontal} is `true`). 
+     * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
+     * @param shiftKeyPressed - `true` if `Shift` key was pressed.
+     * @returns `true` if command was applied.
      */
     protected trySelectAllItemsUpToFirst(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
         if (this.selectionConfig.selectionService.lastProcessedIndex !== null && ctrlKeyPressed && shiftKeyPressed && this.selectionConfig.multiple) {
@@ -156,10 +157,11 @@ export class SelectionEventsHelper {
         return false;
     }
     /**
-     * Попытка выбора всех элементов от последнего выбранного, до последнего в коллекции при нажатых Crl+Shift+Arrow Down (Arrow Right при установленном {@link SelectionAreaConfig.horizontal}). 
-     * @param ctrlKeyPressed - признак, была ли зажата клавиша Ctrl.
-     * @param shiftKeyPressed - признак, была ли зажата клавиша Shift.
-     * @returns признак, была ли выполнена команда
+     * Tries to select all elements starting from last selected element up to last element in {@link SelectionService.itemsSource} when `Ctrl+Shift+Arrow Down` combination was pressed
+     * (`Ctrl+Shift+Arrow Right` if {@link SelectionAreaConfig.horizontal} is `true`). 
+     * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
+     * @param shiftKeyPressed - `true` if `Shift` key was pressed.
+     * @returns `true` if command was applied.
      */
     protected trySelectAllItemsUpToLast(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
         if (this.selectionConfig.selectionService.lastProcessedIndex !== null && ctrlKeyPressed && shiftKeyPressed && this.selectionConfig.multiple) {
@@ -169,10 +171,10 @@ export class SelectionEventsHelper {
         return false;
     }
     /**
-     * Попытка выбора первого элемента в коллекции при нажатых Crl+Arrow Up (Arrow Left при установленном {@link SelectionAreaConfig.horizontal}). 
-     * @param ctrlKeyPressed - признак, была ли зажата клавиша Ctrl.
-     * @param shiftKeyPressed - признак, была ли зажата клавиша Shift (при зажатом Shift команда не срабатывает).
-     * @returns признак, была ли выполнена команда
+     * Tries to select first element in {@link SelectionService.itemsSource} when `Ctrl+Arrow Up` combination was pressed (`Ctrl+Arrow Left` if {@link SelectionAreaConfig.horizontal} is `true`). 
+     * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
+     * @param shiftKeyPressed - `true` if `Shift` key was pressed (with pressed `Shift` this command would not be applied).
+     * @returns `true` if command was applied.
      */
     protected trySelectFirstItem(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
         if (ctrlKeyPressed && !shiftKeyPressed) {
@@ -182,10 +184,10 @@ export class SelectionEventsHelper {
         return false;
     }
     /**
-     * Попытка выбора последнего элемента в коллекции при нажатых Crl+Arrow Down (Arrow Right при установленном {@link SelectionAreaConfig.horizontal}). 
-     * @param ctrlKeyPressed - признак, была ли зажата клавиша Ctrl.
-     * @param shiftKeyPressed - признак, была ли зажата клавиша Shift (при зажатом Shift команда не срабатывает).
-     * @returns признак, была ли выполнена команда
+     * Tries to select last element in {@link SelectionService.itemsSource} when `Ctrl+Arrow Down` combination was pressed (`Ctrl+Arrow Right` if {@link SelectionAreaConfig.horizontal} is `true`). 
+     * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
+     * @param shiftKeyPressed - `true` if `Shift` key was pressed (with pressed `Shift` this command would not be applied).
+     * @returns `true` if command was applied.
      */
     protected trySelectLastItem(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
         if (ctrlKeyPressed && !shiftKeyPressed) {
@@ -195,10 +197,10 @@ export class SelectionEventsHelper {
         return false;
     }
     /**
-     * Общий обработчик нажатия Arrow Up (Arrow Left при установленном {@link SelectionAreaConfig.horizontal}). По очереди вызывает обработчики соответствующих команд. 
-     * @param ctrlKeyPressed - признак, была ли зажата клавиша Ctrl.
-     * @param shiftKeyPressed - признак, была ли зажата клавиша Shift.
-     * @returns признак, была ли выполнена какая-либо команда из вызванных.
+     * Common handler for `Arrow Up` key (`Arrow Left` if {@link SelectionAreaConfig.horizontal} is `true`). Calls applicable handlers one by one until any returns `true`. 
+     * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
+     * @param shiftKeyPressed - `true` if `Shift` key was pressed.
+     * @returns `true` if any of executed commands was applied.
      */
     protected onPreviousKey(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
         return this.tryInitialSelectionOfFirstItem() ||
@@ -209,10 +211,10 @@ export class SelectionEventsHelper {
             this.trySelectPreviousItem(shiftKeyPressed);
     }
     /**
-     * Общий обработчик нажатия Arrow Down (Arrow Right при установленном {@link SelectionAreaConfig.horizontal}). По очереди вызывает обработчики соответствующих команд. 
-     * @param ctrlKeyPressed - признак, была ли зажата клавиша Ctrl.
-     * @param shiftKeyPressed - признак, была ли зажата клавиша Shift.
-     * @returns признак, была ли выполнена какая-либо команда из вызванных.
+     * Common handler for `Arrow Down` key (`Arrow Right` if {@link SelectionAreaConfig.horizontal} is `true`). Calls applicable handlers one by one until any returns `true`.
+     * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
+     * @param shiftKeyPressed - `true` if `Shift` key was pressed.
+     * @returns `true` if any of executed commands was applied.
      */
     protected onNextKey(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
         return this.tryInitialSelectionOfFirstItem() ||
@@ -223,11 +225,11 @@ export class SelectionEventsHelper {
             this.trySelectNextItem(shiftKeyPressed);
     }
     /**
-     * Общий обработчик событий клавиатуры. По очереди вызывает обработчики соответствующих команд. 
-     * @param ctrlKeyPressed - признак, была ли зажата клавиша Ctrl.
-     * @param shiftKeyPressed - признак, была ли зажата клавиша Shift.
-     * @param keyCode - код нажатой клавиши. Обрабатываются {@link KeyCodes.ArrowUp}, {@link KeyCodes.ArrowLeft}, {@link KeyCodes.ArrowDown}, {@link KeyCodes.ArrowRight} и {@link KeyCodes.A}
-     * @returns признак, была ли выполнена какая-либо команда из вызванных.
+     * Common handler for keyboard events. Depending on specified parameters calls {@link onNextKey} {@link onPreviousKey} or {@link trySelectAll} handler. 
+     * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
+     * @param shiftKeyPressed - `true` if `Shift` key was pressed.
+     * @param keyCode - specifies code of key that was pressed. This method can handle next keys: {@link KeyCodes.ArrowUp}, {@link KeyCodes.ArrowLeft}, {@link KeyCodes.ArrowDown}, {@link KeyCodes.ArrowRight} and {@link KeyCodes.A}.
+     * @returns `true` if any of executed commands was applied.
      */
     public keyboardHandler(ctrlKeyPressed: boolean, shiftKeyPressed: boolean, keyCode: KeyCodes): boolean {
         switch (keyCode) {
@@ -246,12 +248,12 @@ export class SelectionEventsHelper {
         }
     }
     /**
-     * Общий обработчик событий мыши. По очереди вызывает обработчики соответствующих команд. 
-     * @param ctrlKeyPressed - признак, была ли зажата клавиша Ctrl.
-     * @param shiftKeyPressed - признак, была ли зажата клавиша Shift.
-     * @param mouseButton нажатая клавиша мыши
-     * @param itemIndex индекс кликнутого элемента  в коллекции {@link SelectionService.itemsSource}
-     * @returns признак, была ли выполнена какая-либо команда из вызванных.
+     * Common handler for mouse events. 
+     * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
+     * @param shiftKeyPressed - `true` if `Shift` key was pressed.
+     * @param mouseButton specifies which mouse button was pressed.
+     * @param itemIndex index of clicked element in {@link SelectionService.itemsSource} collection.
+     * @returns `true` if any of executed commands was applied.
      */
     public mouseHandler(ctrlKeyPressed: boolean, shiftKeyPressed: boolean, mouseButton: MouseButtons, itemIndex: number): boolean {
         const isItemSelected = this.selectionConfig.selectionService.isIndexSelected(itemIndex);

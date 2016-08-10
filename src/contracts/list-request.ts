@@ -5,7 +5,7 @@ import { SortParameter } from '../sort-parameter';
  */
 export interface ListRequest {
     /**
-     * Sortings, wich must be applied to the data on next request.
+     * Sortings, which must be applied to the data on next request.
      */
     sort: Array<SortParameter>;
 }

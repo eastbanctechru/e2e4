@@ -1,15 +1,15 @@
 import {SelectionService, SelectableItem} from './contracts/selection-service';
 
 /**
- * Вспомогательный контракт для типизации кода {@link DefaultSelectionService}.
+ * Internal contract for {@link DefaultSelectionService}.
  */
 export interface SelectionTuple {
     /**
-     * Индекс элемента в коллекцити {@link DefaultSelectionService.itemsSource}.
+     * Index of selected element in {@link DefaultSelectionService.itemsSource} collection.
      */
     index: number;
     /**
-     * Элемент из коллекции {@link DefaultSelectionService.itemsSource}.
+     * Element from {@link DefaultSelectionService.itemsSource} collection.
      */
     item: SelectableItem;
 }
@@ -26,7 +26,7 @@ export class DefaultSelectionService implements SelectionService {
      */
     public trackByFn: (index: number, item: any) => any = this.trackByIdentity;
     /**
-     * Коллекция объектов {@link SelectionTuple} для элементов в коллекции {@link SelectionService.itemsSource}, которые на данный момент выбраны.  
+     * Collection of {@link SelectionTuple} elements which represents currently selected items in {@link SelectionService.itemsSource} collection.  
      */
     protected selectionsList: Array<SelectionTuple> = new Array<SelectionTuple>();
     /**
@@ -34,8 +34,8 @@ export class DefaultSelectionService implements SelectionService {
      */
     protected items: Array<SelectableItem>;
     /**
-     * Используется по умолчанию, если не указано значение для {@link SelectionService.trackByFn}.
-     * Реализует сравнение по reference equals.   
+     * Default tracking function that will be used if nothing was specified for {@link SelectionService.trackByFn}.
+     * Implements comparison by reference equality of objects.
      */
     protected trackByIdentity: (index: number, item: any) => any = (index: number, item: any) => { return item; };
     /**
@@ -57,15 +57,14 @@ export class DefaultSelectionService implements SelectionService {
         this.checkSelection();
     }
     /**
-     * Выполняет конечную обработку свойств элемента как {@link SelectableItem}:
-     * выставляет в нужное значение признак selected.
-     * вызывает хуки {@link SelectableItem.onSelectionChanged}, {@link SelectableItem.onSelected}, {@link SelectableItem.onDeselected}
+     * Executes final processing of selection/deselection of {@link SelectionService.itemsSource} element.
+     * Current implementation just sets {@link SelectableItem.selected} but this functionality can be extended in dervied classes.
      */
     protected processSelection(tuple: SelectionTuple, selected: boolean): void {
         tuple.item.selected = selected;
     }
     /**
-     * Внутренний метод, реализующий отмену выбора элемента.
+     * Internal method that used to execute item selection.
      */
     protected deselectItem(selectionTuple: SelectionTuple): void {
         const index = this.selectionsList.findIndex((selectedItem: SelectionTuple) => (selectedItem.item === selectionTuple.item));
@@ -76,7 +75,7 @@ export class DefaultSelectionService implements SelectionService {
         this.lastProcessedIndex = selectionTuple.index;
     }
     /**
-     * Внутренний метод, реализующий выбор элемента.
+     * Internal method that used to execute item deselection.
      */
     protected selectItem(selectionTuple: SelectionTuple, savePrevious: boolean = false): void {
         if (savePrevious) {
@@ -95,7 +94,7 @@ export class DefaultSelectionService implements SelectionService {
         this.lastProcessedIndex = selectionTuple.index;
     }
     /**
-     * Внутренний метод, реализующий выбор элемента.
+     * Internal method that used to represent selectable item as {@link SelectionTuple}.
      */
     protected getSelectionTuple(index: number): SelectionTuple {
         return {
@@ -104,8 +103,7 @@ export class DefaultSelectionService implements SelectionService {
         };
     }
     /**
-     * Вызывается setter-ом {@link SelectionService.itemsSource} для проверки, какие элементы выбраны после смены значения.
-     * Смотри также {@link SelectionService.trackByFn}
+     * @see {@link SelectionService.checkSelection}
      */
     public checkSelection(): void {
         if (this.itemsSource !== null && this.itemsSource !== undefined) {
@@ -125,7 +123,9 @@ export class DefaultSelectionService implements SelectionService {
         }
     }
     /**
-     * Проверяет, является ли переданный в качестве параметра в один из публичных методов индекс массива применимым.
+     * Checks that applied index is valid number and it's value is inside {@link itemsSource} boundaries.
+     * @param index index to check.
+     * @returns `true` if index is valid.
      */
     protected checkIndexAcceptable(index: number): boolean {
         return index !== null && index !== undefined && index >= 0 && this.itemsSource && this.itemsSource.length > index;
