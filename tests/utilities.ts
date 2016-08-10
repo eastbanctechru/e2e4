@@ -1,14 +1,14 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
-import { Utility } from '../src/utility';
+import { disposeAll, cloneAsLiteral, coerceValue } from '../src/utilities';
 
-describe('Utility', () => {
+describe('Utilities', () => {
     describe('disposeAll', () => {
         it('disposeAll sync', () => {
             const disposeSpy = sinon.spy();
             const collection = [{ dispose: disposeSpy }];
 
-            Utility.disposeAll(collection, false);
+            disposeAll(collection, false);
             expect(disposeSpy.calledOnce).eql(true);
         });
 
@@ -16,7 +16,7 @@ describe('Utility', () => {
             const disposeSpy = sinon.spy();
             const collection = [{ dispose: disposeSpy }];
 
-            Utility.disposeAll(collection);
+            disposeAll(collection);
             setTimeout(() => {
                 expect(disposeSpy.calledOnce).eql(true);
                 done();
@@ -25,28 +25,28 @@ describe('Utility', () => {
 
         it('doesn\'t break on invalid collections sync', () => {
             let callFn = (): void => {
-                Utility.disposeAll(null, false);
+                disposeAll(null, false);
             };
             expect(callFn).not.throw();
         });
 
         it('doesn\'t break on invalid collections async', () => {
             let callFn = (): void => {
-                Utility.disposeAll(null);
+                disposeAll(null);
             };
             expect(callFn).not.throw();
         });
 
         it('ignore items without dispose sync', () => {
             const collection = [{ id: 1 }];
-            Utility.disposeAll(collection, false);
+            disposeAll(collection, false);
             expect(collection.length).equals(0);
         });
 
         it('ignore items without dispose async', (done: () => void) => {
             const collection = [{ id: 1 }];
 
-            Utility.disposeAll(collection);
+            disposeAll(collection);
             setTimeout(() => {
                 expect(collection.length).equals(0);
                 done();
@@ -55,15 +55,15 @@ describe('Utility', () => {
     });
     describe('cloneLiteral', () => {
         it('clones simple values', () => {
-            expect(Utility.cloneAsLiteral(5)).equals(5);
-            expect(Utility.cloneAsLiteral('Hello world')).equals('Hello world');
-            expect(Utility.cloneAsLiteral(null)).null;
-            expect(Utility.cloneAsLiteral(undefined)).undefined;
+            expect(cloneAsLiteral(5)).equals(5);
+            expect(cloneAsLiteral('Hello world')).equals('Hello world');
+            expect(cloneAsLiteral(null)).null;
+            expect(cloneAsLiteral(undefined)).undefined;
         });
 
         it('clones arrays', () => {
             let toClone = ['Hello world', 5, null];
-            let cloned = Utility.cloneAsLiteral(toClone);
+            let cloned = cloneAsLiteral(toClone);
             expect(cloned).to.not.equal(toClone);
             expect(cloned).to.deep.equal(toClone);
         });
@@ -81,7 +81,7 @@ describe('Utility', () => {
                 numberProperty: 5,
                 stringProperty: 'Hello world'
             };
-            let cloned = Utility.cloneAsLiteral(toClone);
+            let cloned = cloneAsLiteral(toClone);
             expect(cloned).to.not.equal(toClone);
             expect(cloned).to.deep.equal(toClone);
         });
@@ -92,7 +92,7 @@ describe('Utility', () => {
                     return;
                 }
             };
-            let cloned = Utility.cloneAsLiteral(toClone);
+            let cloned = cloneAsLiteral(toClone);
             expect(cloned).to.not.equal(toClone);
             expect(cloned).to.not.deep.equal(toClone);
             expect(cloned.functionProperty).undefined;
@@ -100,40 +100,40 @@ describe('Utility', () => {
     });
     describe('coerceValue', () => {
         it('doesn\'t modify regular string', () => {
-            expect(Utility.coerceValue('just a string')).equal('just a string');
+            expect(coerceValue('just a string')).equal('just a string');
         });
         it('doesn\'t parse NaN string to number', () => {
-            expect(Utility.coerceValue('5.5tst')).not.equal(5.5);
+            expect(coerceValue('5.5tst')).not.equal(5.5);
         });
         it('parse number strings to numbers', () => {
-            expect(Utility.coerceValue('5')).eql(5);
-            expect(Utility.coerceValue('5.5')).eql(5.5);
-            expect(Utility.coerceValue('0.5')).eql(0.5);
+            expect(coerceValue('5')).eql(5);
+            expect(coerceValue('5.5')).eql(5.5);
+            expect(coerceValue('0.5')).eql(0.5);
         });
         it('handles null and undefined', () => {
-            expect(Utility.coerceValue(null)).null;
-            expect(Utility.coerceValue(undefined)).undefined;
+            expect(coerceValue(null)).null;
+            expect(coerceValue(undefined)).undefined;
         });
         it('parse \'undefined\' to undefined', () => {
-            expect(Utility.coerceValue('undefined')).eql(undefined);
+            expect(coerceValue('undefined')).eql(undefined);
         });
         it('parse \'null\' to null', () => {
-            expect(Utility.coerceValue('null')).eql(null);
+            expect(coerceValue('null')).eql(null);
         });
         it('parse \'false\' to false', () => {
-            expect(Utility.coerceValue('false')).eql(false);
+            expect(coerceValue('false')).eql(false);
         });
         it('parse \'true\' to true', () => {
-            expect(Utility.coerceValue('true')).eql(true);
+            expect(coerceValue('true')).eql(true);
         });
         it('doesn\'t parse \'False\' as boolean', () => {
-            expect(Utility.coerceValue('False')).not.eql(false);
+            expect(coerceValue('False')).not.eql(false);
         });
         it('doesn\'t parse \'True\' as boolean', () => {
-            expect(Utility.coerceValue('True')).not.eql(true);
+            expect(coerceValue('True')).not.eql(true);
         });
         it('supports complex objects', () => {
-            expect(Utility.coerceValue({
+            expect(coerceValue({
                 a: 'true',
                 b: 'false',
                 c: 'null',
@@ -150,7 +150,7 @@ describe('Utility', () => {
             });
         });
         it('supports arrays', () => {
-            expect(Utility.coerceValue(['true', 'false', 'null', 'undefined', '5', 'just a string']
+            expect(coerceValue(['true', 'false', 'null', 'undefined', '5', 'just a string']
             )).eql([true, false, null, undefined, 5, 'just a string']);
         });
         it('works only with own properties', () => {
@@ -161,7 +161,7 @@ describe('Utility', () => {
             class ChildRequest extends ParentRequest {
                 public childProperty: string = 'just a string';
             }
-            expect(Utility.coerceValue(new ChildRequest()).hasOwnProperty('parentMethod')).false;
+            expect(coerceValue(new ChildRequest()).hasOwnProperty('parentMethod')).false;
         });
     });
 });

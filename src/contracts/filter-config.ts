@@ -49,7 +49,7 @@ export interface FilterConfig {
     /**
      * Specifies that {@link FiltersService} must coerce values when builds or parses data.
      * This means that 'null' string, for example, will be converted to null, 'true' string to boolean `true` value, '1.0' string to 1.0 number etc.
-     * To achieve this functionality {@link FiltersService} uses {@link Utility.coerceValue} function.
+     * To achieve this functionality {@link FiltersService} uses {@link coerceValue} function.
      * If you use {@link filter} annotatin this parameter will be `true` by default.
      */
     coerce?: boolean;

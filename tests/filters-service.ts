@@ -3,7 +3,7 @@ import * as sinon from 'sinon';
 import { FiltersService } from '../src/filters-service';
 import { filter, getDefaultFilterConfig } from '../src/filter-annotation';
 import { FilterConfig } from '../src/contracts/filter-config';
-import { Utility } from '../src/utility';
+import { coerceValue, cloneAsLiteral } from '../src/utilities';
 
 describe('FiltersService', () => {
     afterEach(() => {
@@ -309,7 +309,7 @@ describe('FiltersService', () => {
                 stringProperty: 'value',
                 undefinedProperty: 'undefined'
             };
-            let coercedParams = Utility.coerceValue(Utility.cloneAsLiteral(params));
+            let coercedParams = coerceValue(cloneAsLiteral(params));
             filtersService.applyParams(params);
             expect(target).eql(coercedParams);
         });

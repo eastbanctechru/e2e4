@@ -1,6 +1,6 @@
 export * from './src/progress-state';
 export * from './src/sort-parameter';
-export * from './src/utility';
+export * from './src/utilities';
 
 export * from './src/contracts/buffered-list-request';
 export * from './src/contracts/filter-config';

@@ -1,5 +1,5 @@
 import {FilterConfig} from './contracts/filter-config';
-import {Utility} from './utility';
+import {coerceValue, cloneAsLiteral} from './utilities';
 /**
  * Используется для декларативного построения объектов-запросов, представляющих собой значимое состояние объекта. Поскольку звучит это достаточно абстрактно, рассмотрим на конкретном примере.
  * Типичный сценарий использования выглядит следующим образом: 
@@ -76,7 +76,7 @@ export class FiltersService {
         }
 
         value = config && config.emptyIsNull ? value || null : value;
-        value = config && config.coerce ? Utility.coerceValue(value) : value;
+        value = config && config.coerce ? coerceValue(value) : value;
         if (value && value.toRequest) {
             return value.toRequest();
         }
@@ -115,7 +115,7 @@ export class FiltersService {
      * Логика работы метода следующая:
      *  - Если указанное в {@link FilterConfig.defaultValue} значение является функцией, то она будет вызвана без параметров, с объектом-владельцем поля в качестве this. 
      * В противном случае, будет использовано само значение {@link FilterConfig.defaultValue}.
-     *  - Полученное значение клонируется посредством вызова {@link Utility.cloneLiteral} для устранения проблем со ссылочными типами.
+     *  - Полученное значение клонируется посредством вызова {@link cloneLiteral} для устранения проблем со ссылочными типами.
      *  - Полученное значение либо обрабатывается посредством {@link FilterConfig.parseFormatter}, если он был указан в настройках, либо сразу записывается в целевое поле. 
      */
     public resetValues(): void {
@@ -123,7 +123,7 @@ export class FiltersService {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
                 const defaultValue = (typeof config.defaultValue === 'function') ? (config.defaultValue as Function).call(target) : config.defaultValue;
-                const clonedObject = Utility.cloneAsLiteral({ defaultValue: defaultValue });
+                const clonedObject = cloneAsLiteral({ defaultValue: defaultValue });
                 target[config.propertyName] = config.parseFormatter ? config.parseFormatter.call(target, clonedObject.defaultValue) : clonedObject.defaultValue;
             }
         });
@@ -142,7 +142,7 @@ export class FiltersService {
                 const parameterName = this.getParameterName(target, config);
                 if (params && params.hasOwnProperty(parameterName) && false === config.ignoreOnAutoMap) {
                     let proposedVal = config.emptyIsNull ? params[parameterName] || null : params[parameterName];
-                    proposedVal = config.coerce ? Utility.coerceValue(proposedVal) : proposedVal;
+                    proposedVal = config.coerce ? coerceValue(proposedVal) : proposedVal;
                     target[config.propertyName] = config.parseFormatter ? config.parseFormatter.call(target, proposedVal, params) : proposedVal;
                 }
             }
@@ -218,7 +218,7 @@ export class FiltersService {
                     for (let i = 0; i < targetConfig.length; i++) {
                         let config = targetConfig[i];
                         if (config.defaultValue === undefined) {
-                            config.defaultValue = Utility.cloneAsLiteral({ defaultValue: target[config.propertyName] }).defaultValue;
+                            config.defaultValue = cloneAsLiteral({ defaultValue: target[config.propertyName] }).defaultValue;
                         }
                     }
                 }
