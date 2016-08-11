@@ -9,9 +9,9 @@ export class BufferedPager implements Pager {
     /**
      * Global settings for properties such as request and response parameters names, default values and constraints for pager properties.
      * 
-     * These settings are static and their values are copied to the properties of the same name for each instance of {@link BufferedPager}.
+     * These settings are static and their values are copied to the properties of the same name for each instance of {@link BufferedPager} type.
      * 
-     * So, changing of this settings will affect all instances of {@link BufferedPager} that will be created after those changes.
+     * So, changing of this settings will affect all instances of {@link BufferedPager} type that will be created after such changes.
      * If you want to change settings of concrete object you can use it the same name properties.
      */
     public static settings: any =
@@ -75,7 +75,7 @@ export class BufferedPager implements Pager {
      */
     public loadedCount: number = 0;
     /**
-     * This is both initial value and value to wich {@link takeRowCount} property will be resetted on {@link reset} method execution. 
+     * This is both initial value and value which will be applied to {@link takeRowCount} property on {@link reset} method execution. 
      */
     public defaultRowCount: number = BufferedPager.settings.defaultRowCount;
     /**
@@ -87,7 +87,7 @@ export class BufferedPager implements Pager {
      */
     public maxRowCount: number = BufferedPager.settings.maxRowCount;
     /**
-     * Specifies name of property in server response from wich value of {@link loadedCount} property will be readed by {@link processResponse} method.
+     * Specifies name of property in server response from which {@link processResponse} method can read value of {@link loadedCount} property.
      * 
      * @see {@link BufferedPager.settings.loadedCountParameterName}
      */
@@ -99,7 +99,7 @@ export class BufferedPager implements Pager {
      */
     public skipRowCountParameterName: string = BufferedPager.settings.skipRowCountParameterName;
     /**
-     * Specifies name of property in server response from wich value of {@link totalCount} property will be readed by {@link processResponse} method.
+     * Specifies name of property in server response from which {@link processResponse} method can read value of {@link totalCount} property.
      * 
      * @see {@link BufferedPager.settings.totalCountParameterName}
      */
@@ -112,7 +112,7 @@ export class BufferedPager implements Pager {
     public takeRowCountParameterName: string = BufferedPager.settings.takeRowCountParameterName;
 
     /**
-     * This property is applied to the server request and it specifies how many rows are already loaded and must be skipped on next data loading. 
+     * This property is applied to the server request and it specifies how many rows are already loaded and must be skipped on next request. 
      * 
      * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
      * @see {@link skipRowCountParameterName}
@@ -126,7 +126,7 @@ export class BufferedPager implements Pager {
     public skip: number = 0;
 
     /**
-     * This property is applied to the server request and it specifies how many rows must be loaded on next data loading.
+     * This property is applied to the server request and it specifies how many rows must be loaded on next request.
      * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
      * @see {@link takeRowCountParameterName}
      * @see {@link BufferedListRequest.take} 

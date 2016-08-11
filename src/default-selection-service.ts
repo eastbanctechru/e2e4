@@ -26,15 +26,15 @@ export class DefaultSelectionService implements SelectionService {
      */
     public trackByFn: (index: number, item: any) => any = this.trackByIdentity;
     /**
-     * Collection of {@link SelectionTuple} elements which represents currently selected items in {@link SelectionService.itemsSource} collection.  
+     * Collection of {@link SelectionTuple} elements which represents currently selected items in {@link itemsSource} collection.  
      */
     protected selectionsList: Array<SelectionTuple> = new Array<SelectionTuple>();
     /**
-     * Internal implementation of {@link SelectionService.itemsSource}.  
+     * Internal implementation of {@link itemsSource}.  
      */
     protected items: Array<SelectionItem>;
     /**
-     * Default tracking function that will be used if nothing was specified for {@link SelectionService.trackByFn}.
+     * Default tracking function that will be used if nothing was specified for {@link trackByFn}.
      * Implements comparison by reference equality of objects.
      */
     protected trackByIdentity: (index: number, item: any) => any = (index: number, item: any) => { return item; };
@@ -57,7 +57,7 @@ export class DefaultSelectionService implements SelectionService {
         this.checkSelection();
     }
     /**
-     * Executes final processing of selection/deselection of {@link SelectionService.itemsSource} element.
+     * Performs final processing of selection/deselection of {@link itemsSource} element.
      * 
      * Current implementation just sets {@link SelectionItem.selected} but it can be extended in derived classes.
      */

@@ -21,15 +21,19 @@ export class SortParameter {
      */
     public direction: SortDirection;
     /**
-     * Name of the field by wich sorting must be performed.  
+     * Name of the field by which sorting must be performed.  
      */
     public fieldName: string = null;
+    /**
+     * @param fieldName value for {@link fieldName} property.  
+     * @param direction value for {@link direction} property.
+     */
     constructor(fieldName: string, direction: SortDirection = SortDirection.Asc) {
         this.fieldName = fieldName;
         this.direction = direction;
     }
     /**
-     * Reverses {@link direction} value.
+     * Reverses {@link direction} property value.
      */
     public toggleDirection(): void {
         this.direction = this.direction === SortDirection.Asc ? SortDirection.Desc : SortDirection.Asc;
@@ -37,7 +41,6 @@ export class SortParameter {
     /**
      * Used to build serialized representation of oneself that will be applied to server request.
      * Meets {@link FiltersService.buildFilterValue} convention.
-     * returns serialized representation of oneself.
      */
     public toRequest(): Object {
         return { direction: this.direction, fieldName: this.fieldName };

@@ -12,7 +12,7 @@ export interface SelectionAreaConfig {
      */
     multiple: boolean;
     /**
-     * If true, then next item selection doesn't clear selection of previously selected items. The only way to clean selection is second click on previously selected element.
+     * If `true`, then next item selection doesn't clear selection of previously selected items. The only way to clean selection is second click on previously selected element.
      * This can be used to implement accordion-like behavior in application-defined UI component.
      */
     toggleOnly: boolean;

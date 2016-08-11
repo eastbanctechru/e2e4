@@ -9,9 +9,9 @@ export class PagedPager implements Pager {
     /**
      * Global settings for properties such as request and response parameters names, default values and constraints for pager properties.
      * 
-     * These settings are static and their values are copied to the properties of the same name for each instance of {@link PagedPager}.
+     * These settings are static and their values are copied to the properties of the same name for each instance of {@link PagedPager} type.
      * 
-     * So, changing of this settings will affect all instances of {@link PagedPager} that will be created after those changes.
+     * So, changing of this settings will affect all instances of {@link PagedPager} type that will be created after such changes.
      * If you want to change settings of concrete object you can use it the same name properties.
      */
     public static settings: any =
@@ -78,7 +78,7 @@ export class PagedPager implements Pager {
      */
     public appendedOnLoad: boolean = false;
     /**
-     * This is both initial value and value to wich {@link pageSize} property will be resetted on {@link reset} method execution. 
+     * This is both initial value and value which will be applied to {@link pageSize} property on {@link reset} method execution.
      */
     public defaultPageSize: number = PagedPager.settings.defaultPageSize;
     /**
@@ -90,25 +90,25 @@ export class PagedPager implements Pager {
      */
     public minPageSize: number = PagedPager.settings.minPageSize;
     /**
-     * Specifies name of property in server response from wich value of {@link displayFrom} property will be readed by {@link processResponse} method.
+     * Specifies name of property in server response from which {@link processResponse} method can read value of {@link displayFrom} property.
      * 
      * @see {@link PagedPager.settings.displayFromParameterName}
      */
     public displayFromParameterName: string = PagedPager.settings.displayFromParameterName;
     /**
-     * Specifies name of property in server response from wich value of {@link displayTo} property will be readed by {@link processResponse} method.
+     * Specifies name of property in server response from which {@link processResponse} method can read value of {@link displayTo} property.
      * 
      * @see {@link PagedPager.settings.displayToParameterName}
      */
     public displayToParameterName: string = PagedPager.settings.displayToParameterName;
     /**
-     * Specifies name of property in server response from wich value of {@link loadedCount} property will be readed by {@link processResponse} method.
+     * Specifies name of property in server response from which {@link processResponse} method can read value of {@link loadedCount} property.
      * 
      * @see {@link PagedPager.settings.loadedCountParameterName}
      */
     public loadedCountParameterName: string = PagedPager.settings.loadedCountParameterName;
     /**
-     * Specifies name of property in server response from wich value of {@link totalCount} property will be readed by {@link processResponse} method.
+     * Specifies name of property in server response from which {@link processResponse} method can read value of {@link totalCount} property.
      * 
      * @see {@link PagedPager.settings.totalCountParameterName}
      */
@@ -141,13 +141,13 @@ export class PagedPager implements Pager {
 
     /**
      * Number of record in remote data source from which data was loaded by last request to the server.
-     * Value for this property is readed by {@link processResponse} method from server response.
+     * @see {@link displayFromParameterName}
      * @see {@link PagedListResponse.displayFrom}
      */
     public displayFrom: number = 0;
     /**
      * Number of record in remote data source to which data was loaded by last request to the server.
-     * Value for this property is readed by {@link processResponse} method from server response.
+     * @see {@link displayToParameterName}
      * @see {@link PagedListResponse.displayTo}
      */
     public displayTo: number = 0;
@@ -159,7 +159,7 @@ export class PagedPager implements Pager {
         return Math.ceil(this.totalCount / this.pageSizeInternal);
     }
     /**
-     * This property is applied to the server request and it specifies number of page that must be loaded on next data loading.
+     * This property is applied to the server request and it specifies number of the page that must be loaded on next request.
      * 
      * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
      * @see {@link pageNumberParameterName}
@@ -183,7 +183,7 @@ export class PagedPager implements Pager {
         this.pageNumberInternal = pageNumber;
     }
     /**
-     * This property is applied to the server request and it specifies size of page that must be loaded on next data loading.
+     * This property is applied to the server request and it specifies size of page that must be loaded on next request.
      *  
      * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
      * @see {@link pageSizeParameterName}

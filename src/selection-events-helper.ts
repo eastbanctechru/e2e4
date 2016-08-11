@@ -26,18 +26,20 @@ export enum MouseButtons {
 }
 /**
  * Helper class that can be used by application-defined UI components for handling keyboard and mouse interaction with component.
- * Implements selection model that similar to Excel or Google Sheets. Concrete handled patterns you can see in concrete methods documentation.
+ * 
+ * Implements selection model that is similar to Excel or Google Sheets. Concrete handled patterns you can see in concrete methods documentation.
+ * 
  * This implementation doesn't use any browser specific objects such as events and doesn't use any browser API.
  */
 export class SelectionEventsHelper {
     /**
-     * @param selectionConfig used for declarative interaction with application-defined UI component and access to it's selection settings
-     * as well as {@link SelectionService} implementation, that was configured in application-defined UI component.
+     * @param selectionConfig Used for declarative interaction with application-defined UI component and access to it's selection settings
+     * as well as {@link SelectionService} implementation, that was configured on it.
      */
     constructor(public selectionConfig: SelectionAreaConfig) {
     }
     /**
-     * Tries to select all items if Ctrl+A combination was pressed.
+     * Tries to select all items if `Ctrl+A` combination was pressed.
      * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
      * @param shiftKeyPressed - `true` if `Shift` key was pressed (with pressed `Shift` this command would not be applied).
      * @returns `true` if command was applied.
@@ -51,6 +53,7 @@ export class SelectionEventsHelper {
     }
     /**
      * Tries to select previous item when `Arrow Up` was pressed (`Arrow Left` if {@link SelectionAreaConfig.horizontal} is `true`). 
+     * 
      * If `Shift` was pressed and {@link SelectionAreaConfig.multiple} is 'true' then elements selected before stays selected.
      * @param shiftKeyPressed - `true` if `Shift` key was pressed.
      * @returns `true` if command was applied.
@@ -63,7 +66,8 @@ export class SelectionEventsHelper {
         return false;
     }
     /**
-     * Tries to select next item when `Arrow Down` was pressed (`Right Arrow` if {@link SelectionAreaConfig.horizontal} is `true`). 
+     * Tries to select next item when `Arrow Down` was pressed (`Right Arrow` if {@link SelectionAreaConfig.horizontal} is `true`).
+     *  
      * If `Shift` was pressed and {@link SelectionAreaConfig.multiple} is 'true' then elements selected before stays selected.
      * @param shiftKeyPressed - `true` if `Shift` key was pressed.
      * @returns `true` if command was applied.
@@ -106,12 +110,12 @@ export class SelectionEventsHelper {
         return false;
     }
     /**
-     * Tries to select element that is previous to the last processed element and last operation is deselection.
+     * Tries to select element that is previous to the last processed element and last processed element was deselected.
      * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
      * @param shiftKeyPressed - `true` if `Shift` key was pressed.
      * @returns `true` if command was applied.
      */
-    protected tryBuildRangeWithPreviousItemWhenLastItemWasUnselected(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
+    protected tryBuildRangeWithPreviousItemWhenLastItemWasDeselected(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
         if (!ctrlKeyPressed && shiftKeyPressed && false === this.selectionConfig.selectionService.isIndexSelected(this.selectionConfig.selectionService.lastProcessedIndex)) {
             this.selectionConfig.selectionService.selectRange(this.selectionConfig.selectionService.lastProcessedIndex, this.selectionConfig.selectionService.lastProcessedIndex - 1);
             return true;
@@ -119,12 +123,12 @@ export class SelectionEventsHelper {
         return false;
     }
     /**
-     * Tries to select element that is next to the last processed element and last operation is deselection. 
+     * Tries to select element that is next to the last processed element and last processed element was deselected. 
      * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
      * @param shiftKeyPressed - `true` if `Shift` key was pressed.
      * @returns `true` if command was applied.
      */
-    protected tryBuildRangeWithNextItemWhenLastItemWasUnselected(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
+    protected tryBuildRangeWithNextItemWhenLastItemWasDeselected(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
         if (!ctrlKeyPressed && shiftKeyPressed && false === this.selectionConfig.selectionService.isIndexSelected(this.selectionConfig.selectionService.lastProcessedIndex)) {
             this.selectionConfig.selectionService.selectRange(this.selectionConfig.selectionService.lastProcessedIndex, this.selectionConfig.selectionService.lastProcessedIndex + 1);
             return true;
@@ -132,7 +136,7 @@ export class SelectionEventsHelper {
         return false;
     }
     /**
-     * Tries to handle first action on UI component. Selects first element in {@link SelectionService.itemsSource} if nothing was selected before.
+     * Selects first element in {@link SelectionService.itemsSource} if nothing was selected before.
      * @returns `true` if command was applied.
      */
     protected tryInitialSelectionOfFirstItem(): boolean {
@@ -206,7 +210,7 @@ export class SelectionEventsHelper {
         return this.tryInitialSelectionOfFirstItem() ||
             this.trySelectFirstItem(ctrlKeyPressed, shiftKeyPressed) ||
             this.trySelectAllItemsUpToFirst(ctrlKeyPressed, shiftKeyPressed) ||
-            this.tryBuildRangeWithPreviousItemWhenLastItemWasUnselected(ctrlKeyPressed, shiftKeyPressed) ||
+            this.tryBuildRangeWithPreviousItemWhenLastItemWasDeselected(ctrlKeyPressed, shiftKeyPressed) ||
             this.tryDeselectLastItemInRange(shiftKeyPressed) ||
             this.trySelectPreviousItem(shiftKeyPressed);
     }
@@ -220,7 +224,7 @@ export class SelectionEventsHelper {
         return this.tryInitialSelectionOfFirstItem() ||
             this.trySelectLastItem(ctrlKeyPressed, shiftKeyPressed) ||
             this.trySelectAllItemsUpToLast(ctrlKeyPressed, shiftKeyPressed) ||
-            this.tryBuildRangeWithNextItemWhenLastItemWasUnselected(ctrlKeyPressed, shiftKeyPressed) ||
+            this.tryBuildRangeWithNextItemWhenLastItemWasDeselected(ctrlKeyPressed, shiftKeyPressed) ||
             this.tryDeselectLastItemInReversedRange(shiftKeyPressed) ||
             this.trySelectNextItem(shiftKeyPressed);
     }

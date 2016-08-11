@@ -7,9 +7,9 @@ export class RegularPager implements Pager {
     /**
      * Global settings for response parameters names.
      * 
-     * These settings are static and their values are copied to the properties of the same name for each instance of {@link RegularPager}.
+     * These settings are static and their values are copied to the properties of the same name for each instance of {@link RegularPager} type.
      * 
-     * So, changing of this settings will affect all instances of {@link RegularPager} that will be created after those changes.
+     * So, changing of this settings will affect all instances of {@link RegularPager} type that will be created after such changes.
      * If you want to change settings of concrete object you can use it the same name properties.
      */
     public static settings: any =
@@ -37,13 +37,13 @@ export class RegularPager implements Pager {
      */
     public loadedCount: number = 0;
     /**
-     * Specifies name of property in server response from wich value of {@link totalCount} property will be readed by {@link processResponse} method.
+     * Specifies name of property in server response from which {@link processResponse} method can read value of {@link totalCount} property.
      * 
      * @see {@link RegularPager.settings.totalCountParameterName}
      */
     public totalCountParameterName: string = RegularPager.settings.totalCountParameterName;
     /**
-     * Specifies name of property in server response from wich value of {@link loadedCount} property will be readed by {@link processResponse} method.
+     * Specifies name of property in server response from which {@link processResponse} method can read value of {@link loadedCount} property.
      * 
      * @see {@link RegularPager.settings.loadedCountParameterName}
      */

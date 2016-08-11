@@ -2,23 +2,30 @@
  * Represents element which can be processed as selected/deselected by any implementation of {@link SelectionService}.
  */
 export interface SelectionItem {
+    /**
+     * Specifies is item selected or not.
+     */
     selected: boolean;
 }
 
 /**
- * Describes possible operations with selection model.
+ * Represents possible operations with selection model.
+ * 
  * Default implementation in this library is {@link DefaultSelectionService}, but you can extend it or replace with your own implementation.
  */
 export interface SelectionService {
     /**
-     * Collection of elements that will be selected.
-     * Application-defined implementations of this contact must perform {@link checkSelection} when this property is setted to new value.
+     * Collection of elements elements of which will be selected.
+     * 
+     * Application-defined implementation of this contact must perform {@link checkSelection} when this property is assigned to new value.
      * @see {@link trackByFn} 
      */
     itemsSource: Array<SelectionItem>;
     /**
      * Optional function which can be used for comparison of {@link itemsSource} elements.
-     * If specified, this function must be used {@link checkSelection} implementation.
+     * 
+     * If specified, this function must be used by {@link checkSelection} implementation.
+     * 
      * Also it's reasonable to use this function for {@link getItemIndex} implementation.
      * @param index index of element in {@link itemsSource} collection.
      * @param actual element from {@link itemsSource} collection.
@@ -30,7 +37,8 @@ export interface SelectionService {
     lastProcessedIndex: number;
     /**
      * In application-defined implementations must perform checks that every selected element is actually selected.
-     * It's reasonable to use this when {@link itemsSource} was changed and some items was selected previously.
+     * 
+     * It's reasonable to use this when {@link itemsSource} was changed and some items were selected before.
      */
     checkSelection(): void;
     /**
@@ -48,15 +56,15 @@ export interface SelectionService {
      */
     selectRange(fromIndex: number, toIndex: number): void;
     /**
-     * Checks, that all elements inside specified range is selected in {@link itemsSource} collection.
+     * Checks, that all elements inside specified range are selected in {@link itemsSource} collection.
      * @param fromIndex index of element from which check must be performed.
      * @param toIndex index of element to which check must be performed.
-     * @returns `true` if all elements inside specified range is selected. 
+     * @returns `true` if all elements inside specified range are selected. 
      */
     isRangeSelected(from: number, to: number): boolean;
     /**
      * Checks that at least one element selected in {@link itemsSource} collection.
-     * @returns `true` if anything selected.
+     * @returns `true` if anything is selected.
      */
     hasSelections(): boolean;
     /**
@@ -67,12 +75,12 @@ export interface SelectionService {
     isIndexSelected(index: number): boolean;
     /**
      * Returns index of first selected element from {@link itemsSource}.
-     * @returns index of first selected element. -1 if nothing's selected.
+     * @returns index of first selected element. -1 if nothing is selected.
      */
     getMinSelectedIndex(): number;
     /**
      * Returns index of last selected element from {@link itemsSource}.
-     * @returns index of last selected element. -1 if nothing's selected.
+     * @returns index of last selected element. -1 if nothing is selected.
      */
     getMaxSelectedIndex(): number;
     /**
@@ -102,23 +110,23 @@ export interface SelectionService {
      */
     deselectIndex(index: number): void;
     /**
-     * Toggles selection state of element from {@link itemsSource} collection at specified index.
+     * Toggles selection state of element at specified index.
      * @param index index of element in {@link itemsSource} collection.
      * @param savePrevious `true` if previously selected elements must stay selected after current selection.
      */
     toggleSelection(index: number, savePrevious?: boolean): void;
     /**
-     * Returns all elements from {@link itemsSource} collection which marked as selected.
+     * Returns all elements from {@link itemsSource} collection which are marked as selected.
      * @returns collection of selected elements.
      */
     getSelectedElements(): Array<Object>;
     /**
-     * Returns indexes of all elements from {@link itemsSource} collection which marked as selected.
+     * Returns indexes of all elements from {@link itemsSource} collection which are marked as selected.
      * @returns collection of selected elements indexes in {@link itemsSource} collection.
      */
     getSelectedIndexes(): Array<number>;
     /**
-     * Performs application-defined logic associated with class destroy.
+     * Performs application-defined logic for service destroy.
      */
     destroy(): void;
 }

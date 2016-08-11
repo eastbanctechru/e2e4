@@ -2,16 +2,16 @@ import {FilterConfig} from './contracts/filter-config';
 import { SortParameter } from './sort-parameter';
 import {filter} from './filter-annotation';
 /**
- * Provides sortings functionality. 
+ * Provides sorting functionality. 
  * @note This type is configured to use with {@link FiltersService}.
  */
 export class SortingsService {
     /**
      * Global settings for {@link SortingsService}.
      * 
-     * These settings are static and their values are copied to the properties of the same name for each instance of {@link SortingsService}.
+     * These settings are static and their values are copied to the properties of the same name for each instance of {@link SortingsService} type.
      * 
-     * So, changing of this settings will affect all instances of {@link SortingsService} that will be created after those changes.
+     * So, changing of this settings will affect all instances of {@link SortingsService} type that will be created after such changes.
      * If you want to change settings of concrete object you can use it the same name properties.
      */
     public static settings: any = {
@@ -101,7 +101,7 @@ export class SortingsService {
         }
     }
     /**
-     * Performs destroy of service.
+     * Performs service destroy.
      */
     public destroy(): void {
         this.defaultSortingsInternal.length = 0;
