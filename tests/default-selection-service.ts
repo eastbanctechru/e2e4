@@ -547,14 +547,14 @@ describe('SelectionService', () => {
         });
     });
 
-    describe('dispose', () => {
+    describe('destroy', () => {
         it('clears selections list and last processed index', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
             target.selectionService.itemsSource = target.items;
             target.selectionService.selectAll();
             expect(target.selectionService.getSelectedElements().length).equal(target.items.length);
-            target.selectionService.dispose();
+            target.selectionService.destroy();
             expect(target.selectionService.getSelectedElements().length).equal(0);
             expect(target.selectionService.lastProcessedIndex).null;
         });
@@ -562,7 +562,7 @@ describe('SelectionService', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
             target.selectionService.itemsSource = target.items;
-            target.selectionService.dispose();
+            target.selectionService.destroy();
             expect(target.selectionService.itemsSource).undefined;
         });
 
@@ -571,7 +571,7 @@ describe('SelectionService', () => {
             const tempItems = target.items.slice();
             target.selectionService = new DefaultSelectionService();
             target.selectionService.itemsSource = target.items;
-            target.selectionService.dispose();
+            target.selectionService.destroy();
             expect(target.items).eql(tempItems);
         });
     });

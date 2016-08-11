@@ -92,7 +92,7 @@ export class FiltersService {
     /**
      * Подготавливает объект к уничтожению.
      */
-    public dispose(): void {
+    public destroy(): void {
         this.appliedFiltersMapInternal.clear();
     }
     /**

@@ -120,5 +120,5 @@ export interface SelectionService {
     /**
      * Performs application-defined logic associated with class destroy.
      */
-    dispose(): void;
+    destroy(): void;
 }

@@ -156,7 +156,7 @@ describe('FiltersService', () => {
             expect(filtersService.appliedFiltersMap.has(target)).false;
         });
 
-        it('clears targets on dispose', () => {
+        it('clears targets on destroy', () => {
             class TargetType {
                 @filter
                 public first: 'first';
@@ -164,7 +164,7 @@ describe('FiltersService', () => {
             let target = new TargetType();
             let filtersService = new FiltersService(target);
             expect(filtersService.appliedFiltersMap.has(target)).true;
-            filtersService.dispose();
+            filtersService.destroy();
             expect(filtersService.appliedFiltersMap.has(target)).false;
         });
     });

@@ -1,52 +1,52 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
-import { disposeAll, cloneAsLiteral, coerceValue } from '../src/utilities';
+import { destroyAll, cloneAsLiteral, coerceValue } from '../src/utilities';
 
 describe('Utilities', () => {
-    describe('disposeAll', () => {
-        it('disposeAll sync', () => {
-            const disposeSpy = sinon.spy();
-            const collection = [{ dispose: disposeSpy }];
+    describe('destroyAll', () => {
+        it('destroyAll sync', () => {
+            const destroySpy = sinon.spy();
+            const collection = [{ destroy: destroySpy }];
 
-            disposeAll(collection, false);
-            expect(disposeSpy.calledOnce).eql(true);
+            destroyAll(collection, false);
+            expect(destroySpy.calledOnce).eql(true);
         });
 
-        it('disposeAll async', (done: () => void) => {
-            const disposeSpy = sinon.spy();
-            const collection = [{ dispose: disposeSpy }];
+        it('destroyAll async', (done: () => void) => {
+            const destroySpy = sinon.spy();
+            const collection = [{ destroy: destroySpy }];
 
-            disposeAll(collection);
+            destroyAll(collection);
             setTimeout(() => {
-                expect(disposeSpy.calledOnce).eql(true);
+                expect(destroySpy.calledOnce).eql(true);
                 done();
             }, 0);
         });
 
         it('doesn\'t break on invalid collections sync', () => {
             let callFn = (): void => {
-                disposeAll(null, false);
+                destroyAll(null, false);
             };
             expect(callFn).not.throw();
         });
 
         it('doesn\'t break on invalid collections async', () => {
             let callFn = (): void => {
-                disposeAll(null);
+                destroyAll(null);
             };
             expect(callFn).not.throw();
         });
 
-        it('ignore items without dispose sync', () => {
+        it('ignore items without destroy sync', () => {
             const collection = [{ id: 1 }];
-            disposeAll(collection, false);
+            destroyAll(collection, false);
             expect(collection.length).equals(0);
         });
 
-        it('ignore items without dispose async', (done: () => void) => {
+        it('ignore items without destroy async', (done: () => void) => {
             const collection = [{ id: 1 }];
 
-            disposeAll(collection);
+            destroyAll(collection);
             setTimeout(() => {
                 expect(collection.length).equals(0);
                 done();

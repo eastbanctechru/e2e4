@@ -39,9 +39,9 @@ export class DefaultSelectionService implements SelectionService {
      */
     protected trackByIdentity: (index: number, item: any) => any = (index: number, item: any) => { return item; };
     /**
-     * @see {@link SelectionService.dispose}
+     * @see {@link SelectionService.destroy}
      */
-    public dispose(): void {
+    public destroy(): void {
         this.selectionsList.length = 0;
         this.lastProcessedIndex = null;
         delete this.items;

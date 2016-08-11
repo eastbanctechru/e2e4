@@ -64,11 +64,11 @@ export function coerceValue(value: any): any {
 }
 /**
  * Executes clean up of passed array by calling splice function.
- * Next, each element of passed array will be checked for existance of `dispose` method and if it exists this method will be called.
- * @param collection array of elements to dispose.
- * @param async if true then elements iteration and dispose will be called via setTimeout (,0).
+ * Next, each element of passed array will be checked for existance of `destroy` method and if it exists this method will be called.
+ * @param collection array of elements to destroy.
+ * @param async if true then elements iteration and destroy will be called via setTimeout (,0).
  */
-export function disposeAll(collection: any[], async: boolean = true): void {
+export function destroyAll(collection: any[], async: boolean = true): void {
     if (!Array.isArray(collection)) {
         return;
     }
@@ -77,8 +77,8 @@ export function disposeAll(collection: any[], async: boolean = true): void {
     if (async) {
         setTimeout(() => {
             items.forEach((item: any) => {
-                if (item.dispose) {
-                    item.dispose();
+                if (item.destroy) {
+                    item.destroy();
                 }
             });
             items = null;
@@ -86,8 +86,8 @@ export function disposeAll(collection: any[], async: boolean = true): void {
 
     } else {
         items.forEach((item: any) => {
-            if (item.dispose) {
-                item.dispose();
+            if (item.destroy) {
+                item.destroy();
             }
         });
     }

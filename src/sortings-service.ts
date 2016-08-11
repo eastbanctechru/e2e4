@@ -95,7 +95,7 @@ export class SortingsService {
     /**
      * Performs object clean up.
      */
-    public dispose(): void {
+    public destroy(): void {
         this.defaultSortingsInternal.length = 0;
         this.sortings.length = 0;
     }

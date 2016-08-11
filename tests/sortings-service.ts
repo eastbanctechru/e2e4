@@ -167,20 +167,20 @@ describe('SortingsService', () => {
             expect(sortingsService.sortings[1].fieldName).eql('id');
         });
     });
-    describe('on dispose', () => {
-        it('set sortings to empty array on dispose', () => {
+    describe('on destroy', () => {
+        it('set sortings to empty array on destroy', () => {
             const target = toTarget();
             const {sortingsService} = target;
             sortingsService.setSort('id', savePrevious);
             sortingsService.setSort('name', savePrevious);
-            sortingsService.dispose();
+            sortingsService.destroy();
             expect(sortingsService.sortings.length).eql(0);
         });
 
-        it('set defaultSortings to empty array on dispose', () => {
+        it('set defaultSortings to empty array on destroy', () => {
             const target = toTargetWithDefault();
             const {sortingsService} = target;
-            sortingsService.dispose();
+            sortingsService.destroy();
             expect(sortingsService.defaultSortings.length).eql(0);
         });
     });
