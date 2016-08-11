@@ -1,6 +1,6 @@
 import {SelectionAreaConfig} from './contracts/selection-area-config';
 /**
- * Used by {@link SelectionEventsHelper} handlers to determine which key was pressed on keyboard.  
+ * Used by {@link SelectionEventsHelper} to determine which key was pressed on keyboard.  
  */
 export enum KeyCodes {
     Enter = 13,
@@ -16,7 +16,7 @@ export enum KeyCodes {
 }
 
 /**
- * Used by {@link SelectionEventsHelper} handlers to determine which mouse button is pressed.  
+ * Used by {@link SelectionEventsHelper} to determine which mouse button is pressed.  
  */
 export enum MouseButtons {
     None = 0,

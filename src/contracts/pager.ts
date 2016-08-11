@@ -3,7 +3,7 @@
  */
 export interface Pager {
     /**
-     * Must be true for those pager implementations which destroys previously loaded data only on full reload, but keeps data on next chunk loading.
+     * Must be `true` for those pager implementations which destroys previously loaded data only on full reload, but keeps data on next chunk loading.
      * This is the case for {@link BufferedPager} for example.
      */
     appendedOnLoad: boolean;
@@ -28,5 +28,5 @@ export interface Pager {
      * At least must set response values to {@link totalCount} and {@link loadedCount} properties.
      * @param result server response to process.
      */
-    processResponse(result: Object): void;
+    processResponse(response: Object): void;
 }

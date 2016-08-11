@@ -1,5 +1,4 @@
 var gulp = require('gulp');
-var runSequence = require('run-sequence');
 var typedoc = require("gulp-typedoc");
 var ghPages = require('gulp-gh-pages');
 var paths = require('../paths');
@@ -12,16 +11,16 @@ gulp.task("docs-build", function () {
             target: "es6",
             includeDeclarations: false,
             experimentalDecorators: true,
-
             out: paths.docs,
             mode: "file",
             name: "e2e4",
-            ignoreCompilerErrors: true,
-            version: true
+            readme: "none",
+            ignoreCompilerErrors: false,
+            help: true
         }));
 });
 
-gulp.task('docs-publish', function() {
-  return gulp.src('./docs/**/*')
-    .pipe(ghPages());
+gulp.task('docs-publish', function () {
+    return gulp.src('./docs/**/*')
+        .pipe(ghPages());
 });

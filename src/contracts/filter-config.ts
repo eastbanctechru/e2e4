@@ -6,7 +6,7 @@
  *      //Instance of this class is registered in filtersService via "registerFilterTarget" later. 
  *      //We call this "target type".
  *      class EndUserClass {
- *         //this property is annotated with @filter annotation. We call this "target property"
+ *         //this property has @filter annotation. We call this "target property"
  *         @filter 
  *         public parameter1 = 'Hey';
  *         //this property doesn't. So, it's not "target property"
@@ -38,8 +38,8 @@ export interface FilterConfig {
      */
     parameterName?: string | (() => string);
     /**
-     * If true then {@link FiltersService.applyParams} method skips value parsing and doesn't apply anything to `target property`.
-     * Commonly this property is usefull if you have some custom logic of building 'target property' value and you want to apply it by yourself.
+     * If `true` then {@link FiltersService.applyParams} method skips value parsing and doesn't apply anything to `target property`.
+     * Commonly this property is useful if you have some custom logic of building 'target property' value and you want to apply it by yourself.
      */
     ignoreOnAutoMap?: boolean;
     /**

@@ -2,56 +2,58 @@ import {Pager} from './contracts/pager';
 import {filter} from './filter-annotation';
 import {FilterConfig} from './contracts/filter-config';
 /**
- * Implementation of {@link Pager} contract that represents behavior of list with pages.
- * Can be used with {@link FiltersService} to automatic request building, settings resetting etc. 
+ * Implements {@link Pager} contract and represents behavior of list with pages.
+ * @note This type is configured to use with {@link FiltersService}.
  */
 export class PagedPager implements Pager {
     /**
      * Global settings for properties such as request and response parameters names, default values and constraints for pager properties.
-     * These settings are static and they are copied to the properties of the same name for each instance of {@link PagedPager}.
-     * So, changing of this settings will affect all instances of {@link PagedPager} that will be created after change.
+     * 
+     * These settings are static and their values are copied to the properties of the same name for each instance of {@link PagedPager}.
+     * 
+     * So, changing of this settings will affect all instances of {@link PagedPager} that will be created after those changes.
      * If you want to change settings of concrete object you can use it the same name properties.
      */
     public static settings: any =
     {
         /**
-         * @see {@link PagedPager.defaultPageSize}. 
+         * @see {@link PagedPager.defaultPageSize}
          */
         defaultPageSize: 20,
         /**
-         * @see {@link PagedPager.displayFromParameterName}. 
+         * @see {@link PagedPager.displayFromParameterName} 
          */
         displayFromParameterName: 'displayFrom',
         /**
-         * @see {@link PagedPager.displayToParameterName}. 
+         * @see {@link PagedPager.displayToParameterName} 
          */
         displayToParameterName: 'displayTo',
         /**
-         * @see {@link PagedPager.loadedCountParameterName}. 
+         * @see {@link PagedPager.loadedCountParameterName} 
          */
         loadedCountParameterName: 'loadedCount',
         /**
-         * @see {@link PagedPager.maxPageSize}. 
+         * @see {@link PagedPager.maxPageSize}
          */
         maxPageSize: 200,
         /**
-         * @see {@link PagedPager.minPageSize}. 
+         * @see {@link PagedPager.minPageSize} 
          */
         minPageSize: 1,
         /**
-         * @see {@link PagedPager.pageNumberParameterName}. 
+         * @see {@link PagedPager.pageNumberParameterName} 
          */
         pageNumberParameterName: 'pageNumber',
         /**
-         * @see {@link PagedPager.pageSizeParameterName}. 
+         * @see {@link PagedPager.pageSizeParameterName} 
          */
         pageSizeParameterName: 'pageSize',
         /**
-         * @see {@link PagedPager.persistPageSize}. 
+         * @see {@link PagedPager.persistPageSize} 
          */
         persistPageSize: false,
         /**
-         * @see {@link PagedPager.totalCountParameterName}. 
+         * @see {@link PagedPager.totalCountParameterName} 
          */
         totalCountParameterName: 'totalCount'
     };
@@ -60,6 +62,9 @@ export class PagedPager implements Pager {
      */
     protected pageSizeInternal: number = PagedPager.settings.defaultPageSize;
 
+    /**
+     * Internal implementation of {@link pageNumber}.
+     */
     @filter({
         defaultValue: 1,
         parameterName: function (): string { return (<PagedPager>this).pageNumberParameterName; },
@@ -67,13 +72,9 @@ export class PagedPager implements Pager {
             return isNaN(rawValue) || !rawValue ? 1 : rawValue;
         }
     } as FilterConfig)
-    /**
-     * Internal implementation of {@link pageNumber}.
-     * This property is annotated with {@link filter}. So it's ready to use with {@link FiltersService}.
-     */
     protected pageNumberInternal: number = 1;
     /**
-     * @see {@link Pager.appendedOnLoad}. 
+     * @see {@link Pager.appendedOnLoad}
      */
     public appendedOnLoad: boolean = false;
     /**
@@ -81,35 +82,47 @@ export class PagedPager implements Pager {
      */
     public defaultPageSize: number = PagedPager.settings.defaultPageSize;
     /**
-     * Biggest value that can be applied to {@link pageSize}. 
+     * The biggest value that can be applied to {@link pageSize} property. 
      */
     public maxPageSize: number = PagedPager.settings.maxPageSize;
     /**
-     * Smallest value that can be applied to {@link pageSize}. 
+     * The smallest value that can be applied to {@link pageSize} property. 
      */
     public minPageSize: number = PagedPager.settings.minPageSize;
     /**
-     * Specifies name of property in server response from wich value for {@link displayFrom} will be readed by {@link processResponse} method.
+     * Specifies name of property in server response from wich value of {@link displayFrom} property will be readed by {@link processResponse} method.
+     * 
+     * @see {@link PagedPager.settings.displayFromParameterName}
      */
     public displayFromParameterName: string = PagedPager.settings.displayFromParameterName;
     /**
-     * Specifies name of property in server response from wich value for {@link displayTo} will be readed by {@link processResponse} method.
+     * Specifies name of property in server response from wich value of {@link displayTo} property will be readed by {@link processResponse} method.
+     * 
+     * @see {@link PagedPager.settings.displayToParameterName}
      */
     public displayToParameterName: string = PagedPager.settings.displayToParameterName;
     /**
-     * Specifies name of property in server response from wich value for {@link loadedCount} will be readed by {@link processResponse} method.
+     * Specifies name of property in server response from wich value of {@link loadedCount} property will be readed by {@link processResponse} method.
+     * 
+     * @see {@link PagedPager.settings.loadedCountParameterName}
      */
     public loadedCountParameterName: string = PagedPager.settings.loadedCountParameterName;
     /**
-     * Specifies name of property in server response from wich value for {@link totalCount} will be readed by {@link processResponse} method.
+     * Specifies name of property in server response from wich value of {@link totalCount} property will be readed by {@link processResponse} method.
+     * 
+     * @see {@link PagedPager.settings.totalCountParameterName}
      */
     public totalCountParameterName: string = PagedPager.settings.totalCountParameterName;
     /**
-     * Specifies name of parameter that will be used to apply {@link pageNumber} property value when builds server request.
+     * Specifies name of parameter to apply {@link pageNumber} property value to server request.
+     * 
+     * @see {@link PagedPager.settings.pageNumberParameterName}
      */
     public pageNumberParameterName: string = PagedPager.settings.pageNumberParameterName;
     /**
-     * Specifies name of parameter that will be used to apply {@link pageSize} property value when builds server request.
+     * Specifies name of parameter to apply {@link pageSize} property value to server request.
+     * 
+     * @see {@link PagedPager.settings.pageSizeParameterName}
      */
     public pageSizeParameterName: string = PagedPager.settings.pageSizeParameterName;
     /**
@@ -118,11 +131,11 @@ export class PagedPager implements Pager {
      */
     public persistPageSize: boolean = PagedPager.settings.persistPageSize;
     /**
-     * @see {@link Pager.totalCount}.
+     * @see {@link Pager.totalCount}
      */
     public totalCount: number = 0;
     /**
-     * @see {@link Pager.loadedCount}. 
+     * @see {@link Pager.loadedCount}
      */
     public loadedCount: number = 0;
 
@@ -146,14 +159,18 @@ export class PagedPager implements Pager {
         return Math.ceil(this.totalCount / this.pageSizeInternal);
     }
     /**
-     * This property is applied to the server request and it specifies number of page that must be loaded on next data loading. 
-     * Parameter name in request will be setted in accordance with {@link pageNumberParameterName} property.
-     * Setter of this property executes several checks. For example, it doesn't accept value that is bigger than {@link pageCount}.
-     * @see {@link PagedListRequest.pageNumber}
+     * This property is applied to the server request and it specifies number of page that must be loaded on next data loading.
+     * 
+     * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
+     * @see {@link pageNumberParameterName}
+     * @see {@link PagedListRequest.pageNumber} 
      */
     public get pageNumber(): number {
         return this.pageNumberInternal;
     }
+    /**
+     * Executes several checks. For example, it doesn't accept values bigger than {@link pageCount}.
+     */
     public set pageNumber(value: number) {
         const valueStr = (value + '').replace(/[^0-9]/g, '');
         let pageNumber = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : 1;
@@ -165,6 +182,13 @@ export class PagedPager implements Pager {
         }
         this.pageNumberInternal = pageNumber;
     }
+    /**
+     * This property is applied to the server request and it specifies size of page that must be loaded on next data loading.
+     *  
+     * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
+     * @see {@link pageSizeParameterName}
+     * @see {@link PagedListRequest.pageSize} 
+     */
     @filter({
         defaultValue: function (): number { return (<PagedPager>this).defaultPageSize; },
         parameterName: function (): string { return (<PagedPager>this).pageSizeParameterName; },
@@ -173,16 +197,12 @@ export class PagedPager implements Pager {
         },
         persisted: function (): boolean { return (<PagedPager>this).persistPageSize; }
     })
-    /**
-     * This property is applied to the server request and it specifies size of page that must be loaded on next data loading. 
-     * Parameter name in request will be setted in accordance with {@link pageSizeParameterName} property.
-     * Setter of this property executes several checks. For example, it doesn't accept value that is bigger than {@link maxPageSize}.
-     * This property is annotated with {@link filter}. So it's ready to use with {@link FiltersService}.
-     * @see {@link PagedListRequest.pageSize}
-     */
     public get pageSize(): number {
         return this.pageSizeInternal;
     }
+    /**
+     * Executes several checks. For example, it doesn't accept values than {@link maxPageSize}.
+     */
     public set pageSize(value: number) {
         const valueStr = (value + '').replace(/[^0-9]/g, '');
         let pageSize = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : this.defaultPageSize;
@@ -206,18 +226,18 @@ export class PagedPager implements Pager {
         this.pageSizeInternal = pageSize;
     }
     /**
-     * @see {@link Pager.processResponse}. 
+     * @see {@link Pager.processResponse}
      */
-    public processResponse(result: Object): void {
-        this.loadedCount = result[this.loadedCountParameterName] || 0;
-        this.totalCount = result[this.totalCountParameterName] || 0;
+    public processResponse(response: Object): void {
+        this.loadedCount = response[this.loadedCountParameterName] || 0;
+        this.totalCount = response[this.totalCountParameterName] || 0;
 
-        this.displayFrom = result[this.displayFromParameterName] || 0;
-        this.displayTo = result[this.displayToParameterName] || 0;
+        this.displayFrom = response[this.displayFromParameterName] || 0;
+        this.displayTo = response[this.displayToParameterName] || 0;
 
     }
     /**
-     * @see {@link Pager.reset}. 
+     * @see {@link Pager.reset}
      */
     public reset(): void {
         this.totalCount = 0;

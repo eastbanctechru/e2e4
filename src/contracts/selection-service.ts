@@ -51,18 +51,18 @@ export interface SelectionService {
      * Checks, that all elements inside specified range is selected in {@link itemsSource} collection.
      * @param fromIndex index of element from which check must be performed.
      * @param toIndex index of element to which check must be performed.
-     * @returns true if all elements inside specified range is selected. 
+     * @returns `true` if all elements inside specified range is selected. 
      */
     isRangeSelected(from: number, to: number): boolean;
     /**
      * Checks that at least one element selected in {@link itemsSource} collection.
-     * @returns true if anything selected.
+     * @returns `true` if anything selected.
      */
     hasSelections(): boolean;
     /**
      * Checks that element at specified index is selected.
      * @param index index of element in {@link itemsSource} collection to check.
-     * @returns true if element is selected.
+     * @returns `true` if element is selected.
      */
     isIndexSelected(index: number): boolean;
     /**
@@ -93,7 +93,7 @@ export interface SelectionService {
     /**
      * Selects element at specified index in {@link itemsSource} collection.
      * @param index index of element in {@link itemsSource} collection.
-     * @param savePrevious true if previously selected elements must stay selected after current selection.
+     * @param savePrevious `true` if previously selected elements must stay selected after current selection.
      */
     selectIndex(index: number, savePrevious?: boolean): void;
     /**
@@ -104,7 +104,7 @@ export interface SelectionService {
     /**
      * Toggles selection state of element from {@link itemsSource} collection at specified index.
      * @param index index of element in {@link itemsSource} collection.
-     * @param savePrevious true if previously selected elements must stay selected after current selection.
+     * @param savePrevious `true` if previously selected elements must stay selected after current selection.
      */
     toggleSelection(index: number, savePrevious?: boolean): void;
     /**

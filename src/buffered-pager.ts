@@ -2,48 +2,53 @@ import {Pager} from './contracts/pager';
 import {filter} from './filter-annotation';
 import {FilterConfig} from './contracts/filter-config';
 /**
- * Implementation of {@link Pager} contract that represents buffered list behavior. 
- * Can be used with {@link FiltersService} to automatic request building, settings resetting etc.
+ * Implements {@link Pager} contract and represents buffered list behavior. 
+ * @note This type is configured to use with {@link FiltersService}.
  */
 export class BufferedPager implements Pager {
     /**
      * Global settings for properties such as request and response parameters names, default values and constraints for pager properties.
-     * These settings are static and they are copied to the properties of the same name for each instance of {@link BufferedPager}.
-     * So, changing of this settings will affect all instances of {@link BufferedPager} that will be created after change.
+     * 
+     * These settings are static and their values are copied to the properties of the same name for each instance of {@link BufferedPager}.
+     * 
+     * So, changing of this settings will affect all instances of {@link BufferedPager} that will be created after those changes.
      * If you want to change settings of concrete object you can use it the same name properties.
      */
     public static settings: any =
     {
         /**
-         * @see {@link BufferedPager.defaultRowCount}. 
+         * @see {@link BufferedPager.defaultRowCount}
          */
         defaultRowCount: 20,
         /**
-         * @see {@link BufferedPager.loadedCountParameterName}. 
+         * @see {@link BufferedPager.loadedCountParameterName}
          */
         loadedCountParameterName: 'loadedCount',
         /**
-         * @see {@link BufferedPager.maxRowCount}. 
+         * @see {@link BufferedPager.maxRowCount}
          */
         maxRowCount: 200,
         /**
-         * @see {@link BufferedPager.minRowCount}. 
+         * @see {@link BufferedPager.minRowCount}
          */
         minRowCount: 1,
         /**
-         * @see {@link BufferedPager.skipRowCountParameterName}. 
+         * @see {@link BufferedPager.skipRowCountParameterName}
          */
         skipRowCountParameterName: 'skip',
         /**
-         * @see {@link BufferedPager.takeRowCountParameterName}. 
+         * @see {@link BufferedPager.takeRowCountParameterName}
          */
         takeRowCountParameterName: 'take',
         /**
-         * @see {@link BufferedPager.totalCountParameterName}. 
+         * @see {@link BufferedPager.totalCountParameterName}
          */
         totalCountParameterName: 'totalCount'
     };
 
+    /**
+     * Internal implementation of {@link takeRowCount}. 
+     */
     @filter({
         defaultValue: function (): number { return (<BufferedPager>this).defaultRowCount; },
         parameterName: function (): string { return (<BufferedPager>this).takeRowCountParameterName; },
@@ -58,15 +63,15 @@ export class BufferedPager implements Pager {
     } as FilterConfig)
     protected takeRowCountInternal: number = BufferedPager.settings.defaultRowCount;
     /**
-     * @see {@link Pager.appendedOnLoad}. 
+     * @see {@link Pager.appendedOnLoad}
      */
     public appendedOnLoad: boolean = true;
     /**
-     * @see {@link Pager.totalCount}. 
+     * @see {@link Pager.totalCount}
      */
     public totalCount: number = 0;
     /**
-     * @see {@link Pager.loadedCount}. 
+     * @see {@link Pager.loadedCount}
      */
     public loadedCount: number = 0;
     /**
@@ -74,35 +79,44 @@ export class BufferedPager implements Pager {
      */
     public defaultRowCount: number = BufferedPager.settings.defaultRowCount;
     /**
-     * Smallest value that can be applied to {@link takeRowCount}. 
+     * The smallest value that can be applied to {@link takeRowCount} property. 
      */
     public minRowCount: number = BufferedPager.settings.minRowCount;
     /**
-     * Biggest value that can be applied to {@link takeRowCount}. 
+     * The biggest value that can be applied to {@link takeRowCount} property. 
      */
     public maxRowCount: number = BufferedPager.settings.maxRowCount;
     /**
-     * Specifies name of property in server response from wich value for {@link loadedCount} will be readed by {@link processResponse} method.
+     * Specifies name of property in server response from wich value of {@link loadedCount} property will be readed by {@link processResponse} method.
+     * 
+     * @see {@link BufferedPager.settings.loadedCountParameterName}
      */
     public loadedCountParameterName: string = BufferedPager.settings.loadedCountParameterName;
     /**
-     * Specifies name of parameter that will be used to apply {@link skip} property value when builds server request.
+     * Specifies name of parameter to apply {@link skip} property value to server request.
+     * 
+     * @see {@link BufferedPager.settings.skipRowCountParameterName}
      */
     public skipRowCountParameterName: string = BufferedPager.settings.skipRowCountParameterName;
     /**
-     * Specifies name of property in server response from wich value for {@link totalCount} will be readed by {@link processResponse} method.
+     * Specifies name of property in server response from wich value of {@link totalCount} property will be readed by {@link processResponse} method.
+     * 
+     * @see {@link BufferedPager.settings.totalCountParameterName}
      */
     public totalCountParameterName: string = BufferedPager.settings.totalCountParameterName;
     /**
-     * Specifies name of parameter that will be used to apply {@link takeRowCount} property value when builds server request.
+     * Specifies name of parameter to apply {@link takeRowCount} property value to server request.
+     * 
+     * @see {@link BufferedPager.settings.takeRowCountParameterName}
      */
     public takeRowCountParameterName: string = BufferedPager.settings.takeRowCountParameterName;
 
     /**
-     * This property is applied to the server request and it specifies how many rows already loaded and must be skipped on next data loading. 
-     * Parameter name in request will be setted in accordance with {@link skipRowCountParameterName} property.
-     * This property is annotated with {@link filter}. So it's ready to use with {@link FiltersService}.
-     * @see {@link BufferedListRequest.skip}
+     * This property is applied to the server request and it specifies how many rows are already loaded and must be skipped on next data loading. 
+     * 
+     * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
+     * @see {@link skipRowCountParameterName}
+     * @see {@link BufferedListRequest.skip} 
      */
     @filter({
         defaultValue: 0,
@@ -112,15 +126,17 @@ export class BufferedPager implements Pager {
     public skip: number = 0;
 
     /**
-     * This property is applied to the server request and it specifies how many rows must be loaded on next data loading. 
-     * Parameter name in request will be setted in accordance with {@link takeRowCountParameterName} property.
-     * Setter of this property executes several checks. For example, it doesn't accept value that is bigger than {@link maxRowCount}.
-     * This property is annotated with {@link filter}. So it's ready to use with {@link FiltersService}.
-     * @see {@link BufferedListRequest.take}
+     * This property is applied to the server request and it specifies how many rows must be loaded on next data loading.
+     * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
+     * @see {@link takeRowCountParameterName}
+     * @see {@link BufferedListRequest.take} 
      */
     public get takeRowCount(): number {
         return this.takeRowCountInternal;
     }
+    /**
+     * Executes several checks. For example, it doesn't accept values bigger than {@link maxRowCount}.
+     */
     public set takeRowCount(value: number) {
         const valueStr = (value + '').replace(/[^0-9]/g, '');
         let rowCount = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : this.defaultRowCount;
@@ -138,16 +154,16 @@ export class BufferedPager implements Pager {
         this.takeRowCountInternal = rowCount;
     }
     /**
-     * @see {@link Pager.processResponse}. 
+     * @see {@link Pager.processResponse}
      */
-    public processResponse(result: Object): void {
-        this.totalCount = result[this.totalCountParameterName] || 0;
-        this.skip = (result[this.loadedCountParameterName] === null || result[this.loadedCountParameterName] === undefined) ?
-            0 : this.skip + result[this.loadedCountParameterName];
+    public processResponse(response: Object): void {
+        this.totalCount = response[this.totalCountParameterName] || 0;
+        this.skip = (response[this.loadedCountParameterName] === null || response[this.loadedCountParameterName] === undefined) ?
+            0 : this.skip + response[this.loadedCountParameterName];
         this.loadedCount = this.skip;
     }
     /**
-     * @see {@link Pager.reset}. 
+     * @see {@link Pager.reset}
      */
     public reset(): void {
         this.totalCount = 0;

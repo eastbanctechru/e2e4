@@ -68,8 +68,10 @@ export class Operation {
 export class StateTrackingService {
     /**
      * Global timimng settings.
-     * These settings are static and they are copied to the properties of the same name for each instance of {@link StateTrackingService}.
-     * So, changing of this settings will affect all instances of {@link StateTrackingService} that will be created after change.
+     * 
+     * These settings are static and their values are copied to the properties of the same name for each instance of {@link StateTrackingService}.
+     * 
+     * So, changing of this settings will affect all instances of {@link StateTrackingService} that will be created after those changes.
      * If you want to change settings of concrete object you can use it the same name properties.
      */
     public static settings: any =

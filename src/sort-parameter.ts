@@ -1,13 +1,13 @@
 ﻿/**
- * Represents sort direction that applied as parameter by {@link SortParameter}.  
+ * Represents sort direction that applied as parameter by {@link SortParameter} class.  
  */
 export enum SortDirection {
     /**
-     * Ascending order.
+     * Ascending sort order.
      */
     Asc = 0,
     /**
-     * Descending order.  
+     * Descending sort order.  
      */
     Desc = 1
 }

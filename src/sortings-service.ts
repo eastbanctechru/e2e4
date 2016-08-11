@@ -3,22 +3,24 @@ import { SortParameter } from './sort-parameter';
 import {filter} from './filter-annotation';
 /**
  * Provides sortings functionality. 
- * Can be used with {@link FiltersService} to automatic request building, settings resetting etc.
+ * @note This type is configured to use with {@link FiltersService}.
  */
 export class SortingsService {
     /**
      * Global settings for {@link SortingsService}.
-     * These settings are static and they are copied to the properties of the same name for each instance of {@link SortingsService}.
-     * So, changing of this settings will affect all instances of {@link SortingsService} that will be created after change.
+     * 
+     * These settings are static and their values are copied to the properties of the same name for each instance of {@link SortingsService}.
+     * 
+     * So, changing of this settings will affect all instances of {@link SortingsService} that will be created after those changes.
      * If you want to change settings of concrete object you can use it the same name properties.
      */
     public static settings: any = {
         /**
-         * @see {@link SortingsService.persistSortings}. 
+         * @see {@link SortingsService.persistSortings}
          */
         persistSortings: false,
         /**
-         * @see {@link SortingsService.sortParameterName}. 
+         * @see {@link SortingsService.sortParameterName} 
          */
         sortParameterName: 'sort'
     };
@@ -26,6 +28,11 @@ export class SortingsService {
      * Internal implementation of {@link defaultSortings}.
      */
     protected defaultSortingsInternal: SortParameter[] = new Array<SortParameter>();
+    /**
+     * Sortings that were selected by the user and must be applied on next request of data.
+     * 
+     * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
+     */
     @filter({
         defaultValue: function (): Array<SortParameter> { return this.cloneDefaultSortings(); },
         parameterName: function (): string { return (<SortingsService>this).sortParameterName; },
@@ -34,13 +41,11 @@ export class SortingsService {
         },
         persisted: function (): boolean { return (<SortingsService>this).persistSortings; }
     } as FilterConfig)
-    /**
-     * Sortings that was selected by the user and must be applied on next request of data.
-     * This property is annotated with {@link filter}. So it's ready to use with {@link FiltersService}.
-     */
     public sortings: Array<SortParameter> = new Array<SortParameter>();
     /**
-     * Specifies name of parameter that will be used to apply {@link sortings} property value when builds server request.
+     * Specifies name of parameter to apply {@link sortings} property value to server request.
+     * 
+     * @see {@link SortingsService.settings.sortParameterName}
      */
     public sortParameterName: string = SortingsService.settings.sortParameterName;
     /**
@@ -57,11 +62,13 @@ export class SortingsService {
     }
     /**
      * Default sortings that will be used by service.
-     * If setter of this property is called when {@link sortings} is empty then applied value will be copied to {@link sortings} immediately.
      */
     public get defaultSortings(): SortParameter[] {
         return this.defaultSortingsInternal;
     }
+    /**
+     * If called when {@link sortings} is empty then applied value will be copied to {@link sortings} immediately.
+     */
     public set defaultSortings(value: Array<SortParameter>) {
         this.defaultSortingsInternal = value || [];
         if (this.sortings.length === 0) {
@@ -73,7 +80,7 @@ export class SortingsService {
      * @param fieldName name of the field by which sorting must be executed on server. This value will be used as {@SortParameter.fieldName}.
      * In case when sorting by the same field is already specified, direction of this sorting will be toggled to reversed value and this sorting will be pushed to the end of {@link sortings} array.
      * So it will be applied last.
-     * @param savePrevious true to keep previously applied sortings in {@link sortings} array. 
+     * @param savePrevious `true` to keep previously applied sortings in {@link sortings} array. 
      */
     public setSort(fieldName: string, savePrevious: boolean): void {
         let newSort = new SortParameter(fieldName);
@@ -93,7 +100,7 @@ export class SortingsService {
         }
     }
     /**
-     * Performs object clean up.
+     * Performs destroy of service.
      */
     public destroy(): void {
         this.defaultSortingsInternal.length = 0;

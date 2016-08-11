@@ -66,7 +66,7 @@ export function coerceValue(value: any): any {
  * Executes clean up of passed array by calling splice function.
  * Next, each element of passed array will be checked for existance of `destroy` method and if it exists this method will be called.
  * @param collection array of elements to destroy.
- * @param async if true then elements iteration and destroy will be called via setTimeout (,0).
+ * @param async if `true` then elements iteration and destroy will be called via setTimeout (,0).
  */
 export function destroyAll(collection: any[], async: boolean = true): void {
     if (!Array.isArray(collection)) {

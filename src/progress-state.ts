@@ -1,9 +1,9 @@
 ﻿/**
- * Represents possible values for progress state. Can be used with object which executes any requests to external resources, for example.  
+ * Represents possible values for progress state of any operation (request to the server, for example).  
  */
 export enum ProgressState {
     /**
-     * No operations were performed.
+     * Nothing was performed before.
      */
     Initial = 0,
     /**
