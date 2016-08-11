@@ -4,11 +4,11 @@ import {SelectionService} from './selection-service';
  */
 export interface SelectionAreaConfig {
     /**
-     * `true` for shifting to next/previous item in list of selectable items by `Left Arrow`/`Right Arrow` keys instead of `Arrow Up`/`Arrow Down` keys.
+     * `true` for shifting to next/previous item in list of items by `Left Arrow`/`Right Arrow` keys instead of `Arrow Up`/`Arrow Down` keys.
      */
     horizontal: boolean;
     /**
-     * `true` for ability to pick several items in list of selectable items (by clicking range of items with pressed `Shift` key, for example).
+     * `true` for ability to pick several items in list of items (by clicking range of items with pressed `Shift` key, for example).
      */
     multiple: boolean;
     /**

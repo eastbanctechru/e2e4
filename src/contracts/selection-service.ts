@@ -1,7 +1,7 @@
 ﻿/**
- * Represents selectable element which can be processed by any implementation of {@link SelectionService}.
+ * Represents element which can be processed as selected/deselected by any implementation of {@link SelectionService}.
  */
-export interface SelectableItem {
+export interface SelectionItem {
     selected: boolean;
 }
 
@@ -15,7 +15,7 @@ export interface SelectionService {
      * Application-defined implementations of this contact must perform {@link checkSelection} when this property is setted to new value.
      * @see {@link trackByFn} 
      */
-    itemsSource: Array<SelectableItem>;
+    itemsSource: Array<SelectionItem>;
     /**
      * Optional function which can be used for comparison of {@link itemsSource} elements.
      * If specified, this function must be used {@link checkSelection} implementation.
@@ -81,7 +81,7 @@ export interface SelectionService {
      * @returns index of specified element in {@link itemsSource} collection. -1 if element not found.
      * @see {@link trackByFn}
      */
-    getItemIndex(item: SelectableItem): number;
+    getItemIndex(item: SelectionItem): number;
     /**
      * Selects first element in {@link itemsSource} collection.
      */

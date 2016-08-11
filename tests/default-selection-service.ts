@@ -1,7 +1,7 @@
 import { expect, assert } from 'chai';
 
 import * as sinon from 'sinon';
-import { SelectableItem } from '../src/contracts/selection-service';
+import { SelectionItem } from '../src/contracts/selection-service';
 import { DefaultSelectionService } from '../src/default-selection-service';
 
 const savePrevious = true;
@@ -12,7 +12,7 @@ interface SelectionableObject {
     selectionService: DefaultSelectionService;
 }
 
-interface Item extends SelectableItem {
+interface Item extends SelectionItem {
     name: string;
 }
 function toItem(name: string): Item {
@@ -412,7 +412,7 @@ describe('SelectionService', () => {
                 {
                     name: 'cadabra',
                     selected: false
-                } as SelectableItem)).eq(-1);
+                } as SelectionItem)).eq(-1);
         });
     });
     describe('itemsSource', () => {

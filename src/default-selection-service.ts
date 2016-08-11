@@ -1,4 +1,4 @@
-import {SelectionService, SelectableItem} from './contracts/selection-service';
+import {SelectionService, SelectionItem} from './contracts/selection-service';
 
 /**
  * Internal contract for {@link DefaultSelectionService}.
@@ -11,7 +11,7 @@ export interface SelectionTuple {
     /**
      * Element from {@link DefaultSelectionService.itemsSource} collection.
      */
-    item: SelectableItem;
+    item: SelectionItem;
 }
 /**
  * Default implementation of {@link SelectionService}.
@@ -32,7 +32,7 @@ export class DefaultSelectionService implements SelectionService {
     /**
      * Internal implementation of {@link SelectionService.itemsSource}.  
      */
-    protected items: Array<SelectableItem>;
+    protected items: Array<SelectionItem>;
     /**
      * Default tracking function that will be used if nothing was specified for {@link SelectionService.trackByFn}.
      * Implements comparison by reference equality of objects.
@@ -49,22 +49,23 @@ export class DefaultSelectionService implements SelectionService {
     /**
      * @see {@link SelectionService.itemsSource}
      */
-    public get itemsSource(): Array<SelectableItem> {
+    public get itemsSource(): Array<SelectionItem> {
         return this.items;
     }
-    public set itemsSource(value: Array<SelectableItem>) {
+    public set itemsSource(value: Array<SelectionItem>) {
         this.items = value;
         this.checkSelection();
     }
     /**
      * Executes final processing of selection/deselection of {@link SelectionService.itemsSource} element.
-     * Current implementation just sets {@link SelectableItem.selected} but this functionality can be extended in dervied classes.
+     * 
+     * Current implementation just sets {@link SelectionItem.selected} but it can be extended in derived classes.
      */
     protected processSelection(tuple: SelectionTuple, selected: boolean): void {
         tuple.item.selected = selected;
     }
     /**
-     * Internal method that used to execute item selection.
+     * Internal method that used to perform item selection.
      */
     protected deselectItem(selectionTuple: SelectionTuple): void {
         const index = this.selectionsList.findIndex((selectedItem: SelectionTuple) => (selectedItem.item === selectionTuple.item));
@@ -94,7 +95,7 @@ export class DefaultSelectionService implements SelectionService {
         this.lastProcessedIndex = selectionTuple.index;
     }
     /**
-     * Internal method that used to represent selectable item as {@link SelectionTuple}.
+     * Internal method that used to represent selection item as {@link SelectionTuple}.
      */
     protected getSelectionTuple(index: number): SelectionTuple {
         return {
@@ -201,8 +202,8 @@ export class DefaultSelectionService implements SelectionService {
     /**
      * @see {@link SelectionService.getItemIndex}
      */
-    public getItemIndex(item: SelectableItem): number {
-        return this.itemsSource.findIndex((value: SelectableItem) => value === item);
+    public getItemIndex(item: SelectionItem): number {
+        return this.itemsSource.findIndex((value: SelectionItem) => value === item);
     }
     /**
      * @see {@link SelectionService.getMinSelectedIndex}
@@ -274,12 +275,12 @@ export class DefaultSelectionService implements SelectionService {
      * @see {@link SelectionService.getSelectedElements}
      */
     public getSelectedElements(): Array<Object> {
-        return this.selectionsList.map((selectable: SelectionTuple) => selectable.item);
+        return this.selectionsList.map((selectionItem: SelectionTuple) => selectionItem.item);
     }
     /**
      * @see {@link SelectionService.getSelectedIndexes}
      */
     public getSelectedIndexes(): Array<number> {
-        return this.selectionsList.map((selectable: SelectionTuple) => selectable.index);
+        return this.selectionsList.map((selectionItem: SelectionTuple) => selectionItem.index);
     }
 }

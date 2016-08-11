@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { SelectionEventsHelper, KeyCodes, MouseButtons } from '../src/selection-events-helper';
 import { DefaultSelectionService } from '../src/default-selection-service';
 import { SelectionAreaConfig } from '../src/contracts/selection-area-config';
-import { SelectableItem } from '../src/contracts/selection-service';
+import { SelectionItem } from '../src/contracts/selection-service';
 import * as sinon from 'sinon';
 
 const notPressedShift = false;
@@ -13,11 +13,11 @@ const pressedCtrl = true;
 function toSelectionService(): DefaultSelectionService {
     let selectionService = new DefaultSelectionService();
     selectionService.itemsSource = [
-        { selected: false, title: 'one' } as SelectableItem,
-        { selected: false, title: 'two' } as SelectableItem,
-        { selected: false, title: 'three' } as SelectableItem,
-        { selected: false, title: 'four' } as SelectableItem,
-        { selected: false, title: 'five' } as SelectableItem
+        { selected: false, title: 'one' } as SelectionItem,
+        { selected: false, title: 'two' } as SelectionItem,
+        { selected: false, title: 'three' } as SelectionItem,
+        { selected: false, title: 'four' } as SelectionItem,
+        { selected: false, title: 'five' } as SelectionItem
     ];
 
     return selectionService;

@@ -54,7 +54,7 @@ export class SortingsService {
      */
     public persistSortings: boolean = SortingsService.settings.persistSortings;
     /**
-     * Internal method for cloning of default sortings.
+     * Internal method for default sortings cloning.
      * This method is used as {@link FilterConfig.defaultValue} as well as for copying to {@link sortings} when {@link defaultSortings} setter is used and {@link sortings} is empty. 
      */
     protected cloneDefaultSortings(): Array<SortParameter> {
@@ -76,9 +76,10 @@ export class SortingsService {
         }
     }
     /**
-     * Sets sortings according to specified parameters.
-     * @param fieldName name of the field by which sorting must be executed on server. This value will be used as {@SortParameter.fieldName}.
-     * In case when sorting by the same field is already specified, direction of this sorting will be toggled to reversed value and this sorting will be pushed to the end of {@link sortings} array.
+     * Sets {@link sortings} according to specified parameters.
+     * @param fieldName name of the field by which sorting must be executed on server. This value will be used as {@link SortParameter.fieldName}.
+     * 
+     * In case when sorting with the same field name is already specified, direction of this sorting will be toggled to reversed value and this sorting will be pushed to the end of {@link sortings} array.
      * So it will be applied last.
      * @param savePrevious `true` to keep previously applied sortings in {@link sortings} array. 
      */
