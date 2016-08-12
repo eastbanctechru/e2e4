@@ -1,4 +1,5 @@
 .vscode
+.publish
 publish
 build
 node_modules
