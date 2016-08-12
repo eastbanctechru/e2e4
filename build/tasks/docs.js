@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var typedoc = require("gulp-typedoc");
 var ghPages = require('gulp-gh-pages');
 var paths = require('../paths');
+var runSequence = require('run-sequence');
 
 gulp.task("docs-build", function () {
     return gulp
@@ -23,4 +24,12 @@ gulp.task("docs-build", function () {
 gulp.task('docs-publish', function () {
     return gulp.src('./docs/**/*')
         .pipe(ghPages());
+});
+
+gulp.task('docs', function (callback) {
+    return runSequence(
+        'docs-build',
+        'docs-publish',
+        callback
+    );
 });

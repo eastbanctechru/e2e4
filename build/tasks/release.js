@@ -34,6 +34,7 @@ gulp.task('conventional-release', function (done) {
 
 gulp.task('release', function (callback) {
     runSequence(
+        'docs',
         'git-commit-changes',
         'git-push-changes',
         'git-create-new-tag',
