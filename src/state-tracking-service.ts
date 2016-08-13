@@ -7,7 +7,8 @@ export class Operation {
      * Settings for names of css classes that are relevant to {@link status} value.
      * This settings is used by {@link className} property and changing of this settings affects every object of {@link Operation} type.
      */
-    public static settings: any = {
+    // tslint:disable-next-line: typedef
+    public static settings = {
         /**
          * Name of css class that corresponds to {@link ProgressState.Done}.
          */
@@ -82,7 +83,8 @@ export class StateTrackingService {
      * So, changing of this settings will affect all instances of {@link StateTrackingService} type that will be created after such changes.
      * If you want to change settings of concrete object you can use it the same name properties.
      */
-    public static settings: any =
+    // tslint:disable-next-line: typedef
+    public static settings =
     {
         /**
          * @see {@link StateTrackingService.elementVisibilityInterval}

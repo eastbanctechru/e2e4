@@ -14,7 +14,8 @@ export class PagedPager implements Pager {
      * So, changing of this settings will affect all instances of {@link PagedPager} type that will be created after such changes.
      * If you want to change settings of concrete object you can use it the same name properties.
      */
-    public static settings: any =
+    // tslint:disable-next-line: typedef
+    public static settings =
     {
         /**
          * @see {@link PagedPager.defaultPageSize}
