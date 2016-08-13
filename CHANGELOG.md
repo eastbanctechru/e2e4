@@ -1,3 +1,13 @@
+<a name="1.0.1"></a>
+## [1.0.1](https://github.com/fshchudlo/e2e4/compare/1.0.0...v1.0.1) (2016-08-13)
+
+
+### Bug Fixes
+
+* **static settings:** fix broken declarations of `settings` objects ([da2a028](https://github.com/fshchudlo/e2e4/commit/da2a028))
+
+
+
 <a name="1.0.0"></a>
 # 1.0.0 (2016-08-13)
 
