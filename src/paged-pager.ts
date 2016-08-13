@@ -237,6 +237,51 @@ export class PagedPager implements Pager {
 
     }
     /**
+     * Sets {@link pageNumber} property to `1` if it's possible.
+     * @returns `true` if {@link pageNumber} value was changed.
+     */
+    public tryMoveToFirstPage(): boolean {
+        if (this.pageNumber > 1) {
+            this.pageNumber = 1;
+            return true;
+        }
+        return false;
+    }
+    /**
+     * Decrements {@link pageNumber} if it's possible.
+     * @returns `true` if {@link pageNumber} value was changed.
+     */
+    public tryMoveToPreviousPage(): boolean {
+        if (this.pageNumber > 1) {
+            this.pageNumber -= 1;
+            return true;
+        }
+        return false;
+    }
+    /**
+     * Increments {@link pageNumber} if it's possible.
+     * @returns `true` if {@link pageNumber} value was changed.
+     */
+    public tryMoveToNextPage(): boolean {
+        if (this.pageNumber < this.pageCount) {
+            this.pageNumber += 1;
+            return true;
+        }
+        return false;
+    }
+    /**
+     * Sets {@link pageNumber} property to value of {@link pageCount} property if it's possible.
+     * @returns `true` if {@link pageNumber} value was changed.
+     */
+    public tryMoveToLastPage(): boolean {
+        if (this.pageNumber < this.pageCount) {
+            this.pageNumber = this.pageCount;
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * @see {@link Pager.reset}
      */
     public reset(): void {

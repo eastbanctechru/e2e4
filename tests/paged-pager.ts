@@ -12,6 +12,7 @@ interface ResponseObject {
 function toResponseObject(): ResponseObject {
     return { displayFrom: 1, displayTo: 20, loadedCount: 20, totalCount: 100 } as ResponseObject;
 }
+
 describe('PagedPager', () => {
     describe('ctor', () => {
         it('created with good state', () => {
@@ -244,6 +245,106 @@ describe('PagedPager', () => {
                 pager.pageNumber = response.totalCount / response.loadedCount;
                 pager.pageSize = response.loadedCount + 1;
                 expect(pager.pageSize).eq(pager.maxPageSize);
+            });
+        });
+        describe('Pages navigation', () => {
+            describe('tryMoveToFirstPage', () => {
+                it('Goes to first page', () => {
+                    let pager = new PagedPager();
+                    let response = toResponseObject();
+                    pager.processResponse(response);
+
+                    pager.pageNumber = pager.pageCount;
+                    expect(pager.pageNumber).eq(pager.pageCount);
+                    const wasHandled = pager.tryMoveToFirstPage();
+                    expect(pager.pageNumber).eq(1);
+                    expect(wasHandled).true;
+                });
+
+                it('Doesn\'t go to first page if it\'s already first', () => {
+                    let pager = new PagedPager();
+                    let response = toResponseObject();
+                    pager.processResponse(response);
+
+                    expect(pager.pageNumber).eq(1);
+                    const wasHandled = pager.tryMoveToFirstPage();
+                    expect(pager.pageNumber).eq(1);
+                    expect(wasHandled).false;
+                });
+            });
+            describe('tryMoveToPreviousPage', () => {
+                it('Goes to previous page', () => {
+                    let pager = new PagedPager();
+                    let response = toResponseObject();
+                    pager.processResponse(response);
+
+                    pager.pageNumber = pager.pageCount;
+                    expect(pager.pageNumber).eq(pager.pageCount);
+                    const wasHandled = pager.tryMoveToPreviousPage();
+                    expect(pager.pageNumber).eq(pager.pageCount - 1);
+                    expect(wasHandled).true;
+                });
+
+                it('Doesn\'t go to previous page if it\'s already first', () => {
+                    let pager = new PagedPager();
+                    let response = toResponseObject();
+                    pager.processResponse(response);
+
+                    expect(pager.pageNumber).eq(1);
+                    const wasHandled = pager.tryMoveToPreviousPage();
+                    expect(pager.pageNumber).eq(1);
+                    expect(wasHandled).false;
+                });
+            });
+            describe('tryMoveToLastPage', () => {
+                it('Goes to last page', () => {
+                    let pager = new PagedPager();
+                    let response = toResponseObject();
+                    pager.processResponse(response);
+                    expect(pager.pageNumber).eq(1);
+
+                    const wasHandled = pager.tryMoveToLastPage();
+
+                    expect(pager.pageNumber).eq(pager.pageCount);
+                    expect(wasHandled).true;
+                });
+
+                it('Doesn\'t go to last page if it\'s already last', () => {
+                    let pager = new PagedPager();
+                    let response = toResponseObject();
+                    pager.processResponse(response);
+                    pager.pageNumber = pager.pageCount;
+                    expect(pager.pageNumber).eq(pager.pageCount);
+
+                    const wasHandled = pager.tryMoveToLastPage();
+                    expect(pager.pageNumber).eq(pager.pageCount);
+                    expect(wasHandled).false;
+                });
+            });
+            describe('tryMoveToNextPage', () => {
+                it('Goes to next page', () => {
+                    let pager = new PagedPager();
+                    let response = toResponseObject();
+                    pager.processResponse(response);
+                    expect(pager.pageNumber).eq(1);
+
+                    const wasHandled = pager.tryMoveToNextPage();
+
+                    expect(pager.pageNumber).eq(1 + 1);
+                    expect(wasHandled).true;
+                });
+
+                it('Doesn\'t go to next page if it\'s already last page', () => {
+                    let pager = new PagedPager();
+                    let response = toResponseObject();
+                    pager.processResponse(response);
+                    pager.pageNumber = pager.pageCount;
+                    expect(pager.pageNumber).eq(pager.pageCount);
+
+                    const wasHandled = pager.tryMoveToNextPage();
+                    expect(pager.pageNumber).eq(pager.pageCount);
+                    expect(wasHandled).false;
+                });
             });
         });
         describe('pageNumber', () => {
