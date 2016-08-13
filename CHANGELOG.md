@@ -1,5 +1,5 @@
 <a name="1.0.0"></a>
-# 1.0.0 (2016-08-12)
+# 1.0.0 (2016-08-13)
 
 
 ### Code Refactoring
@@ -18,6 +18,7 @@
 * **all:** all `dispose` methods renamed to `destroy` ([caab734](https://github.com/fshchudlo/e2e4/commit/caab734))
 * **FilterConfig:** `persisted` property can be function now ([347599e](https://github.com/fshchudlo/e2e4/commit/347599e))
 * **FilterConfig, pagers:** `parameterName` property can be function now ([8d271df](https://github.com/fshchudlo/e2e4/commit/8d271df))
+* **PagedPager:** Implement several useful navigation methods ([21c2998](https://github.com/fshchudlo/e2e4/commit/21c2998))
 * **SelectionService:** selection hooks removed ([2e8f373](https://github.com/fshchudlo/e2e4/commit/2e8f373))
 * **StateTracking:** `StatusTrackingService` renamed to `StateTrackingService` ([ca3b9c4](https://github.com/fshchudlo/e2e4/commit/ca3b9c4))
 * **StateTrackingService:** `classNames` now configurable ([b9a823d](https://github.com/fshchudlo/e2e4/commit/b9a823d))
@@ -42,9 +43,6 @@ need direct import
 * selection: `SelectionTuple` contract replaced from `contracts` folder to `default-selection-service.ts` since it's used internally
 * selection: `getMaxSelectedIndex` and `getMinSelectedIndex` now returns -1 instead of null if nothing's selected
 * StateTrackingService: modalDisplayed property of StatusTracker is now removed as well as statusDisplayed property.
-
-
-
 
 
 
