@@ -25,7 +25,7 @@ gulp.task('write-changelog', function () {
         .pipe(gulp.dest('./'));
 });
 
-gulp.task('pre-release', function (callback) {
+gulp.task('prerelease', function (callback) {
     runSequence(
         'prepublish',
         'conventional-get-bump',

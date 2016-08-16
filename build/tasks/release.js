@@ -7,7 +7,7 @@ var fs = require('fs');
 gulp.task('git-commit-changes', function () {
     return gulp.src('.')
         .pipe(git.add())
-        .pipe(git.commit('[Prerelease] Bumped version number'));
+        .pipe(git.commit('[Prerelease] Bumped version number', {args: '--no-verify'}));
 });
 
 gulp.task('git-push-changes', function (cb) {
