@@ -1,3 +1,8 @@
+/**
+ * e2e4 library by Fedor Shchudlo
+ * You can read docs here - http://fshchudlo.github.io/e2e4
+ */
+
 export * from './src/progress-state';
 export * from './src/sort-parameter';
 export * from './src/utilities';

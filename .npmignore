@@ -2,6 +2,7 @@
 .publish
 publish
 build
+docs
 node_modules
 coverage
 tests

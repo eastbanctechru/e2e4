@@ -1,10 +1,15 @@
 var gulp = require('gulp');
-var typedoc = require("gulp-typedoc");
-var ghPages = require('gulp-gh-pages');
+var typedoc = require('gulp-typedoc');
 var paths = require('../paths');
+var del = require('del');
+var vinylPaths = require('vinyl-paths');
 var runSequence = require('run-sequence');
 
-gulp.task("docs-build", function () {
+gulp.task('clean-docs', function() {
+  return gulp.src([paths.docs]).pipe(vinylPaths(del));
+});
+
+gulp.task('build-docs', function () {
     return gulp
         .src(paths.source)
         .pipe(typedoc({
@@ -21,15 +26,10 @@ gulp.task("docs-build", function () {
         }));
 });
 
-gulp.task('docs-publish', function () {
-    return gulp.src('./docs/**/*')
-        .pipe(ghPages());
-});
-
 gulp.task('docs', function (callback) {
     return runSequence(
-        'docs-build',
-        'docs-publish',
+        'clean-docs',
+        'build-docs',
         callback
     );
 });
