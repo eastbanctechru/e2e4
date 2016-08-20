@@ -5,17 +5,18 @@ var conventionalRecommendedBump = require('conventional-recommended-bump');
 var bump = require('gulp-bump');
 var gutil = require('gulp-util');
 
-var releaseAs = '';
+var releaseType = '';
 
-gulp.task('conventional-get-bump', function () {
+gulp.task('conventional-get-bump', function (callback) {
     conventionalRecommendedBump({ preset: 'angular' }, function (err, result) {
-        releaseAs = result.releaseAs;
+        releaseType = result.releaseType;
+        callback();
     });
 });
 
 gulp.task('bump-version', function () {
     return gulp.src(['./package.json'])
-        .pipe(bump({ type: releaseAs }).on('error', gutil.log))
+        .pipe(bump({ type: releaseType }).on('error', gutil.log))
         .pipe(gulp.dest('./'));
 });
 
