@@ -1,6 +1,34 @@
 import {FilterConfig} from './contracts/filter-config';
-import { SortParameter } from './sort-parameter';
 import {filter} from './filter-annotation';
+
+/**
+ * Represents sort direction that applied as parameter by {@link SortParameter} class.  
+ */
+export enum SortDirection {
+    /**
+     * Ascending sort order.
+     */
+    Asc = 0,
+    /**
+     * Descending sort order.  
+     */
+    Desc = 1
+}
+
+/**
+ * Represent state of sorting parameter that applied to the server request by {@link SortingsService}.
+ */
+export interface SortParameter {
+    /**
+     * Sort direction.  
+     */
+    direction: SortDirection;
+    /**
+     * Name of the field by which sorting must be performed.  
+     */
+    fieldName: string;
+}
+
 /**
  * Provides sorting functionality. 
  * @note This type is configured to use with {@link FiltersService}.
@@ -38,9 +66,14 @@ export class SortingsService {
         defaultValue: function (): Array<SortParameter> { return this.cloneDefaultSortings(); },
         parameterName: function (): string { return (<SortingsService>this).sortParameterName; },
         parseFormatter: function (rawValue: any): Array<Object> {
-            return Array.isArray(rawValue) ? rawValue.map((sort: SortParameter) => { return new SortParameter(sort.fieldName, sort.direction * 1); }) : [];
+            return Array.isArray(rawValue) ? rawValue.map((sort: SortParameter) => ({ direction: sort.direction * 1, fieldName: sort.fieldName })) : [];
         },
-        persisted: function (): boolean { return (<SortingsService>this).persistSortings; }
+        persisted: function (): boolean { return (<SortingsService>this).persistSortings; },
+        serializeFormatter: function (): Object {
+            return (<SortingsService>this).sortings.map((sort: SortParameter) => ({
+                direction: sort.direction, fieldName: sort.fieldName
+            }));
+        }
     } as FilterConfig)
     public sortings: Array<SortParameter> = new Array<SortParameter>();
     /**
@@ -59,7 +92,7 @@ export class SortingsService {
      * This method is used as {@link FilterConfig.defaultValue} as well as for copying to {@link sortings} when {@link defaultSortings} setter is used and {@link sortings} is empty. 
      */
     protected cloneDefaultSortings(): Array<SortParameter> {
-        return this.defaultSortingsInternal.map((s: SortParameter) => new SortParameter(s.fieldName, s.direction));
+        return this.defaultSortingsInternal.map((s: SortParameter) => ({ direction: s.direction, fieldName: s.fieldName }));
     }
     /**
      * Default sortings that will be used by service.
@@ -85,12 +118,12 @@ export class SortingsService {
      * @param savePrevious `true` to keep previously applied sortings in {@link sortings} array. 
      */
     public setSort(fieldName: string, savePrevious: boolean): void {
-        let newSort = new SortParameter(fieldName);
+        let newSort = { direction: SortDirection.Asc, fieldName: fieldName };
         for (let i = 0; i < this.sortings.length; i++) {
             if (this.sortings[i].fieldName === fieldName) {
                 const existedSort = this.sortings.splice(i, 1)[0];
-                newSort = new SortParameter(existedSort.fieldName, existedSort.direction);
-                newSort.toggleDirection();
+                newSort = { direction: existedSort.direction, fieldName: existedSort.fieldName };
+                newSort.direction = newSort.direction === SortDirection.Asc ? SortDirection.Desc : SortDirection.Asc;
                 break;
             }
         }

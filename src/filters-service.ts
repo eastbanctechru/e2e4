@@ -68,7 +68,6 @@ export class FiltersService {
      * 
      * This convention has sense in several scenarios:
      *  - Serialization of complex object can be performed by it's own method which was declared once instead of copy-paste it in {@link FilterConfig.serializeFormatter} declarations. 
-     * {@link SortParameter} class implemented so, for example.
      *  - Very tricky but sometimes useful usage of this convention is to declare `toRequest` in `Date` prototype.
      * 
      * This gives ability to easily send `Date` objects to the server in appropriate format which server can apply or, for example, always send UTC-dates.

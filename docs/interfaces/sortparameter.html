@@ -60,7 +60,7 @@
 					<a href="sortparameter.html">SortParameter</a>
 				</li>
 			</ul>
-			<h1>Class SortParameter</h1>
+			<h1>Interface SortParameter</h1>
 		</div>
 	</div>
 </header>
@@ -70,7 +70,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Represent state of sorting parameter that applied to the server request by <a href="sortingsservice.html">SortingsService</a>.</p>
+						<p>Represent state of sorting parameter that applied to the server request by <a href="../classes/sortingsservice.html">SortingsService</a>.</p>
 					</div>
 				</div>
 			</section>
@@ -87,78 +87,24 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Constructors</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="sortparameter.html#constructor" class="tsd-kind-icon">constructor</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="sortparameter.html#direction" class="tsd-kind-icon">direction</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="sortparameter.html#fieldname" class="tsd-kind-icon">field<wbr>Name</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Methods</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="sortparameter.html#torequest" class="tsd-kind-icon">to<wbr>Request</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="sortparameter.html#toggledirection" class="tsd-kind-icon">toggle<wbr>Direction</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="sortparameter.html#direction" class="tsd-kind-icon">direction</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="sortparameter.html#fieldname" class="tsd-kind-icon">field<wbr>Name</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
-					<a name="constructor" class="tsd-anchor"></a>
-					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Sort<wbr>Parameter<span class="tsd-signature-symbol">(</span>fieldName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, direction<span class="tsd-signature-symbol">?: </span><a href="../enums/sortdirection.html" class="tsd-signature-type">SortDirection</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="sortparameter.html" class="tsd-signature-type">SortParameter</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in sort-parameter.ts:26</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>fieldName: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>value for <a href="sortparameter.html#fieldname">fieldName</a> property.</p>
-										</div>
-									</div>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> direction: <a href="../enums/sortdirection.html" class="tsd-signature-type">SortDirection</a><span class="tsd-signature-symbol"> =&nbsp;SortDirection.Asc</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>value for <a href="sortparameter.html#direction">direction</a> property.</p>
-										</div>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="sortparameter.html" class="tsd-signature-type">SortParameter</a></h4>
-						</li>
-					</ul>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="direction" class="tsd-anchor"></a>
 					<h3>direction</h3>
 					<div class="tsd-signature tsd-kind-icon">direction<span class="tsd-signature-symbol">:</span> <a href="../enums/sortdirection.html" class="tsd-signature-type">SortDirection</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in sort-parameter.ts:22</li>
+							<li>Defined in sortings-service.ts:25</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -167,13 +113,13 @@
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="fieldname" class="tsd-anchor"></a>
 					<h3>field<wbr>Name</h3>
-					<div class="tsd-signature tsd-kind-icon">field<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;null</span></div>
+					<div class="tsd-signature tsd-kind-icon">field<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in sort-parameter.ts:26</li>
+							<li>Defined in sortings-service.ts:29</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -181,54 +127,6 @@
 							<p>Name of the field by which sorting must be performed.</p>
 						</div>
 					</div>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="torequest" class="tsd-anchor"></a>
-					<h3>to<wbr>Request</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">to<wbr>Request<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Object</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in sort-parameter.ts:45</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Used to build serialized representation of oneself that will be applied to server request.
-									Meets <a href="filtersservice.html#buildfiltervalue">FiltersService.buildFilterValue</a> convention.</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Object</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="toggledirection" class="tsd-anchor"></a>
-					<h3>toggle<wbr>Direction</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">toggle<wbr>Direction<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in sort-parameter.ts:38</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Reverses <a href="sortparameter.html#direction">direction</a> property value.</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
 				</section>
 			</section>
 		</div>
@@ -255,89 +153,80 @@
 						<a href="../enums/sortdirection.html" class="tsd-kind-icon">Sort<wbr>Direction</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="bufferedpager.html" class="tsd-kind-icon">Buffered<wbr>Pager</a>
+						<a href="../classes/bufferedpager.html" class="tsd-kind-icon">Buffered<wbr>Pager</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="defaultselectionservice.html" class="tsd-kind-icon">Default<wbr>Selection<wbr>Service</a>
+						<a href="../classes/defaultselectionservice.html" class="tsd-kind-icon">Default<wbr>Selection<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="filtersservice.html" class="tsd-kind-icon">Filters<wbr>Service</a>
+						<a href="../classes/filtersservice.html" class="tsd-kind-icon">Filters<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="operation.html" class="tsd-kind-icon">Operation</a>
+						<a href="../classes/operation.html" class="tsd-kind-icon">Operation</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="pagedpager.html" class="tsd-kind-icon">Paged<wbr>Pager</a>
+						<a href="../classes/pagedpager.html" class="tsd-kind-icon">Paged<wbr>Pager</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="regularpager.html" class="tsd-kind-icon">Regular<wbr>Pager</a>
+						<a href="../classes/regularpager.html" class="tsd-kind-icon">Regular<wbr>Pager</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="selectioneventshelper.html" class="tsd-kind-icon">Selection<wbr>Events<wbr>Helper</a>
+						<a href="../classes/selectioneventshelper.html" class="tsd-kind-icon">Selection<wbr>Events<wbr>Helper</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/sortingsservice.html" class="tsd-kind-icon">Sortings<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/statetrackingservice.html" class="tsd-kind-icon">State<wbr>Tracking<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="bufferedlistrequest.html" class="tsd-kind-icon">Buffered<wbr>List<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="filterconfig.html" class="tsd-kind-icon">Filter<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="listrequest.html" class="tsd-kind-icon">List<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="listresponse.html" class="tsd-kind-icon">List<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="pagedlistrequest.html" class="tsd-kind-icon">Paged<wbr>List<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="pagedlistresponse.html" class="tsd-kind-icon">Paged<wbr>List<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="pager.html" class="tsd-kind-icon">Pager</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="selectionareaconfig.html" class="tsd-kind-icon">Selection<wbr>Area<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="selectionitem.html" class="tsd-kind-icon">Selection<wbr>Item</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="selectionservice.html" class="tsd-kind-icon">Selection<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="selectiontuple.html" class="tsd-kind-icon">Selection<wbr>Tuple</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-class">
+					<li class="current tsd-kind-interface">
 						<a href="sortparameter.html" class="tsd-kind-icon">Sort<wbr>Parameter</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="sortparameter.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="sortparameter.html#direction" class="tsd-kind-icon">direction</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="sortparameter.html#fieldname" class="tsd-kind-icon">field<wbr>Name</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="sortparameter.html#torequest" class="tsd-kind-icon">to<wbr>Request</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="sortparameter.html#toggledirection" class="tsd-kind-icon">toggle<wbr>Direction</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-class">
-						<a href="sortingsservice.html" class="tsd-kind-icon">Sortings<wbr>Service</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="statetrackingservice.html" class="tsd-kind-icon">State<wbr>Tracking<wbr>Service</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/bufferedlistrequest.html" class="tsd-kind-icon">Buffered<wbr>List<wbr>Request</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/filterconfig.html" class="tsd-kind-icon">Filter<wbr>Config</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/listrequest.html" class="tsd-kind-icon">List<wbr>Request</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-has-type-parameter">
-						<a href="../interfaces/listresponse.html" class="tsd-kind-icon">List<wbr>Response</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/pagedlistrequest.html" class="tsd-kind-icon">Paged<wbr>List<wbr>Request</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-has-type-parameter">
-						<a href="../interfaces/pagedlistresponse.html" class="tsd-kind-icon">Paged<wbr>List<wbr>Response</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/pager.html" class="tsd-kind-icon">Pager</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/selectionareaconfig.html" class="tsd-kind-icon">Selection<wbr>Area<wbr>Config</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/selectionitem.html" class="tsd-kind-icon">Selection<wbr>Item</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/selectionservice.html" class="tsd-kind-icon">Selection<wbr>Service</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/selectiontuple.html" class="tsd-kind-icon">Selection<wbr>Tuple</a>
-					</li>
 					<li class=" tsd-kind-function">
 						<a href="../index.html#cloneasliteral" class="tsd-kind-icon">clone<wbr>AsLiteral</a>
 					</li>

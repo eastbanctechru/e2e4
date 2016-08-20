@@ -1,6 +1,5 @@
 import { expect } from 'chai';
-import { SortingsService } from '../src/sortings-service';
-import { SortParameter, SortDirection } from '../src/sort-parameter';
+import { SortParameter, SortDirection, SortingsService } from '../src/sortings-service';
 import { FiltersService } from '../src/filters-service';
 
 class SortableObject {
@@ -14,7 +13,7 @@ class ObjectWithDefaultSortings implements SortableObject {
     public sortingsService: SortingsService = null;
     constructor() {
         this.sortingsService = new SortingsService();
-        this.sortingsService.defaultSortings = [new SortParameter('id', SortDirection.Asc)];
+        this.sortingsService.defaultSortings = [{ direction: SortDirection.Asc, fieldName: 'id' }];
     }
 }
 
@@ -40,7 +39,7 @@ describe('SortingsService', () => {
         it('can have default sorting', () => {
             const target = toTargetWithDefault();
             const {sortingsService} = target;
-            expect(sortingsService.defaultSortings).eql([new SortParameter('id', SortDirection.Asc)]);
+            expect(sortingsService.defaultSortings).eql([{ direction: SortDirection.Asc, fieldName: 'id' }]);
             sortingsService.setSort('id', doNotSavePrevious);
 
             expect(sortingsService.sortings[0].fieldName).eql('id');
@@ -126,7 +125,7 @@ describe('SortingsService', () => {
             expect(sortingsService.sortings[1].direction).eql(SortDirection.Asc);
         });
 
-        it('can ignore previous sorting', () => {
+        it('can reset previous sorting', () => {
             const target = toTarget();
             const {sortingsService} = target;
             sortingsService.setSort('id', savePrevious);
@@ -136,7 +135,7 @@ describe('SortingsService', () => {
             expect(sortingsService.sortings[0].direction).eql(SortDirection.Asc);
         });
 
-        it('repeated set sort toggle sort direction', () => {
+        it('repeated set sort toggles sort direction', () => {
             const target = toTarget();
             const {sortingsService} = target;
 
@@ -147,6 +146,10 @@ describe('SortingsService', () => {
             sortingsService.setSort('id', savePrevious);
             expect(sortingsService.sortings[0].fieldName).eql('id');
             expect(sortingsService.sortings[0].direction).eql(SortDirection.Desc);
+
+            sortingsService.setSort('id', savePrevious);
+            expect(sortingsService.sortings[0].fieldName).eql('id');
+            expect(sortingsService.sortings[0].direction).eql(SortDirection.Asc);
         });
 
         it('push newly added sort to the end of sortings array', () => {

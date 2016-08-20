@@ -4,7 +4,6 @@
  */
 
 export * from './src/progress-state';
-export * from './src/sort-parameter';
 export * from './src/utilities';
 
 export * from './src/contracts/buffered-list-request';
