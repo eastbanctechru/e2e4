@@ -1,3 +1,13 @@
+<a name="1.1.1"></a>
+## [1.1.1](https://github.com/fshchudlo/e2e4/compare/1.1.0...v1.1.1) (2016-08-21)
+
+
+### Bug Fixes
+
+* **FiltersService:** `registerFilterTarget` builds filter config for specified target if `appliedFiltersMap` already builted ([238979a](https://github.com/fshchudlo/e2e4/commit/238979a))
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/fshchudlo/e2e4/compare/1.0.3...v1.1.0) (2016-08-21)
 
