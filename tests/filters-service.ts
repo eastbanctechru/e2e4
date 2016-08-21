@@ -42,6 +42,22 @@ describe('FiltersService', () => {
             expect(filtersService.appliedFiltersMap.has(target)).true;
             expect(filtersService.appliedFiltersMap.get(target).length).eql(1);
         });
+
+        it('builds filters map for registered object even after map was builted', () => {
+            class TargetType {
+                @filter
+                public first: string = 'first';
+            }
+            let target = new TargetType();
+            let filtersService = new FiltersService(target);
+            expect(filtersService.appliedFiltersMap.has(target)).true;
+            expect(filtersService.appliedFiltersMap.get(target).length).eql(1);
+            let anotherTarget = new TargetType();
+            filtersService.registerFilterTarget(anotherTarget);
+            expect(filtersService.appliedFiltersMap.has(anotherTarget)).true;
+            expect(filtersService.appliedFiltersMap.get(anotherTarget)).exist.not.empty;
+        });
+
         it('can remove filter target', () => {
             class TargetType {
                 @filter

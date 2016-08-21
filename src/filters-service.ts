@@ -213,6 +213,9 @@ export class FiltersService {
     public registerFilterTarget(...targets: Object[]): void {
         targets.forEach((target: Object) => {
             this.appliedFiltersMapInternal.set(target, null);
+            if (this.filtersMapBuilded) {
+                this.buildFilterTargetMap(target);
+            }
         });
     }
     /**
@@ -243,25 +246,32 @@ export class FiltersService {
      */
     private buildFiltersMap(): void {
         this.appliedFiltersMapInternal.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
-            targetConfig = new Array<FilterConfig>();
-            FiltersService.filterPropertiesMap.forEach((typeConfig: Array<FilterConfig>, type: any) => {
-                if (target instanceof type) {
-                    targetConfig = targetConfig.concat(typeConfig);
-                    for (let i = 0; i < targetConfig.length; i++) {
-                        let config = targetConfig[i];
-                        if (config.defaultValue === undefined) {
-                            config.defaultValue = cloneAsLiteral({ defaultValue: target[config.propertyName] }).defaultValue;
-                        }
-                    }
-                }
-            });
-            if (targetConfig.length > 0) {
-                this.appliedFiltersMapInternal.set(target, targetConfig);
-            } else {
-                this.appliedFiltersMapInternal.delete(target);
-            }
+            this.buildFilterTargetMap(target);
         });
         this.filtersMapBuilded = true;
+    }
+    /**
+     * Builds map of settings for passed `target object`.
+     * 
+     */
+    private buildFilterTargetMap(target: Object): void {
+        let targetConfig = new Array<FilterConfig>();
+        FiltersService.filterPropertiesMap.forEach((typeConfig: Array<FilterConfig>, type: any) => {
+            if (target instanceof type) {
+                targetConfig = targetConfig.concat(typeConfig);
+                for (let i = 0; i < targetConfig.length; i++) {
+                    let config = targetConfig[i];
+                    if (config.defaultValue === undefined) {
+                        config.defaultValue = cloneAsLiteral({ defaultValue: target[config.propertyName] }).defaultValue;
+                    }
+                }
+            }
+        });
+        if (targetConfig.length > 0) {
+            this.appliedFiltersMapInternal.set(target, targetConfig);
+        } else {
+            this.appliedFiltersMapInternal.delete(target);
+        }
     }
     /**
      * @param target `target object` that will be registered with {@link registerFilterTarget} method.
