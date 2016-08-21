@@ -42,6 +42,26 @@ describe('FiltersService', () => {
             expect(filtersService.appliedFiltersMap.has(target)).true;
             expect(filtersService.appliedFiltersMap.get(target).length).eql(1);
         });
+        it('can remove filter target', () => {
+            class TargetType {
+                @filter
+                public first: string = 'first';
+            }
+            let target = new TargetType();
+            let filtersService = new FiltersService(target);
+            expect(filtersService.appliedFiltersMap.has(target)).true;
+            expect(filtersService.appliedFiltersMap.get(target).length).eql(1);
+            filtersService.removeFilterTarget(target);
+            expect(filtersService.appliedFiltersMap.has(target)).false;
+        });
+
+        it('handles null on removeFilterTarget', () => {
+            let filtersService = new FiltersService(null);
+            filtersService.registerFilterTarget(null);
+            expect(filtersService.appliedFiltersMap.size).eq(0);
+            filtersService.removeFilterTarget(null);
+        });
+
         it('handles null as target object', () => {
             let filtersService = new FiltersService(null);
             filtersService.registerFilterTarget(null);

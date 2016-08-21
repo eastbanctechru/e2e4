@@ -216,6 +216,17 @@ export class FiltersService {
         });
     }
     /**
+     * Removes passed object from `target objects` collection for current service instance.
+     * 
+     * This means that {@link getRequestState}, {@link getPersistedState}, {@link applyParams} and {@link resetValues} methods stops to process this objects.   
+     * @param targets object(s) to remove from collection of `target object`.
+     */
+    public removeFilterTarget(...targets: Object[]): void {
+        targets.forEach((target: Object) => {
+            this.appliedFiltersMapInternal.delete(target);
+        });
+    }
+    /**
      * Computes parameter name for `target property` which will be used by {@link getRequestState} and {@link getPersistedState} methods to apply values to returned state.
      * 
      * @param target `target object` that owns `target property`. This value will be used as `this` scope for the case when {@link FilterConfig.parameterName} is method.
