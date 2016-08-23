@@ -1,8 +1,9 @@
-import { expect } from 'chai';
-import { SelectionEventsHelper, KeyCodes, MouseButtons } from '../src/selection-events-helper';
-import { DefaultSelectionService } from '../src/default-selection-service';
 import { SelectionAreaConfig } from '../src/contracts/selection-area-config';
 import { SelectionItem } from '../src/contracts/selection-service';
+import { DefaultSelectionService } from '../src/default-selection-service';
+import { KeyCodes, MouseButtons, SelectionEventsHelper } from '../src/selection-events-helper';
+
+import { expect } from 'chai';
 import * as sinon from 'sinon';
 
 const notPressedShift = false;

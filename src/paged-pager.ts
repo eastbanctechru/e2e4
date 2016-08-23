@@ -1,6 +1,7 @@
+import {FilterConfig} from './contracts/filter-config';
 import {Pager} from './contracts/pager';
 import {filter} from './filter-annotation';
-import {FilterConfig} from './contracts/filter-config';
+
 /**
  * Implements {@link Pager} contract and represents behavior of list with pages.
  * @note This type is configured to use with {@link FiltersService}.
@@ -68,8 +69,8 @@ export class PagedPager implements Pager {
      */
     @filter({
         defaultValue: 1,
-        parameterName: function (): string { return (<PagedPager>this).pageNumberParameterName; },
-        parseFormatter: function (rawValue: any): number {
+        parameterName(): string { return (<PagedPager>this).pageNumberParameterName; },
+        parseFormatter(rawValue: any): number {
             return isNaN(rawValue) || !rawValue ? 1 : rawValue;
         }
     } as FilterConfig)
@@ -191,12 +192,12 @@ export class PagedPager implements Pager {
      * @see {@link PagedListRequest.pageSize} 
      */
     @filter({
-        defaultValue: function (): number { return (<PagedPager>this).defaultPageSize; },
-        parameterName: function (): string { return (<PagedPager>this).pageSizeParameterName; },
-        parseFormatter: function (rawValue: any): number {
+        defaultValue(): number { return (<PagedPager>this).defaultPageSize; },
+        parameterName(): string { return (<PagedPager>this).pageSizeParameterName; },
+        parseFormatter(rawValue: any): number {
             return isNaN(rawValue) || !rawValue ? this.defaultPageSize : rawValue;
         },
-        persisted: function (): boolean { return (<PagedPager>this).persistPageSize; }
+        persisted(): boolean { return (<PagedPager>this).persistPageSize; }
     })
     public get pageSize(): number {
         return this.pageSizeInternal;

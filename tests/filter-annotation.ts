@@ -1,7 +1,8 @@
-import { expect } from 'chai';
+import { FilterConfig } from '../src/contracts/filter-config';
 import { filter, getDefaultFilterConfig } from '../src/filter-annotation';
 import { FiltersService } from '../src/filters-service';
-import { FilterConfig } from '../src/contracts/filter-config';
+
+import { expect } from 'chai';
 
 function parseStub(value: Object): Object { return value; }
 function serializeStub(rawValue: Object): Object { return rawValue; }

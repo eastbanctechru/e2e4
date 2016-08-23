@@ -1,9 +1,10 @@
+import { FilterConfig } from '../src/contracts/filter-config';
+import { filter, getDefaultFilterConfig } from '../src/filter-annotation';
+import { FiltersService } from '../src/filters-service';
+import { cloneAsLiteral, coerceValue } from '../src/utilities';
+
 import { expect } from 'chai';
 import * as sinon from 'sinon';
-import { FiltersService } from '../src/filters-service';
-import { filter, getDefaultFilterConfig } from '../src/filter-annotation';
-import { FilterConfig } from '../src/contracts/filter-config';
-import { coerceValue, cloneAsLiteral } from '../src/utilities';
 
 describe('FiltersService', () => {
     afterEach(() => {

@@ -1,6 +1,7 @@
-import { expect } from 'chai';
 import { BufferedPager } from '../src/buffered-pager';
 import { FiltersService } from '../src/filters-service';
+
+import { expect } from 'chai';
 
 interface ResponseObject {
     loadedCount: number;

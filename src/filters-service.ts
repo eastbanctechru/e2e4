@@ -1,5 +1,5 @@
 import {FilterConfig} from './contracts/filter-config';
-import {coerceValue, cloneAsLiteral} from './utilities';
+import {cloneAsLiteral, coerceValue } from './utilities';
 /**
  * Used to declarative building of objects which represents valuable state of target object.
  * 
@@ -135,7 +135,7 @@ export class FiltersService {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
                 const defaultValue = (typeof config.defaultValue === 'function') ? (config.defaultValue as Function).call(target) : config.defaultValue;
-                const clonedObject = cloneAsLiteral({ defaultValue: defaultValue });
+                const clonedObject = cloneAsLiteral({ defaultValue });
                 target[config.propertyName] = config.parseFormatter ? config.parseFormatter.call(target, clonedObject.defaultValue) : clonedObject.defaultValue;
             }
         });

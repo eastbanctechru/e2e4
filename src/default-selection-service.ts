@@ -1,4 +1,4 @@
-import {SelectionService, SelectionItem} from './contracts/selection-service';
+import {SelectionItem, SelectionService} from './contracts/selection-service';
 
 /**
  * Internal contract for {@link DefaultSelectionService}.
@@ -99,7 +99,7 @@ export class DefaultSelectionService implements SelectionService {
      */
     protected getSelectionTuple(index: number): SelectionTuple {
         return {
-            index: index,
+            index,
             item: this.itemsSource[index]
         };
     }

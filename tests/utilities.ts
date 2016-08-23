@@ -1,6 +1,7 @@
+import { cloneAsLiteral, coerceValue, destroyAll } from '../src/utilities';
+
 import { expect } from 'chai';
 import * as sinon from 'sinon';
-import { destroyAll, cloneAsLiteral, coerceValue } from '../src/utilities';
 
 describe('Utilities', () => {
     describe('destroyAll', () => {
@@ -88,7 +89,7 @@ describe('Utilities', () => {
         it('clones only properties', () => {
             let toClone = {
                 arrayProperty: ['Hello world', 5, null],
-                functionProperty: function (): void {
+                functionProperty(): void {
                     return;
                 }
             };

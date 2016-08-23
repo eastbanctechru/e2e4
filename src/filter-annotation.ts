@@ -27,7 +27,7 @@ export function getDefaultFilterConfig(propertyName: string): FilterConfig {
         parameterName: propertyName,
         parseFormatter: undefined,
         persisted: false,
-        propertyName: propertyName,
+        propertyName,
         serializeFormatter: undefined
     } as FilterConfig;
 }

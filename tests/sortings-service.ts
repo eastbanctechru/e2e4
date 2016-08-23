@@ -1,6 +1,7 @@
-import { expect } from 'chai';
-import { SortParameter, SortDirection, SortingsService } from '../src/sortings-service';
 import { FiltersService } from '../src/filters-service';
+import { SortDirection, SortParameter, SortingsService } from '../src/sortings-service';
+
+import { expect } from 'chai';
 
 class SortableObject {
     public sortingsService: SortingsService = null;

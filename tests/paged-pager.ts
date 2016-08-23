@@ -1,6 +1,7 @@
-import { expect } from 'chai';
-import { PagedPager } from '../src/paged-pager';
 import { FiltersService } from '../src/filters-service';
+import { PagedPager } from '../src/paged-pager';
+
+import { expect } from 'chai';
 
 interface ResponseObject {
     loadedCount: number;

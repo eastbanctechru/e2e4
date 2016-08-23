@@ -1,8 +1,8 @@
-import { expect, assert } from 'chai';
-
-import * as sinon from 'sinon';
 import { SelectionItem } from '../src/contracts/selection-service';
 import { DefaultSelectionService } from '../src/default-selection-service';
+
+import { assert, expect  } from 'chai';
+import * as sinon from 'sinon';
 
 const savePrevious = true;
 const doNotSavePrevious = false;

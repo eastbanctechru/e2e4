@@ -32,6 +32,7 @@ export function cloneAsLiteral(value: any): any {
 /**
  * Set of key-value pairs which is used by {@link coerceValue} method to coerce specific values. 
  */
+// tslint:disable-next-line: object-literal-key-quotes
 export var coerceTypes: any = { 'true': !0, 'false': !1, 'null': null };
 
 /**

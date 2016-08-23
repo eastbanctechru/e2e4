@@ -1,5 +1,5 @@
-import { expect } from 'chai';
 import { RegularPager } from '../src/regular-pager';
+import { expect } from 'chai';
 
 interface ResponseObject {
     loadedCount: number;

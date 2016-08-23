@@ -1,6 +1,7 @@
+import {FilterConfig} from './contracts/filter-config';
 import {Pager} from './contracts/pager';
 import {filter} from './filter-annotation';
-import {FilterConfig} from './contracts/filter-config';
+
 /**
  * Implements {@link Pager} contract and represents buffered list behavior. 
  * @note This type is configured to use with {@link FiltersService}.
@@ -51,9 +52,9 @@ export class BufferedPager implements Pager {
      * Internal implementation of {@link takeRowCount}. 
      */
     @filter({
-        defaultValue: function (): number { return (<BufferedPager>this).defaultRowCount; },
-        parameterName: function (): string { return (<BufferedPager>this).takeRowCountParameterName; },
-        parseFormatter: function (
+        defaultValue(): number { return (<BufferedPager>this).defaultRowCount; },
+        parameterName(): string { return (<BufferedPager>this).takeRowCountParameterName; },
+        parseFormatter(
             rawValue: any, allValues: any): number {
             let result;
             if (allValues && !isNaN(allValues.skip) && !isNaN(allValues.take)) {
@@ -121,8 +122,8 @@ export class BufferedPager implements Pager {
      */
     @filter({
         defaultValue: 0,
-        parameterName: function (): string { return this.skipRowCountParameterName; },
-        parseFormatter: function (): number { return 0; }
+        parameterName(): string { return this.skipRowCountParameterName; },
+        parseFormatter(): number { return 0; }
     } as FilterConfig)
     public skip: number = 0;
 

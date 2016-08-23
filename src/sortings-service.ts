@@ -63,13 +63,13 @@ export class SortingsService {
      * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
      */
     @filter({
-        defaultValue: function (): Array<SortParameter> { return this.cloneDefaultSortings(); },
-        parameterName: function (): string { return (<SortingsService>this).sortParameterName; },
-        parseFormatter: function (rawValue: any): Array<Object> {
+        defaultValue(): Array<SortParameter> { return this.cloneDefaultSortings(); },
+        parameterName(): string { return (<SortingsService>this).sortParameterName; },
+        parseFormatter(rawValue: any): Array<Object> {
             return Array.isArray(rawValue) ? rawValue.map((sort: SortParameter) => ({ direction: sort.direction * 1, fieldName: sort.fieldName })) : [];
         },
-        persisted: function (): boolean { return (<SortingsService>this).persistSortings; },
-        serializeFormatter: function (): Object {
+        persisted(): boolean { return (<SortingsService>this).persistSortings; },
+        serializeFormatter(): Object {
             return (<SortingsService>this).sortings.map((sort: SortParameter) => ({
                 direction: sort.direction, fieldName: sort.fieldName
             }));
@@ -118,7 +118,7 @@ export class SortingsService {
      * @param savePrevious `true` to keep previously applied sortings in {@link sortings} array. 
      */
     public setSort(fieldName: string, savePrevious: boolean): void {
-        let newSort = { direction: SortDirection.Asc, fieldName: fieldName };
+        let newSort = { direction: SortDirection.Asc, fieldName };
         for (let i = 0; i < this.sortings.length; i++) {
             if (this.sortings[i].fieldName === fieldName) {
                 const existedSort = this.sortings.splice(i, 1)[0];
