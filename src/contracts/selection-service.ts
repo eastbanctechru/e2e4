@@ -3,9 +3,10 @@
  */
 export interface SelectionItem {
     /**
-     * Specifies is item selected or not.
+     * Specifies if item is selected or not.
+     * If defined, this property will be updated by {@link SelectionService} implementation.
      */
-    selected: boolean;
+    selected?: boolean;
 }
 
 /**
@@ -89,7 +90,7 @@ export interface SelectionService {
      * @returns index of specified element in {@link itemsSource} collection. -1 if element not found.
      * @see {@link trackByFn}
      */
-    getItemIndex(item: SelectionItem): number;
+    getItemIndex(item: any): number;
     /**
      * Selects first element in {@link itemsSource} collection.
      */

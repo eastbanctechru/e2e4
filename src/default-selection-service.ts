@@ -59,10 +59,12 @@ export class DefaultSelectionService implements SelectionService {
     /**
      * Performs final processing of selection/deselection of {@link itemsSource} element.
      * 
-     * Current implementation just sets {@link SelectionItem.selected} but it can be extended in derived classes.
+     * Current implementation just sets {@link SelectionItem.selected} (if it's defined) but it can be extended in derived classes.
      */
     protected processSelection(tuple: SelectionTuple, selected: boolean): void {
-        tuple.item.selected = selected;
+        if (Object.prototype.hasOwnProperty.call(tuple.item, 'selected')) {
+            tuple.item.selected = selected;
+        }
     }
     /**
      * Internal method that used to perform item selection.
@@ -194,8 +196,8 @@ export class DefaultSelectionService implements SelectionService {
      * @see {@link SelectionService.isIndexSelected}
      */
     public isIndexSelected(index: number): boolean {
-        if (index >= 0 && this.itemsSource.length > index) {
-            return this.itemsSource[index].selected;
+        if (index >= 0 && this.selectionsList.length > 0 && this.itemsSource.length > index) {
+            return this.selectionsList.findIndex((st: SelectionTuple) => st.index === index) !== -1;
         }
         return false;
     }

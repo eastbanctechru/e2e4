@@ -34,6 +34,17 @@ function toEmptyTarget(): SelectionableObject {
 }
 
 describe('SelectionService', () => {
+    describe('can work without \'selected\' property', () => {
+        it('returns empty array if nothing is selected', () => {
+            const items = [1, 2, 3, 4, 5];
+            let selectionService = new DefaultSelectionService();
+            selectionService.itemsSource = items;
+            expect(selectionService.getSelectedElements()).eql([]);
+            selectionService.selectAll();
+            expect(selectionService.getSelectedElements()).eql([1, 2, 3, 4, 5]);
+        });
+
+    });
     describe('getSelectedElements', () => {
         it('returns empty array if nothing is selected', () => {
             const target = toTarget();
@@ -459,7 +470,7 @@ describe('SelectionService', () => {
             target.selectionService.itemsSource = target.items;
             target.selectionService.trackByFn = (index: number, item: any) => item.name;
             target.selectionService.selectAll();
-            target.selectionService.itemsSource = target.items.map((item: Item) => ({ name: item.name } as Item));
+            target.selectionService.itemsSource = target.items.map((item: Item) => ({ name: item.name, selected: false } as Item));
             expect(target.selectionService.getSelectedElements().length).eq(5);
         });
     });
