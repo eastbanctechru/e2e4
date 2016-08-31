@@ -1,3 +1,13 @@
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/fshchudlo/e2e4/compare/1.2.0...v1.3.0) (2016-08-31)
+
+
+### Features
+
+* **selection:** Tab key handling implemented ([7f885ff](https://github.com/fshchudlo/e2e4/commit/7f885ff))
+
+
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/fshchudlo/e2e4/compare/1.1.1...v1.2.0) (2016-08-27)
 
