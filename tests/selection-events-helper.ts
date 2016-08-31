@@ -35,6 +35,25 @@ function toDefaultSelectionHelper(): SelectionEventsHelper {
 
 describe('SelectionEventsHelper', () => {
     describe('keyboard', () => {
+        it('calls trySelectNextItem for Tab key', () => {
+            let helper = toDefaultSelectionHelper();
+            let trySelectNextItemSpy = sinon.spy(helper, 'trySelectNextItem');
+            helper.keyboardHandler(notPressedCtrl, notPressedShift, KeyCodes.Tab);
+            expect(trySelectNextItemSpy.calledOnce).true;
+        });
+        it('calls trySelectPreviousItem for Shift+Tab key', () => {
+            let helper = toDefaultSelectionHelper();
+            let trySelectPreviousItemSpy = sinon.spy(helper, 'trySelectPreviousItem');
+            helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.Tab);
+            expect(trySelectPreviousItemSpy.calledOnce).true;
+        });
+        it('skips handling of Ctrl+Tab key', () => {
+            let helper = toDefaultSelectionHelper();
+            let handled = helper.keyboardHandler(pressedCtrl, pressedShift, KeyCodes.Tab);
+            expect(handled).false;
+            handled = helper.keyboardHandler(pressedCtrl, notPressedShift, KeyCodes.Tab);
+            expect(handled).false;
+        });
         it('selects all items on exact Ctrl+A combination', () => {
             let helper = toDefaultSelectionHelper();
             let selectAllSpy = sinon.spy(helper.selectionConfig.selectionService, 'selectAll');
