@@ -574,7 +574,7 @@ describe('SelectionService', () => {
             target.selectionService = new DefaultSelectionService();
             target.selectionService.itemsSource = target.items;
             target.selectionService.destroy();
-            expect(target.selectionService.itemsSource).undefined;
+            expect(target.selectionService.itemsSource).null;
         });
 
         it('but keep initial collection untouched', () => {

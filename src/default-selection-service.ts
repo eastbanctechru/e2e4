@@ -44,7 +44,7 @@ export class DefaultSelectionService implements SelectionService {
     public destroy(): void {
         this.selectionsList.length = 0;
         this.lastProcessedIndex = null;
-        delete this.items;
+        this.items = null;
     }
     /**
      * @see {@link SelectionService.itemsSource}
