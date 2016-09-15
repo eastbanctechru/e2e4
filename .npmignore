@@ -9,6 +9,7 @@ tests
 typings
 **/*[!.][!d].ts
 
+.cleandir.sh
 .travis.yml
 gulpfile.js
 karma.conf.js
