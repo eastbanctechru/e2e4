@@ -1,3 +1,13 @@
+<a name="1.3.1"></a>
+## [1.3.1](https://github.com/fshchudlo/e2e4/compare/1.3.0...v1.3.1) (2016-09-15)
+
+
+### Bug Fixes
+
+* **package:** remove redundant jspm `directories` settings ([4b6f519](https://github.com/fshchudlo/e2e4/commit/4b6f519))
+
+
+
 <a name="1.3.0"></a>
 # [1.3.0](https://github.com/fshchudlo/e2e4/compare/1.2.0...v1.3.0) (2016-08-31)
 
