@@ -22,11 +22,7 @@
   "jspm": {
     "registry": "npm",
     "main": "index.js",
-    "format": "commonjs",
-    "directories": {
-      "dist": "src",
-      "lib": "src"
-    }
+    "format": "commonjs"
   },
   "config": {
     "commitizen": {
