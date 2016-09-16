@@ -25,10 +25,10 @@ gulp.task('build-es6', function () {
     var srcResult = gulp.src(paths.source).pipe(sourcemaps.init()).pipe(typescript(options));
     var indexResult = gulp.src('index.ts').pipe(typescript(options));
     return merge([
-        srcResult.dts.pipe(gulp.dest(paths.esmOutput)),
-        srcResult.js.pipe(sourcemaps.write()).pipe(gulp.dest(paths.esmOutput)),
-        indexResult.dts.pipe(gulp.dest('esm/')),
-        indexResult.js.pipe(gulp.dest('esm/'))
+        srcResult.dts.pipe(gulp.dest(paths.esmOutput+'src/')),
+        srcResult.js.pipe(sourcemaps.write()).pipe(gulp.dest(paths.esmOutput+'src/')),
+        indexResult.dts.pipe(gulp.dest(paths.esmOutput)),
+        indexResult.js.pipe(gulp.dest(paths.esmOutput))
     ]);
 });
 
