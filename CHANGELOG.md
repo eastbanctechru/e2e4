@@ -1,3 +1,13 @@
+<a name="1.3.2"></a>
+## [1.3.2](https://github.com/fshchudlo/e2e4/compare/1.3.1...v1.3.2) (2016-09-16)
+
+
+### Bug Fixes
+
+* **package:** fixed esm package paths ([929bee9](https://github.com/fshchudlo/e2e4/commit/929bee9))
+
+
+
 <a name="1.3.1"></a>
 ## [1.3.1](https://github.com/fshchudlo/e2e4/compare/1.3.0...v1.3.1) (2016-09-15)
 
