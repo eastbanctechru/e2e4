@@ -3,8 +3,8 @@ node_js:
   - "6"
 script:
   - typings install
-  - gulp tslint
   - gulp build
+  - gulp tslint
   - gulp test-single-run
 after_success: 
   - 'npm run coveralls'

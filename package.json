@@ -16,7 +16,6 @@
   },
   "homepage": "https://github.com/fshchudlo/e2e4#readme",
   "scripts": {
-    "postinstall": "typings install",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
   },
   "jspm": {

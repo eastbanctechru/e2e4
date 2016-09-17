@@ -22,7 +22,7 @@ module.exports = function (wallaby) {
             }
         },
 
-        testFramework: 'mocha@2.5.3',
+        testFramework: 'mocha@3.0.2',
 
         bootstrap: function () {
             window.__moduleBundler.loadTests();
