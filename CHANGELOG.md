@@ -1,3 +1,13 @@
+<a name="1.3.4"></a>
+## [1.3.4](https://github.com/fshchudlo/e2e4/compare/1.3.3...v1.3.4) (2016-09-17)
+
+
+### Bug Fixes
+
+* **selection:** doesn't handle `Ctrl+A` command when `multiple` is false ([ea70177](https://github.com/fshchudlo/e2e4/commit/ea70177))
+
+
+
 <a name="1.3.3"></a>
 ## [1.3.3](https://github.com/fshchudlo/e2e4/compare/1.3.2...v1.3.3) (2016-09-17)
 
