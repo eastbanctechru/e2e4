@@ -46,7 +46,7 @@ export class SelectionEventsHelper {
      * @returns `true` if command was applied.
      */
     protected trySelectAll(ctrlPressed: boolean, shiftPressed: boolean): boolean {
-        if (ctrlPressed && !shiftPressed) {
+        if (ctrlPressed && !shiftPressed && this.selectionConfig.multiple) {
             this.selectionConfig.selectionService.selectAll();
             return true;
         }

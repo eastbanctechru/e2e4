@@ -69,6 +69,15 @@ describe('SelectionEventsHelper', () => {
             helper.keyboardHandler(pressedCtrl, notPressedShift, KeyCodes.A);
             expect(selectAllSpy.calledOnce).true;
         });
+        it('Doesn\'t handle Ctrl+A combination if multiple is false', () => {
+            let helper = toDefaultSelectionHelper();
+            helper.selectionConfig.multiple = false;
+            let trySelectAllSpy = sinon.spy(helper, 'trySelectAll');
+            helper.keyboardHandler(pressedCtrl, notPressedShift, KeyCodes.A);
+            expect(trySelectAllSpy.calledOnce).true;
+            expect(trySelectAllSpy.returnValues[0]).false;
+            expect(helper.selectionConfig.selectionService.getSelectedIndexes()).empty;
+        });
 
         describe('horizontal behavior', () => {
             it('calls onPreviousKey for ArrowUp or horizontal and ArrowLeft', () => {
