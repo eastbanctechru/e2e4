@@ -1,6 +1,6 @@
 {
   "name": "e2e4",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Set of base classes and utilities to build unobtrusive list models",
   "jsnext:main": "esm/index.js",
   "main": "index.js",
