@@ -54,8 +54,7 @@ export class BufferedPager implements Pager {
     @filter({
         defaultValue(): number { return (<BufferedPager>this).defaultRowCount; },
         parameterName(): string { return (<BufferedPager>this).takeRowCountParameterName; },
-        parseFormatter(
-            rawValue: any, allValues: any): number {
+        parseFormatter(rawValue: any, allValues: any): number {
             let result;
             if (allValues && !isNaN(allValues.skip) && !isNaN(allValues.take)) {
                 result = (allValues.skip || 0) + (allValues.take || 0);

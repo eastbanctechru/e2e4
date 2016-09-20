@@ -14,7 +14,6 @@
         "suppressImplicitAnyIndexErrors": true,
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
-        "noUnusedParameters": true,
         "noUnusedLocals": true,
         "pretty": true,
         "forceConsistentCasingInFileNames": true,
