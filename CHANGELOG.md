@@ -1,3 +1,8 @@
+<a name="1.4.1"></a>
+## [1.4.1](https://github.com/fshchudlo/e2e4/compare/1.4.0...v1.4.1) (2016-09-20)
+
+
+
 <a name="1.4.0"></a>
 # [1.4.0](https://github.com/fshchudlo/e2e4/compare/1.3.4...v1.4.0) (2016-09-20)
 
