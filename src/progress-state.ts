@@ -21,5 +21,9 @@ export enum ProgressState {
     /**
      * Last operation was cancelled.
      */
-    Cancelled = 4
+    Cancelled = 4,
+    /**
+     * Last operation doesn't return any data.
+     */
+    NoData = 5
 }
