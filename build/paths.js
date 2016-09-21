@@ -13,6 +13,5 @@ module.exports = {
   source: [appRoot + tsGlob],
   tests: ['tests/' + tsGlob],
   esmOutput: 'esm/',
-  packageName: pkg.name,
-  dtsSrc: ['typings/globals/es6-shim/index.d.ts']
+  packageName: pkg.name
 };

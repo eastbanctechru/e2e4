@@ -17,7 +17,7 @@
         "noUnusedLocals": true,
         "pretty": true,
         "forceConsistentCasingInFileNames": true,
-        "removeComments": false, 
+        "removeComments": false,
         "lib": [
             "dom",
             "es2016"

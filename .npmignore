@@ -6,7 +6,6 @@ docs
 node_modules
 coverage
 tests
-typings
 **/*[!.][!d].ts
 
 .cleandir.sh
@@ -15,5 +14,4 @@ gulpfile.js
 karma.conf.js
 tsconfig.json
 tslint.json
-typings.json
 wallaby.js

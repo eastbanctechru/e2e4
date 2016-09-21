@@ -36,7 +36,8 @@ module.exports = function (config) {
                         include: [
                             path.resolve(__dirname, 'src'),
                             path.resolve(__dirname, 'tests')
-                        ]
+                        ],
+                        exclude: [path.resolve(__dirname, 'node_modules')]
                     }
                 ],
                 postLoaders: [{

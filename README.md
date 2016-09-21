@@ -21,27 +21,23 @@ Changelog is available [here](https://github.com/fshchudlo/e2e4/blob/master/CHAN
 To build the project, follow these steps:
 
 1. Ensure that [NodeJS](http://nodejs.org/) is installed. This provides the platform on which the build tooling runs.
-2. Ensure that [TypeScript](http://www.typescriptlang.org/), [Typings](https://github.com/typings/typings/) and [Gulp](http://gulpjs.com/) are installed. If you need to install them, use the following command:
+2. Ensure that [Gulp](http://gulpjs.com/) is installed. If you need to install them, use the following command:
 
   ```shell
-  npm install -g typescript typings gulp
+  npm install -g gulp
   ```
+
 3. From the project folder, execute the following command to install project dependencies:
 
   ```shell
   npm install
   ```
-4. From the project folder, execute the following command to install type definitions:
-
-  ```shell
-  typings install
-  ```
-5. From the project folder, execute the following command to build the source code:
+4. From the project folder, execute the following command to build the source code:
 
   ```shell
   gulp build
   ```
-6. You will find ES5-compiled code in the `src` folder and ES6-compiled code in `esm` folder.
+5. You will find ES5-compiled code in the `src` folder and ES6-compiled code in `esm` folder.
 
 ## How to run tests
 
