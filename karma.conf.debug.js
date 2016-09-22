@@ -6,7 +6,7 @@ module.exports = function (config) {
         frameworks: ['mocha'],
         files: [
             'node_modules/es6-shim/es6-shim.js',
-            'tests/common/-ts-emitted-functions.js',
+            'tests/@ts-emitted-functions.js',
             'tests/**/*.ts'
         ],
         preprocessors: {
