@@ -24,7 +24,6 @@
         ]
     },
     "exclude": [
-        "node_modules",
-        "esm"
+        "node_modules"
     ]
 }
