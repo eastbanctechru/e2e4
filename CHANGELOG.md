@@ -1,3 +1,13 @@
+<a name="1.4.2"></a>
+## [1.4.2](https://github.com/fshchudlo/e2e4/compare/1.4.1...v1.4.2) (2016-09-24)
+
+
+### Bug Fixes
+
+* **pagers:** reset `loadedCount` property in `reset` methods ([25cc84e](https://github.com/fshchudlo/e2e4/commit/25cc84e))
+
+
+
 <a name="1.4.1"></a>
 ## [1.4.1](https://github.com/fshchudlo/e2e4/compare/1.4.0...v1.4.1) (2016-09-20)
 
