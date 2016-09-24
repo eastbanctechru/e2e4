@@ -61,5 +61,6 @@ export class RegularPager implements Pager {
      */
     public reset(): void {
         this.totalCount = 0;
+        this.loadedCount = 0;
     }
 }

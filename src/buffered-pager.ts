@@ -1,6 +1,6 @@
-import {FilterConfig} from './contracts/filter-config';
-import {Pager} from './contracts/pager';
-import {filter} from './filter-annotation';
+import { FilterConfig } from './contracts/filter-config';
+import { Pager } from './contracts/pager';
+import { filter } from './filter-annotation';
 
 /**
  * Implements {@link Pager} contract and represents buffered list behavior. 
@@ -168,6 +168,7 @@ export class BufferedPager implements Pager {
      */
     public reset(): void {
         this.totalCount = 0;
+        this.loadedCount = 0;
         this.takeRowCount = this.defaultRowCount;
         this.skip = 0;
     }
