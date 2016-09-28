@@ -6,10 +6,6 @@ import { ListResponse } from './list-response';
  */
 export interface PagedListResponse<TItem> extends ListResponse<TItem> {
     /**
-     * Returned collection of records.
-     */
-    items: Array<TItem>;
-    /**
      * Number of record in remote data source from which data was loaded on last request. 
      * 
      * For example, it will be equal to 21 when loads second page of list with page size of 20.
