@@ -45,14 +45,27 @@ describe('PagedPager', () => {
             let response = toResponseObject();
             response.loadedCount = null;
             response.totalCount = null;
-            response.displayFrom = null;
-            response.displayTo = null;
             pager.processResponse(response);
 
             expect(pager.totalCount).eq(0);
             expect(pager.loadedCount).eq(0);
-            expect(pager.displayFrom).eq(0);
-            expect(pager.displayTo).eq(0);
+        });
+        it('calculates displayFrom and displayTo if nothing\'s provided', () => {
+            let pager = new PagedPager();
+            let response = toResponseObject();
+            response.loadedCount = 20;
+            response.totalCount = 35;
+            response.displayFrom = null;
+            response.displayTo = null;
+            pager.processResponse(response);
+            expect(pager.displayFrom).eq(1);
+            expect(pager.displayTo).eq(20);
+
+            pager.tryMoveToNextPage();
+            response.loadedCount = 15;
+            pager.processResponse(response);
+            expect(pager.displayFrom).eq(21);
+            expect(pager.displayTo).eq(35);
         });
 
         it('resets contract properties', () => {

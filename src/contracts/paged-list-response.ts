@@ -14,11 +14,11 @@ export interface PagedListResponse<TItem> extends ListResponse<TItem> {
      * 
      * For example, it will be equal to 21 when loads second page of list with page size of 20.
      */
-    displayFrom: number;
+    displayFrom?: number;
     /**
      * Number of record in remote data source to which data was loaded on last request.
      *  
      * For example, it will be equal to 40 when loads second page of list with page size of 20. Or it will be equal to total count of available records if records count is less than 40.
      */
-    displayTo: number;
+    displayTo?: number;
 }

@@ -1,6 +1,6 @@
-import {FilterConfig} from './contracts/filter-config';
-import {Pager} from './contracts/pager';
-import {filter} from './filter-annotation';
+import { FilterConfig } from './contracts/filter-config';
+import { Pager } from './contracts/pager';
+import { filter } from './filter-annotation';
 
 /**
  * Implements {@link Pager} contract and represents behavior of list with pages.
@@ -234,9 +234,9 @@ export class PagedPager implements Pager {
         this.loadedCount = response[this.loadedCountParameterName] || 0;
         this.totalCount = response[this.totalCountParameterName] || 0;
 
-        this.displayFrom = response[this.displayFromParameterName] || 0;
-        this.displayTo = response[this.displayToParameterName] || 0;
-
+        const skippedCount = this.pageSize * (this.pageNumber - 1);
+        this.displayFrom = response[this.displayFromParameterName] || (skippedCount + 1);
+        this.displayTo = response[this.displayToParameterName] || (this.displayFrom + this.loadedCount - 1);
     }
     /**
      * Sets {@link pageNumber} property to `1` if it's possible.
