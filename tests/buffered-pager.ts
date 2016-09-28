@@ -63,6 +63,19 @@ describe('BufferedPager', () => {
             expect(pager.totalCount).eq(0);
             expect(pager.loadedCount).eq(0);
         });
+        it('can calculate loadedCount and skip properties from loadedRecords array', () => {
+            let pager = new BufferedPager();
+            let response = toResponseObject();
+            response.loadedCount = null;
+            response.totalCount = 20;
+            const recordsStub = [1, 2, 3, 4, 5];
+            pager.processResponse(response, recordsStub);
+            expect(pager.loadedCount).eq(5);
+            expect(pager.skip).eq(5);
+            pager.processResponse(response, recordsStub);
+            expect(pager.loadedCount).eq(10);
+            expect(pager.skip).eq(10);
+        });
 
         it('resets contract properties', () => {
             let pager = new BufferedPager();

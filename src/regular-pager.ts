@@ -1,4 +1,4 @@
-import {Pager} from './contracts/pager';
+import { Pager } from './contracts/pager';
 /**
  * Implements {@link Pager} contract and represents behavior of simple list without any paging mechanics.
  * @note This type is configured to use with {@link FiltersService}.
@@ -50,8 +50,8 @@ export class RegularPager implements Pager {
     /**
      * @see {@link Pager.processResponse}
      */
-    public processResponse(response: Object): void {
-        this.loadedCount = response[this.loadedCountParameterName] || 0;
+    public processResponse(response: Object, loadedRecords?: Array<any>): void {
+        this.loadedCount = response[this.loadedCountParameterName] || (loadedRecords && loadedRecords.length ? loadedRecords.length : 0);
         this.totalCount = response[this.totalCountParameterName] || 0;
     }
     /**

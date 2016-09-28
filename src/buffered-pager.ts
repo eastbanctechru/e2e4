@@ -157,10 +157,10 @@ export class BufferedPager implements Pager {
     /**
      * @see {@link Pager.processResponse}
      */
-    public processResponse(response: Object): void {
+    public processResponse(response: Object, loadedRecords?: Array<any>): void {
         this.totalCount = response[this.totalCountParameterName] || 0;
-        this.skip = (response[this.loadedCountParameterName] === null || response[this.loadedCountParameterName] === undefined) ?
-            0 : this.skip + response[this.loadedCountParameterName];
+        const loadedCount = response[this.loadedCountParameterName] || (loadedRecords && loadedRecords.length ? loadedRecords.length : 0);
+        this.skip = loadedCount === 0 ? 0 : this.skip + loadedCount;
         this.loadedCount = this.skip;
     }
     /**

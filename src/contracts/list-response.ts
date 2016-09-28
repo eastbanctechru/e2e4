@@ -17,5 +17,5 @@ export interface ListResponse<TItem> {
      * Count of records that was loaded by last request.
      * Typically this is the same as {@link items}.length value. But it's placed in to separate property since it can differ for grouped lists, for example.
      */
-    loadedCount: number;
+    loadedCount?: number;
 }

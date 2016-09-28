@@ -38,5 +38,5 @@ export interface Pager {
      * 
      * @param result server response to process.
      */
-    processResponse(response: Object): void;
+    processResponse(response: Object, loadedRecords?: Array<any>): void;
 }

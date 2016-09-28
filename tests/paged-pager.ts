@@ -50,6 +50,17 @@ describe('PagedPager', () => {
             expect(pager.totalCount).eq(0);
             expect(pager.loadedCount).eq(0);
         });
+
+        it('can calculate loadedCount from loadedRecords array', () => {
+            let pager = new PagedPager();
+            let response = toResponseObject();
+            response.loadedCount = null;
+            response.totalCount = 20;
+            const recordsStub = [1, 2, 3, 4, 5];
+            pager.processResponse(response, recordsStub);
+            expect(pager.loadedCount).eq(5);
+        });
+
         it('calculates displayFrom and displayTo if nothing\'s provided', () => {
             let pager = new PagedPager();
             let response = toResponseObject();
