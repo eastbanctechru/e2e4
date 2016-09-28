@@ -88,7 +88,7 @@ export class BufferedPager implements Pager {
      */
     public maxRowCount: number = BufferedPager.settings.maxRowCount;
     /**
-     * Specifies name of property in server response from which {@link processResponse} method can read value of {@link loadedCount} property.
+     * @see {@link Pager.loadedCountParameterName}
      * 
      * @see {@link BufferedPager.settings.loadedCountParameterName}
      */
@@ -100,7 +100,7 @@ export class BufferedPager implements Pager {
      */
     public skipRowCountParameterName: string = BufferedPager.settings.skipRowCountParameterName;
     /**
-     * Specifies name of property in server response from which {@link processResponse} method can read value of {@link totalCount} property.
+     * @see {@link Pager.totalCountParameterName}
      * 
      * @see {@link BufferedPager.settings.totalCountParameterName}
      */

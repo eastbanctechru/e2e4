@@ -38,14 +38,12 @@ export class RegularPager implements Pager {
      */
     public loadedCount: number = 0;
     /**
-     * Specifies name of property in server response from which {@link processResponse} method can read value of {@link totalCount} property.
-     * 
+     * @see {@link Pager.totalCountParameterName}
      * @see {@link RegularPager.settings.totalCountParameterName}
      */
     public totalCountParameterName: string = RegularPager.settings.totalCountParameterName;
     /**
-     * Specifies name of property in server response from which {@link processResponse} method can read value of {@link loadedCount} property.
-     * 
+     * @see {@link Pager.loadedCountParameterName}
      * @see {@link RegularPager.settings.loadedCountParameterName}
      */
     public loadedCountParameterName: string = RegularPager.settings.loadedCountParameterName;

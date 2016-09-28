@@ -104,13 +104,13 @@ export class PagedPager implements Pager {
      */
     public displayToParameterName: string = PagedPager.settings.displayToParameterName;
     /**
-     * Specifies name of property in server response from which {@link processResponse} method can read value of {@link loadedCount} property.
+     * @see {@link Pager.loadedCountParameterName}
      * 
      * @see {@link PagedPager.settings.loadedCountParameterName}
      */
     public loadedCountParameterName: string = PagedPager.settings.loadedCountParameterName;
     /**
-     * Specifies name of property in server response from which {@link processResponse} method can read value of {@link totalCount} property.
+     * @see {@link Pager.loadedCountParameterName}
      * 
      * @see {@link PagedPager.settings.totalCountParameterName}
      */
