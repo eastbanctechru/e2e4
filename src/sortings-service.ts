@@ -59,14 +59,14 @@ export class SortingsService {
      * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
      */
     @filter({
-        defaultValue(): Array<SortParameter> { return this.cloneDefaultSortings(); },
+        defaultValue(this: SortingsService): Array<SortParameter> { return this.cloneDefaultSortings(); },
         parameterName: 'sort',
-        parseFormatter(rawValue: any): Array<Object> {
+        parseFormatter(this: SortingsService, rawValue: any): Array<Object> {
             return Array.isArray(rawValue) ? rawValue.map((sort: SortParameter) => ({ direction: sort.direction * 1, fieldName: sort.fieldName })) : [];
         },
-        persisted(): boolean { return (<SortingsService>this).persistSortings; },
-        serializeFormatter(): Object {
-            return (<SortingsService>this).sortings.map((sort: SortParameter) => ({
+        persisted(this: SortingsService): boolean { return this.persistSortings; },
+        serializeFormatter(this: SortingsService): Object {
+            return this.sortings.map((sort: SortParameter) => ({
                 direction: sort.direction, fieldName: sort.fieldName
             }));
         }

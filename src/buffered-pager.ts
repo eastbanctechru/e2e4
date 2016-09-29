@@ -37,9 +37,9 @@ export class BufferedPager implements Pager {
      * Internal implementation of {@link takeRowCount}. 
      */
     @filter({
-        defaultValue(): number { return (<BufferedPager>this).defaultRowCount; },
+        defaultValue(this: BufferedPager): number { return this.defaultRowCount; },
         parameterName: 'take',
-        parseFormatter(rawValue: any, allValues: any): number {
+        parseFormatter(this: BufferedPager, rawValue: any, allValues: any): number {
             let result;
             if (allValues && !isNaN(allValues.skip) && !isNaN(allValues.take)) {
                 result = (allValues.skip || 0) + (allValues.take || 0);

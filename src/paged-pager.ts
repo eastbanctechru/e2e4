@@ -131,12 +131,12 @@ export class PagedPager implements Pager {
      * @see {@link PagedListRequest.pageSize} 
      */
     @filter({
-        defaultValue(): number { return (<PagedPager>this).defaultPageSize; },
+        defaultValue(this: PagedPager): number { return this.defaultPageSize; },
         parameterName: 'pageSize',
-        parseFormatter(rawValue: any): number {
+        parseFormatter(this: PagedPager, rawValue: any): number {
             return isNaN(rawValue) || !rawValue ? this.defaultPageSize : rawValue;
         },
-        persisted(): boolean { return (<PagedPager>this).persistPageSize; }
+        persisted(this: PagedPager): boolean { return this.persistPageSize; }
     })
     public get pageSize(): number {
         return this.pageSizeInternal;
