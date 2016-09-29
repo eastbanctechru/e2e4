@@ -8,7 +8,7 @@ export interface ListRequest {
     /**
      * Sortings, which must be applied to the data on next request.
      */
-    sort: Array<SortParameter>;
+    sortings: Array<SortParameter>;
     /**
      * How many items already loaded to the list and must be skipped on next request.
      */
