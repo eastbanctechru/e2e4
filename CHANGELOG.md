@@ -1,3 +1,39 @@
+<a name="2.0.0-beta.0"></a>
+# [2.0.0-beta.0](https://github.com/fshchudlo/e2e4/compare/1.4.1...v2.0.0-beta.0) (2016-09-29)
+
+
+### Bug Fixes
+
+* **pagers:** reset `loadedCount` property in `reset` methods ([73dce08](https://github.com/fshchudlo/e2e4/commit/73dce08))
+
+
+### Code Refactoring
+
+* **paging:** `RegularPager` renamed to `NullObjectPager` ([d406b59](https://github.com/fshchudlo/e2e4/commit/d406b59))
+* **paging:** unified request contract implemented for `PagedPager` and `BufferedPager` ([c8aae36](https://github.com/fshchudlo/e2e4/commit/c8aae36))
+* **SortingsService:** `sort` parameter name renamed to `sortings` ([071c032](https://github.com/fshchudlo/e2e4/commit/071c032))
+
+
+### Features
+
+* **all:** all `*parameterName` properties deleted ([2536307](https://github.com/fshchudlo/e2e4/commit/2536307))
+* **paging:** `PagedPager` now calculates `displayFrom` and `displayTo` properties by himself ([d1001b9](https://github.com/fshchudlo/e2e4/commit/d1001b9))
+* **paging:** `processResponse` method now accepts objects of `ListResponse` type instead of any ([b6a73c0](https://github.com/fshchudlo/e2e4/commit/b6a73c0))
+
+
+### BREAKING CHANGES
+
+* SortingsService: `sort` parameter renamed to `sortings`
+* paging: `BufferedListRequest` and `PagedListRequest` contracts deleted
+* paging: `RegularPager` renamed to `NullObjectPager`
+* paging: `PagedListResponse` contract removed because `PagedPager` now calculates
+
+`displayFrom` and `displayTo` properties by himself and this contract becomes useless
+* paging: `Pager.processResponse` method now accepts objects of `ListResponse` type
+* all: All `*parameterName` config properties were deleted since it's a lot easier to map request/response parameters manually  in end-user code
+
+
+
 <a name="1.4.2"></a>
 ## [1.4.2](https://github.com/fshchudlo/e2e4/compare/1.4.1...v1.4.2) (2016-09-24)
 
