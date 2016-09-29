@@ -23,18 +23,6 @@ export class PagedPager implements Pager {
          */
         defaultPageSize: 20,
         /**
-         * @see {@link PagedPager.displayFromParameterName} 
-         */
-        displayFromParameterName: 'displayFrom',
-        /**
-         * @see {@link PagedPager.displayToParameterName} 
-         */
-        displayToParameterName: 'displayTo',
-        /**
-         * @see {@link PagedPager.loadedCountParameterName} 
-         */
-        loadedCountParameterName: 'loadedCount',
-        /**
          * @see {@link PagedPager.maxPageSize}
          */
         maxPageSize: 200,
@@ -43,21 +31,9 @@ export class PagedPager implements Pager {
          */
         minPageSize: 1,
         /**
-         * @see {@link PagedPager.pageNumberParameterName} 
-         */
-        pageNumberParameterName: 'pageNumber',
-        /**
-         * @see {@link PagedPager.pageSizeParameterName} 
-         */
-        pageSizeParameterName: 'pageSize',
-        /**
          * @see {@link PagedPager.persistPageSize} 
          */
-        persistPageSize: false,
-        /**
-         * @see {@link PagedPager.totalCountParameterName} 
-         */
-        totalCountParameterName: 'totalCount'
+        persistPageSize: false
     };
     /**
      * Internal implementation of {@link pageSize}. 
@@ -69,7 +45,7 @@ export class PagedPager implements Pager {
      */
     @filter({
         defaultValue: 1,
-        parameterName(): string { return (<PagedPager>this).pageNumberParameterName; },
+        parameterName: 'pageNumber',
         parseFormatter(rawValue: any): number {
             return isNaN(rawValue) || !rawValue ? 1 : rawValue;
         }
@@ -92,42 +68,6 @@ export class PagedPager implements Pager {
      */
     public minPageSize: number = PagedPager.settings.minPageSize;
     /**
-     * Specifies name of property in server response from which {@link processResponse} method can read value of {@link displayFrom} property.
-     * 
-     * @see {@link PagedPager.settings.displayFromParameterName}
-     */
-    public displayFromParameterName: string = PagedPager.settings.displayFromParameterName;
-    /**
-     * Specifies name of property in server response from which {@link processResponse} method can read value of {@link displayTo} property.
-     * 
-     * @see {@link PagedPager.settings.displayToParameterName}
-     */
-    public displayToParameterName: string = PagedPager.settings.displayToParameterName;
-    /**
-     * @see {@link Pager.loadedCountParameterName}
-     * 
-     * @see {@link PagedPager.settings.loadedCountParameterName}
-     */
-    public loadedCountParameterName: string = PagedPager.settings.loadedCountParameterName;
-    /**
-     * @see {@link Pager.loadedCountParameterName}
-     * 
-     * @see {@link PagedPager.settings.totalCountParameterName}
-     */
-    public totalCountParameterName: string = PagedPager.settings.totalCountParameterName;
-    /**
-     * Specifies name of parameter to apply {@link pageNumber} property value to server request.
-     * 
-     * @see {@link PagedPager.settings.pageNumberParameterName}
-     */
-    public pageNumberParameterName: string = PagedPager.settings.pageNumberParameterName;
-    /**
-     * Specifies name of parameter to apply {@link pageSize} property value to server request.
-     * 
-     * @see {@link PagedPager.settings.pageSizeParameterName}
-     */
-    public pageSizeParameterName: string = PagedPager.settings.pageSizeParameterName;
-    /**
      * Specifies that {@link pageSize} property value must be persisted.
      * @see {@link FilterConfig.persisted} and {@link FiltersService.getPersistedState}
      */
@@ -143,13 +83,11 @@ export class PagedPager implements Pager {
 
     /**
      * Number of record in remote data source from which data was loaded by last request to the server.
-     * @see {@link displayFromParameterName}
      * @see {@link PagedListResponse.displayFrom}
      */
     public displayFrom: number = 0;
     /**
      * Number of record in remote data source to which data was loaded by last request to the server.
-     * @see {@link displayToParameterName}
      * @see {@link PagedListResponse.displayTo}
      */
     public displayTo: number = 0;
@@ -164,7 +102,6 @@ export class PagedPager implements Pager {
      * This property is applied to the server request and it specifies number of the page that must be loaded on next request.
      * 
      * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
-     * @see {@link pageNumberParameterName}
      * @see {@link PagedListRequest.pageNumber} 
      */
     public get pageNumber(): number {
@@ -188,12 +125,11 @@ export class PagedPager implements Pager {
      * This property is applied to the server request and it specifies size of page that must be loaded on next request.
      *  
      * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
-     * @see {@link pageSizeParameterName}
      * @see {@link PagedListRequest.pageSize} 
      */
     @filter({
         defaultValue(): number { return (<PagedPager>this).defaultPageSize; },
-        parameterName(): string { return (<PagedPager>this).pageSizeParameterName; },
+        parameterName: 'pageSize',
         parseFormatter(rawValue: any): number {
             return isNaN(rawValue) || !rawValue ? this.defaultPageSize : rawValue;
         },
@@ -232,12 +168,12 @@ export class PagedPager implements Pager {
      */
     public processResponse(response: Object, loadedRecords?: Array<any>): void {
 
-        this.loadedCount = response[this.loadedCountParameterName] || (loadedRecords && loadedRecords.length ? loadedRecords.length : 0);
-        this.totalCount = response[this.totalCountParameterName] || 0;
+        this.loadedCount = (<any>response).loadedCount || (loadedRecords && loadedRecords.length ? loadedRecords.length : 0);
+        this.totalCount = (<any>response).totalCount || 0;
 
         const skippedCount = this.pageSize * (this.pageNumber - 1);
-        this.displayFrom = response[this.displayFromParameterName] || (skippedCount + 1);
-        this.displayTo = response[this.displayToParameterName] || (this.displayFrom + this.loadedCount - 1);
+        this.displayFrom = (<any>response).displayFrom || (skippedCount + 1);
+        this.displayTo = (<any>response).displayTo || (this.displayFrom + this.loadedCount - 1);
     }
     /**
      * Sets {@link pageNumber} property to `1` if it's possible.

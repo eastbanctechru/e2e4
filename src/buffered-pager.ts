@@ -23,29 +23,13 @@ export class BufferedPager implements Pager {
          */
         defaultRowCount: 20,
         /**
-         * @see {@link BufferedPager.loadedCountParameterName}
-         */
-        loadedCountParameterName: 'loadedCount',
-        /**
          * @see {@link BufferedPager.maxRowCount}
          */
         maxRowCount: 200,
         /**
          * @see {@link BufferedPager.minRowCount}
          */
-        minRowCount: 1,
-        /**
-         * @see {@link BufferedPager.skipRowCountParameterName}
-         */
-        skipRowCountParameterName: 'skip',
-        /**
-         * @see {@link BufferedPager.takeRowCountParameterName}
-         */
-        takeRowCountParameterName: 'take',
-        /**
-         * @see {@link BufferedPager.totalCountParameterName}
-         */
-        totalCountParameterName: 'totalCount'
+        minRowCount: 1
     };
 
     /**
@@ -53,7 +37,7 @@ export class BufferedPager implements Pager {
      */
     @filter({
         defaultValue(): number { return (<BufferedPager>this).defaultRowCount; },
-        parameterName(): string { return (<BufferedPager>this).takeRowCountParameterName; },
+        parameterName: 'take',
         parseFormatter(rawValue: any, allValues: any): number {
             let result;
             if (allValues && !isNaN(allValues.skip) && !isNaN(allValues.take)) {
@@ -88,40 +72,14 @@ export class BufferedPager implements Pager {
      */
     public maxRowCount: number = BufferedPager.settings.maxRowCount;
     /**
-     * @see {@link Pager.loadedCountParameterName}
-     * 
-     * @see {@link BufferedPager.settings.loadedCountParameterName}
-     */
-    public loadedCountParameterName: string = BufferedPager.settings.loadedCountParameterName;
-    /**
-     * Specifies name of parameter to apply {@link skip} property value to server request.
-     * 
-     * @see {@link BufferedPager.settings.skipRowCountParameterName}
-     */
-    public skipRowCountParameterName: string = BufferedPager.settings.skipRowCountParameterName;
-    /**
-     * @see {@link Pager.totalCountParameterName}
-     * 
-     * @see {@link BufferedPager.settings.totalCountParameterName}
-     */
-    public totalCountParameterName: string = BufferedPager.settings.totalCountParameterName;
-    /**
-     * Specifies name of parameter to apply {@link takeRowCount} property value to server request.
-     * 
-     * @see {@link BufferedPager.settings.takeRowCountParameterName}
-     */
-    public takeRowCountParameterName: string = BufferedPager.settings.takeRowCountParameterName;
-
-    /**
      * This property is applied to the server request and it specifies how many rows are already loaded and must be skipped on next request. 
      * 
      * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
-     * @see {@link skipRowCountParameterName}
      * @see {@link BufferedListRequest.skip} 
      */
     @filter({
         defaultValue: 0,
-        parameterName(): string { return this.skipRowCountParameterName; },
+        parameterName: 'skip',
         parseFormatter(): number { return 0; }
     } as FilterConfig)
     public skip: number = 0;
@@ -129,7 +87,6 @@ export class BufferedPager implements Pager {
     /**
      * This property is applied to the server request and it specifies how many rows must be loaded on next request.
      * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
-     * @see {@link takeRowCountParameterName}
      * @see {@link BufferedListRequest.take} 
      */
     public get takeRowCount(): number {
@@ -158,8 +115,8 @@ export class BufferedPager implements Pager {
      * @see {@link Pager.processResponse}
      */
     public processResponse(response: Object, loadedRecords?: Array<any>): void {
-        this.totalCount = response[this.totalCountParameterName] || 0;
-        const loadedCount = response[this.loadedCountParameterName] || (loadedRecords && loadedRecords.length ? loadedRecords.length : 0);
+        this.totalCount = (<any>response).totalCount || 0;
+        const loadedCount = (<any>response).loadedCount || (loadedRecords && loadedRecords.length ? loadedRecords.length : 0);
         this.skip = loadedCount === 0 ? 0 : this.skip + loadedCount;
         this.loadedCount = this.skip;
     }

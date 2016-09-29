@@ -211,15 +211,5 @@ describe('SortingsService', () => {
             expect(sortingsService.sortings[1].direction).eql(params.sort[1].direction);
             expect(sortingsService.sortings).not.equal(params.sort);
         });
-
-        it('can use custom parameter names', () => {
-            const target = toTarget();
-            const {sortingsService} = target;
-            let filtersService = new FiltersService(sortingsService);
-
-            sortingsService.sortParameterName = 'customSort';
-            const request = filtersService.getRequestState();
-            expect(request).haveOwnProperty(sortingsService.sortParameterName);
-        });
     });
 });

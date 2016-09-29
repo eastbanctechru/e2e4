@@ -47,11 +47,7 @@ export class SortingsService {
         /**
          * @see {@link SortingsService.persistSortings}
          */
-        persistSortings: false,
-        /**
-         * @see {@link SortingsService.sortParameterName} 
-         */
-        sortParameterName: 'sort'
+        persistSortings: false
     };
     /**
      * Internal implementation of {@link defaultSortings}.
@@ -64,7 +60,7 @@ export class SortingsService {
      */
     @filter({
         defaultValue(): Array<SortParameter> { return this.cloneDefaultSortings(); },
-        parameterName(): string { return (<SortingsService>this).sortParameterName; },
+        parameterName: 'sort',
         parseFormatter(rawValue: any): Array<Object> {
             return Array.isArray(rawValue) ? rawValue.map((sort: SortParameter) => ({ direction: sort.direction * 1, fieldName: sort.fieldName })) : [];
         },
@@ -76,12 +72,6 @@ export class SortingsService {
         }
     } as FilterConfig)
     public sortings: Array<SortParameter> = new Array<SortParameter>();
-    /**
-     * Specifies name of parameter to apply {@link sortings} property value to server request.
-     * 
-     * @see {@link SortingsService.settings.sortParameterName}
-     */
-    public sortParameterName: string = SortingsService.settings.sortParameterName;
     /**
      * Specifies that {@link sortings} property value must be persisted.
      * @see {@link FilterConfig.persisted} and {@link FiltersService.getPersistedState}

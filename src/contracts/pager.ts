@@ -21,15 +21,6 @@ export interface Pager {
      */
     loadedCount: number;
     /**
-     * Specifies name of property in server response from which {@link processResponse} method can read value of {@link totalCount} property.
-     */
-    totalCountParameterName: string;
-    /**
-     * Specifies name of property in server response from which {@link processResponse} method can read value of {@link loadedCount} property.
-     */
-    loadedCountParameterName: string;
-
-    /**
      * Performs application-defined logic associated with pager state reset.
      */
     reset(): void;

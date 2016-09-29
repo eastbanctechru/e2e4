@@ -32,19 +32,6 @@ describe('BufferedPager', () => {
             expect(pager.skip).eq(response.loadedCount);
         });
 
-        it('process response with custom properties names', () => {
-            let pager = new BufferedPager();
-            pager.totalCountParameterName = 'customTotal';
-            pager.loadedCountParameterName = 'customLoaded';
-            const response = {
-                customLoaded: 20,
-                customTotal: 100
-            };
-            pager.processResponse(response);
-            expect(pager.loadedCount).eq(response.customLoaded);
-            expect(pager.totalCount).eq(response.customTotal);
-        });
-
         it('increments skip on each load callback execution', () => {
             let pager = new BufferedPager();
             let response = toResponseObject();
@@ -164,16 +151,6 @@ describe('BufferedPager', () => {
             expect(BufferedPager.settings.defaultRowCount).not.eq(pager.defaultRowCount);
         });
 
-        it('can use custom parameter names', () => {
-            let pager = new BufferedPager();
-            let filtersService = new FiltersService(pager);
-
-            pager.takeRowCountParameterName = 'customTake';
-            pager.skipRowCountParameterName = 'customSkip';
-            const request = filtersService.getRequestState();
-            expect(request).haveOwnProperty(pager.takeRowCountParameterName);
-            expect(request).haveOwnProperty(pager.skipRowCountParameterName);
-        });
     });
     describe('internal state', () => {
         it('sets rowCount to maxRowCount when try to set bigger value', () => {
