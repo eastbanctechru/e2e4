@@ -1,4 +1,5 @@
 import { FilterConfig } from './contracts/filter-config';
+import { ListResponse } from './contracts/list-response';
 import { Pager } from './contracts/pager';
 import { filter } from './filter-annotation';
 
@@ -114,9 +115,9 @@ export class BufferedPager implements Pager {
     /**
      * @see {@link Pager.processResponse}
      */
-    public processResponse(response: Object, loadedRecords?: Array<any>): void {
-        this.totalCount = (<any>response).totalCount || 0;
-        const loadedCount = (<any>response).loadedCount || (loadedRecords && loadedRecords.length ? loadedRecords.length : 0);
+    public processResponse(response: ListResponse<any>): void {
+        this.totalCount = response.totalCount || 0;
+        const loadedCount = response.loadedCount || (response.items && response.items.length ? response.items.length : 0);
         this.skip = loadedCount === 0 ? 0 : this.skip + loadedCount;
         this.loadedCount = this.skip;
     }

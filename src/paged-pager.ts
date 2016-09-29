@@ -1,4 +1,5 @@
 import { FilterConfig } from './contracts/filter-config';
+import { PagedListResponse } from './contracts/paged-list-response';
 import { Pager } from './contracts/pager';
 import { filter } from './filter-annotation';
 
@@ -166,14 +167,14 @@ export class PagedPager implements Pager {
     /**
      * @see {@link Pager.processResponse}
      */
-    public processResponse(response: Object, loadedRecords?: Array<any>): void {
+    public processResponse(response: PagedListResponse<any>): void {
 
-        this.loadedCount = (<any>response).loadedCount || (loadedRecords && loadedRecords.length ? loadedRecords.length : 0);
-        this.totalCount = (<any>response).totalCount || 0;
+        this.loadedCount = response.loadedCount || (response.items && response.items.length ? response.items.length : 0);
+        this.totalCount = response.totalCount || 0;
 
         const skippedCount = this.pageSize * (this.pageNumber - 1);
-        this.displayFrom = (<any>response).displayFrom || (skippedCount + 1);
-        this.displayTo = (<any>response).displayTo || (this.displayFrom + this.loadedCount - 1);
+        this.displayFrom = response.displayFrom || (skippedCount + 1);
+        this.displayTo = response.displayTo || (this.displayFrom + this.loadedCount - 1);
     }
     /**
      * Sets {@link pageNumber} property to `1` if it's possible.

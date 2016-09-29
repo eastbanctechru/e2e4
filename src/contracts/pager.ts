@@ -1,3 +1,4 @@
+import { ListResponse } from './list-response';
 /**
  * Base contract to implement by specific pagers.
  */
@@ -27,7 +28,7 @@ export interface Pager {
     /**
      * Performs application-defined logic associated with parsing of server response returned on data request. 
      * 
-     * @param result server response to process.
+     * @param response server response to process.
      */
-    processResponse(response: Object, loadedRecords?: Array<any>): void;
+    processResponse(response: ListResponse<any>): void;
 }

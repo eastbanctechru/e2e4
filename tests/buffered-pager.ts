@@ -1,15 +1,15 @@
 import { BufferedPager } from '../src/buffered-pager';
+import { ListResponse } from '../src/contracts/list-response';
 import { FiltersService } from '../src/filters-service';
 
 import { expect } from 'chai';
 
-interface ResponseObject {
-    loadedCount: number;
-    totalCount: number;
-}
-
-function toResponseObject(): ResponseObject {
-    return { loadedCount: 20, totalCount: 100 } as ResponseObject;
+function toResponseObject(): ListResponse<any> {
+    return {
+        items: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+        loadedCount: 20,
+        totalCount: 100
+    };
 }
 describe('BufferedPager', () => {
     describe('ctor', () => {
@@ -40,28 +40,24 @@ describe('BufferedPager', () => {
                 expect(pager.skip).eq(i);
             }
         });
-        it('process incorrect values as 0', () => {
+        it('process incorrect totalCount as 0', () => {
             let pager = new BufferedPager();
             let response = toResponseObject();
-            response.loadedCount = null;
             response.totalCount = null;
             pager.processResponse(response);
-
             expect(pager.totalCount).eq(0);
-            expect(pager.loadedCount).eq(0);
         });
-        it('can calculate loadedCount and skip properties from loadedRecords array', () => {
+        it('can calculate loadedCount and skip properties from items array', () => {
             let pager = new BufferedPager();
             let response = toResponseObject();
             response.loadedCount = null;
-            response.totalCount = 20;
-            const recordsStub = [1, 2, 3, 4, 5];
-            pager.processResponse(response, recordsStub);
-            expect(pager.loadedCount).eq(5);
-            expect(pager.skip).eq(5);
-            pager.processResponse(response, recordsStub);
-            expect(pager.loadedCount).eq(10);
-            expect(pager.skip).eq(10);
+            response.totalCount = response.items.length * 2;
+            pager.processResponse(response);
+            expect(pager.loadedCount).eq(response.items.length);
+            expect(pager.skip).eq(response.items.length);
+            pager.processResponse(response);
+            expect(pager.loadedCount).eq(response.items.length * 2);
+            expect(pager.skip).eq(response.items.length * 2);
         });
 
         it('resets contract properties', () => {
