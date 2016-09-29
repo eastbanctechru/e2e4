@@ -6,11 +6,9 @@
 export * from './src/progress-state';
 export * from './src/utilities';
 
-export * from './src/contracts/buffered-list-request';
 export * from './src/contracts/filter-config';
 export * from './src/contracts/list-request';
 export * from './src/contracts/list-response';
-export * from './src/contracts/paged-list-request';
 export * from './src/contracts/pager';
 export * from './src/contracts/selection-area-config';
 export * from './src/contracts/selection-service';

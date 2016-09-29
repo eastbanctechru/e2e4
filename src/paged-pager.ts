@@ -40,15 +40,19 @@ export class PagedPager implements Pager {
      * Internal implementation of {@link pageSize}. 
      */
     protected pageSizeInternal: number = PagedPager.settings.defaultPageSize;
-
     /**
      * Internal implementation of {@link pageNumber}.
      */
     @filter({
-        defaultValue: 1,
-        parameterName: 'pageNumber',
-        parseFormatter(rawValue: any): number {
-            return isNaN(rawValue) || !rawValue ? 1 : rawValue;
+        defaultValue: 0,
+        parameterName: 'skip',
+        parseFormatter(this: PagedPager, rawValue: any, allValues: any): number {
+            let skip = isNaN(rawValue) || !rawValue ? 0 : rawValue;
+            let pageSize = !allValues || isNaN(allValues.take) || !allValues.take ? this.defaultPageSize : allValues.take * 1;
+            return skip % pageSize === 0 ? (skip / pageSize + 1) : 1;
+        },
+        serializeFormatter(this: PagedPager, value: Object): number {
+            return (this.pageNumber - 1) * this.pageSize;
         }
     } as FilterConfig)
     protected pageNumberInternal: number = 1;
@@ -102,7 +106,7 @@ export class PagedPager implements Pager {
         return Math.ceil(this.totalCount / this.pageSizeInternal);
     }
     /**
-     * This property is applied to the server request and it specifies number of the page that must be loaded on next request.
+     * Specifies number of the page that must be loaded on next request.
      * 
      * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
      * @see {@link PagedListRequest.pageNumber} 
@@ -125,18 +129,20 @@ export class PagedPager implements Pager {
         this.pageNumberInternal = pageNumber;
     }
     /**
-     * This property is applied to the server request and it specifies size of page that must be loaded on next request.
+     * Specifies size of page that must be loaded on next request.
      *  
      * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
      * @see {@link PagedListRequest.pageSize} 
      */
     @filter({
         defaultValue(this: PagedPager): number { return this.defaultPageSize; },
-        parameterName: 'pageSize',
+        parameterName: 'take',
         parseFormatter(this: PagedPager, rawValue: any): number {
             return isNaN(rawValue) || !rawValue ? this.defaultPageSize : rawValue;
         },
-        persisted(this: PagedPager): boolean { return this.persistPageSize; }
+        persisted(this: PagedPager): boolean {
+            return this.persistPageSize;
+        }
     })
     public get pageSize(): number {
         return this.pageSizeInternal;
@@ -170,10 +176,8 @@ export class PagedPager implements Pager {
      * @see {@link Pager.processResponse}
      */
     public processResponse(response: ListResponse<any>): void {
-
         this.loadedCount = response.loadedCount || (response.items && response.items.length ? response.items.length : 0);
         this.totalCount = response.totalCount || 0;
-
         const skippedCount = this.pageSize * (this.pageNumber - 1);
         this.displayFrom = skippedCount + 1;
         this.displayTo = this.displayFrom + this.loadedCount - 1;

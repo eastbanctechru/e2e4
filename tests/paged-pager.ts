@@ -87,53 +87,87 @@ describe('PagedPager', () => {
         });
     });
     describe('as filter target', () => {
-        it('parse pageNumber param', () => {
+        it('maps pageNumber to skip param on building request', () => {
+            let pager = new PagedPager();
+            let filtersService = new FiltersService(pager);
+            let result = filtersService.getRequestState();
+            expect(result.skip).eq(0);
+            pager.totalCount = 100;
+            pager.tryMoveToNextPage();
+            result = filtersService.getRequestState();
+            expect(result.skip).eq(pager.pageSize);
+        });
+        it('maps pageSize to take param on building request', () => {
+            let pager = new PagedPager();
+            let filtersService = new FiltersService(pager);
+            let result = filtersService.getRequestState();
+            expect(result.take).eq(pager.pageSize);
+        });
+        it('parse skip param to pageNumber', () => {
             let pager = new PagedPager();
             let filtersService = new FiltersService(pager);
 
             expect(pager.pageNumber).eq(1);
             let params = {
-                pageNumber: 5,
-                pageSize: 100
+                skip: 50,
+                take: 10
             };
             filtersService.applyParams(params);
-            expect(pager.pageNumber).eq(params.pageNumber);
+            expect(pager.pageNumber).eq(6);
         });
-        it('parse pageNumber as 1 if invalid', () => {
+        it('parse pageNumber as 1 if skip param is invalid', () => {
             let pager = new PagedPager();
             let filtersService = new FiltersService(pager);
 
             expect(pager.pageNumber).eq(1);
             let params = {
-                pageNumber: null,
-                pageSize: 100
+                skip: null,
+                take: 10
+            };
+            filtersService.applyParams(params);
+            expect(pager.pageNumber).eq(1);
+            params.skip = {};
+            filtersService.applyParams(params);
+            expect(pager.pageNumber).eq(1);
+        });
+        it('doesn\'t round pageNumber (if skip % take!=0 then 1)', () => {
+            let pager = new PagedPager();
+            let filtersService = new FiltersService(pager);
+
+            expect(pager.pageNumber).eq(1);
+            let params = {
+                skip: 7,
+                take: 10
             };
             filtersService.applyParams(params);
             expect(pager.pageNumber).eq(1);
         });
-        it('parse pageSize as defaultPageSize if invalid', () => {
+        it('parse pageSize as defaultPageSize if take param is invalid', () => {
             let pager = new PagedPager();
             let filtersService = new FiltersService(pager);
 
             expect(pager.pageNumber).eq(1);
             let params = {
-                pageNumber: 1,
-                pageSize: null
+                skip: 20,
+                take: null
             };
             filtersService.applyParams(params);
             expect(pager.pageSize).eq(pager.defaultPageSize);
+            params.take = {};
+            filtersService.applyParams(params);
+            expect(pager.pageSize).eq(pager.defaultPageSize);
         });
-        it('parse pageSize param', () => {
+        it('parse pageSize from take param', () => {
             let pager = new PagedPager();
             let filtersService = new FiltersService(pager);
 
             expect(pager.pageNumber).eq(1);
             let params = {
-                pageNumber: 5,
-                pageSize: 100
+                skip: 50,
+                take: 10
             };
             filtersService.applyParams(params);
-            expect(pager.pageSize).eq(params.pageSize);
+            expect(pager.pageSize).eq(params.take);
         });
 
         it('sets pageSize to defaultPageSize on reset', () => {
@@ -160,7 +194,7 @@ describe('PagedPager', () => {
             pager.persistPageSize = true;
             const persistedState = filtersService.getPersistedState();
 
-            expect(persistedState).eql({ pageSize: pager.pageSize });
+            expect(persistedState).eql({ take: pager.pageSize });
         });
 
     });
