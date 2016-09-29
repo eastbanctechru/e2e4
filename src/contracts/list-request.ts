@@ -1,8 +1,6 @@
 import { SortParameter } from '../sortings-service';
 /**
- * Represents request to the server for getting data for regular list.
- *
- * You can use this contract in your end-user code for better code completion if you have no need to change default parameters names when use {@link RegularPager}. 
+ * Represents request to the server for list.
  */
 export interface ListRequest {
     /**

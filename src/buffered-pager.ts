@@ -9,7 +9,7 @@ import { filter } from './filter-annotation';
  */
 export class BufferedPager implements Pager {
     /**
-     * Global settings for properties such as request and response parameters names, default values and constraints for pager properties.
+     * Global settings for properties such as default values and constraints for pager properties.
      * 
      * These settings are static and their values are copied to the properties of the same name for each instance of {@link BufferedPager} type.
      * 

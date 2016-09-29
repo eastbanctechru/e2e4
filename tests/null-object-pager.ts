@@ -1,5 +1,5 @@
 import { ListResponse } from '../src/contracts/list-response';
-import { RegularPager } from '../src/regular-pager';
+import { NullObjectPager } from '../src/null-object-pager';
 import { expect } from 'chai';
 
 function toResponseObject(): ListResponse<any> {
@@ -9,16 +9,16 @@ function toResponseObject(): ListResponse<any> {
         totalCount: 100
     };
 }
-describe('SimplePager', () => {
+describe('NullObjectPager', () => {
 
     it('created with good state', () => {
-        let pager = new RegularPager();
+        let pager = new NullObjectPager();
         expect(pager.totalCount).eq(0);
         expect(pager.loadedCount).eq(0);
     });
 
     it('process response values', () => {
-        let pager = new RegularPager();
+        let pager = new NullObjectPager();
         let response = toResponseObject();
         pager.processResponse(response);
         expect(pager.totalCount).eq(response.totalCount);
@@ -26,14 +26,14 @@ describe('SimplePager', () => {
     });
 
     it('process incorrect totalCount as 0', () => {
-        let pager = new RegularPager();
+        let pager = new NullObjectPager();
         let response = toResponseObject();
         response.totalCount = null;
         pager.processResponse(response);
         expect(pager.totalCount).eq(0);
     });
     it('can calculate loadedCount from items array', () => {
-        let pager = new RegularPager();
+        let pager = new NullObjectPager();
         let response = toResponseObject();
         response.loadedCount = null;
         response.totalCount = 20;
@@ -42,7 +42,7 @@ describe('SimplePager', () => {
     });
 
     it('sets loadedCount to 0 if it not specified in response and items array is empty', () => {
-        let pager = new RegularPager();
+        let pager = new NullObjectPager();
         let response = toResponseObject();
         response.loadedCount = null;
         response.items.length = 0;
@@ -51,7 +51,7 @@ describe('SimplePager', () => {
     });
 
     it('resets contract properties', () => {
-        let pager = new RegularPager();
+        let pager = new NullObjectPager();
         let response = toResponseObject();
         pager.processResponse(response);
         pager.reset();

@@ -1,10 +1,10 @@
 import { ListResponse } from './contracts/list-response';
 import { Pager } from './contracts/pager';
 /**
- * Implements {@link Pager} contract and represents behavior of simple list without any paging mechanics.
+ * Implements {@link Pager} contract and represents list without any paging mechanics.
  * @note This type is configured to use with {@link FiltersService}.
  */
-export class RegularPager implements Pager {
+export class NullObjectPager implements Pager {
     /**
      * @see {@link Pager.appendedOnLoad}
      */

@@ -21,6 +21,6 @@ export * from './src/filters-service';
 export * from './src/paged-pager';
 export * from './src/selection-events-helper';
 export * from './src/default-selection-service';
-export * from './src/regular-pager';
+export * from './src/null-object-pager';
 export * from './src/sortings-service';
 export * from './src/state-tracking-service';
