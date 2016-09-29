@@ -59,7 +59,14 @@ describe('BufferedPager', () => {
             expect(pager.loadedCount).eq(response.items.length * 2);
             expect(pager.skip).eq(response.items.length * 2);
         });
-
+        it('sets loadedCount to 0 if it not specified in response and items array is empty', () => {
+            let pager = new BufferedPager();
+            let response = toResponseObject();
+            response.loadedCount = null;
+            response.items.length = 0;
+            pager.processResponse(response);
+            expect(pager.loadedCount).eq(0);
+        });
         it('resets contract properties', () => {
             let pager = new BufferedPager();
             let response = toResponseObject();

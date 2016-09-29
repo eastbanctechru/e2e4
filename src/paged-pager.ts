@@ -1,5 +1,5 @@
 import { FilterConfig } from './contracts/filter-config';
-import { PagedListResponse } from './contracts/paged-list-response';
+import { ListResponse } from './contracts/list-response';
 import { Pager } from './contracts/pager';
 import { filter } from './filter-annotation';
 
@@ -83,13 +83,15 @@ export class PagedPager implements Pager {
     public loadedCount: number = 0;
 
     /**
-     * Number of record in remote data source from which data was loaded by last request to the server.
-     * @see {@link PagedListResponse.displayFrom}
+     * Number of record in remote data source from which data was loaded on last request. 
+     * 
+     * For example, it will be equal to 21 when loads second page of list with page size of 20.
      */
     public displayFrom: number = 0;
     /**
-     * Number of record in remote data source to which data was loaded by last request to the server.
-     * @see {@link PagedListResponse.displayTo}
+     * Number of record in remote data source to which data was loaded on last request.
+     *  
+     * For example, it will be equal to 40 when loads second page of list with page size of 20. Or it will be equal to total count of available records if records count is less than 40.
      */
     public displayTo: number = 0;
     /**
@@ -167,14 +169,14 @@ export class PagedPager implements Pager {
     /**
      * @see {@link Pager.processResponse}
      */
-    public processResponse(response: PagedListResponse<any>): void {
+    public processResponse(response: ListResponse<any>): void {
 
         this.loadedCount = response.loadedCount || (response.items && response.items.length ? response.items.length : 0);
         this.totalCount = response.totalCount || 0;
 
         const skippedCount = this.pageSize * (this.pageNumber - 1);
-        this.displayFrom = response.displayFrom || (skippedCount + 1);
-        this.displayTo = response.displayTo || (this.displayFrom + this.loadedCount - 1);
+        this.displayFrom = skippedCount + 1;
+        this.displayTo = this.displayFrom + this.loadedCount - 1;
     }
     /**
      * Sets {@link pageNumber} property to `1` if it's possible.

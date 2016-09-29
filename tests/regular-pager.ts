@@ -41,6 +41,15 @@ describe('SimplePager', () => {
         expect(pager.loadedCount).eq(response.items.length);
     });
 
+    it('sets loadedCount to 0 if it not specified in response and items array is empty', () => {
+        let pager = new RegularPager();
+        let response = toResponseObject();
+        response.loadedCount = null;
+        response.items.length = 0;
+        pager.processResponse(response);
+        expect(pager.loadedCount).eq(0);
+    });
+
     it('resets contract properties', () => {
         let pager = new RegularPager();
         let response = toResponseObject();

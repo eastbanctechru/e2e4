@@ -1,13 +1,11 @@
-import { PagedListResponse } from '../src/contracts/paged-list-response';
+import { ListResponse } from '../src/contracts/list-response';
 import { FiltersService } from '../src/filters-service';
 import { PagedPager } from '../src/paged-pager';
 
 import { expect } from 'chai';
 
-function toResponseObject(): PagedListResponse<any> {
+function toResponseObject(): ListResponse<any> {
     return {
-        displayFrom: 1,
-        displayTo: 20,
         items: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
         loadedCount: 20,
         totalCount: 100
@@ -36,8 +34,6 @@ describe('PagedPager', () => {
 
             expect(pager.totalCount).eq(response.totalCount);
             expect(pager.loadedCount).eq(response.loadedCount);
-            expect(pager.displayFrom).eq(response.displayFrom);
-            expect(pager.displayTo).eq(response.displayTo);
         });
 
         it('process incorrect totalCount as 0', () => {
@@ -56,14 +52,19 @@ describe('PagedPager', () => {
             pager.processResponse(response);
             expect(pager.loadedCount).eq(response.items.length);
         });
-
-        it('calculates displayFrom and displayTo if nothing\'s provided', () => {
+        it('sets loadedCount to 0 if it not specified in response and items array is empty', () => {
+            let pager = new PagedPager();
+            let response = toResponseObject();
+            response.loadedCount = null;
+            response.items.length = 0;
+            pager.processResponse(response);
+            expect(pager.loadedCount).eq(0);
+        });
+        it('calculates displayFrom and displayTo', () => {
             let pager = new PagedPager();
             let response = toResponseObject();
             response.loadedCount = 20;
             response.totalCount = 35;
-            response.displayFrom = null;
-            response.displayTo = null;
             pager.processResponse(response);
             expect(pager.displayFrom).eq(1);
             expect(pager.displayTo).eq(20);
