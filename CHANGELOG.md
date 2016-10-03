@@ -1,3 +1,18 @@
+<a name="2.0.0-beta.1"></a>
+# [2.0.0-beta.1](https://github.com/fshchudlo/e2e4/compare/2.0.0-beta.0...v2.0.0-beta.1) (2016-10-03)
+
+
+### Features
+
+* **paging:** separate `PagedListRequest` contract added ([e13be1c](https://github.com/fshchudlo/e2e4/commit/e13be1c))
+
+
+### BREAKING CHANGES
+
+* paging: `take` and `skip` properties of `ListRequest` moved to `PagedListRequest`
+
+
+
 <a name="2.0.0-beta.0"></a>
 # [2.0.0-beta.0](https://github.com/fshchudlo/e2e4/compare/1.4.1...v2.0.0-beta.0) (2016-09-29)
 
