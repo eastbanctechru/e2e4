@@ -1,3 +1,14 @@
+<a name="2.0.0-beta.3"></a>
+# [2.0.0](https://github.com/fshchudlo/e2e4/compare/2.0.0-beta.2...v2.0.0-beta.2) (2016-10-03)
+
+
+### Bug Fixes
+
+* **build:** fix of `chai` import in src code ([d0d189c](https://github.com/fshchudlo/e2e4/commit/d0d189c))
+* **paging:** make `PagedListRequest` parameters required ([ba7a0b5](https://github.com/fshchudlo/e2e4/commit/ba7a0b5))
+
+
+
 <a name="2.0.0-beta.2"></a>
 # [2.0.0-beta.2](https://github.com/fshchudlo/e2e4/compare/2.0.0-beta.1...v2.0.0-beta.2) (2016-10-03)
 
