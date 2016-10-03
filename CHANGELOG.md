@@ -1,3 +1,13 @@
+<a name="2.0.0-beta.2"></a>
+# [2.0.0-beta.2](https://github.com/fshchudlo/e2e4/compare/2.0.0-beta.1...v2.0.0-beta.2) (2016-10-03)
+
+
+### Bug Fixes
+
+* **paging:** `PagedListRequest` added to exports ([d5c7e47](https://github.com/fshchudlo/e2e4/commit/d5c7e47))
+
+
+
 <a name="2.0.0-beta.1"></a>
 # [2.0.0-beta.1](https://github.com/fshchudlo/e2e4/compare/2.0.0-beta.0...v2.0.0-beta.1) (2016-10-03)
 
