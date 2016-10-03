@@ -4,7 +4,7 @@ import { ListRequest } from './list-request';
  * 
  * You can use this contract in your end-user code for better code completion.
  */
-export interface ListRequest extends ListRequest {
+export interface PagedListRequest extends ListRequest {
     /**
      * How many items already loaded to the list and must be skipped on next request.
      */
