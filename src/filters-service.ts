@@ -152,9 +152,8 @@ export class FiltersService {
         this.appliedFiltersMap.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
-                const parameterName = this.getParameterName(target, config);
-                if (params && params.hasOwnProperty(parameterName) && false === config.ignoreOnAutoMap) {
-                    let proposedVal = config.emptyIsNull ? params[parameterName] || null : params[parameterName];
+                if (params && params.hasOwnProperty(config.parameterName) && false === config.ignoreOnAutoMap) {
+                    let proposedVal = config.emptyIsNull ? params[config.parameterName] || null : params[config.parameterName];
                     proposedVal = config.coerce ? coerceValue(proposedVal) : proposedVal;
                     target[config.propertyName] = config.parseFormatter ? config.parseFormatter.call(target, proposedVal, params) : proposedVal;
                 }
@@ -177,7 +176,6 @@ export class FiltersService {
             for (let i = 0; i < targetConfig.length; i++) {
                 let config = Object.assign({}, targetConfig[i]);
                 config.persisted = (typeof config.persisted === 'function') ? (config.persisted as any).call(target) : config.persisted;
-                config.parameterName = this.getParameterName(target, config);
                 const proposedVal = target[config.propertyName];
                 if (filterFn ? filterFn(config, proposedVal, target) : true) {
                     result[config.parameterName] = FiltersService.buildFilterValue(target, proposedVal, config);
@@ -212,16 +210,6 @@ export class FiltersService {
         targets.forEach((target: Object) => {
             this.appliedFiltersMapInternal.delete(target);
         });
-    }
-    /**
-     * Computes parameter name for the `target property` which will be used by {@link getRequestState} method to apply values in to result state.
-     * 
-     * @param target `target object` that owns `target property`. This value will be used as `this` scope for the case when {@link FilterConfig.parameterName} is method.
-     * @param config filter configuration for `target property`.
-     * @returns calculated parameter name.
-     */
-    private getParameterName(target: Object, config: FilterConfig): string {
-        return (typeof config.parameterName === 'function') ? (config.parameterName as any).call(target) : config.parameterName;
     }
     /**
      * Builds final map of settings for objects that were registered as `target objects`.

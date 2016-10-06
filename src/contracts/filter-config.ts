@@ -36,11 +36,11 @@ export interface FilterConfig {
      */
     propertyName?: string;
     /**
-     * String or function that returns name of parameter which will be used to build request object with {@link FiltersService.getRequestState}  
+     * Name of parameter which will be used to build request object with {@link FiltersService.getRequestState}  
      * 
      * @note If you use {@link filter} annotation and this property wasn't specified then it will be equal to {@link propertyName}
      */
-    parameterName?: string | (() => string);
+    parameterName?: string;
     /**
      * When `true` {@link FiltersService.applyParams} method skips value parsing and doesn't apply anything to `target property`.
      * 

@@ -261,18 +261,6 @@ describe('FiltersService', () => {
             expect(requestState.first).eq(serializeSpy());
         });
 
-        it('calls \'parameterName\' if it\'s function', () => {
-            let parameterNameSpy = sinon.spy(() => { return 'first'; });
-            class TargetType {
-                @filter({ parameterName: parameterNameSpy } as FilterConfig)
-                public first: string = 'first';
-            }
-            let target = new TargetType();
-            let filtersService = new FiltersService(target);
-            filtersService.getRequestState();
-            expect(parameterNameSpy.calledOnce).true;
-        });
-
         it('handles emptyIsNullFlag', () => {
             let cfg = { emptyIsNull: true, persisted: true } as FilterConfig;
             class TargetType {
