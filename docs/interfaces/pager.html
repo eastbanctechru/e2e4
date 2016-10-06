@@ -86,8 +86,8 @@
 				<h3>Implemented by</h3>
 				<ul class="tsd-hierarchy">
 					<li><a href="../classes/bufferedpager.html" class="tsd-signature-type">BufferedPager</a></li>
+					<li><a href="../classes/nullobjectpager.html" class="tsd-signature-type">NullObjectPager</a></li>
 					<li><a href="../classes/pagedpager.html" class="tsd-signature-type">PagedPager</a></li>
-					<li><a href="../classes/regularpager.html" class="tsd-signature-type">RegularPager</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -120,7 +120,7 @@
 					<div class="tsd-signature tsd-kind-icon">appended<wbr>OnLoad<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in contracts/pager.ts:10</li>
+							<li>Defined in contracts/pager.ts:11</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -136,7 +136,7 @@
 					<div class="tsd-signature tsd-kind-icon">loaded<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in contracts/pager.ts:22</li>
+							<li>Defined in contracts/pager.ts:23</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -156,7 +156,7 @@
 					<div class="tsd-signature tsd-kind-icon">total<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in contracts/pager.ts:16</li>
+							<li>Defined in contracts/pager.ts:17</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -177,13 +177,13 @@
 					<a name="processresponse" class="tsd-anchor"></a>
 					<h3>process<wbr>Response</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">process<wbr>Response<span class="tsd-signature-symbol">(</span>response<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">process<wbr>Response<span class="tsd-signature-symbol">(</span>response<span class="tsd-signature-symbol">: </span><a href="listresponse.html" class="tsd-signature-type">ListResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in contracts/pager.ts:32</li>
+									<li>Defined in contracts/pager.ts:33</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -194,7 +194,10 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>response: <span class="tsd-signature-type">Object</span></h5>
+									<h5>response: <a href="listresponse.html" class="tsd-signature-type">ListResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>server response to process.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -211,7 +214,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in contracts/pager.ts:26</li>
+									<li>Defined in contracts/pager.ts:27</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -257,13 +260,13 @@
 						<a href="../classes/filtersservice.html" class="tsd-kind-icon">Filters<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="../classes/nullobjectpager.html" class="tsd-kind-icon">Null<wbr>Object<wbr>Pager</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="../classes/operation.html" class="tsd-kind-icon">Operation</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="../classes/pagedpager.html" class="tsd-kind-icon">Paged<wbr>Pager</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="../classes/regularpager.html" class="tsd-kind-icon">Regular<wbr>Pager</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="../classes/selectioneventshelper.html" class="tsd-kind-icon">Selection<wbr>Events<wbr>Helper</a>
@@ -273,9 +276,6 @@
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="../classes/statetrackingservice.html" class="tsd-kind-icon">State<wbr>Tracking<wbr>Service</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="bufferedlistrequest.html" class="tsd-kind-icon">Buffered<wbr>List<wbr>Request</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="filterconfig.html" class="tsd-kind-icon">Filter<wbr>Config</a>
@@ -288,9 +288,6 @@
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="pagedlistrequest.html" class="tsd-kind-icon">Paged<wbr>List<wbr>Request</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-has-type-parameter">
-						<a href="pagedlistresponse.html" class="tsd-kind-icon">Paged<wbr>List<wbr>Response</a>
 					</li>
 				</ul>
 				<ul class="current">

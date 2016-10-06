@@ -46,13 +46,13 @@ export class PagedPager implements Pager {
     @filter({
         defaultValue: 0,
         parameterName: 'skip',
-        parseFormatter(this: PagedPager, rawValue: any, allValues: any): number {
+        parseFormatter(rawValue: any, allValues: any): number {
             let skip = isNaN(rawValue) || !rawValue ? 0 : rawValue;
-            let pageSize = !allValues || isNaN(allValues.take) || !allValues.take ? this.defaultPageSize : allValues.take * 1;
+            let pageSize = !allValues || isNaN(allValues.take) || !allValues.take ? (<PagedPager>this).defaultPageSize : allValues.take * 1;
             return skip % pageSize === 0 ? (skip / pageSize + 1) : 1;
         },
-        serializeFormatter(this: PagedPager, value: Object): number {
-            return (this.pageNumber - 1) * this.pageSize;
+        serializeFormatter(value: Object): number {
+            return ((<PagedPager>this).pageNumber - 1) * (<PagedPager>this).pageSize;
         }
     } as FilterConfig)
     protected pageNumberInternal: number = 1;
@@ -135,13 +135,13 @@ export class PagedPager implements Pager {
      * @see {@link PagedListRequest.pageSize} 
      */
     @filter({
-        defaultValue(this: PagedPager): number { return this.defaultPageSize; },
+        defaultValue(): number { return (<PagedPager>this).defaultPageSize; },
         parameterName: 'take',
-        parseFormatter(this: PagedPager, rawValue: any): number {
-            return isNaN(rawValue) || !rawValue ? this.defaultPageSize : rawValue;
+        parseFormatter(rawValue: any): number {
+            return isNaN(rawValue) || !rawValue ? (<PagedPager>this).defaultPageSize : rawValue;
         },
-        persisted(this: PagedPager): boolean {
-            return this.persistPageSize;
+        persisted(): boolean {
+            return (<PagedPager>this).persistPageSize;
         }
     })
     public get pageSize(): number {

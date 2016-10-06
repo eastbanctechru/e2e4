@@ -103,20 +103,14 @@
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="pagedpager.html#appendedonload" class="tsd-kind-icon">appended<wbr>OnLoad</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="pagedpager.html#defaultpagesize" class="tsd-kind-icon">default<wbr>Page<wbr>Size</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="pagedpager.html#displayfrom" class="tsd-kind-icon">display<wbr>From</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="pagedpager.html#displayfromparametername" class="tsd-kind-icon">display<wbr>From<wbr>Parameter<wbr>Name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="pagedpager.html#displayto" class="tsd-kind-icon">display<wbr>To</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="pagedpager.html#displaytoparametername" class="tsd-kind-icon">display<wbr>ToParameter<wbr>Name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="pagedpager.html#loadedcount" class="tsd-kind-icon">loaded<wbr>Count</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="pagedpager.html#loadedcountparametername" class="tsd-kind-icon">loaded<wbr>Count<wbr>Parameter<wbr>Name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="pagedpager.html#maxpagesize" class="tsd-kind-icon">max<wbr>Page<wbr>Size</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="pagedpager.html#minpagesize" class="tsd-kind-icon">min<wbr>Page<wbr>Size</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="pagedpager.html#pagenumberinternal" class="tsd-kind-icon">page<wbr>Number<wbr>Internal</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="pagedpager.html#pagenumberparametername" class="tsd-kind-icon">page<wbr>Number<wbr>Parameter<wbr>Name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="pagedpager.html#pagesizeinternal" class="tsd-kind-icon">page<wbr>Size<wbr>Internal</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="pagedpager.html#pagesizeparametername" class="tsd-kind-icon">page<wbr>Size<wbr>Parameter<wbr>Name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="pagedpager.html#persistpagesize" class="tsd-kind-icon">persist<wbr>Page<wbr>Size</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="pagedpager.html#totalcount" class="tsd-kind-icon">total<wbr>Count</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="pagedpager.html#totalcountparametername" class="tsd-kind-icon">total<wbr>Count<wbr>Parameter<wbr>Name</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -156,7 +150,7 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/pager.html">Pager</a>.<a href="../interfaces/pager.html#appendedonload">appendedOnLoad</a></p>
 						<ul>
-							<li>Defined in paged-pager.ts:81</li>
+							<li>Defined in paged-pager.ts:62</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -173,7 +167,7 @@
 					<div class="tsd-signature tsd-kind-icon">default<wbr>Page<wbr>Size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;PagedPager.settings.defaultPageSize</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in paged-pager.ts:85</li>
+							<li>Defined in paged-pager.ts:66</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -188,41 +182,14 @@
 					<div class="tsd-signature tsd-kind-icon">display<wbr>From<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in paged-pager.ts:149</li>
+							<li>Defined in paged-pager.ts:94</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Number of record in remote data source from which data was loaded by last request to the server.</p>
+							<p>Number of record in remote data source from which data was loaded on last request.</p>
 						</div>
-						<dl class="tsd-comment-tags">
-							<dt>see</dt>
-							<dd><p><a href="pagedpager.html#displayfromparametername">displayFromParameterName</a></p>
-							</dd>
-							<dt>see</dt>
-							<dd><p><a href="../interfaces/pagedlistresponse.html#displayfrom">PagedListResponse.displayFrom</a></p>
-							</dd>
-						</dl>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="displayfromparametername" class="tsd-anchor"></a>
-					<h3>display<wbr>From<wbr>Parameter<wbr>Name</h3>
-					<div class="tsd-signature tsd-kind-icon">display<wbr>From<wbr>Parameter<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;PagedPager.settings.displayFromParameterName</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in paged-pager.ts:99</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Specifies name of property in server response from which <a href="pagedpager.html#processresponse">processResponse</a> method can read value of <a href="pagedpager.html#displayfrom">displayFrom</a> property.</p>
-						</div>
-						<dl class="tsd-comment-tags">
-							<dt>see</dt>
-							<dd><p><a href="pagedpager.html#settings.displayfromparametername-1">PagedPager.settings.displayFromParameterName</a></p>
-							</dd>
-						</dl>
+						<p>For example, it will be equal to 21 when loads second page of list with page size of 20.</p>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
@@ -231,41 +198,14 @@
 					<div class="tsd-signature tsd-kind-icon">display<wbr>To<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in paged-pager.ts:155</li>
+							<li>Defined in paged-pager.ts:100</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Number of record in remote data source to which data was loaded by last request to the server.</p>
+							<p>Number of record in remote data source to which data was loaded on last request.</p>
 						</div>
-						<dl class="tsd-comment-tags">
-							<dt>see</dt>
-							<dd><p><a href="pagedpager.html#displaytoparametername">displayToParameterName</a></p>
-							</dd>
-							<dt>see</dt>
-							<dd><p><a href="../interfaces/pagedlistresponse.html#displayto">PagedListResponse.displayTo</a></p>
-							</dd>
-						</dl>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="displaytoparametername" class="tsd-anchor"></a>
-					<h3>display<wbr>ToParameter<wbr>Name</h3>
-					<div class="tsd-signature tsd-kind-icon">display<wbr>ToParameter<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;PagedPager.settings.displayToParameterName</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in paged-pager.ts:105</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Specifies name of property in server response from which <a href="pagedpager.html#processresponse">processResponse</a> method can read value of <a href="pagedpager.html#displayto">displayTo</a> property.</p>
-						</div>
-						<dl class="tsd-comment-tags">
-							<dt>see</dt>
-							<dd><p><a href="pagedpager.html#settings.displaytoparametername-1">PagedPager.settings.displayToParameterName</a></p>
-							</dd>
-						</dl>
+						<p>For example, it will be equal to 40 when loads second page of list with page size of 20. Or it will be equal to total count of available records if records count is less than 40.</p>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
@@ -275,7 +215,7 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/pager.html">Pager</a>.<a href="../interfaces/pager.html#loadedcount">loadedCount</a></p>
 						<ul>
-							<li>Defined in paged-pager.ts:142</li>
+							<li>Defined in paged-pager.ts:87</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -287,32 +227,12 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="loadedcountparametername" class="tsd-anchor"></a>
-					<h3>loaded<wbr>Count<wbr>Parameter<wbr>Name</h3>
-					<div class="tsd-signature tsd-kind-icon">loaded<wbr>Count<wbr>Parameter<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;PagedPager.settings.loadedCountParameterName</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in paged-pager.ts:111</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Specifies name of property in server response from which <a href="pagedpager.html#processresponse">processResponse</a> method can read value of <a href="pagedpager.html#loadedcount">loadedCount</a> property.</p>
-						</div>
-						<dl class="tsd-comment-tags">
-							<dt>see</dt>
-							<dd><p><a href="pagedpager.html#settings.loadedcountparametername-1">PagedPager.settings.loadedCountParameterName</a></p>
-							</dd>
-						</dl>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="maxpagesize" class="tsd-anchor"></a>
 					<h3>max<wbr>Page<wbr>Size</h3>
 					<div class="tsd-signature tsd-kind-icon">max<wbr>Page<wbr>Size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;PagedPager.settings.maxPageSize</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in paged-pager.ts:89</li>
+							<li>Defined in paged-pager.ts:70</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -327,7 +247,7 @@
 					<div class="tsd-signature tsd-kind-icon">min<wbr>Page<wbr>Size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;PagedPager.settings.minPageSize</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in paged-pager.ts:93</li>
+							<li>Defined in paged-pager.ts:74</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -342,7 +262,7 @@
 					<div class="tsd-signature tsd-kind-icon">page<wbr>Number<wbr>Internal<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;1</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in paged-pager.ts:77</li>
+							<li>Defined in paged-pager.ts:58</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -351,33 +271,13 @@
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="pagenumberparametername" class="tsd-anchor"></a>
-					<h3>page<wbr>Number<wbr>Parameter<wbr>Name</h3>
-					<div class="tsd-signature tsd-kind-icon">page<wbr>Number<wbr>Parameter<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;PagedPager.settings.pageNumberParameterName</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in paged-pager.ts:123</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Specifies name of parameter to apply <a href="pagedpager.html#pagenumber">pageNumber</a> property value to server request.</p>
-						</div>
-						<dl class="tsd-comment-tags">
-							<dt>see</dt>
-							<dd><p><a href="pagedpager.html#settings.pagenumberparametername-1">PagedPager.settings.pageNumberParameterName</a></p>
-							</dd>
-						</dl>
-					</div>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 					<a name="pagesizeinternal" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> page<wbr>Size<wbr>Internal</h3>
 					<div class="tsd-signature tsd-kind-icon">page<wbr>Size<wbr>Internal<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;PagedPager.settings.defaultPageSize</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in paged-pager.ts:65</li>
+							<li>Defined in paged-pager.ts:42</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -387,32 +287,12 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="pagesizeparametername" class="tsd-anchor"></a>
-					<h3>page<wbr>Size<wbr>Parameter<wbr>Name</h3>
-					<div class="tsd-signature tsd-kind-icon">page<wbr>Size<wbr>Parameter<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;PagedPager.settings.pageSizeParameterName</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in paged-pager.ts:129</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Specifies name of parameter to apply <a href="pagedpager.html#pagesize">pageSize</a> property value to server request.</p>
-						</div>
-						<dl class="tsd-comment-tags">
-							<dt>see</dt>
-							<dd><p><a href="pagedpager.html#settings.pagesizeparametername-1">PagedPager.settings.pageSizeParameterName</a></p>
-							</dd>
-						</dl>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="persistpagesize" class="tsd-anchor"></a>
 					<h3>persist<wbr>Page<wbr>Size</h3>
 					<div class="tsd-signature tsd-kind-icon">persist<wbr>Page<wbr>Size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;PagedPager.settings.persistPageSize</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in paged-pager.ts:134</li>
+							<li>Defined in paged-pager.ts:79</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -433,33 +313,13 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/pager.html">Pager</a>.<a href="../interfaces/pager.html#totalcount">totalCount</a></p>
 						<ul>
-							<li>Defined in paged-pager.ts:138</li>
+							<li>Defined in paged-pager.ts:83</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<dl class="tsd-comment-tags">
 							<dt>see</dt>
 							<dd><p><a href="../interfaces/pager.html#totalcount">Pager.totalCount</a></p>
-							</dd>
-						</dl>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="totalcountparametername" class="tsd-anchor"></a>
-					<h3>total<wbr>Count<wbr>Parameter<wbr>Name</h3>
-					<div class="tsd-signature tsd-kind-icon">total<wbr>Count<wbr>Parameter<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;PagedPager.settings.totalCountParameterName</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in paged-pager.ts:117</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Specifies name of property in server response from which <a href="pagedpager.html#processresponse">processResponse</a> method can read value of <a href="pagedpager.html#totalcount">totalCount</a> property.</p>
-						</div>
-						<dl class="tsd-comment-tags">
-							<dt>see</dt>
-							<dd><p><a href="pagedpager.html#settings.totalcountparametername-1">PagedPager.settings.totalCountParameterName</a></p>
 							</dd>
 						</dl>
 					</div>
@@ -477,7 +337,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in paged-pager.ts:160</li>
+									<li>Defined in paged-pager.ts:105</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -501,22 +361,19 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in paged-pager.ts:170</li>
+									<li>Defined in paged-pager.ts:114</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>This property is applied to the server request and it specifies number of the page that must be loaded on next request.</p>
+									<p>Specifies number of the page that must be loaded on next request.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>note</dt>
 									<dd><p>This property is ready to use with <a href="filtersservice.html">FiltersService</a> since it has <a href="../index.html#filter">filter</a> annotation.</p>
 									</dd>
 									<dt>see</dt>
-									<dd><p><a href="pagedpager.html#pagenumberparametername">pageNumberParameterName</a></p>
-									</dd>
-									<dt>see</dt>
-									<dd><p><a href="../interfaces/pagedlistrequest.html#pagenumber">PagedListRequest.pageNumber</a></p>
+									<dd><p>{@link PagedListRequest.pageNumber}</p>
 									</dd>
 								</dl>
 							</div>
@@ -525,7 +382,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in paged-pager.ts:176</li>
+									<li>Defined in paged-pager.ts:120</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -554,22 +411,19 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in paged-pager.ts:202</li>
+									<li>Defined in paged-pager.ts:147</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>This property is applied to the server request and it specifies size of page that must be loaded on next request.</p>
+									<p>Specifies size of page that must be loaded on next request.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>note</dt>
 									<dd><p>This property is ready to use with <a href="filtersservice.html">FiltersService</a> since it has <a href="../index.html#filter">filter</a> annotation.</p>
 									</dd>
 									<dt>see</dt>
-									<dd><p><a href="pagedpager.html#pagesizeparametername">pageSizeParameterName</a></p>
-									</dd>
-									<dt>see</dt>
-									<dd><p><a href="../interfaces/pagedlistrequest.html#pagesize">PagedListRequest.pageSize</a></p>
+									<dd><p>{@link PagedListRequest.pageSize}</p>
 									</dd>
 								</dl>
 							</div>
@@ -578,7 +432,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in paged-pager.ts:208</li>
+									<li>Defined in paged-pager.ts:153</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -603,14 +457,14 @@
 					<a name="processresponse" class="tsd-anchor"></a>
 					<h3>process<wbr>Response</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">process<wbr>Response<span class="tsd-signature-symbol">(</span>response<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">process<wbr>Response<span class="tsd-signature-symbol">(</span>response<span class="tsd-signature-symbol">: </span><a href="../interfaces/listresponse.html" class="tsd-signature-type">ListResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/pager.html">Pager</a>.<a href="../interfaces/pager.html#processresponse">processResponse</a></p>
 								<ul>
-									<li>Defined in paged-pager.ts:233</li>
+									<li>Defined in paged-pager.ts:178</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -623,7 +477,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>response: <span class="tsd-signature-type">Object</span></h5>
+									<h5>response: <a href="../interfaces/listresponse.html" class="tsd-signature-type">ListResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -641,7 +495,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/pager.html">Pager</a>.<a href="../interfaces/pager.html#reset">reset</a></p>
 								<ul>
-									<li>Defined in paged-pager.ts:289</li>
+									<li>Defined in paged-pager.ts:233</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -665,7 +519,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in paged-pager.ts:245</li>
+									<li>Defined in paged-pager.ts:189</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -688,7 +542,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in paged-pager.ts:278</li>
+									<li>Defined in paged-pager.ts:222</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -711,7 +565,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in paged-pager.ts:267</li>
+									<li>Defined in paged-pager.ts:211</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -734,7 +588,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in paged-pager.ts:256</li>
+									<li>Defined in paged-pager.ts:200</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -756,12 +610,12 @@
 					<div class="tsd-signature tsd-kind-icon">settings<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in paged-pager.ts:19</li>
+							<li>Defined in paged-pager.ts:20</li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Global settings for properties such as request and response parameters names, default values and constraints for pager properties.</p>
+							<p>Global settings for properties such as default values and constraints for pager properties.</p>
 						</div>
 						<p>These settings are static and their values are copied to the properties of the same name for each instance of <a href="pagedpager.html">PagedPager</a> type.</p>
 						<p>So, changing of this settings will affect all instances of <a href="pagedpager.html">PagedPager</a> type that will be created after such changes.
@@ -773,7 +627,7 @@
 						<div class="tsd-signature tsd-kind-icon">default<wbr>Page<wbr>Size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;20</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in paged-pager.ts:24</li>
+								<li>Defined in paged-pager.ts:25</li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -785,63 +639,12 @@
 						</div>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-						<a name="settings.displayfromparametername-1" class="tsd-anchor"></a>
-						<h3>display<wbr>From<wbr>Parameter<wbr>Name</h3>
-						<div class="tsd-signature tsd-kind-icon">display<wbr>From<wbr>Parameter<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;displayFrom&quot;</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in paged-pager.ts:28</li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<dl class="tsd-comment-tags">
-								<dt>see</dt>
-								<dd><p><a href="pagedpager.html#displayfromparametername">PagedPager.displayFromParameterName</a></p>
-								</dd>
-							</dl>
-						</div>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-						<a name="settings.displaytoparametername-1" class="tsd-anchor"></a>
-						<h3>display<wbr>ToParameter<wbr>Name</h3>
-						<div class="tsd-signature tsd-kind-icon">display<wbr>ToParameter<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;displayTo&quot;</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in paged-pager.ts:32</li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<dl class="tsd-comment-tags">
-								<dt>see</dt>
-								<dd><p><a href="pagedpager.html#displaytoparametername">PagedPager.displayToParameterName</a></p>
-								</dd>
-							</dl>
-						</div>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-						<a name="settings.loadedcountparametername-1" class="tsd-anchor"></a>
-						<h3>loaded<wbr>Count<wbr>Parameter<wbr>Name</h3>
-						<div class="tsd-signature tsd-kind-icon">loaded<wbr>Count<wbr>Parameter<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;loadedCount&quot;</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in paged-pager.ts:36</li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<dl class="tsd-comment-tags">
-								<dt>see</dt>
-								<dd><p><a href="pagedpager.html#loadedcountparametername">PagedPager.loadedCountParameterName</a></p>
-								</dd>
-							</dl>
-						</div>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="settings.maxpagesize-1" class="tsd-anchor"></a>
 						<h3>max<wbr>Page<wbr>Size</h3>
 						<div class="tsd-signature tsd-kind-icon">max<wbr>Page<wbr>Size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;200</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in paged-pager.ts:40</li>
+								<li>Defined in paged-pager.ts:29</li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -858,7 +661,7 @@
 						<div class="tsd-signature tsd-kind-icon">min<wbr>Page<wbr>Size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;1</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in paged-pager.ts:44</li>
+								<li>Defined in paged-pager.ts:33</li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -870,69 +673,18 @@
 						</div>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-						<a name="settings.pagenumberparametername-1" class="tsd-anchor"></a>
-						<h3>page<wbr>Number<wbr>Parameter<wbr>Name</h3>
-						<div class="tsd-signature tsd-kind-icon">page<wbr>Number<wbr>Parameter<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;pageNumber&quot;</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in paged-pager.ts:48</li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<dl class="tsd-comment-tags">
-								<dt>see</dt>
-								<dd><p><a href="pagedpager.html#pagenumberparametername">PagedPager.pageNumberParameterName</a></p>
-								</dd>
-							</dl>
-						</div>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-						<a name="settings.pagesizeparametername-1" class="tsd-anchor"></a>
-						<h3>page<wbr>Size<wbr>Parameter<wbr>Name</h3>
-						<div class="tsd-signature tsd-kind-icon">page<wbr>Size<wbr>Parameter<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;pageSize&quot;</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in paged-pager.ts:52</li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<dl class="tsd-comment-tags">
-								<dt>see</dt>
-								<dd><p><a href="pagedpager.html#pagesizeparametername">PagedPager.pageSizeParameterName</a></p>
-								</dd>
-							</dl>
-						</div>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="settings.persistpagesize-1" class="tsd-anchor"></a>
 						<h3>persist<wbr>Page<wbr>Size</h3>
 						<div class="tsd-signature tsd-kind-icon">persist<wbr>Page<wbr>Size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in paged-pager.ts:56</li>
+								<li>Defined in paged-pager.ts:37</li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
 							<dl class="tsd-comment-tags">
 								<dt>see</dt>
 								<dd><p><a href="pagedpager.html#persistpagesize">PagedPager.persistPageSize</a></p>
-								</dd>
-							</dl>
-						</div>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-						<a name="settings.totalcountparametername-1" class="tsd-anchor"></a>
-						<h3>total<wbr>Count<wbr>Parameter<wbr>Name</h3>
-						<div class="tsd-signature tsd-kind-icon">total<wbr>Count<wbr>Parameter<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;totalCount&quot;</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in paged-pager.ts:60</li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<dl class="tsd-comment-tags">
-								<dt>see</dt>
-								<dd><p><a href="pagedpager.html#totalcountparametername">PagedPager.totalCountParameterName</a></p>
 								</dd>
 							</dl>
 						</div>
@@ -972,6 +724,9 @@
 						<a href="filtersservice.html" class="tsd-kind-icon">Filters<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="nullobjectpager.html" class="tsd-kind-icon">Null<wbr>Object<wbr>Pager</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="operation.html" class="tsd-kind-icon">Operation</a>
 					</li>
 				</ul>
@@ -989,19 +744,10 @@
 								<a href="pagedpager.html#displayfrom" class="tsd-kind-icon">display<wbr>From</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="pagedpager.html#displayfromparametername" class="tsd-kind-icon">display<wbr>From<wbr>Parameter<wbr>Name</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="pagedpager.html#displayto" class="tsd-kind-icon">display<wbr>To</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="pagedpager.html#displaytoparametername" class="tsd-kind-icon">display<wbr>ToParameter<wbr>Name</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="pagedpager.html#loadedcount" class="tsd-kind-icon">loaded<wbr>Count</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="pagedpager.html#loadedcountparametername" class="tsd-kind-icon">loaded<wbr>Count<wbr>Parameter<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="pagedpager.html#maxpagesize" class="tsd-kind-icon">max<wbr>Page<wbr>Size</a>
@@ -1012,23 +758,14 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 								<a href="pagedpager.html#pagenumberinternal" class="tsd-kind-icon">page<wbr>Number<wbr>Internal</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="pagedpager.html#pagenumberparametername" class="tsd-kind-icon">page<wbr>Number<wbr>Parameter<wbr>Name</a>
-							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 								<a href="pagedpager.html#pagesizeinternal" class="tsd-kind-icon">page<wbr>Size<wbr>Internal</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="pagedpager.html#pagesizeparametername" class="tsd-kind-icon">page<wbr>Size<wbr>Parameter<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="pagedpager.html#persistpagesize" class="tsd-kind-icon">persist<wbr>Page<wbr>Size</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="pagedpager.html#totalcount" class="tsd-kind-icon">total<wbr>Count</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="pagedpager.html#totalcountparametername" class="tsd-kind-icon">total<wbr>Count<wbr>Parameter<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="pagedpager.html#pagecount" class="tsd-kind-icon">page<wbr>Count</a>
@@ -1065,9 +802,6 @@
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-class">
-						<a href="regularpager.html" class="tsd-kind-icon">Regular<wbr>Pager</a>
-					</li>
-					<li class=" tsd-kind-class">
 						<a href="selectioneventshelper.html" class="tsd-kind-icon">Selection<wbr>Events<wbr>Helper</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -1075,9 +809,6 @@
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="statetrackingservice.html" class="tsd-kind-icon">State<wbr>Tracking<wbr>Service</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/bufferedlistrequest.html" class="tsd-kind-icon">Buffered<wbr>List<wbr>Request</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/filterconfig.html" class="tsd-kind-icon">Filter<wbr>Config</a>
@@ -1090,9 +821,6 @@
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/pagedlistrequest.html" class="tsd-kind-icon">Paged<wbr>List<wbr>Request</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-has-type-parameter">
-						<a href="../interfaces/pagedlistresponse.html" class="tsd-kind-icon">Paged<wbr>List<wbr>Response</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/pager.html" class="tsd-kind-icon">Pager</a>
