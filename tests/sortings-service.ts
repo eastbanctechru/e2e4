@@ -1,3 +1,4 @@
+import { FilterConfig } from '../src/contracts/filter-config';
 import { FiltersService } from '../src/filters-service';
 import { SortDirection, SortParameter, SortingsService } from '../src/sortings-service';
 
@@ -109,9 +110,11 @@ describe('SortingsService', () => {
             const {sortingsService} = target;
             const filtersService = new FiltersService(sortingsService);
             sortingsService.persistSortings = true;
-            const persistedState = filtersService.getPersistedState();
-
+            let persistedState = filtersService.getRequestState((config: FilterConfig) => !!config.persisted);
             expect(persistedState).eql(filtersService.getRequestState());
+            sortingsService.persistSortings = false;
+            persistedState = filtersService.getRequestState((config: FilterConfig) => !!config.persisted);
+            expect(persistedState).eql({});
         });
 
         it('can save previous sorting', () => {
@@ -194,7 +197,7 @@ describe('SortingsService', () => {
             const target = toTarget();
             const {sortingsService} = target;
             let filtersService = new FiltersService(sortingsService);
-            let params = { sort: { direction: SortDirection.Desc, fieldName: 'id' } };
+            let params = { sortings: { direction: SortDirection.Desc, fieldName: 'id' } };
             filtersService.applyParams(params);
             expect(sortingsService.sortings.length).equal(0);
         });

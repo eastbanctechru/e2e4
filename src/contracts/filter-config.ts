@@ -26,7 +26,7 @@ export interface FilterConfig {
      * Default value that will be used to reset `target property` value via {@link FiltersService.resetValues} method call.
      * 
      * If this option wasn't specified, {@link FiltersService} writes to it value of `target property` at the moment of first call 
-     * of {@link FiltersService.resetValues}, {@link FiltersService.applyParams}, {@link FiltersService.getPersistedState} or {@link FiltersService.getRequestState}.
+     * of {@link FiltersService.resetValues}, {@link FiltersService.applyParams} or {@link FiltersService.getRequestState}.
      */
     defaultValue?: Object;
     /**
@@ -36,7 +36,7 @@ export interface FilterConfig {
      */
     propertyName?: string;
     /**
-     * String or function that returns name of parameter which will be used to build request object with {@link FiltersService.getRequestState} or {@link FiltersService.getPersistedState}  
+     * String or function that returns name of parameter which will be used to build request object with {@link FiltersService.getRequestState}  
      * 
      * @note If you use {@link filter} annotation and this property wasn't specified then it will be equal to {@link propertyName}
      */
@@ -48,7 +48,7 @@ export interface FilterConfig {
      */
     ignoreOnAutoMap?: boolean;
     /**
-     * Specifies that any falsy value (empty string for example) must be converted to null by {@link FiltersService.getRequestState} and {@link FiltersService.getPersistedState} methods.
+     * Specifies that any falsy value (empty string for example) must be converted to null by {@link FiltersService.getRequestState} method.
      */
     emptyIsNull?: boolean;
     /**
@@ -60,13 +60,13 @@ export interface FilterConfig {
      */
     coerce?: boolean;
     /**
-     * Specifies that {@link FiltersService.getPersistedState} must write value of this property it result.
+     * Specifies that this filter can be persisted.
      * 
-     * In this library this property doesn't used since persistance implementation depends on requirements and must be implemented in end user code.
+     * In this library this property is not used since persistance implementation depends on requirements and must be implemented in end user code.
      */
     persisted?: boolean | (() => boolean);
     /**
-     * Optional function to serialize `target property` value when build state object with {@link FiltersService.getRequestState} or {@link FiltersService.getPersistedState}.
+     * Optional function to serialize `target property` value when build state object with {@link FiltersService.getRequestState}.
      */
     serializeFormatter?: (value: Object) => Object;
     /**

@@ -74,7 +74,7 @@ export class PagedPager implements Pager {
     public minPageSize: number = PagedPager.settings.minPageSize;
     /**
      * Specifies that {@link pageSize} property value must be persisted.
-     * @see {@link FilterConfig.persisted} and {@link FiltersService.getPersistedState}
+     * @see {@link FilterConfig.persisted}
      */
     public persistPageSize: boolean = PagedPager.settings.persistPageSize;
     /**

@@ -206,7 +206,7 @@ describe('FiltersService', () => {
         });
     });
     describe('get...State', () => {
-        it('includes \'persisted\' filters to persisted state and all filters to requestState', () => {
+        it('includes all filters to requestState', () => {
             class TargetType {
                 @filter({ persisted: true } as FilterConfig)
                 public first: string = 'first';
@@ -215,12 +215,22 @@ describe('FiltersService', () => {
             }
             let target = new TargetType();
             let filtersService = new FiltersService(target);
-            let persistedState = filtersService.getPersistedState();
-            expect(persistedState.first).eq(target.first);
-            expect(persistedState.second).undefined;
             let requestState = filtersService.getRequestState();
             expect(requestState.first).eq(target.first);
             expect(requestState.second).eq(target.second);
+        });
+        it('includes only filtered values to the state if filter is specified', () => {
+            class TargetType {
+                @filter({ persisted: true } as FilterConfig)
+                public first: string = 'first';
+                @filter
+                public second: string = 'second';
+            }
+            let target = new TargetType();
+            let filtersService = new FiltersService(target);
+            let persistedState = filtersService.getRequestState((config: FilterConfig) => !!config.persisted);
+            expect(persistedState.first).eq(target.first);
+            expect(persistedState.second).undefined;
         });
 
         it('calls \'toRequest\' method on filter if defined', () => {
@@ -231,29 +241,24 @@ describe('FiltersService', () => {
             }
             let target = new TargetType();
             let filtersService = new FiltersService(target);
-            let persistedState = filtersService.getPersistedState();
-            expect(target.first.toRequest.calledOnce).true;
-
             let requestState = filtersService.getRequestState();
-            expect(target.first.toRequest.calledTwice).true;
-
-            expect(persistedState.first).eq(target.first.toRequest());
+            expect(target.first.toRequest.calledOnce).true;
             expect(requestState.first).eq(target.first.toRequest());
         });
 
         it('calls \'serializeFormatter\' method of config if defined', () => {
             let serializeSpy = sinon.spy(() => { return 'first'; });
             class TargetType {
-                @filter({ persisted: true, serializeFormatter: serializeSpy } as FilterConfig)
+                @filter({ serializeFormatter: serializeSpy } as FilterConfig)
                 public first: string = 'first';
             }
             let target = new TargetType();
             let filtersService = new FiltersService(target);
-            let persistedState = filtersService.getPersistedState();
+            let requestState = filtersService.getRequestState();
             expect(serializeSpy.calledOnce).true;
             expect(serializeSpy.calledOn(target)).true;
             expect(serializeSpy.calledWith(target.first)).true;
-            expect(persistedState.first).eq(serializeSpy());
+            expect(requestState.first).eq(serializeSpy());
         });
 
         it('calls \'parameterName\' if it\'s function', () => {
@@ -289,13 +294,6 @@ describe('FiltersService', () => {
             let target = new TargetType();
             let filtersService = new FiltersService(target);
 
-            let persistedState = filtersService.getPersistedState();
-            expect(persistedState.zero).null;
-            expect(persistedState.emptyString).null;
-            expect(persistedState.nullProperty).null;
-            expect(persistedState.undefinedProperty).null;
-            expect(persistedState.falseProperty).null;
-
             let requestState = filtersService.getRequestState();
             expect(requestState.zero).null;
             expect(requestState.emptyString).null;
@@ -312,14 +310,9 @@ describe('FiltersService', () => {
 
             let target = new TargetType();
             let filtersService = new FiltersService(target);
-
-            let persistedState = filtersService.getPersistedState();
-            expect(persistedState.arrayProperty).eql(['first', 'first']);
-            expect(toRequestSpy.calledOnce).true;
-
             let requestState = filtersService.getRequestState();
             expect(requestState.arrayProperty).eql(['first', 'first']);
-            expect(toRequestSpy.calledTwice).true;
+            expect(toRequestSpy.calledOnce).true;
         });
     });
     describe('applyParams', () => {

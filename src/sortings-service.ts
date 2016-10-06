@@ -74,7 +74,7 @@ export class SortingsService {
     public sortings: Array<SortParameter> = new Array<SortParameter>();
     /**
      * Specifies that {@link sortings} property value must be persisted.
-     * @see {@link FilterConfig.persisted} and {@link FiltersService.getPersistedState}
+     * @see {@link FilterConfig.persisted}
      */
     public persistSortings: boolean = SortingsService.settings.persistSortings;
     /**
