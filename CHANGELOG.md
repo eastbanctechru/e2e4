@@ -1,3 +1,25 @@
+<a name="2.0.0-beta.4"></a>
+# [2.0.0-beta.4](https://github.com/fshchudlo/e2e4/compare/2.0.0-beta.3...v2.0.0-beta.4) (2016-10-06)
+
+
+### Bug Fixes
+
+* **all:** remove `this` specification cause it breaks docs and coverage ([0cfa1f4](https://github.com/fshchudlo/e2e4/commit/0cfa1f4))
+
+
+### Code Refactoring
+
+* **FiltersService:** optional delegate to filter applied values in `getRequestState` added ([b37308d](https://github.com/fshchudlo/e2e4/commit/b37308d))
+
+
+### BREAKING CHANGES
+
+* FiltersService: `getPersistedState` method removed. You can pass delegate to `getRequestState`
+
+method anf filter values by `persisted` flag or any other condition
+
+
+
 <a name="2.0.0-beta.3"></a>
 # [2.0.0](https://github.com/fshchudlo/e2e4/compare/2.0.0-beta.2...v2.0.0-beta.2) (2016-10-03)
 
