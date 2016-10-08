@@ -187,7 +187,7 @@ export class DefaultSelectionService implements SelectionService {
      * @see {@link SelectionService.isIndexSelected}
      */
     public isIndexSelected(index: number): boolean {
-        if (index >= 0 && this.selectionsList.length > 0 && this.items.length > index) {
+        if (this.selectionsList.length > 0 && this.isIndexAcceptable(index)) {
             return this.selectionsList.findIndex((st: SelectionTuple) => st.index === index) !== -1;
         }
         return false;
