@@ -13,7 +13,7 @@ const pressedCtrl = true;
 
 function toSelectionService(): DefaultSelectionService {
     let selectionService = new DefaultSelectionService();
-    selectionService.itemsSource = [
+    selectionService.items = [
         { selected: false, title: 'one' } as SelectionItem,
         { selected: false, title: 'two' } as SelectionItem,
         { selected: false, title: 'three' } as SelectionItem,
@@ -146,7 +146,7 @@ describe('SelectionEventsHelper', () => {
                 let selectAllSpy = sinon.spy(helper.selectionConfig.selectionService, 'selectRange');
                 helper.keyboardHandler(pressedCtrl, pressedShift, KeyCodes.ArrowUp);
                 expect(selectAllSpy.calledOnce).true;
-                expect(selectAllSpy.calledWith(helper.selectionConfig.selectionService.itemsSource.length - 1, 0)).true;
+                expect(selectAllSpy.calledWith(helper.selectionConfig.selectionService.items.length - 1, 0)).true;
 
                 selectAllSpy.reset();
                 helper.selectionConfig.selectionService.selectIndex(2);
@@ -256,13 +256,13 @@ describe('SelectionEventsHelper', () => {
                 let selectAllSpy = sinon.spy(helper.selectionConfig.selectionService, 'selectRange');
                 helper.keyboardHandler(pressedCtrl, pressedShift, KeyCodes.ArrowDown);
                 expect(selectAllSpy.calledOnce).true;
-                expect(selectAllSpy.calledWith(0, helper.selectionConfig.selectionService.itemsSource.length - 1)).true;
+                expect(selectAllSpy.calledWith(0, helper.selectionConfig.selectionService.items.length - 1)).true;
 
                 selectAllSpy.reset();
                 helper.selectionConfig.selectionService.selectIndex(2);
                 helper.keyboardHandler(pressedCtrl, pressedShift, KeyCodes.ArrowDown);
                 expect(selectAllSpy.calledOnce).true;
-                expect(selectAllSpy.calledWith(2, helper.selectionConfig.selectionService.itemsSource.length - 1)).true;
+                expect(selectAllSpy.calledWith(2, helper.selectionConfig.selectionService.items.length - 1)).true;
             });
 
             it('selects two items on Shift+ArrowDown combination when last operation is unselection of item', () => {
@@ -344,7 +344,7 @@ describe('SelectionEventsHelper', () => {
                 let helper = toDefaultSelectionHelper();
                 helper.selectionConfig.multiple = false;
                 helper.selectionConfig.selectionService.selectLast();
-                let lastItemIndex = helper.selectionConfig.selectionService.itemsSource.length - 1;
+                let lastItemIndex = helper.selectionConfig.selectionService.items.length - 1;
                 expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([lastItemIndex]);
                 helper.keyboardHandler(pressedCtrl, pressedShift, KeyCodes.ArrowUp);
                 expect(helper.selectionConfig.selectionService.getSelectedIndexes()).eql([lastItemIndex - 1]);

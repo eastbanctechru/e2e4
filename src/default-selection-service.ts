@@ -1,15 +1,15 @@
-import {SelectionItem, SelectionService} from './contracts/selection-service';
+import { SelectionItem, SelectionService } from './contracts/selection-service';
 
 /**
  * Internal contract for {@link DefaultSelectionService}.
  */
 export interface SelectionTuple {
     /**
-     * Index of selected element in {@link DefaultSelectionService.itemsSource} collection.
+     * Index of selected element in {@link DefaultSelectionService.items} collection.
      */
     index: number;
     /**
-     * Element from {@link DefaultSelectionService.itemsSource} collection.
+     * Element from {@link DefaultSelectionService.items} collection.
      */
     item: SelectionItem;
 }
@@ -26,13 +26,14 @@ export class DefaultSelectionService implements SelectionService {
      */
     public trackByFn: (index: number, item: any) => any = this.trackByIdentity;
     /**
-     * Collection of {@link SelectionTuple} elements which represents currently selected items in {@link itemsSource} collection.  
+     * @see {@link SelectionService.items}  
+     */
+    public items: Array<SelectionItem>;
+
+    /**
+     * Collection of {@link SelectionTuple} elements which represents currently selected items in {@link items} collection.  
      */
     protected selectionsList: Array<SelectionTuple> = new Array<SelectionTuple>();
-    /**
-     * Internal implementation of {@link itemsSource}.  
-     */
-    protected items: Array<SelectionItem>;
     /**
      * Default tracking function that will be used if nothing was specified for {@link trackByFn}.
      * Implements comparison by reference equality of objects.
@@ -47,17 +48,7 @@ export class DefaultSelectionService implements SelectionService {
         this.items = null;
     }
     /**
-     * @see {@link SelectionService.itemsSource}
-     */
-    public get itemsSource(): Array<SelectionItem> {
-        return this.items;
-    }
-    public set itemsSource(value: Array<SelectionItem>) {
-        this.items = value;
-        this.checkSelection();
-    }
-    /**
-     * Performs final processing of selection/deselection of {@link itemsSource} element.
+     * Performs final processing of selection/deselection of element.
      * 
      * Current implementation just sets {@link SelectionItem.selected} (if it's defined) but it can be extended in derived classes.
      */
@@ -102,19 +93,19 @@ export class DefaultSelectionService implements SelectionService {
     protected getSelectionTuple(index: number): SelectionTuple {
         return {
             index,
-            item: this.itemsSource[index]
+            item: this.items[index]
         };
     }
     /**
      * @see {@link SelectionService.checkSelection}
      */
     public checkSelection(): void {
-        if (this.itemsSource !== null && this.itemsSource !== undefined) {
+        if (this.items !== null && this.items !== undefined) {
             for (let i = this.selectionsList.length - 1; i >= 0; i--) {
                 const tuple = this.selectionsList[i];
                 const trackFn = this.trackByFn || this.trackByIdentity;
-                if (this.checkIndexAcceptable(tuple.index) && trackFn(tuple.index, this.itemsSource[tuple.index]) === trackFn(tuple.index, tuple.item)) {
-                    tuple.item = this.itemsSource[tuple.index];
+                if (this.isIndexAcceptable(tuple.index) && trackFn(tuple.index, this.items[tuple.index]) === trackFn(tuple.index, tuple.item)) {
+                    tuple.item = this.items[tuple.index];
                     this.selectItem(tuple, true);
 
                 } else {
@@ -126,12 +117,12 @@ export class DefaultSelectionService implements SelectionService {
         }
     }
     /**
-     * Checks that applied index is valid number and it's value is inside {@link itemsSource} boundaries.
+     * Checks that applied index is valid number and it's value is inside {@link items} boundaries.
      * @param index index to check.
      * @returns `true` if index is valid.
      */
-    protected checkIndexAcceptable(index: number): boolean {
-        return index !== null && index !== undefined && index >= 0 && this.itemsSource && this.itemsSource.length > index;
+    public isIndexAcceptable(index: number): boolean {
+        return index !== null && index !== undefined && index >= 0 && this.items && this.items.length > index;
     }
     /**
      * @see {@link SelectionService.deselectAll}
@@ -147,13 +138,13 @@ export class DefaultSelectionService implements SelectionService {
      * @see {@link SelectionService.selectAll}
      */
     public selectAll(): void {
-        this.selectRange(0, this.itemsSource.length - 1);
+        this.selectRange(0, this.items.length - 1);
     }
     /**
      * @see {@link SelectionService.selectRange}
      */
     public selectRange(fromIndex: number, toIndex: number): void {
-        if (toIndex < 0 || this.itemsSource.length <= toIndex || fromIndex < 0 || this.itemsSource.length <= fromIndex) {
+        if (toIndex < 0 || this.items.length <= toIndex || fromIndex < 0 || this.items.length <= fromIndex) {
             return;
         }
         const startIndex = Math.min(fromIndex, toIndex);
@@ -186,7 +177,7 @@ export class DefaultSelectionService implements SelectionService {
             return false;
         }
         // entire list selected
-        if (from === 0 && to === this.itemsSource.length - 1 && this.selectionsList.length === this.itemsSource.length) {
+        if (from === 0 && to === this.items.length - 1 && this.selectionsList.length === this.items.length) {
             return true;
         }
         let orderedIndexes = this.selectionsList.map((tuple: SelectionTuple) => tuple.index).sort();
@@ -196,7 +187,7 @@ export class DefaultSelectionService implements SelectionService {
      * @see {@link SelectionService.isIndexSelected}
      */
     public isIndexSelected(index: number): boolean {
-        if (index >= 0 && this.selectionsList.length > 0 && this.itemsSource.length > index) {
+        if (index >= 0 && this.selectionsList.length > 0 && this.items.length > index) {
             return this.selectionsList.findIndex((st: SelectionTuple) => st.index === index) !== -1;
         }
         return false;
@@ -205,7 +196,7 @@ export class DefaultSelectionService implements SelectionService {
      * @see {@link SelectionService.getItemIndex}
      */
     public getItemIndex(item: SelectionItem): number {
-        return this.itemsSource.findIndex((value: SelectionItem) => value === item);
+        return this.items.findIndex((value: SelectionItem) => value === item);
     }
     /**
      * @see {@link SelectionService.getMinSelectedIndex}
@@ -231,7 +222,7 @@ export class DefaultSelectionService implements SelectionService {
      * @see {@link SelectionService.selectFirst}
      */
     public selectFirst(): void {
-        if (this.itemsSource.length > 0) {
+        if (this.items.length > 0) {
             this.selectItem(this.getSelectionTuple(0));
         }
     }
@@ -239,15 +230,15 @@ export class DefaultSelectionService implements SelectionService {
      * @see {@link SelectionService.selectLast}
      */
     public selectLast(): void {
-        if (this.itemsSource.length > 0) {
-            this.selectItem(this.getSelectionTuple(this.itemsSource.length - 1));
+        if (this.items.length > 0) {
+            this.selectItem(this.getSelectionTuple(this.items.length - 1));
         }
     }
     /**
      * @see {@link SelectionService.selectIndex}
      */
     public selectIndex(index: number, savePrevious: boolean = false): void {
-        if (this.checkIndexAcceptable(index)) {
+        if (this.isIndexAcceptable(index)) {
             this.selectItem(this.getSelectionTuple(index), savePrevious);
         }
     }
@@ -255,7 +246,7 @@ export class DefaultSelectionService implements SelectionService {
      * @see {@link SelectionService.deselectIndex}
      */
     public deselectIndex(index: number): void {
-        if (this.checkIndexAcceptable(index)) {
+        if (this.isIndexAcceptable(index)) {
             this.deselectItem(this.getSelectionTuple(index));
         }
     }
@@ -263,7 +254,7 @@ export class DefaultSelectionService implements SelectionService {
      * @see {@link SelectionService.toggleSelection}
      */
     public toggleSelection(index: number, savePrevious: boolean = false): void {
-        if (!this.checkIndexAcceptable(index)) {
+        if (!this.isIndexAcceptable(index)) {
             return;
         }
         const tuple = this.getSelectionTuple(index);
