@@ -1,3 +1,20 @@
+<a name="2.0.0-beta.5"></a>
+# [2.0.0-beta.5](https://github.com/fshchudlo/e2e4/compare/2.0.0-beta.4...v2.0.0-beta.5) (2016-10-08)
+
+
+### Code Refactoring
+
+* **DefaultSelectionService:** `itemsSource` property removed ([b038959](https://github.com/fshchudlo/e2e4/commit/b038959))
+
+
+### BREAKING CHANGES
+
+* DefaultSelectionService: `itemsSource` property removed. You must use `items` arra instead and call
+
+`checkSelection` manually if needed
+
+
+
 <a name="2.0.0-beta.4"></a>
 # [2.0.0-beta.4](https://github.com/fshchudlo/e2e4/compare/2.0.0-beta.3...v2.0.0-beta.4) (2016-10-06)
 
