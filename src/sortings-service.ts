@@ -1,5 +1,5 @@
-import {FilterConfig} from './contracts/filter-config';
-import {filter} from './filter-annotation';
+import { FilterConfig } from './contracts/filter-config';
+import { filter } from './filter-annotation';
 
 /**
  * Represents sort direction that applied as parameter by {@link SortParameter} class.  

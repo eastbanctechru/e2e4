@@ -1,5 +1,5 @@
-import {FilterConfig} from './contracts/filter-config';
-import {FiltersService} from './filters-service';
+import { FilterConfig } from './contracts/filter-config';
+import { FiltersService } from './filters-service';
 /**
  * Returns object literal that meets {@link FilterConfig} contract with next values:
  * ```Javascript
