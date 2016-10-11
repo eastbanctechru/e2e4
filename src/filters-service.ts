@@ -26,8 +26,7 @@ import { cloneAsLiteral, coerceValue } from './utilities';
  * ```
  *  - by calling {@link resetValues} we can reset annotated properties state to initial values (or to what is specified as {@link FilterConfig.defaultValue}). 
  *  - by calling {@link applyParams} we can automatically apply any set of values to annotated properties (we can pass queryString object to automatically apply values from it, for example). 
- *  - by calling {@link getRequestState} with some filters we can "query" the state of filters. 
- * For example we can get only properties that was marked with {@link FilterConfig.persisted} flag and save such state in localStorage or on the server and automatically apply it at next user session with {@link applyParams}.
+ *  - by calling {@link getRequestState} with some filters we can "query" the state of filters and save it to the settings storage, for example. 
  *  - by calling {@link registerFilterTarget} you can add any count of additional objects and get their 
  * composed state via {@link getRequestState} method as well as process them all with {@link resetValues} and {@link applyParams}.
  */
@@ -167,7 +166,7 @@ export class FiltersService {
      * 
      * Names of properties in result object depends on {@link FilterConfig.parameterName}. Final values would be constructed by {@link buildFilterValue} method. 
      * @param appendTo - optional object to which result will be appended. If nothing was passed then new object will be created.
-     * @param filterFn - optional function to filter applied values. For example you can specify that only filters with {@link FilterConfig.persisted} flag must be added to result.
+     * @param filterFn - optional function to filter applied values.
      * @returns resulted object literal.
      */
     public getRequestState(filterFn?: (config: FilterConfig, proposedValue: any, targetObject: Object) => boolean): any {
@@ -175,7 +174,6 @@ export class FiltersService {
         this.appliedFiltersMap.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 let config = Object.assign({}, targetConfig[i]);
-                config.persisted = (typeof config.persisted === 'function') ? (config.persisted as any).call(target) : config.persisted;
                 const proposedVal = target[config.propertyName];
                 if (filterFn ? filterFn(config, proposedVal, target) : true) {
                     result[config.parameterName] = FiltersService.buildFilterValue(target, proposedVal, config);

@@ -1,4 +1,3 @@
-import { FilterConfig } from '../src/contracts/filter-config';
 import { ListResponse } from '../src/contracts/list-response';
 import { FiltersService } from '../src/filters-service';
 import { PagedPager } from '../src/paged-pager';
@@ -188,16 +187,6 @@ describe('PagedPager', () => {
             expect(pager.pageSize).eq(5);
             expect(PagedPager.settings.defaultPageSize).not.eq(pager.defaultPageSize);
         });
-
-        it('can persist pageSize', () => {
-            let pager = new PagedPager();
-            let filtersService = new FiltersService(pager);
-            pager.persistPageSize = true;
-            const persistedState = filtersService.getRequestState((config: FilterConfig) => !!config.persisted);
-
-            expect(persistedState).eql({ take: pager.pageSize });
-        });
-
     });
     describe('internal state', () => {
         describe('pageSize', () => {

@@ -30,11 +30,7 @@ export class PagedPager implements Pager {
         /**
          * @see {@link PagedPager.minPageSize} 
          */
-        minPageSize: 1,
-        /**
-         * @see {@link PagedPager.persistPageSize} 
-         */
-        persistPageSize: false
+        minPageSize: 1
     };
     /**
      * Internal implementation of {@link pageSize}. 
@@ -72,11 +68,6 @@ export class PagedPager implements Pager {
      * The smallest value that can be applied to {@link pageSize} property. 
      */
     public minPageSize: number = PagedPager.settings.minPageSize;
-    /**
-     * Specifies that {@link pageSize} property value must be persisted.
-     * @see {@link FilterConfig.persisted}
-     */
-    public persistPageSize: boolean = PagedPager.settings.persistPageSize;
     /**
      * @see {@link Pager.totalCount}
      */
@@ -139,9 +130,6 @@ export class PagedPager implements Pager {
         parameterName: 'take',
         parseFormatter(rawValue: any): number {
             return isNaN(rawValue) || !rawValue ? (<PagedPager>this).defaultPageSize : rawValue;
-        },
-        persisted(): boolean {
-            return (<PagedPager>this).persistPageSize;
         }
     })
     public get pageSize(): number {

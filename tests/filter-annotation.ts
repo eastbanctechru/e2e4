@@ -13,7 +13,6 @@ function checkConfigsEquality(expected: FilterConfig, actual: FilterConfig): voi
     expect(actual.ignoreOnAutoMap).eql(expected.ignoreOnAutoMap);
     expect(actual.parameterName).eql(expected.parameterName);
     expect(actual.parseFormatter).eql(expected.parseFormatter);
-    expect(actual.persisted).eql(expected.persisted);
     expect(actual.propertyName).eql(expected.propertyName);
     expect(actual.serializeFormatter).eql(expected.serializeFormatter);
 }
@@ -56,7 +55,6 @@ describe('filterAnnotation', () => {
                 ignoreOnAutoMap: true,
                 parameterName: 'customName',
                 parseFormatter: parseStub,
-                persisted: true,
                 propertyName: 'customName',
                 serializeFormatter: serializeStub
             } as FilterConfig)
@@ -71,7 +69,6 @@ describe('filterAnnotation', () => {
             ignoreOnAutoMap: true,
             parameterName: 'customName',
             parseFormatter: parseStub,
-            persisted: true,
             propertyName: 'customName',
             serializeFormatter: serializeStub
         };
@@ -86,7 +83,6 @@ describe('filterAnnotation', () => {
         config.ignoreOnAutoMap = !config.ignoreOnAutoMap;
         config.parameterName = 'parameterName';
         config.parseFormatter = function (proposedValue: any): any { return proposedValue; };
-        config.persisted = !config.persisted;
         config.propertyName = 'propertyName';
         config.serializeFormatter = function (): any { return ''; };
 
@@ -102,7 +98,6 @@ describe('filterAnnotation', () => {
         expect(config.ignoreOnAutoMap).eq(actualConfig.ignoreOnAutoMap);
         expect(config.parameterName).eq(actualConfig.parameterName);
         expect(config.parseFormatter).eq(actualConfig.parseFormatter);
-        expect(config.persisted).eq(actualConfig.persisted);
         expect(config.propertyName).eq(actualConfig.propertyName);
         expect(config.serializeFormatter).eq(actualConfig.serializeFormatter);
     });

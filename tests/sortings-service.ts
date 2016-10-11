@@ -1,4 +1,3 @@
-import { FilterConfig } from '../src/contracts/filter-config';
 import { FiltersService } from '../src/filters-service';
 import { SortDirection, SortParameter, SortingsService } from '../src/sortings-service';
 
@@ -104,19 +103,16 @@ describe('SortingsService', () => {
             expect(sortingsService.defaultSortings).not.equal(sortingsService.sortings);
             expect(sortingsService.defaultSortings).eql(sortingsService.sortings);
         });
-
-        it('can persist sortings', () => {
+        it('can serialize sortings', () => {
             const target = toTargetWithDefault();
             const {sortingsService} = target;
+            sortingsService.setSort('field', false);
             const filtersService = new FiltersService(sortingsService);
-            sortingsService.persistSortings = true;
-            let persistedState = filtersService.getRequestState((config: FilterConfig) => !!config.persisted);
-            expect(persistedState).eql(filtersService.getRequestState());
-            sortingsService.persistSortings = false;
-            persistedState = filtersService.getRequestState((config: FilterConfig) => !!config.persisted);
-            expect(persistedState).eql({});
+            let serviceState = filtersService.getRequestState();
+            expect(serviceState).eql({
+                sortings: [{ direction: SortDirection.Asc, fieldName: 'field' }]
+            });
         });
-
         it('can save previous sorting', () => {
             const target = toTarget();
             const {sortingsService} = target;

@@ -208,7 +208,7 @@ describe('FiltersService', () => {
     describe('get...State', () => {
         it('includes all filters to requestState', () => {
             class TargetType {
-                @filter({ persisted: true } as FilterConfig)
+                @filter({ coerce: false } as FilterConfig)
                 public first: string = 'first';
                 @filter
                 public second: string = 'second';
@@ -221,22 +221,22 @@ describe('FiltersService', () => {
         });
         it('includes only filtered values to the state if filter is specified', () => {
             class TargetType {
-                @filter({ persisted: true } as FilterConfig)
+                @filter({ coerce: false } as FilterConfig)
                 public first: string = 'first';
                 @filter
                 public second: string = 'second';
             }
             let target = new TargetType();
             let filtersService = new FiltersService(target);
-            let persistedState = filtersService.getRequestState((config: FilterConfig) => !!config.persisted);
-            expect(persistedState.first).eq(target.first);
-            expect(persistedState.second).undefined;
+            let filteredState = filtersService.getRequestState((config: FilterConfig) => !config.coerce);
+            expect(filteredState.first).eq(target.first);
+            expect(filteredState.second).undefined;
         });
 
         it('calls \'toRequest\' method on filter if defined', () => {
 
             class TargetType {
-                @filter({ persisted: true } as FilterConfig)
+                @filter()
                 public first: any = { toRequest: sinon.spy(() => { return 'first'; }) };
             }
             let target = new TargetType();
@@ -262,7 +262,7 @@ describe('FiltersService', () => {
         });
 
         it('handles emptyIsNullFlag', () => {
-            let cfg = { emptyIsNull: true, persisted: true } as FilterConfig;
+            let cfg = { emptyIsNull: true } as FilterConfig;
             class TargetType {
                 @filter(cfg)
                 public zero: number = 0;
@@ -292,7 +292,7 @@ describe('FiltersService', () => {
         it('handles arrays', () => {
             let toRequestSpy = sinon.spy(() => { return 'first'; });
             class TargetType {
-                @filter({ persisted: true } as FilterConfig)
+                @filter()
                 public arrayProperty: Array<any> = [{ toRequest: toRequestSpy }, 'first'];
             }
 
@@ -380,7 +380,7 @@ describe('FiltersService', () => {
         });
 
         it('handles emptyIsNullFlag', () => {
-            let cfg = { emptyIsNull: true, persisted: true } as FilterConfig;
+            let cfg = { emptyIsNull: true } as FilterConfig;
             class TargetType {
                 @filter(cfg)
                 public zero: number = 0;

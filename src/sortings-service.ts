@@ -35,21 +35,6 @@ export interface SortParameter {
  */
 export class SortingsService {
     /**
-     * Global settings for {@link SortingsService}.
-     * 
-     * These settings are static and their values are copied to the properties of the same name for each instance of {@link SortingsService} type.
-     * 
-     * So, changing of this settings will affect all instances of {@link SortingsService} type that will be created after such changes.
-     * If you want to change settings of concrete object you can use it the same name properties.
-     */
-    // tslint:disable-next-line: typedef
-    public static settings = {
-        /**
-         * @see {@link SortingsService.persistSortings}
-         */
-        persistSortings: false
-    };
-    /**
      * Internal implementation of {@link defaultSortings}.
      */
     protected defaultSortingsInternal: SortParameter[] = new Array<SortParameter>();
@@ -64,7 +49,6 @@ export class SortingsService {
         parseFormatter(rawValue: any): Array<Object> {
             return Array.isArray(rawValue) ? rawValue.map((sort: SortParameter) => ({ direction: sort.direction * 1, fieldName: sort.fieldName })) : [];
         },
-        persisted(): boolean { return (<SortingsService>this).persistSortings; },
         serializeFormatter(): Object {
             return (<SortingsService>this).sortings.map((sort: SortParameter) => ({
                 direction: sort.direction, fieldName: sort.fieldName
@@ -72,11 +56,6 @@ export class SortingsService {
         }
     } as FilterConfig)
     public sortings: Array<SortParameter> = new Array<SortParameter>();
-    /**
-     * Specifies that {@link sortings} property value must be persisted.
-     * @see {@link FilterConfig.persisted}
-     */
-    public persistSortings: boolean = SortingsService.settings.persistSortings;
     /**
      * Internal method for default sortings cloning.
      * This method is used as {@link FilterConfig.defaultValue} as well as for copying to {@link sortings} when {@link defaultSortings} setter is used and {@link sortings} is empty. 

@@ -60,12 +60,6 @@ export interface FilterConfig {
      */
     coerce?: boolean;
     /**
-     * Specifies that this filter can be persisted.
-     * 
-     * In this library this property is not used since persistance implementation depends on requirements and must be implemented in end user code.
-     */
-    persisted?: boolean | (() => boolean);
-    /**
      * Optional function to serialize `target property` value when build state object with {@link FiltersService.getRequestState}.
      */
     serializeFormatter?: (value: Object) => Object;
