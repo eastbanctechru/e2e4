@@ -1,3 +1,20 @@
+<a name="2.0.0-beta.6"></a>
+# [2.0.0-beta.6](https://github.com/fshchudlo/e2e4/compare/2.0.0-beta.5...v2.0.0-beta.6) (2016-10-11)
+
+
+### Code Refactoring
+
+* **filters:** `persisted` option removed from `FilterConfig` contract ([e929a50](https://github.com/fshchudlo/e2e4/commit/e929a50))
+* **selection:** `SelectionAreaConfig` contract merged into `SelectionEventsHelper` class ([cf28138](https://github.com/fshchudlo/e2e4/commit/cf28138))
+
+
+### BREAKING CHANGES
+
+* filters: all settings related to `persisted` flag of `FilterConfig` removed from library
+* selection: `SelectionAreaConfig` contract merged into `SelectionEventsHelper` class
+
+
+
 <a name="2.0.0-beta.5"></a>
 # [2.0.0-beta.5](https://github.com/fshchudlo/e2e4/compare/2.0.0-beta.4...v2.0.0-beta.5) (2016-10-08)
 
