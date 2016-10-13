@@ -8,7 +8,7 @@
 [![npm version](https://badge.fury.io/js/e2e4.svg)](https://badge.fury.io/js/e2e4)
 
 Set of base classes and utilities to build unobtrusive list models. 
-This is abstract codebase which can be used to implement bridges to end-user frameworks (such as [Angular bridge](https://github.com/fshchudlo/right-angled) for example).
+This is abstract codebase which can be used to implement bridges to end-user frameworks (such as [Angular bridge](https://github.com/fshchudlo/right-angled)).
 
 ## Documentation
 Documentation is available [here](http://fshchudlo.github.io/e2e4)

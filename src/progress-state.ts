@@ -1,5 +1,5 @@
 ﻿/**
- * Represents possible values for progress state of any operation (request to the server, for example).  
+ * Represents possible values for progress state of operation (e.g. of request to the server).  
  */
 export enum ProgressState {
     /**

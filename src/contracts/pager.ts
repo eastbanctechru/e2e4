@@ -5,8 +5,6 @@ import { ListResponse } from './list-response';
 export interface Pager {
     /**
      * Must be `true` for such pager implementations which destroy previously loaded data only on full reload and keep data on next chunk loading.
-     * 
-     * This is the case for {@link BufferedPager}, for example.
      */
     appendedOnLoad: boolean;
     /**

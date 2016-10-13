@@ -78,13 +78,13 @@ export class PagedPager implements Pager {
     public loadedCount: number = 0;
 
     /**
-     * Number of record in remote data source from which data was loaded on last request. 
+     * Number of record in remote data source from which data was loaded at last request. 
      * 
      * For example, it will be equal to 21 when loads second page of list with page size of 20.
      */
     public displayFrom: number = 0;
     /**
-     * Number of record in remote data source to which data was loaded on last request.
+     * Number of record in remote data source to which data was loaded at last request.
      *  
      * For example, it will be equal to 40 when loads second page of list with page size of 20. Or it will be equal to total count of available records if records count is less than 40.
      */

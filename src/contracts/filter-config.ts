@@ -1,5 +1,5 @@
 ﻿/**
- * Represents settings which can be used to configure {@link FiltersService} behavior (for example, via {@link filter} annotation).
+ * Represents settings which can be used to configure {@link FiltersService} behavior (e.g. via {@link filter} annotation).
  * 
  * Let's define several terms for better understanding.
  * 
@@ -48,7 +48,7 @@ export interface FilterConfig {
      */
     ignoreOnAutoMap?: boolean;
     /**
-     * Specifies that any falsy value (empty string for example) must be converted to null by {@link FiltersService.getRequestState} method.
+     * Specifies that any falsy value (e.g. empty string) must be converted to null by {@link FiltersService.getRequestState} method.
      */
     emptyIsNull?: boolean;
     /**
