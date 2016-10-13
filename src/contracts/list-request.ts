@@ -1,12 +1,12 @@
 import { SortParameter } from '../sortings-service';
 /**
- * Represents request to the server for list.
+ * Represents parameters of request to the server to retrieve list data.
  * 
  * You can use this contract in your end-user code for better code completion.
  */
 export interface ListRequest {
     /**
-     * Sortings, which must be applied to the data on next request.
+     * Sortings, which must be applied to the data.
      */
     sortings: Array<SortParameter>;
 }

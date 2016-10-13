@@ -70,11 +70,11 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Represents settings which can be used to configure <a href="../classes/filtersservice.html">FiltersService</a> behavior (via <a href="../index.html#filter">filter</a> annotation for example).</p>
+						<p>Represents settings which can be used to configure <a href="../classes/filtersservice.html">FiltersService</a> behavior (for example, via <a href="../index.html#filter">filter</a> annotation).</p>
 					</div>
 					<p>Let&#39;s define several terms for better understanding.</p>
-					<pre><code class="lang-JavaScript">     <span class="hljs-comment">//Instance of this class is registered in filtersService via "registerFilterTarget" below.</span>
-     <span class="hljs-comment">//We call declarations like this "target type".</span>
+					<pre><code class="lang-JavaScript">     <span class="hljs-comment">//Instance of this class is registered in filtersService via call of "registerFilterTarget" method below.</span>
+     <span class="hljs-comment">//We call such declarations "target type".</span>
      <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EndUserClass</span> </span>{
         <span class="hljs-comment">//this property has @filter annotation. We call such properties "target property"</span>
         @filter
@@ -86,7 +86,7 @@
      <span class="hljs-keyword">let</span> filterService = <span class="hljs-keyword">new</span> FilterService();
 
      <span class="hljs-comment">// This means that filtersService will operate on this specific instance since it was registered with registerFilterTarget.</span>
-     <span class="hljs-comment">// We call objects like this "target object".</span>
+     <span class="hljs-comment">// We call such objects instances "target object".</span>
      filterService.registerFilterTarget(endUserClassInstance);
 </code></pre>
 				</div>
@@ -127,14 +127,14 @@
 					<div class="tsd-signature tsd-kind-icon">coerce<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/edd788e/src/contracts/filter-config.ts#L61">contracts/filter-config.ts:61</a></li>
+							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/filter-config.ts#L61">contracts/filter-config.ts:61</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Specifies that <a href="../classes/filtersservice.html">FiltersService</a> must coerce values when serializes or parses data.</p>
+							<p>Specifies that <a href="../classes/filtersservice.html">FiltersService</a> must coerce values when serializing or parsing data.</p>
 						</div>
-						<p>As example, &#39;null&#39; string will be converted to null, &#39;true&#39; string will be converted to boolean <code>true</code>, &#39;1.0&#39; string will be converted to 1.0 number etc.
+						<p>For example, &#39;null&#39; string will be converted to null, &#39;true&#39; string will be converted to boolean <code>true</code>, &#39;1.0&#39; string will be converted to 1.0 number etc.
 						To achieve this functionality <a href="../classes/filtersservice.html">FiltersService</a> uses <a href="../index.html#coercevalue">coerceValue</a> function.</p>
 						<dl class="tsd-comment-tags">
 							<dt>note</dt>
@@ -149,14 +149,14 @@
 					<div class="tsd-signature tsd-kind-icon">default<wbr>Value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/edd788e/src/contracts/filter-config.ts#L31">contracts/filter-config.ts:31</a></li>
+							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/filter-config.ts#L31">contracts/filter-config.ts:31</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>Default value that will be used to reset <code>target property</code> value via <a href="../classes/filtersservice.html#resetvalues">FiltersService.resetValues</a> method call.</p>
 						</div>
-						<p>If this option wasn&#39;t specified, <a href="../classes/filtersservice.html">FiltersService</a> writes to it value of <code>target property</code> at the moment of first call
+						<p>If this option wasn&#39;t specified, <a href="../classes/filtersservice.html">FiltersService</a> uses the value of <code>target property</code> which was assigned to it at the moment of first call
 						of <a href="../classes/filtersservice.html#resetvalues">FiltersService.resetValues</a>, <a href="../classes/filtersservice.html#applyparams">FiltersService.applyParams</a> or <a href="../classes/filtersservice.html#getrequeststate">FiltersService.getRequestState</a>.</p>
 					</div>
 				</section>
@@ -166,7 +166,7 @@
 					<div class="tsd-signature tsd-kind-icon">empty<wbr>IsNull<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/edd788e/src/contracts/filter-config.ts#L53">contracts/filter-config.ts:53</a></li>
+							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/filter-config.ts#L53">contracts/filter-config.ts:53</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -181,12 +181,12 @@
 					<div class="tsd-signature tsd-kind-icon">ignore<wbr>OnAuto<wbr>Map<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/edd788e/src/contracts/filter-config.ts#L49">contracts/filter-config.ts:49</a></li>
+							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/filter-config.ts#L49">contracts/filter-config.ts:49</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>When <code>true</code> <a href="../classes/filtersservice.html#applyparams">FiltersService.applyParams</a> method skips value parsing and doesn&#39;t apply anything to <code>target property</code>.</p>
+							<p>When this property is set to <code>true</code>, <a href="../classes/filtersservice.html#applyparams">FiltersService.applyParams</a> method skips value parsing and doesn&#39;t apply anything to <code>target property</code>.</p>
 						</div>
 						<p>Commonly this property is useful if you have some custom logic of building &#39;target property&#39; value and you want to apply it by yourself.</p>
 					</div>
@@ -197,7 +197,7 @@
 					<div class="tsd-signature tsd-kind-icon">parameter<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/edd788e/src/contracts/filter-config.ts#L43">contracts/filter-config.ts:43</a></li>
+							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/filter-config.ts#L43">contracts/filter-config.ts:43</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -217,14 +217,14 @@
 					<div class="tsd-signature tsd-kind-icon">parse<wbr>Formatter<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/edd788e/src/contracts/filter-config.ts#L71">contracts/filter-config.ts:71</a></li>
+							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/filter-config.ts#L71">contracts/filter-config.ts:71</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Optional function that will be called by <a href="../classes/filtersservice.html#applyparams">FiltersService.applyParams</a> to parse raw value before write it to <code>target property</code>.</p>
+							<p>Optional function that will be called by <a href="../classes/filtersservice.html#applyparams">FiltersService.applyParams</a> to parse raw value before writing it to <code>target property</code>.</p>
 						</div>
-						<p>Also, when this function is specified, it will be called by <a href="../classes/filtersservice.html#resetvalues">FiltersService.resetValues</a> since <a href="../classes/filtersservice.html#resetvalues">FiltersService.resetValues</a> clones default values as literals and resulted value can require parsing.</p>
+						<p>Also, when this function is specified, it will be called by <a href="../classes/filtersservice.html#resetvalues">FiltersService.resetValues</a> since <a href="../classes/filtersservice.html#resetvalues">FiltersService.resetValues</a> clones default values as literals and resulting value can require parsing.</p>
 					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
@@ -257,14 +257,14 @@
 					<div class="tsd-signature tsd-kind-icon">property<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/edd788e/src/contracts/filter-config.ts#L37">contracts/filter-config.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/filter-config.ts#L37">contracts/filter-config.ts:37</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Name of <code>target property</code> in &#39;target type&#39; which will be used by <a href="../classes/filtersservice.html">FiltersService</a> to read and write values.</p>
+							<p>Name of <code>target property</code> in <code>target type</code> which will be used by <a href="../classes/filtersservice.html">FiltersService</a> to read and write values.</p>
 						</div>
-						<p>You don&#39;t need to specify this property when use <a href="../index.html#filter">filter</a> annotation since <a href="../index.html#filter">filter</a> sets it automatically.</p>
+						<p>You don&#39;t need to specify this property when using <a href="../index.html#filter">filter</a> annotation since <a href="../index.html#filter">filter</a> sets it automatically.</p>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
@@ -273,12 +273,12 @@
 					<div class="tsd-signature tsd-kind-icon">serialize<wbr>Formatter<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/edd788e/src/contracts/filter-config.ts#L65">contracts/filter-config.ts:65</a></li>
+							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/filter-config.ts#L65">contracts/filter-config.ts:65</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Optional function to serialize <code>target property</code> value when build state object with <a href="../classes/filtersservice.html#getrequeststate">FiltersService.getRequestState</a>.</p>
+							<p>Optional function to serialize <code>target property</code> value when <a href="../classes/filtersservice.html#getrequeststate">FiltersService.getRequestState</a> method builds resuilting state object.</p>
 						</div>
 					</div>
 					<div class="tsd-type-declaration">

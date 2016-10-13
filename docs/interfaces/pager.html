@@ -70,7 +70,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Base contract to implement by specific pagers.</p>
+						<p>Base contract of pager.</p>
 					</div>
 				</div>
 			</section>
@@ -120,14 +120,14 @@
 					<div class="tsd-signature tsd-kind-icon">appended<wbr>OnLoad<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/edd788e/src/contracts/pager.ts#L11">contracts/pager.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/pager.ts#L11">contracts/pager.ts:11</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Must be <code>true</code> for such pager implementations which destroys previously loaded data only on full reload, but keeps data on next chunk loading.</p>
+							<p>Must be <code>true</code> for such pager implementations which destroy previously loaded data only on full reload and keep data on next chunk loading.</p>
 						</div>
-						<p>This is the case for <a href="../classes/bufferedpager.html">BufferedPager</a> for example.</p>
+						<p>This is the case for <a href="../classes/bufferedpager.html">BufferedPager</a>, for example.</p>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
@@ -136,12 +136,12 @@
 					<div class="tsd-signature tsd-kind-icon">loaded<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/edd788e/src/contracts/pager.ts#L23">contracts/pager.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/pager.ts#L23">contracts/pager.ts:23</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Count of records which were loaded by last request to the server.</p>
+							<p>Count of records that was loaded at last request.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>see</dt>
@@ -156,12 +156,12 @@
 					<div class="tsd-signature tsd-kind-icon">total<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/edd788e/src/contracts/pager.ts#L17">contracts/pager.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/pager.ts#L17">contracts/pager.ts:17</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Total count of records in remote data source after filters from last request was applied, but without paging applied.</p>
+							<p>Total count of records in remote data source.</p>
 						</div>
 						<dl class="tsd-comment-tags">
 							<dt>see</dt>
@@ -183,12 +183,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/edd788e/src/contracts/pager.ts#L33">contracts/pager.ts:33</a></li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/pager.ts#L33">contracts/pager.ts:33</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Performs application-defined logic associated with parsing of server response returned on data request.</p>
+									<p>Performs logic associated with parsing of server response returned at data request.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -214,12 +214,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/edd788e/src/contracts/pager.ts#L27">contracts/pager.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/pager.ts#L27">contracts/pager.ts:27</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Performs application-defined logic associated with pager state reset.</p>
+									<p>Performs logic associated with pager state reset.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
