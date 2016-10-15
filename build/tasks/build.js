@@ -28,7 +28,7 @@ gulp.task('build-es6', function () {
         srcResult.dts.pipe(gulp.dest(paths.esmOutput+'src/')),
         srcResult.js.pipe(sourcemaps.write()).pipe(gulp.dest(paths.esmOutput+'src/')),
         indexResult.dts.pipe(gulp.dest(paths.esmOutput)),
-        indexResult.js.pipe(gulp.dest(paths.esmOutput))
+        indexResult.js.pipe(sourcemaps.write()).pipe(gulp.dest(paths.esmOutput))
     ]);
 });
 
@@ -38,9 +38,9 @@ gulp.task('build-commonjs', function () {
     var indexResult = gulp.src('index.ts').pipe(gulpTypescript(options));
     return merge([
         srcResult.dts.pipe(gulp.dest('src/')),
-        srcResult.js.pipe(gulp.dest('src/')),
+        srcResult.js.pipe(sourcemaps.write()).pipe(gulp.dest('src/')),
         indexResult.dts.pipe(gulp.dest('./')),
-        indexResult.js.pipe(gulp.dest('./'))
+        indexResult.js.pipe(sourcemaps.write()).pipe(gulp.dest('./'))
     ]);
 });
 
