@@ -5,24 +5,25 @@ var del = require('del');
 var vinylPaths = require('vinyl-paths');
 var runSequence = require('run-sequence');
 
-gulp.task('clean-docs', function() {
-  return gulp.src([paths.docs]).pipe(vinylPaths(del));
+gulp.task('clean-docs', function () {
+    return gulp.src([paths.docs]).pipe(vinylPaths(del));
 });
 
 gulp.task('build-docs', function () {
     return gulp
         .src(paths.source)
         .pipe(typedoc({
-            module: "umd",
-            target: "es6",
-            includeDeclarations: false,
             experimentalDecorators: true,
-            out: paths.docs,
-            mode: "file",
-            name: "e2e4",
-            readme: "none",
+            gaID: 'UA-47538916-3',
+            help: true,
             ignoreCompilerErrors: false,
-            help: true
+            includeDeclarations: false,
+            mode: 'file',
+            module: 'umd',
+            name: 'e2e4',
+            out: paths.docs,
+            readme: 'none',
+            target: 'es6'
         }));
 });
 
