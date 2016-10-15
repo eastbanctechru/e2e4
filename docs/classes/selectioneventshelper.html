@@ -97,7 +97,10 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="selectioneventshelper.html#selectionconfig" class="tsd-kind-icon">selection<wbr>Config</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="selectioneventshelper.html#horizontal" class="tsd-kind-icon">horizontal</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="selectioneventshelper.html#multiple" class="tsd-kind-icon">multiple</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="selectioneventshelper.html#selectionservice" class="tsd-kind-icon">selection<wbr>Service</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="selectioneventshelper.html#toggleonly" class="tsd-kind-icon">toggle<wbr>Only</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -130,13 +133,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Selection<wbr>Events<wbr>Helper<span class="tsd-signature-symbol">(</span>selectionConfig<span class="tsd-signature-symbol">: </span><a href="../interfaces/selectionareaconfig.html" class="tsd-signature-type">SelectionAreaConfig</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="selectioneventshelper.html" class="tsd-signature-type">SelectionEventsHelper</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Selection<wbr>Events<wbr>Helper<span class="tsd-signature-symbol">(</span>selectionService<span class="tsd-signature-symbol">: </span><a href="../interfaces/selectionservice.html" class="tsd-signature-type">SelectionService</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="selectioneventshelper.html" class="tsd-signature-type">SelectionEventsHelper</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in selection-events-helper.ts:35</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/selection-events-helper.ts#L53">selection-events-helper.ts:53</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -144,13 +147,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>selectionConfig: <a href="../interfaces/selectionareaconfig.html" class="tsd-signature-type">SelectionAreaConfig</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>Used for declarative interaction with application-defined UI component and access to it&#39;s selection settings
-											as well as <a href="../interfaces/selectionservice.html">SelectionService</a> implementation, that was configured on it.</p>
-										</div>
-									</div>
+									<h5>selectionService: <a href="../interfaces/selectionservice.html" class="tsd-signature-type">SelectionService</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="selectioneventshelper.html" class="tsd-signature-type">SelectionEventsHelper</a></h4>
@@ -161,18 +158,68 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="selectionconfig" class="tsd-anchor"></a>
-					<h3>selection<wbr>Config</h3>
-					<div class="tsd-signature tsd-kind-icon">selection<wbr>Config<span class="tsd-signature-symbol">:</span> <a href="../interfaces/selectionareaconfig.html" class="tsd-signature-type">SelectionAreaConfig</a></div>
+					<a name="horizontal" class="tsd-anchor"></a>
+					<h3>horizontal</h3>
+					<div class="tsd-signature tsd-kind-icon">horizontal<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in selection-events-helper.ts:40</li>
+							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/selection-events-helper.ts#L39">selection-events-helper.ts:39</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Used for declarative interaction with application-defined UI component and access to it&#39;s selection settings
-							as well as <a href="../interfaces/selectionservice.html">SelectionService</a> implementation, that was configured on it.</p>
+							<p><code>true</code> for shifting to next/previous item in list of items by <code>Left Arrow</code>/<code>Right Arrow</code> keys instead of <code>Arrow Up</code>/<code>Arrow Down</code> keys.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="multiple" class="tsd-anchor"></a>
+					<h3>multiple</h3>
+					<div class="tsd-signature tsd-kind-icon">multiple<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/selection-events-helper.ts#L43">selection-events-helper.ts:43</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p><code>true</code> to make possible to pick several items in list of items (by clicking range of items with pressed <code>Shift</code> key, for example).</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="selectionservice" class="tsd-anchor"></a>
+					<h3>selection<wbr>Service</h3>
+					<div class="tsd-signature tsd-kind-icon">selection<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="../interfaces/selectionservice.html" class="tsd-signature-type">SelectionService</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/selection-events-helper.ts#L53">selection-events-helper.ts:53</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Any implementation of <a href="../interfaces/selectionservice.html">SelectionService</a> to perform actual selection.</p>
+						</div>
+						<dl class="tsd-comment-tags">
+							<dt>see</dt>
+							<dd><p><a href="defaultselectionservice.html">DefaultSelectionService</a></p>
+							</dd>
+						</dl>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="toggleonly" class="tsd-anchor"></a>
+					<h3>toggle<wbr>Only</h3>
+					<div class="tsd-signature tsd-kind-icon">toggle<wbr>Only<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/selection-events-helper.ts#L48">selection-events-helper.ts:48</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>If <code>true</code>, then next item selection doesn&#39;t clear selection of previously selected items. The only way to clean selection is second click on previously selected element.
+							This can be used to implement accordion-like behavior in application-defined UI component.</p>
 						</div>
 					</div>
 				</section>
@@ -189,7 +236,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in selection-events-helper.ts:240</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/selection-events-helper.ts#L260">selection-events-helper.ts:260</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -234,7 +281,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in selection-events-helper.ts:266</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/selection-events-helper.ts#L286">selection-events-helper.ts:286</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -265,7 +312,7 @@
 								<li>
 									<h5>itemIndex: <span class="tsd-signature-type">number</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>index of clicked element in <a href="../interfaces/selectionservice.html#itemssource">SelectionService.itemsSource</a> collection.</p>
+										<p>index of clicked element in <a href="../interfaces/selectionservice.html#items">SelectionService.items</a> collection.</p>
 									</div>
 								</li>
 							</ul>
@@ -284,12 +331,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in selection-events-helper.ts:224</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/selection-events-helper.ts#L244">selection-events-helper.ts:244</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Common handler for <code>Arrow Down</code> key (<code>Arrow Right</code> if <a href="../interfaces/selectionareaconfig.html#horizontal">SelectionAreaConfig.horizontal</a> is <code>true</code>). Calls applicable handlers one by one until any returns <code>true</code>.</p>
+									<p>Common handler for <code>Arrow Down</code> key (<code>Arrow Right</code> if {@link SelectionAreaConfig.horizontal} is <code>true</code>). Calls applicable handlers one by one until any returns <code>true</code>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -322,12 +369,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in selection-events-helper.ts:210</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/selection-events-helper.ts#L230">selection-events-helper.ts:230</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Common handler for <code>Arrow Up</code> key (<code>Arrow Left</code> if <a href="../interfaces/selectionareaconfig.html#horizontal">SelectionAreaConfig.horizontal</a> is <code>true</code>). Calls applicable handlers one by one until any returns <code>true</code>.</p>
+									<p>Common handler for <code>Arrow Up</code> key (<code>Arrow Left</code> if {@link SelectionAreaConfig.horizontal} is <code>true</code>). Calls applicable handlers one by one until any returns <code>true</code>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -360,7 +407,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in selection-events-helper.ts:132</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/selection-events-helper.ts#L152">selection-events-helper.ts:152</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -398,7 +445,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in selection-events-helper.ts:119</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/selection-events-helper.ts#L139">selection-events-helper.ts:139</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -436,12 +483,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in selection-events-helper.ts:88</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/selection-events-helper.ts#L108">selection-events-helper.ts:108</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Tries to deselect last selected element when <code>Shift+Arrow Up</code> combination pressed (<code>Shift+Arrow Left</code> if <a href="../interfaces/selectionareaconfig.html#horizontal">SelectionAreaConfig.horizontal</a> is <code>true</code>).</p>
+									<p>Tries to deselect last selected element when <code>Shift+Arrow Up</code> combination pressed (<code>Shift+Arrow Left</code> if {@link SelectionAreaConfig.horizontal} is <code>true</code>).</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -468,12 +515,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in selection-events-helper.ts:103</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/selection-events-helper.ts#L123">selection-events-helper.ts:123</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Tries to deselect last selected element when <code>Shift+Arrow Down</code> combination pressed (<code>Shift+Arrow Right</code> if <a href="../interfaces/selectionareaconfig.html#horizontal">SelectionAreaConfig.horizontal</a> is <code>true</code>).</p>
+									<p>Tries to deselect last selected element when <code>Shift+Arrow Down</code> combination pressed (<code>Shift+Arrow Right</code> if {@link SelectionAreaConfig.horizontal} is <code>true</code>).</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -500,12 +547,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in selection-events-helper.ts:143</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/selection-events-helper.ts#L163">selection-events-helper.ts:163</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Selects first element in <a href="../interfaces/selectionservice.html#itemssource">SelectionService.itemsSource</a> if nothing was selected before.</p>
+									<p>Selects first element in <a href="../interfaces/selectionservice.html#items">SelectionService.items</a> if nothing was selected before.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -523,7 +570,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in selection-events-helper.ts:48</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/selection-events-helper.ts#L68">selection-events-helper.ts:68</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -555,13 +602,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in selection-events-helper.ts:157</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/selection-events-helper.ts#L177">selection-events-helper.ts:177</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Tries to select all elements starting from last selected element up to first element in <a href="../interfaces/selectionservice.html#itemssource">SelectionService.itemsSource</a> when <code>Ctrl+Shift+Arrow Up</code> combination was pressed
-									(<code>Ctrl+Shift+Arrow Left</code> if <a href="../interfaces/selectionareaconfig.html#horizontal">SelectionAreaConfig.horizontal</a> is <code>true</code>).</p>
+									<p>Tries to select all elements starting from last selected element up to first element in <a href="../interfaces/selectionservice.html#items">SelectionService.items</a> when <code>Ctrl+Shift+Arrow Up</code> combination was pressed
+									(<code>Ctrl+Shift+Arrow Left</code> if {@link SelectionAreaConfig.horizontal} is <code>true</code>).</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -594,13 +641,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in selection-events-helper.ts:171</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/selection-events-helper.ts#L191">selection-events-helper.ts:191</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Tries to select all elements starting from last selected element up to last element in <a href="../interfaces/selectionservice.html#itemssource">SelectionService.itemsSource</a> when <code>Ctrl+Shift+Arrow Down</code> combination was pressed
-									(<code>Ctrl+Shift+Arrow Right</code> if <a href="../interfaces/selectionareaconfig.html#horizontal">SelectionAreaConfig.horizontal</a> is <code>true</code>).</p>
+									<p>Tries to select all elements starting from last selected element up to last element in <a href="../interfaces/selectionservice.html#items">SelectionService.items</a> when <code>Ctrl+Shift+Arrow Down</code> combination was pressed
+									(<code>Ctrl+Shift+Arrow Right</code> if {@link SelectionAreaConfig.horizontal} is <code>true</code>).</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -633,12 +680,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in selection-events-helper.ts:184</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/selection-events-helper.ts#L204">selection-events-helper.ts:204</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Tries to select first element in <a href="../interfaces/selectionservice.html#itemssource">SelectionService.itemsSource</a> when <code>Ctrl+Arrow Up</code> combination was pressed (<code>Ctrl+Arrow Left</code> if <a href="../interfaces/selectionareaconfig.html#horizontal">SelectionAreaConfig.horizontal</a> is <code>true</code>).</p>
+									<p>Tries to select first element in <a href="../interfaces/selectionservice.html#items">SelectionService.items</a> when <code>Ctrl+Arrow Up</code> combination was pressed (<code>Ctrl+Arrow Left</code> if {@link SelectionAreaConfig.horizontal} is <code>true</code>).</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -671,12 +718,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in selection-events-helper.ts:197</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/selection-events-helper.ts#L217">selection-events-helper.ts:217</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Tries to select last element in <a href="../interfaces/selectionservice.html#itemssource">SelectionService.itemsSource</a> when <code>Ctrl+Arrow Down</code> combination was pressed (<code>Ctrl+Arrow Right</code> if <a href="../interfaces/selectionareaconfig.html#horizontal">SelectionAreaConfig.horizontal</a> is <code>true</code>).</p>
+									<p>Tries to select last element in <a href="../interfaces/selectionservice.html#items">SelectionService.items</a> when <code>Ctrl+Arrow Down</code> combination was pressed (<code>Ctrl+Arrow Right</code> if {@link SelectionAreaConfig.horizontal} is <code>true</code>).</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -709,14 +756,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in selection-events-helper.ts:76</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/selection-events-helper.ts#L96">selection-events-helper.ts:96</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Tries to select next item when <code>Arrow Down</code> was pressed (<code>Right Arrow</code> if <a href="../interfaces/selectionareaconfig.html#horizontal">SelectionAreaConfig.horizontal</a> is <code>true</code>).</p>
+									<p>Tries to select next item when <code>Arrow Down</code> was pressed (<code>Right Arrow</code> if {@link SelectionAreaConfig.horizontal} is <code>true</code>).</p>
 								</div>
-								<p>If <code>Shift</code> was pressed and <a href="../interfaces/selectionareaconfig.html#multiple">SelectionAreaConfig.multiple</a> is &#39;true&#39; then elements selected before stays selected.</p>
+								<p>If <code>Shift</code> was pressed and {@link SelectionAreaConfig.multiple} is &#39;true&#39; then elements selected before stays selected.</p>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -742,14 +789,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in selection-events-helper.ts:62</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/selection-events-helper.ts#L82">selection-events-helper.ts:82</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Tries to select previous item when <code>Arrow Up</code> was pressed (<code>Arrow Left</code> if <a href="../interfaces/selectionareaconfig.html#horizontal">SelectionAreaConfig.horizontal</a> is <code>true</code>).</p>
+									<p>Tries to select previous item when <code>Arrow Up</code> was pressed (<code>Arrow Left</code> if {@link SelectionAreaConfig.horizontal} is <code>true</code>).</p>
 								</div>
-								<p>If <code>Shift</code> was pressed and <a href="../interfaces/selectionareaconfig.html#multiple">SelectionAreaConfig.multiple</a> is &#39;true&#39; then elements selected before stays selected.</p>
+								<p>If <code>Shift</code> was pressed and {@link SelectionAreaConfig.multiple} is &#39;true&#39; then elements selected before stays selected.</p>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -799,13 +846,13 @@
 						<a href="filtersservice.html" class="tsd-kind-icon">Filters<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="nullobjectpager.html" class="tsd-kind-icon">Null<wbr>Object<wbr>Pager</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="operation.html" class="tsd-kind-icon">Operation</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="pagedpager.html" class="tsd-kind-icon">Paged<wbr>Pager</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="regularpager.html" class="tsd-kind-icon">Regular<wbr>Pager</a>
 					</li>
 				</ul>
 				<ul class="current">
@@ -816,7 +863,16 @@
 								<a href="selectioneventshelper.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="selectioneventshelper.html#selectionconfig" class="tsd-kind-icon">selection<wbr>Config</a>
+								<a href="selectioneventshelper.html#horizontal" class="tsd-kind-icon">horizontal</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="selectioneventshelper.html#multiple" class="tsd-kind-icon">multiple</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="selectioneventshelper.html#selectionservice" class="tsd-kind-icon">selection<wbr>Service</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="selectioneventshelper.html#toggleonly" class="tsd-kind-icon">toggle<wbr>Only</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="selectioneventshelper.html#keyboardhandler" class="tsd-kind-icon">keyboard<wbr>Handler</a>
@@ -877,9 +933,6 @@
 						<a href="statetrackingservice.html" class="tsd-kind-icon">State<wbr>Tracking<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="../interfaces/bufferedlistrequest.html" class="tsd-kind-icon">Buffered<wbr>List<wbr>Request</a>
-					</li>
-					<li class=" tsd-kind-interface">
 						<a href="../interfaces/filterconfig.html" class="tsd-kind-icon">Filter<wbr>Config</a>
 					</li>
 					<li class=" tsd-kind-interface">
@@ -891,14 +944,8 @@
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/pagedlistrequest.html" class="tsd-kind-icon">Paged<wbr>List<wbr>Request</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-has-type-parameter">
-						<a href="../interfaces/pagedlistresponse.html" class="tsd-kind-icon">Paged<wbr>List<wbr>Response</a>
-					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/pager.html" class="tsd-kind-icon">Pager</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/selectionareaconfig.html" class="tsd-kind-icon">Selection<wbr>Area<wbr>Config</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/selectionitem.html" class="tsd-kind-icon">Selection<wbr>Item</a>

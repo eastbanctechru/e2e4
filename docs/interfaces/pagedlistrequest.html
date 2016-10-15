@@ -70,9 +70,9 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Represents request to the server for getting paged list data.</p>
+						<p>Represents parameters of request to the server to retrieve list data.</p>
 					</div>
-					<p>You can use this contract in your end-user code for better code completion if you have no need to change default parameters names when use <a href="../classes/pagedpager.html">PagedPager</a>.</p>
+					<p>You can use this contract in your end-user code for better code completion.</p>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
@@ -95,9 +95,9 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="pagedlistrequest.html#pagenumber" class="tsd-kind-icon">page<wbr>Number</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="pagedlistrequest.html#pagesize" class="tsd-kind-icon">page<wbr>Size</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="pagedlistrequest.html#sort" class="tsd-kind-icon">sort</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="pagedlistrequest.html#skip" class="tsd-kind-icon">skip</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="pagedlistrequest.html#sortings" class="tsd-kind-icon">sortings</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="pagedlistrequest.html#take" class="tsd-kind-icon">take</a></li>
 							</ul>
 						</section>
 					</div>
@@ -106,48 +106,48 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="pagenumber" class="tsd-anchor"></a>
-					<h3>page<wbr>Number</h3>
-					<div class="tsd-signature tsd-kind-icon">page<wbr>Number<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="skip" class="tsd-anchor"></a>
+					<h3>skip</h3>
+					<div class="tsd-signature tsd-kind-icon">skip<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in contracts/paged-list-request.ts:15</li>
+							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/paged-list-request.ts#L11">contracts/paged-list-request.ts:11</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Number of page that must be loaded to the list on next request.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="pagesize" class="tsd-anchor"></a>
-					<h3>page<wbr>Size</h3>
-					<div class="tsd-signature tsd-kind-icon">page<wbr>Size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in contracts/paged-list-request.ts:11</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Size of page that must be loaded to the list on next request.</p>
+							<p>Number of items already loaded to the list that must be skipped on next request.</p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-					<a name="sort" class="tsd-anchor"></a>
-					<h3>sort</h3>
-					<div class="tsd-signature tsd-kind-icon">sort<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="sortparameter.html" class="tsd-signature-type">SortParameter</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<a name="sortings" class="tsd-anchor"></a>
+					<h3>sortings</h3>
+					<div class="tsd-signature tsd-kind-icon">sortings<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="sortparameter.html" class="tsd-signature-type">SortParameter</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="listrequest.html">ListRequest</a>.<a href="listrequest.html#sort">sort</a></p>
+						<p>Inherited from <a href="listrequest.html">ListRequest</a>.<a href="listrequest.html#sortings">sortings</a></p>
 						<ul>
-							<li>Defined in contracts/list-request.ts:11</li>
+							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/list-request.ts#L11">contracts/list-request.ts:11</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Sortings, which must be applied to the data on next request.</p>
+							<p>Sortings, which must be applied to the data.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="take" class="tsd-anchor"></a>
+					<h3>take</h3>
+					<div class="tsd-signature tsd-kind-icon">take<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/paged-list-request.ts#L15">contracts/paged-list-request.ts:15</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Number of items that must be loaded on next request.</p>
 						</div>
 					</div>
 				</section>
@@ -185,13 +185,13 @@
 						<a href="../classes/filtersservice.html" class="tsd-kind-icon">Filters<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="../classes/nullobjectpager.html" class="tsd-kind-icon">Null<wbr>Object<wbr>Pager</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="../classes/operation.html" class="tsd-kind-icon">Operation</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="../classes/pagedpager.html" class="tsd-kind-icon">Paged<wbr>Pager</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="../classes/regularpager.html" class="tsd-kind-icon">Regular<wbr>Pager</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="../classes/selectioneventshelper.html" class="tsd-kind-icon">Selection<wbr>Events<wbr>Helper</a>
@@ -201,9 +201,6 @@
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="../classes/statetrackingservice.html" class="tsd-kind-icon">State<wbr>Tracking<wbr>Service</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="bufferedlistrequest.html" class="tsd-kind-icon">Buffered<wbr>List<wbr>Request</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="filterconfig.html" class="tsd-kind-icon">Filter<wbr>Config</a>
@@ -220,26 +217,20 @@
 						<a href="pagedlistrequest.html" class="tsd-kind-icon">Paged<wbr>List<wbr>Request</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="pagedlistrequest.html#pagenumber" class="tsd-kind-icon">page<wbr>Number</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="pagedlistrequest.html#pagesize" class="tsd-kind-icon">page<wbr>Size</a>
+								<a href="pagedlistrequest.html#skip" class="tsd-kind-icon">skip</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="pagedlistrequest.html#sort" class="tsd-kind-icon">sort</a>
+								<a href="pagedlistrequest.html#sortings" class="tsd-kind-icon">sortings</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="pagedlistrequest.html#take" class="tsd-kind-icon">take</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-has-type-parameter">
-						<a href="pagedlistresponse.html" class="tsd-kind-icon">Paged<wbr>List<wbr>Response</a>
-					</li>
 					<li class=" tsd-kind-interface">
 						<a href="pager.html" class="tsd-kind-icon">Pager</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="selectionareaconfig.html" class="tsd-kind-icon">Selection<wbr>Area<wbr>Config</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="selectionitem.html" class="tsd-kind-icon">Selection<wbr>Item</a>

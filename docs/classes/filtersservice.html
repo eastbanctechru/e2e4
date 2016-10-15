@@ -93,10 +93,9 @@
 						</li>
 						<li>by calling <a href="filtersservice.html#resetvalues">resetValues</a> we can reset annotated properties state to initial values (or to what is specified as <a href="../interfaces/filterconfig.html#defaultvalue">FilterConfig.defaultValue</a>).</li>
 						<li>by calling <a href="filtersservice.html#applyparams">applyParams</a> we can automatically apply any set of values to annotated properties (we can pass queryString object to automatically apply values from it, for example).</li>
-						<li>by calling <a href="filtersservice.html#getpersistedstate">getPersistedState</a> we can get the same serializable state as with <a href="filtersservice.html#getrequeststate">getRequestState</a>. But only properties that was marked with <a href="../interfaces/filterconfig.html#persisted">FilterConfig.persisted</a> will be applied.
-						You can persist any components state in localStorage or on the server and automatically apply it at next user session with <a href="filtersservice.html#applyparams">applyParams</a>, for example.</li>
+						<li>by calling <a href="filtersservice.html#getrequeststate">getRequestState</a> with some filters we can &quot;query&quot; the state of filters and save it to the settings storage, for example.</li>
 						<li>by calling <a href="filtersservice.html#registerfiltertarget">registerFilterTarget</a> you can add any count of additional objects and get their
-						composed state via <a href="filtersservice.html#getrequeststate">getRequestState</a> and <a href="filtersservice.html#getpersistedstate">getPersistedState</a> methods as well as process them all with <a href="filtersservice.html#resetvalues">resetValues</a> and <a href="filtersservice.html#applyparams">applyParams</a>.</li>
+						composed state via <a href="filtersservice.html#getrequeststate">getRequestState</a> method as well as process them all with <a href="filtersservice.html#resetvalues">resetValues</a> and <a href="filtersservice.html#applyparams">applyParams</a>.</li>
 					</ul>
 				</div>
 			</section>
@@ -139,8 +138,6 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="filtersservice.html#buildfiltertargetmap" class="tsd-kind-icon">build<wbr>Filter<wbr>Target<wbr>Map</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="filtersservice.html#buildfiltersmap" class="tsd-kind-icon">build<wbr>Filters<wbr>Map</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="filtersservice.html#destroy" class="tsd-kind-icon">destroy</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="filtersservice.html#getparametername" class="tsd-kind-icon">get<wbr>Parameter<wbr>Name</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="filtersservice.html#getpersistedstate" class="tsd-kind-icon">get<wbr>Persisted<wbr>State</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="filtersservice.html#getrequeststate" class="tsd-kind-icon">get<wbr>Request<wbr>State</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="filtersservice.html#registerfiltertarget" class="tsd-kind-icon">register<wbr>Filter<wbr>Target</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="filtersservice.html#removefiltertarget" class="tsd-kind-icon">remove<wbr>Filter<wbr>Target</a></li>
@@ -164,7 +161,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in filters-service.ts:275</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/filters-service.ts#L245">filters-service.ts:245</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -193,7 +190,7 @@
 					<div class="tsd-signature tsd-kind-icon">applied<wbr>Filters<wbr>Map<wbr>Internal<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/filterconfig.html" class="tsd-signature-type">FilterConfig</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new Map&lt;Object, Array&lt;FilterConfig&gt;&gt;()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in filters-service.ts:44</li>
+							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/filters-service.ts#L43">filters-service.ts:43</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -208,7 +205,7 @@
 					<div class="tsd-signature tsd-kind-icon">filters<wbr>Map<wbr>Builded<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in filters-service.ts:48</li>
+							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/filters-service.ts#L47">filters-service.ts:47</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -223,7 +220,7 @@
 					<div class="tsd-signature tsd-kind-icon">filter<wbr>Properties<wbr>Map<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/filterconfig.html" class="tsd-signature-type">FilterConfig</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new Map&lt;any, Array&lt;FilterConfig&gt;&gt;()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in filters-service.ts:40</li>
+							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/filters-service.ts#L39">filters-service.ts:39</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -246,7 +243,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in filters-service.ts:113</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/filters-service.ts#L112">filters-service.ts:112</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -254,7 +251,7 @@
 									<p>Collection of <a href="../interfaces/filterconfig.html">FilterConfig</a> settings that matches configuration for all objects that were registered in current service instance via <a href="filtersservice.html#registerfiltertarget">registerFilterTarget</a> method.</p>
 								</div>
 								<p>This collection is also filled up with configurations of passed <code>target objects</code> base classes since config applicability is determined by <code>instanceof</code> check.</p>
-								<p>This collection is &quot;lazy&quot; and will be filled up on first call of <a href="filtersservice.html#resetvalues">resetValues</a>, <a href="filtersservice.html#applyparams">applyParams</a>, <a href="filtersservice.html#getpersistedstate">getPersistedState</a> or <a href="filtersservice.html#getrequeststate">getRequestState</a> method.</p>
+								<p>This collection is &quot;lazy&quot; and will be filled up on first call of <a href="filtersservice.html#resetvalues">resetValues</a>, <a href="filtersservice.html#applyparams">applyParams</a> or <a href="filtersservice.html#getrequeststate">getRequestState</a> method.</p>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/filterconfig.html" class="tsd-signature-type">FilterConfig</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
@@ -273,7 +270,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in filters-service.ts:151</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/filters-service.ts#L150">filters-service.ts:150</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -307,7 +304,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in filters-service.ts:257</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/filters-service.ts#L227">filters-service.ts:227</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -335,7 +332,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in filters-service.ts:247</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/filters-service.ts#L217">filters-service.ts:217</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -358,7 +355,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in filters-service.ts:103</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/filters-service.ts#L102">filters-service.ts:102</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -370,87 +367,17 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="getparametername" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> get<wbr>Parameter<wbr>Name</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Parameter<wbr>Name<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Object</span>, config<span class="tsd-signature-symbol">: </span><a href="../interfaces/filterconfig.html" class="tsd-signature-type">FilterConfig</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in filters-service.ts:239</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Computes parameter name for <code>target property</code> which will be used by <a href="filtersservice.html#getrequeststate">getRequestState</a> and <a href="filtersservice.html#getpersistedstate">getPersistedState</a> methods to apply values to returned state.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>target: <span class="tsd-signature-type">Object</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p><code>target object</code> that owns <code>target property</code>. This value will be used as <code>this</code> scope for the case when <a href="../interfaces/filterconfig.html#parametername">FilterConfig.parameterName</a> is method.</p>
-									</div>
-								</li>
-								<li>
-									<h5>config: <a href="../interfaces/filterconfig.html" class="tsd-signature-type">FilterConfig</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>filter configuration for <code>target property</code>.</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-							<p>calculated parameter name.</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="getpersistedstate" class="tsd-anchor"></a>
-					<h3>get<wbr>Persisted<wbr>State</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Persisted<wbr>State<span class="tsd-signature-symbol">(</span>appendTo<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in filters-service.ts:189</li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>The same as <a href="filtersservice.html#getrequeststate">FiltersService.getRequestState</a>, but only properties for which <a href="../interfaces/filterconfig.html#persisted">FilterConfig.persisted</a> flag is specified would be applied to result object.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> appendTo: <span class="tsd-signature-type">Object</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>object to which result will be appended. If nothing was passed then new object will be created.</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
-							<p>resulted object literal.</p>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="getrequeststate" class="tsd-anchor"></a>
 					<h3>get<wbr>Request<wbr>State</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Request<wbr>State<span class="tsd-signature-symbol">(</span>appendTo<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Request<wbr>State<span class="tsd-signature-symbol">(</span>filterFn<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in filters-service.ts:173</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/filters-service.ts#L172">filters-service.ts:172</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -463,10 +390,34 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> appendTo: <span class="tsd-signature-type">Object</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> filterFn: <span class="tsd-signature-type">function</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>object to which result will be appended. If nothing was passed then new object will be created.</p>
+										<p>optional function to filter applied values.</p>
 									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/filterconfig.html" class="tsd-signature-type">FilterConfig</a>, proposedValue<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, targetObject<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>config: <a href="../interfaces/filterconfig.html" class="tsd-signature-type">FilterConfig</a></h5>
+														</li>
+														<li>
+															<h5>proposedValue: <span class="tsd-signature-type">any</span></h5>
+														</li>
+														<li>
+															<h5>targetObject: <span class="tsd-signature-type">Object</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
@@ -484,14 +435,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in filters-service.ts:213</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/filters-service.ts#L193">filters-service.ts:193</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Registers passed object as <code>target object</code> for current service instance.</p>
 								</div>
-								<p><a href="filtersservice.html#getrequeststate">getRequestState</a> and <a href="filtersservice.html#getpersistedstate">getPersistedState</a> methods will compose their result from objects that were registered by this method.</p>
+								<p><a href="filtersservice.html#getrequeststate">getRequestState</a> method will compose result from objects that were registered by this method.</p>
 								<p><a href="filtersservice.html#applyparams">applyParams</a> and <a href="filtersservice.html#resetvalues">resetValues</a> methods processes registered objects that were registered by this method.</p>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -517,14 +468,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in filters-service.ts:227</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/filters-service.ts#L207">filters-service.ts:207</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Removes passed object from <code>target objects</code> collection for current service instance.</p>
 								</div>
-								<p>This means that <a href="filtersservice.html#getrequeststate">getRequestState</a>, <a href="filtersservice.html#getpersistedstate">getPersistedState</a>, <a href="filtersservice.html#applyparams">applyParams</a> and <a href="filtersservice.html#resetvalues">resetValues</a> methods stops to process this objects.</p>
+								<p>This means that <a href="filtersservice.html#getrequeststate">getRequestState</a>, <a href="filtersservice.html#applyparams">applyParams</a> and <a href="filtersservice.html#resetvalues">resetValues</a> methods stops to process this objects.</p>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -549,7 +500,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in filters-service.ts:133</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/filters-service.ts#L132">filters-service.ts:132</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -560,7 +511,7 @@
 								<ul>
 									<li>If value for <a href="../interfaces/filterconfig.html#defaultvalue">FilterConfig.defaultValue</a> is specified it will be applied.</li>
 									<li>Otherwise this service writes to <a href="../interfaces/filterconfig.html#defaultvalue">FilterConfig.defaultValue</a> value of <code>target property</code> at the moment of first call of
-									<a href="filtersservice.html#resetvalues">resetValues</a>, <a href="filtersservice.html#applyparams">applyParams</a>, <a href="filtersservice.html#getpersistedstate">getPersistedState</a> or <a href="filtersservice.html#getrequeststate">getRequestState</a>.</li>
+									<a href="filtersservice.html#resetvalues">resetValues</a>, <a href="filtersservice.html#applyparams">applyParams</a> or <a href="filtersservice.html#getrequeststate">getRequestState</a>.</li>
 								</ul>
 								<p>This method performs next actions:</p>
 								<ul>
@@ -584,14 +535,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in filters-service.ts:81</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/filters-service.ts#L80">filters-service.ts:80</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Used to build resulted value of <code>target property</code> based on specified <a href="../interfaces/filterconfig.html">FilterConfig</a>.</p>
 								</div>
-								<p>This method is used by <a href="filtersservice.html#getrequeststate">getRequestState</a>, <a href="filtersservice.html#getpersistedstate">getPersistedState</a> and also calls oneself for the case of array values.</p>
+								<p>This method is used by <a href="filtersservice.html#getrequeststate">getRequestState</a> and also calls oneself for the case of array values.</p>
 								<p>In addition to <a href="../interfaces/filterconfig.html">FilterConfig</a> configuration, this method checks if <code>target property</code> has method <code>toRequest()</code>. If so this method will be used to get serialized value.</p>
 								<p>This convention has sense in several scenarios:</p>
 								<ul>
@@ -636,7 +587,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in filters-service.ts:56</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/filters-service.ts#L55">filters-service.ts:55</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -726,12 +677,6 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="filtersservice.html#destroy" class="tsd-kind-icon">destroy</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="filtersservice.html#getparametername" class="tsd-kind-icon">get<wbr>Parameter<wbr>Name</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="filtersservice.html#getpersistedstate" class="tsd-kind-icon">get<wbr>Persisted<wbr>State</a>
-							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="filtersservice.html#getrequeststate" class="tsd-kind-icon">get<wbr>Request<wbr>State</a>
 							</li>
@@ -755,13 +700,13 @@
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-class">
+						<a href="nullobjectpager.html" class="tsd-kind-icon">Null<wbr>Object<wbr>Pager</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="operation.html" class="tsd-kind-icon">Operation</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="pagedpager.html" class="tsd-kind-icon">Paged<wbr>Pager</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="regularpager.html" class="tsd-kind-icon">Regular<wbr>Pager</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="selectioneventshelper.html" class="tsd-kind-icon">Selection<wbr>Events<wbr>Helper</a>
@@ -771,9 +716,6 @@
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="statetrackingservice.html" class="tsd-kind-icon">State<wbr>Tracking<wbr>Service</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/bufferedlistrequest.html" class="tsd-kind-icon">Buffered<wbr>List<wbr>Request</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/filterconfig.html" class="tsd-kind-icon">Filter<wbr>Config</a>
@@ -787,14 +729,8 @@
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/pagedlistrequest.html" class="tsd-kind-icon">Paged<wbr>List<wbr>Request</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-has-type-parameter">
-						<a href="../interfaces/pagedlistresponse.html" class="tsd-kind-icon">Paged<wbr>List<wbr>Response</a>
-					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/pager.html" class="tsd-kind-icon">Pager</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="../interfaces/selectionareaconfig.html" class="tsd-kind-icon">Selection<wbr>Area<wbr>Config</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/selectionitem.html" class="tsd-kind-icon">Selection<wbr>Item</a>

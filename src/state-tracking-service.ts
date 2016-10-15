@@ -1,4 +1,4 @@
-﻿import {ProgressState} from './progress-state';
+﻿import { ProgressState } from './progress-state';
 /**
  * Represents state of operation that must be displayed on UI inside {@link StateTrackingService}. 
  */

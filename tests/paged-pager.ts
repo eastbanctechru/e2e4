@@ -1,17 +1,15 @@
+import { ListResponse } from '../src/contracts/list-response';
 import { FiltersService } from '../src/filters-service';
 import { PagedPager } from '../src/paged-pager';
 
 import { expect } from 'chai';
 
-interface ResponseObject {
-    loadedCount: number;
-    totalCount: number;
-    displayFrom: number;
-    displayTo: number;
-}
-
-function toResponseObject(): ResponseObject {
-    return { displayFrom: 1, displayTo: 20, loadedCount: 20, totalCount: 100 } as ResponseObject;
+function toResponseObject(): ListResponse<any> {
+    return {
+        items: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+        loadedCount: 20,
+        totalCount: 100
+    };
 }
 
 describe('PagedPager', () => {
@@ -36,23 +34,46 @@ describe('PagedPager', () => {
 
             expect(pager.totalCount).eq(response.totalCount);
             expect(pager.loadedCount).eq(response.loadedCount);
-            expect(pager.displayFrom).eq(response.displayFrom);
-            expect(pager.displayTo).eq(response.displayTo);
         });
 
-        it('process incorrect values as 0', () => {
+        it('process incorrect totalCount as 0', () => {
+            let pager = new PagedPager();
+            let response = toResponseObject();
+            response.totalCount = null;
+            pager.processResponse(response);
+            expect(pager.totalCount).eq(0);
+        });
+
+        it('can calculate loadedCount from items array', () => {
             let pager = new PagedPager();
             let response = toResponseObject();
             response.loadedCount = null;
-            response.totalCount = null;
-            response.displayFrom = null;
-            response.displayTo = null;
+            response.totalCount = 20;
             pager.processResponse(response);
-
-            expect(pager.totalCount).eq(0);
+            expect(pager.loadedCount).eq(response.items.length);
+        });
+        it('sets loadedCount to 0 if it not specified in response and items array is empty', () => {
+            let pager = new PagedPager();
+            let response = toResponseObject();
+            response.loadedCount = null;
+            response.items.length = 0;
+            pager.processResponse(response);
             expect(pager.loadedCount).eq(0);
-            expect(pager.displayFrom).eq(0);
-            expect(pager.displayTo).eq(0);
+        });
+        it('calculates displayFrom and displayTo', () => {
+            let pager = new PagedPager();
+            let response = toResponseObject();
+            response.loadedCount = 20;
+            response.totalCount = 35;
+            pager.processResponse(response);
+            expect(pager.displayFrom).eq(1);
+            expect(pager.displayTo).eq(20);
+
+            pager.tryMoveToNextPage();
+            response.loadedCount = 15;
+            pager.processResponse(response);
+            expect(pager.displayFrom).eq(21);
+            expect(pager.displayTo).eq(35);
         });
 
         it('resets contract properties', () => {
@@ -64,74 +85,89 @@ describe('PagedPager', () => {
             expect(pager.pageNumber).eq(1);
             expect(pager.pageSize).eq(pager.defaultPageSize);
         });
-        it('process response with custom properties names', () => {
-            let pager = new PagedPager();
-            pager.totalCountParameterName = 'customTotal';
-            pager.loadedCountParameterName = 'customLoaded';
-            pager.displayFromParameterName = 'customDisplayFrom';
-            pager.displayToParameterName = 'customDisplayTo';
-            const response = {
-                customDisplayFrom: 20,
-                customDisplayTo: 40,
-                customLoaded: 20,
-                customTotal: 100
-            };
-            pager.processResponse(response);
-            expect(pager.loadedCount).eq(response.customLoaded);
-            expect(pager.totalCount).eq(response.customTotal);
-            expect(pager.displayFrom).eq(response.customDisplayFrom);
-            expect(pager.displayTo).eq(response.customDisplayTo);
-        });
-
     });
     describe('as filter target', () => {
-        it('parse pageNumber param', () => {
+        it('maps pageNumber to skip param on building request', () => {
+            let pager = new PagedPager();
+            let filtersService = new FiltersService(pager);
+            let result = filtersService.getRequestState();
+            expect(result.skip).eq(0);
+            pager.totalCount = 100;
+            pager.tryMoveToNextPage();
+            result = filtersService.getRequestState();
+            expect(result.skip).eq(pager.pageSize);
+        });
+        it('maps pageSize to take param on building request', () => {
+            let pager = new PagedPager();
+            let filtersService = new FiltersService(pager);
+            let result = filtersService.getRequestState();
+            expect(result.take).eq(pager.pageSize);
+        });
+        it('parse skip param to pageNumber', () => {
             let pager = new PagedPager();
             let filtersService = new FiltersService(pager);
 
             expect(pager.pageNumber).eq(1);
             let params = {
-                pageNumber: 5,
-                pageSize: 100
+                skip: 50,
+                take: 10
             };
             filtersService.applyParams(params);
-            expect(pager.pageNumber).eq(params.pageNumber);
+            expect(pager.pageNumber).eq(6);
         });
-        it('parse pageNumber as 1 if invalid', () => {
+        it('parse pageNumber as 1 if skip param is invalid', () => {
             let pager = new PagedPager();
             let filtersService = new FiltersService(pager);
 
             expect(pager.pageNumber).eq(1);
             let params = {
-                pageNumber: null,
-                pageSize: 100
+                skip: null,
+                take: 10
+            };
+            filtersService.applyParams(params);
+            expect(pager.pageNumber).eq(1);
+            params.skip = {};
+            filtersService.applyParams(params);
+            expect(pager.pageNumber).eq(1);
+        });
+        it('doesn\'t round pageNumber (if skip % take!=0 then 1)', () => {
+            let pager = new PagedPager();
+            let filtersService = new FiltersService(pager);
+
+            expect(pager.pageNumber).eq(1);
+            let params = {
+                skip: 7,
+                take: 10
             };
             filtersService.applyParams(params);
             expect(pager.pageNumber).eq(1);
         });
-        it('parse pageSize as defaultPageSize if invalid', () => {
+        it('parse pageSize as defaultPageSize if take param is invalid', () => {
             let pager = new PagedPager();
             let filtersService = new FiltersService(pager);
 
             expect(pager.pageNumber).eq(1);
             let params = {
-                pageNumber: 1,
-                pageSize: null
+                skip: 20,
+                take: null
             };
             filtersService.applyParams(params);
             expect(pager.pageSize).eq(pager.defaultPageSize);
+            params.take = {};
+            filtersService.applyParams(params);
+            expect(pager.pageSize).eq(pager.defaultPageSize);
         });
-        it('parse pageSize param', () => {
+        it('parse pageSize from take param', () => {
             let pager = new PagedPager();
             let filtersService = new FiltersService(pager);
 
             expect(pager.pageNumber).eq(1);
             let params = {
-                pageNumber: 5,
-                pageSize: 100
+                skip: 50,
+                take: 10
             };
             filtersService.applyParams(params);
-            expect(pager.pageSize).eq(params.pageSize);
+            expect(pager.pageSize).eq(params.take);
         });
 
         it('sets pageSize to defaultPageSize on reset', () => {
@@ -151,26 +187,6 @@ describe('PagedPager', () => {
             expect(pager.pageSize).eq(5);
             expect(PagedPager.settings.defaultPageSize).not.eq(pager.defaultPageSize);
         });
-
-        it('can use custom parameter names', () => {
-            let pager = new PagedPager();
-            let filtersService = new FiltersService(pager);
-
-            pager.pageNumberParameterName = 'customPageNumber';
-            pager.pageSizeParameterName = 'customPageSize';
-            const request = filtersService.getRequestState();
-            expect(request).haveOwnProperty(pager.pageNumberParameterName);
-            expect(request).haveOwnProperty(pager.pageSizeParameterName);
-        });
-        it('can persist pageSize', () => {
-            let pager = new PagedPager();
-            let filtersService = new FiltersService(pager);
-            pager.persistPageSize = true;
-            const persistedState = filtersService.getPersistedState();
-
-            expect(persistedState).eql({ pageSize: pager.pageSize });
-        });
-
     });
     describe('internal state', () => {
         describe('pageSize', () => {

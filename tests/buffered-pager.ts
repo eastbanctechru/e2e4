@@ -1,15 +1,15 @@
 import { BufferedPager } from '../src/buffered-pager';
+import { ListResponse } from '../src/contracts/list-response';
 import { FiltersService } from '../src/filters-service';
 
 import { expect } from 'chai';
 
-interface ResponseObject {
-    loadedCount: number;
-    totalCount: number;
-}
-
-function toResponseObject(): ResponseObject {
-    return { loadedCount: 20, totalCount: 100 } as ResponseObject;
+function toResponseObject(): ListResponse<any> {
+    return {
+        items: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+        loadedCount: 20,
+        totalCount: 100
+    };
 }
 describe('BufferedPager', () => {
     describe('ctor', () => {
@@ -32,19 +32,6 @@ describe('BufferedPager', () => {
             expect(pager.skip).eq(response.loadedCount);
         });
 
-        it('process response with custom properties names', () => {
-            let pager = new BufferedPager();
-            pager.totalCountParameterName = 'customTotal';
-            pager.loadedCountParameterName = 'customLoaded';
-            const response = {
-                customLoaded: 20,
-                customTotal: 100
-            };
-            pager.processResponse(response);
-            expect(pager.loadedCount).eq(response.customLoaded);
-            expect(pager.totalCount).eq(response.customTotal);
-        });
-
         it('increments skip on each load callback execution', () => {
             let pager = new BufferedPager();
             let response = toResponseObject();
@@ -53,17 +40,33 @@ describe('BufferedPager', () => {
                 expect(pager.skip).eq(i);
             }
         });
-        it('process incorrect values as 0', () => {
+        it('process incorrect totalCount as 0', () => {
+            let pager = new BufferedPager();
+            let response = toResponseObject();
+            response.totalCount = null;
+            pager.processResponse(response);
+            expect(pager.totalCount).eq(0);
+        });
+        it('can calculate loadedCount and skip properties from items array', () => {
             let pager = new BufferedPager();
             let response = toResponseObject();
             response.loadedCount = null;
-            response.totalCount = null;
+            response.totalCount = response.items.length * 2;
             pager.processResponse(response);
-
-            expect(pager.totalCount).eq(0);
+            expect(pager.loadedCount).eq(response.items.length);
+            expect(pager.skip).eq(response.items.length);
+            pager.processResponse(response);
+            expect(pager.loadedCount).eq(response.items.length * 2);
+            expect(pager.skip).eq(response.items.length * 2);
+        });
+        it('sets loadedCount to 0 if it not specified in response and items array is empty', () => {
+            let pager = new BufferedPager();
+            let response = toResponseObject();
+            response.loadedCount = null;
+            response.items.length = 0;
+            pager.processResponse(response);
             expect(pager.loadedCount).eq(0);
         });
-
         it('resets contract properties', () => {
             let pager = new BufferedPager();
             let response = toResponseObject();
@@ -151,16 +154,6 @@ describe('BufferedPager', () => {
             expect(BufferedPager.settings.defaultRowCount).not.eq(pager.defaultRowCount);
         });
 
-        it('can use custom parameter names', () => {
-            let pager = new BufferedPager();
-            let filtersService = new FiltersService(pager);
-
-            pager.takeRowCountParameterName = 'customTake';
-            pager.skipRowCountParameterName = 'customSkip';
-            const request = filtersService.getRequestState();
-            expect(request).haveOwnProperty(pager.takeRowCountParameterName);
-            expect(request).haveOwnProperty(pager.skipRowCountParameterName);
-        });
     });
     describe('internal state', () => {
         it('sets rowCount to maxRowCount when try to set bigger value', () => {

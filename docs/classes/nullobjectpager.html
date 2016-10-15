@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>BufferedListRequest | e2e4</title>
+	<title>NullObjectPager | e2e4</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -57,10 +57,10 @@
 					<a href="../index.html">Globals</a>
 				</li>
 				<li>
-					<a href="bufferedlistrequest.html">BufferedListRequest</a>
+					<a href="nullobjectpager.html">NullObjectPager</a>
 				</li>
 			</ul>
-			<h1>Interface BufferedListRequest</h1>
+			<h1>Class NullObjectPager</h1>
 		</div>
 	</div>
 </header>
@@ -70,22 +70,27 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Represents request to the server for getting buffered list data.</p>
+						<p>Implements <a href="../interfaces/pager.html">Pager</a> contract and represents list without any paging mechanics.</p>
 					</div>
-					<p>You can use this contract in your end-user code for better code completion if you have no need to change default parameters names when use <a href="../classes/bufferedpager.html">BufferedPager</a>.</p>
+					<dl class="tsd-comment-tags">
+						<dt>note</dt>
+						<dd><p>This type is configured to use with <a href="filtersservice.html">FiltersService</a>.</p>
+						</dd>
+					</dl>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="listrequest.html" class="tsd-signature-type">ListRequest</a>
-						<ul class="tsd-hierarchy">
-							<li>
-								<span class="target">BufferedListRequest</span>
-							</li>
-						</ul>
+						<span class="target">NullObjectPager</span>
 					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../interfaces/pager.html" class="tsd-signature-type">Pager</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -95,9 +100,16 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="bufferedlistrequest.html#skip" class="tsd-kind-icon">skip</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="bufferedlistrequest.html#sort" class="tsd-kind-icon">sort</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="bufferedlistrequest.html#take" class="tsd-kind-icon">take</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="nullobjectpager.html#appendedonload" class="tsd-kind-icon">appended<wbr>OnLoad</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="nullobjectpager.html#loadedcount" class="tsd-kind-icon">loaded<wbr>Count</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="nullobjectpager.html#totalcount" class="tsd-kind-icon">total<wbr>Count</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="nullobjectpager.html#processresponse" class="tsd-kind-icon">process<wbr>Response</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="nullobjectpager.html#reset" class="tsd-kind-icon">reset</a></li>
 							</ul>
 						</section>
 					</div>
@@ -105,51 +117,118 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="skip" class="tsd-anchor"></a>
-					<h3>skip</h3>
-					<div class="tsd-signature tsd-kind-icon">skip<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="appendedonload" class="tsd-anchor"></a>
+					<h3>appended<wbr>OnLoad</h3>
+					<div class="tsd-signature tsd-kind-icon">appended<wbr>OnLoad<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 					<aside class="tsd-sources">
+						<p>Implementation of <a href="../interfaces/pager.html">Pager</a>.<a href="../interfaces/pager.html#appendedonload">appendedOnLoad</a></p>
 						<ul>
-							<li>Defined in contracts/buffered-list-request.ts:11</li>
+							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/null-object-pager.ts#L11">null-object-pager.ts:11</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>How many items already loaded to the list and must be skipped on next request.</p>
-						</div>
+						<dl class="tsd-comment-tags">
+							<dt>see</dt>
+							<dd><p><a href="../interfaces/pager.html#appendedonload">Pager.appendedOnLoad</a></p>
+							</dd>
+						</dl>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-					<a name="sort" class="tsd-anchor"></a>
-					<h3>sort</h3>
-					<div class="tsd-signature tsd-kind-icon">sort<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="sortparameter.html" class="tsd-signature-type">SortParameter</a><span class="tsd-signature-symbol">&gt;</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="loadedcount" class="tsd-anchor"></a>
+					<h3>loaded<wbr>Count</h3>
+					<div class="tsd-signature tsd-kind-icon">loaded<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="listrequest.html">ListRequest</a>.<a href="listrequest.html#sort">sort</a></p>
+						<p>Implementation of <a href="../interfaces/pager.html">Pager</a>.<a href="../interfaces/pager.html#loadedcount">loadedCount</a></p>
 						<ul>
-							<li>Defined in contracts/list-request.ts:11</li>
+							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/null-object-pager.ts#L20">null-object-pager.ts:20</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Sortings, which must be applied to the data on next request.</p>
-						</div>
+						<dl class="tsd-comment-tags">
+							<dt>see</dt>
+							<dd><p><a href="../interfaces/pager.html#loadedcount">Pager.loadedCount</a></p>
+							</dd>
+						</dl>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="take" class="tsd-anchor"></a>
-					<h3>take</h3>
-					<div class="tsd-signature tsd-kind-icon">take<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="totalcount" class="tsd-anchor"></a>
+					<h3>total<wbr>Count</h3>
+					<div class="tsd-signature tsd-kind-icon">total<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></div>
 					<aside class="tsd-sources">
+						<p>Implementation of <a href="../interfaces/pager.html">Pager</a>.<a href="../interfaces/pager.html#totalcount">totalCount</a></p>
 						<ul>
-							<li>Defined in contracts/buffered-list-request.ts:15</li>
+							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/null-object-pager.ts#L16">null-object-pager.ts:16</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>How many items must be loaded on next request.</p>
-						</div>
+						<dl class="tsd-comment-tags">
+							<dt>see</dt>
+							<dd><p><a href="../interfaces/pager.html#totalcount">Pager.totalCount</a></p>
+							</dd>
+						</dl>
 					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="processresponse" class="tsd-anchor"></a>
+					<h3>process<wbr>Response</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">process<wbr>Response<span class="tsd-signature-symbol">(</span>response<span class="tsd-signature-symbol">: </span><a href="../interfaces/listresponse.html" class="tsd-signature-type">ListResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/pager.html">Pager</a>.<a href="../interfaces/pager.html#processresponse">processResponse</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/null-object-pager.ts#L24">null-object-pager.ts:24</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="../interfaces/pager.html#processresponse">Pager.processResponse</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>response: <a href="../interfaces/listresponse.html" class="tsd-signature-type">ListResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="reset" class="tsd-anchor"></a>
+					<h3>reset</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">reset<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/pager.html">Pager</a>.<a href="../interfaces/pager.html#reset">reset</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/null-object-pager.ts#L31">null-object-pager.ts:31</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="../interfaces/pager.html#reset">Pager.reset</a></p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -176,82 +255,79 @@
 						<a href="../enums/sortdirection.html" class="tsd-kind-icon">Sort<wbr>Direction</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="../classes/bufferedpager.html" class="tsd-kind-icon">Buffered<wbr>Pager</a>
+						<a href="bufferedpager.html" class="tsd-kind-icon">Buffered<wbr>Pager</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="../classes/defaultselectionservice.html" class="tsd-kind-icon">Default<wbr>Selection<wbr>Service</a>
+						<a href="defaultselectionservice.html" class="tsd-kind-icon">Default<wbr>Selection<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="../classes/filtersservice.html" class="tsd-kind-icon">Filters<wbr>Service</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="../classes/operation.html" class="tsd-kind-icon">Operation</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="../classes/pagedpager.html" class="tsd-kind-icon">Paged<wbr>Pager</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="../classes/regularpager.html" class="tsd-kind-icon">Regular<wbr>Pager</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="../classes/selectioneventshelper.html" class="tsd-kind-icon">Selection<wbr>Events<wbr>Helper</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="../classes/sortingsservice.html" class="tsd-kind-icon">Sortings<wbr>Service</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="../classes/statetrackingservice.html" class="tsd-kind-icon">State<wbr>Tracking<wbr>Service</a>
+						<a href="filtersservice.html" class="tsd-kind-icon">Filters<wbr>Service</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface">
-						<a href="bufferedlistrequest.html" class="tsd-kind-icon">Buffered<wbr>List<wbr>Request</a>
+					<li class="current tsd-kind-class">
+						<a href="nullobjectpager.html" class="tsd-kind-icon">Null<wbr>Object<wbr>Pager</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="bufferedlistrequest.html#skip" class="tsd-kind-icon">skip</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="nullobjectpager.html#appendedonload" class="tsd-kind-icon">appended<wbr>OnLoad</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="bufferedlistrequest.html#sort" class="tsd-kind-icon">sort</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="nullobjectpager.html#loadedcount" class="tsd-kind-icon">loaded<wbr>Count</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="bufferedlistrequest.html#take" class="tsd-kind-icon">take</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="nullobjectpager.html#totalcount" class="tsd-kind-icon">total<wbr>Count</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="nullobjectpager.html#processresponse" class="tsd-kind-icon">process<wbr>Response</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="nullobjectpager.html#reset" class="tsd-kind-icon">reset</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface">
-						<a href="filterconfig.html" class="tsd-kind-icon">Filter<wbr>Config</a>
+					<li class=" tsd-kind-class">
+						<a href="operation.html" class="tsd-kind-icon">Operation</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="pagedpager.html" class="tsd-kind-icon">Paged<wbr>Pager</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="selectioneventshelper.html" class="tsd-kind-icon">Selection<wbr>Events<wbr>Helper</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="sortingsservice.html" class="tsd-kind-icon">Sortings<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="statetrackingservice.html" class="tsd-kind-icon">State<wbr>Tracking<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="listrequest.html" class="tsd-kind-icon">List<wbr>Request</a>
+						<a href="../interfaces/filterconfig.html" class="tsd-kind-icon">Filter<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/listrequest.html" class="tsd-kind-icon">List<wbr>Request</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-has-type-parameter">
-						<a href="listresponse.html" class="tsd-kind-icon">List<wbr>Response</a>
+						<a href="../interfaces/listresponse.html" class="tsd-kind-icon">List<wbr>Response</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="pagedlistrequest.html" class="tsd-kind-icon">Paged<wbr>List<wbr>Request</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-has-type-parameter">
-						<a href="pagedlistresponse.html" class="tsd-kind-icon">Paged<wbr>List<wbr>Response</a>
+						<a href="../interfaces/pagedlistrequest.html" class="tsd-kind-icon">Paged<wbr>List<wbr>Request</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="pager.html" class="tsd-kind-icon">Pager</a>
+						<a href="../interfaces/pager.html" class="tsd-kind-icon">Pager</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="selectionareaconfig.html" class="tsd-kind-icon">Selection<wbr>Area<wbr>Config</a>
+						<a href="../interfaces/selectionitem.html" class="tsd-kind-icon">Selection<wbr>Item</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="selectionitem.html" class="tsd-kind-icon">Selection<wbr>Item</a>
+						<a href="../interfaces/selectionservice.html" class="tsd-kind-icon">Selection<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="selectionservice.html" class="tsd-kind-icon">Selection<wbr>Service</a>
+						<a href="../interfaces/selectiontuple.html" class="tsd-kind-icon">Selection<wbr>Tuple</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="selectiontuple.html" class="tsd-kind-icon">Selection<wbr>Tuple</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="sortparameter.html" class="tsd-kind-icon">Sort<wbr>Parameter</a>
+						<a href="../interfaces/sortparameter.html" class="tsd-kind-icon">Sort<wbr>Parameter</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="../index.html#cloneasliteral" class="tsd-kind-icon">clone<wbr>AsLiteral</a>

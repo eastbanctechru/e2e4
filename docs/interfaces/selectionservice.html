@@ -96,7 +96,7 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="selectionservice.html#itemssource" class="tsd-kind-icon">items<wbr>Source</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="selectionservice.html#items" class="tsd-kind-icon">items</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="selectionservice.html#lastprocessedindex" class="tsd-kind-icon">last<wbr>Processed<wbr>Index</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="selectionservice.html#trackbyfn" class="tsd-kind-icon">track<wbr>ByFn</a></li>
 							</ul>
@@ -130,24 +130,18 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="itemssource" class="tsd-anchor"></a>
-					<h3>items<wbr>Source</h3>
-					<div class="tsd-signature tsd-kind-icon">items<wbr>Source<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="selectionitem.html" class="tsd-signature-type">SelectionItem</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<a name="items" class="tsd-anchor"></a>
+					<h3>items</h3>
+					<div class="tsd-signature tsd-kind-icon">items<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="selectionitem.html" class="tsd-signature-type">SelectionItem</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in contracts/selection-service.ts:24</li>
+							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/selection-service.ts#L21">contracts/selection-service.ts:21</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Collection of elements elements of which will be selected.</p>
+							<p>Collection of elements for selection.</p>
 						</div>
-						<p>Application-defined implementation of this contact must perform <a href="selectionservice.html#checkselection">checkSelection</a> when this property is assigned to new value.</p>
-						<dl class="tsd-comment-tags">
-							<dt>see</dt>
-							<dd><p><a href="selectionservice.html#trackbyfn">trackByFn</a></p>
-							</dd>
-						</dl>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
@@ -156,12 +150,12 @@
 					<div class="tsd-signature tsd-kind-icon">last<wbr>Processed<wbr>Index<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in contracts/selection-service.ts:38</li>
+							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/selection-service.ts#L35">contracts/selection-service.ts:35</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Index of last selected/deselected element in <a href="selectionservice.html#itemssource">itemsSource</a> collection.</p>
+							<p>Index of last selected/deselected element in <a href="selectionservice.html#items">items</a> collection.</p>
 						</div>
 					</div>
 				</section>
@@ -171,21 +165,21 @@
 					<div class="tsd-signature tsd-kind-icon">track<wbr>ByFn<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in contracts/selection-service.ts:34</li>
+							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/selection-service.ts#L31">contracts/selection-service.ts:31</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Optional function which can be used for comparison of <a href="selectionservice.html#itemssource">itemsSource</a> elements.</p>
+							<p>Optional function which can be used to compare <a href="selectionservice.html#items">items</a> elements.</p>
 						</div>
-						<p>If specified, this function must be used by <a href="selectionservice.html#checkselection">checkSelection</a> implementation.</p>
+						<p>This function can be used by <a href="selectionservice.html#checkselection">checkSelection</a> implementation.</p>
 						<p>Also it&#39;s reasonable to use this function for <a href="selectionservice.html#getitemindex">getItemIndex</a> implementation.</p>
 						<dl class="tsd-comment-tags">
 							<dt>param</dt>
-							<dd><p>index of element in <a href="selectionservice.html#itemssource">itemsSource</a> collection.</p>
+							<dd><p>index of element in <a href="selectionservice.html#items">items</a> collection.</p>
 							</dd>
 							<dt>param</dt>
-							<dd><p>element from <a href="selectionservice.html#itemssource">itemsSource</a> collection.</p>
+							<dd><p>element from <a href="selectionservice.html#items">items</a> collection.</p>
 							</dd>
 						</dl>
 					</div>
@@ -227,14 +221,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in contracts/selection-service.ts:44</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/selection-service.ts#L40">contracts/selection-service.ts:40</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>In application-defined implementations must perform checks that every selected element is actually selected.</p>
+									<p>In application-defined implementations must perform check that every selected element is actually selected.</p>
 								</div>
-								<p>It&#39;s reasonable to use this when <a href="selectionservice.html#itemssource">itemsSource</a> was changed and some items were selected before.</p>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
@@ -250,12 +243,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in contracts/selection-service.ts:48</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/selection-service.ts#L44">contracts/selection-service.ts:44</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Deselects all elements in <a href="selectionservice.html#itemssource">itemsSource</a> collection.</p>
+									<p>Deselects all elements in <a href="selectionservice.html#items">items</a> collection.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -272,12 +265,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in contracts/selection-service.ts:112</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/selection-service.ts#L108">contracts/selection-service.ts:108</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Deselects element at specified index in <a href="selectionservice.html#itemssource">itemsSource</a> collection.</p>
+									<p>Deselects element at specified index in <a href="selectionservice.html#items">items</a> collection.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -285,7 +278,7 @@
 								<li>
 									<h5>index: <span class="tsd-signature-type">number</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>index of element in <a href="selectionservice.html#itemssource">itemsSource</a> collection.</p>
+										<p>index of element in <a href="selectionservice.html#items">items</a> collection.</p>
 									</div>
 								</li>
 							</ul>
@@ -303,7 +296,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in contracts/selection-service.ts:132</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/selection-service.ts#L128">contracts/selection-service.ts:128</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -325,12 +318,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in contracts/selection-service.ts:93</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/selection-service.ts#L89">contracts/selection-service.ts:89</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns index of specified element in <a href="selectionservice.html#itemssource">itemsSource</a> collection.</p>
+									<p>Returns index of specified element in <a href="selectionservice.html#items">items</a> collection.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>see</dt>
@@ -348,7 +341,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-							<p>index of specified element in <a href="selectionservice.html#itemssource">itemsSource</a> collection. -1 if element not found.</p>
+							<p>index of specified element in <a href="selectionservice.html#items">items</a> collection. -1 if element not found.</p>
 						</li>
 					</ul>
 				</section>
@@ -362,12 +355,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in contracts/selection-service.ts:86</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/selection-service.ts#L82">contracts/selection-service.ts:82</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns index of last selected element from <a href="selectionservice.html#itemssource">itemsSource</a>.</p>
+									<p>Returns index of last selected element from <a href="selectionservice.html#items">items</a>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -385,12 +378,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in contracts/selection-service.ts:81</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/selection-service.ts#L77">contracts/selection-service.ts:77</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns index of first selected element from <a href="selectionservice.html#itemssource">itemsSource</a>.</p>
+									<p>Returns index of first selected element from <a href="selectionservice.html#items">items</a>.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -408,12 +401,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in contracts/selection-service.ts:123</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/selection-service.ts#L119">contracts/selection-service.ts:119</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns all elements from <a href="selectionservice.html#itemssource">itemsSource</a> collection which are marked as selected.</p>
+									<p>Returns all elements from <a href="selectionservice.html#items">items</a> collection which are marked as selected.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -431,16 +424,16 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in contracts/selection-service.ts:128</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/selection-service.ts#L124">contracts/selection-service.ts:124</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns indexes of all elements from <a href="selectionservice.html#itemssource">itemsSource</a> collection which are marked as selected.</p>
+									<p>Returns indexes of all elements from <a href="selectionservice.html#items">items</a> collection which are marked as selected.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
-							<p>collection of selected elements indexes in <a href="selectionservice.html#itemssource">itemsSource</a> collection.</p>
+							<p>collection of selected elements indexes in <a href="selectionservice.html#items">items</a> collection.</p>
 						</li>
 					</ul>
 				</section>
@@ -454,12 +447,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in contracts/selection-service.ts:70</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/selection-service.ts#L66">contracts/selection-service.ts:66</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Checks that at least one element selected in <a href="selectionservice.html#itemssource">itemsSource</a> collection.</p>
+									<p>Checks that at least one element selected in <a href="selectionservice.html#items">items</a> collection.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -477,7 +470,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in contracts/selection-service.ts:76</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/selection-service.ts#L72">contracts/selection-service.ts:72</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -490,7 +483,7 @@
 								<li>
 									<h5>index: <span class="tsd-signature-type">number</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>index of element in <a href="selectionservice.html#itemssource">itemsSource</a> collection to check.</p>
+										<p>index of element in <a href="selectionservice.html#items">items</a> collection to check.</p>
 									</div>
 								</li>
 							</ul>
@@ -509,12 +502,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in contracts/selection-service.ts:65</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/selection-service.ts#L61">contracts/selection-service.ts:61</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Checks, that all elements inside specified range are selected in <a href="selectionservice.html#itemssource">itemsSource</a> collection.</p>
+									<p>Checks, that all elements inside specified range are selected in <a href="selectionservice.html#items">items</a> collection.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -541,12 +534,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in contracts/selection-service.ts:52</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/selection-service.ts#L48">contracts/selection-service.ts:48</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Selects all elements in <a href="selectionservice.html#itemssource">itemsSource</a> collection.</p>
+									<p>Selects all elements in <a href="selectionservice.html#items">items</a> collection.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -563,12 +556,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in contracts/selection-service.ts:97</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/selection-service.ts#L93">contracts/selection-service.ts:93</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Selects first element in <a href="selectionservice.html#itemssource">itemsSource</a> collection.</p>
+									<p>Selects first element in <a href="selectionservice.html#items">items</a> collection.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -585,12 +578,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in contracts/selection-service.ts:107</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/selection-service.ts#L103">contracts/selection-service.ts:103</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Selects element at specified index in <a href="selectionservice.html#itemssource">itemsSource</a> collection.</p>
+									<p>Selects element at specified index in <a href="selectionservice.html#items">items</a> collection.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -598,7 +591,7 @@
 								<li>
 									<h5>index: <span class="tsd-signature-type">number</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>index of element in <a href="selectionservice.html#itemssource">itemsSource</a> collection.</p>
+										<p>index of element in <a href="selectionservice.html#items">items</a> collection.</p>
 									</div>
 								</li>
 								<li>
@@ -622,12 +615,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in contracts/selection-service.ts:101</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/selection-service.ts#L97">contracts/selection-service.ts:97</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Selects last element in <a href="selectionservice.html#itemssource">itemsSource</a> collection.</p>
+									<p>Selects last element in <a href="selectionservice.html#items">items</a> collection.</p>
 								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -644,12 +637,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in contracts/selection-service.ts:58</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/selection-service.ts#L54">contracts/selection-service.ts:54</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Selects range of elements in <a href="selectionservice.html#itemssource">itemsSource</a> collection.</p>
+									<p>Selects range of elements in <a href="selectionservice.html#items">items</a> collection.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -681,7 +674,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in contracts/selection-service.ts:118</li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/f3308c8/src/contracts/selection-service.ts#L114">contracts/selection-service.ts:114</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -694,7 +687,7 @@
 								<li>
 									<h5>index: <span class="tsd-signature-type">number</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>index of element in <a href="selectionservice.html#itemssource">itemsSource</a> collection.</p>
+										<p>index of element in <a href="selectionservice.html#items">items</a> collection.</p>
 									</div>
 								</li>
 								<li>
@@ -742,13 +735,13 @@
 						<a href="../classes/filtersservice.html" class="tsd-kind-icon">Filters<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="../classes/nullobjectpager.html" class="tsd-kind-icon">Null<wbr>Object<wbr>Pager</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="../classes/operation.html" class="tsd-kind-icon">Operation</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="../classes/pagedpager.html" class="tsd-kind-icon">Paged<wbr>Pager</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="../classes/regularpager.html" class="tsd-kind-icon">Regular<wbr>Pager</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="../classes/selectioneventshelper.html" class="tsd-kind-icon">Selection<wbr>Events<wbr>Helper</a>
@@ -758,9 +751,6 @@
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="../classes/statetrackingservice.html" class="tsd-kind-icon">State<wbr>Tracking<wbr>Service</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="bufferedlistrequest.html" class="tsd-kind-icon">Buffered<wbr>List<wbr>Request</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="filterconfig.html" class="tsd-kind-icon">Filter<wbr>Config</a>
@@ -774,14 +764,8 @@
 					<li class=" tsd-kind-interface">
 						<a href="pagedlistrequest.html" class="tsd-kind-icon">Paged<wbr>List<wbr>Request</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-has-type-parameter">
-						<a href="pagedlistresponse.html" class="tsd-kind-icon">Paged<wbr>List<wbr>Response</a>
-					</li>
 					<li class=" tsd-kind-interface">
 						<a href="pager.html" class="tsd-kind-icon">Pager</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="selectionareaconfig.html" class="tsd-kind-icon">Selection<wbr>Area<wbr>Config</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="selectionitem.html" class="tsd-kind-icon">Selection<wbr>Item</a>
@@ -792,7 +776,7 @@
 						<a href="selectionservice.html" class="tsd-kind-icon">Selection<wbr>Service</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="selectionservice.html#itemssource" class="tsd-kind-icon">items<wbr>Source</a>
+								<a href="selectionservice.html#items" class="tsd-kind-icon">items</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="selectionservice.html#lastprocessedindex" class="tsd-kind-icon">last<wbr>Processed<wbr>Index</a>

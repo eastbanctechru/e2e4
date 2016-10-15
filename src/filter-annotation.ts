@@ -1,5 +1,5 @@
-import {FilterConfig} from './contracts/filter-config';
-import {FiltersService} from './filters-service';
+import { FilterConfig } from './contracts/filter-config';
+import { FiltersService } from './filters-service';
 /**
  * Returns object literal that meets {@link FilterConfig} contract with next values:
  * ```Javascript
@@ -10,7 +10,6 @@ import {FiltersService} from './filters-service';
  *        ignoreOnAutoMap: false,
  *        parameterName: <value of 'propertyName' parameter>,
  *        parseFormatter: undefined,
- *        persisted: false,
  *        propertyName: <value of 'propertyName' parameter>,
  *        serializeFormatter: undefined
  * }
@@ -26,7 +25,6 @@ export function getDefaultFilterConfig(propertyName: string): FilterConfig {
         ignoreOnAutoMap: false,
         parameterName: propertyName,
         parseFormatter: undefined,
-        persisted: false,
         propertyName,
         serializeFormatter: undefined
     } as FilterConfig;

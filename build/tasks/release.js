@@ -4,6 +4,8 @@ var conventionalGithubReleaser = require('conventional-github-releaser');
 var git = require('gulp-git');
 var fs = require('fs');
 
+var currentBranch = 'v2';
+
 gulp.task('git-commit-changes', function () {
     return gulp.src('.')
         .pipe(git.add())
@@ -11,7 +13,7 @@ gulp.task('git-commit-changes', function () {
 });
 
 gulp.task('git-push-changes', function (cb) {
-    git.push('origin', 'master', cb);
+    git.push('origin', currentBranch, cb);
 });
 
 gulp.task('git-create-new-tag', function (cb) {
@@ -20,7 +22,7 @@ gulp.task('git-create-new-tag', function (cb) {
         if (error) {
             return cb(error);
         }
-        git.push('origin', 'master', { args: '--tags' }, cb);
+        git.push('origin', currentBranch, { args: '--tags' }, cb);
     });
 
     function getPackageJsonVersion() {

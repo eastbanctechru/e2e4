@@ -103,17 +103,16 @@ describe('SortingsService', () => {
             expect(sortingsService.defaultSortings).not.equal(sortingsService.sortings);
             expect(sortingsService.defaultSortings).eql(sortingsService.sortings);
         });
-
-        it('can persist sortings', () => {
+        it('can serialize sortings', () => {
             const target = toTargetWithDefault();
             const {sortingsService} = target;
+            sortingsService.setSort('field', false);
             const filtersService = new FiltersService(sortingsService);
-            sortingsService.persistSortings = true;
-            const persistedState = filtersService.getPersistedState();
-
-            expect(persistedState).eql(filtersService.getRequestState());
+            let serviceState = filtersService.getRequestState();
+            expect(serviceState).eql({
+                sortings: [{ direction: SortDirection.Asc, fieldName: 'field' }]
+            });
         });
-
         it('can save previous sorting', () => {
             const target = toTarget();
             const {sortingsService} = target;
@@ -194,7 +193,7 @@ describe('SortingsService', () => {
             const target = toTarget();
             const {sortingsService} = target;
             let filtersService = new FiltersService(sortingsService);
-            let params = { sort: { direction: SortDirection.Desc, fieldName: 'id' } };
+            let params = { sortings: { direction: SortDirection.Desc, fieldName: 'id' } };
             filtersService.applyParams(params);
             expect(sortingsService.sortings.length).equal(0);
         });
@@ -202,24 +201,14 @@ describe('SortingsService', () => {
             const target = toTarget();
             const {sortingsService} = target;
             let filtersService = new FiltersService(sortingsService);
-            let params = { sort: [{ direction: SortDirection.Desc, fieldName: 'id' }, { direction: SortDirection.Desc, fieldName: 'name' }] };
+            let params = { sortings: [{ direction: SortDirection.Desc, fieldName: 'id' }, { direction: SortDirection.Desc, fieldName: 'name' }] };
             filtersService.applyParams(params);
             expect(sortingsService.sortings.length).equal(2);
-            expect(sortingsService.sortings[0].fieldName).eql(params.sort[0].fieldName);
-            expect(sortingsService.sortings[0].direction).eql(params.sort[0].direction);
-            expect(sortingsService.sortings[1].fieldName).eql(params.sort[1].fieldName);
-            expect(sortingsService.sortings[1].direction).eql(params.sort[1].direction);
-            expect(sortingsService.sortings).not.equal(params.sort);
-        });
-
-        it('can use custom parameter names', () => {
-            const target = toTarget();
-            const {sortingsService} = target;
-            let filtersService = new FiltersService(sortingsService);
-
-            sortingsService.sortParameterName = 'customSort';
-            const request = filtersService.getRequestState();
-            expect(request).haveOwnProperty(sortingsService.sortParameterName);
+            expect(sortingsService.sortings[0].fieldName).eql(params.sortings[0].fieldName);
+            expect(sortingsService.sortings[0].direction).eql(params.sortings[0].direction);
+            expect(sortingsService.sortings[1].fieldName).eql(params.sortings[1].fieldName);
+            expect(sortingsService.sortings[1].direction).eql(params.sortings[1].direction);
+            expect(sortingsService.sortings).not.equal(params.sortings);
         });
     });
 });

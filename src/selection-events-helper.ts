@@ -1,4 +1,4 @@
-import {SelectionAreaConfig} from './contracts/selection-area-config';
+import { SelectionService } from './contracts/selection-service';
 /**
  * Used by {@link SelectionEventsHelper} to determine which key was pressed on keyboard.  
  */
@@ -34,10 +34,30 @@ export enum MouseButtons {
  */
 export class SelectionEventsHelper {
     /**
+     * `true` for shifting to next/previous item in list of items by `Left Arrow`/`Right Arrow` keys instead of `Arrow Up`/`Arrow Down` keys.
+     */
+    public horizontal: boolean;
+    /**
+     * `true` to make possible to pick several items in list of items (by clicking range of items with pressed `Shift` key, for example).
+     */
+    public multiple: boolean;
+    /**
+     * If `true`, then next item selection doesn't clear selection of previously selected items. The only way to clean selection is second click on previously selected element.
+     * This can be used to implement accordion-like behavior in application-defined UI component.
+     */
+    public toggleOnly: boolean;
+    /**
+     * Any implementation of {@link SelectionService} to perform actual selection.
+     * @see {@link DefaultSelectionService}
+     */
+    public selectionService: SelectionService;
+
+    /**
      * @param selectionConfig Used for declarative interaction with application-defined UI component and access to it's selection settings
      * as well as {@link SelectionService} implementation, that was configured on it.
      */
-    constructor(public selectionConfig: SelectionAreaConfig) {
+    constructor(selectionService: SelectionService) {
+        this.selectionService = selectionService;
     }
     /**
      * Tries to select all items if `Ctrl+A` combination was pressed.
@@ -46,8 +66,8 @@ export class SelectionEventsHelper {
      * @returns `true` if command was applied.
      */
     protected trySelectAll(ctrlPressed: boolean, shiftPressed: boolean): boolean {
-        if (ctrlPressed && !shiftPressed && this.selectionConfig.multiple) {
-            this.selectionConfig.selectionService.selectAll();
+        if (ctrlPressed && !shiftPressed && this.multiple) {
+            this.selectionService.selectAll();
             return true;
         }
         return false;
@@ -60,8 +80,8 @@ export class SelectionEventsHelper {
      * @returns `true` if command was applied.
      */
     protected trySelectPreviousItem(shiftKeyPressed: boolean): boolean {
-        if (this.selectionConfig.selectionService.lastProcessedIndex > 0) {
-            this.selectionConfig.selectionService.selectIndex(this.selectionConfig.selectionService.lastProcessedIndex - 1, shiftKeyPressed && this.selectionConfig.multiple);
+        if (this.selectionService.lastProcessedIndex > 0) {
+            this.selectionService.selectIndex(this.selectionService.lastProcessedIndex - 1, shiftKeyPressed && this.multiple);
             return true;
         }
         return false;
@@ -74,8 +94,8 @@ export class SelectionEventsHelper {
      * @returns `true` if command was applied.
      */
     protected trySelectNextItem(shiftKeyPressed: boolean): boolean {
-        if (this.selectionConfig.selectionService.lastProcessedIndex < this.selectionConfig.selectionService.itemsSource.length - 1) {
-            this.selectionConfig.selectionService.selectIndex(this.selectionConfig.selectionService.lastProcessedIndex + 1, shiftKeyPressed && this.selectionConfig.multiple);
+        if (this.selectionService.lastProcessedIndex < this.selectionService.items.length - 1) {
+            this.selectionService.selectIndex(this.selectionService.lastProcessedIndex + 1, shiftKeyPressed && this.multiple);
             return true;
         }
         return false;
@@ -86,10 +106,10 @@ export class SelectionEventsHelper {
      * @returns `true` if command was applied.
      */
     protected tryDeselectLastItemInRange(shiftKeyPressed: boolean): boolean {
-        if (this.selectionConfig.selectionService.lastProcessedIndex > 0 && shiftKeyPressed) {
-            if (this.selectionConfig.selectionService.isIndexSelected(this.selectionConfig.selectionService.lastProcessedIndex - 1)) {
-                this.selectionConfig.selectionService.deselectIndex(this.selectionConfig.selectionService.lastProcessedIndex);
-                this.selectionConfig.selectionService.lastProcessedIndex = this.selectionConfig.selectionService.lastProcessedIndex - 1;
+        if (this.selectionService.lastProcessedIndex > 0 && shiftKeyPressed) {
+            if (this.selectionService.isIndexSelected(this.selectionService.lastProcessedIndex - 1)) {
+                this.selectionService.deselectIndex(this.selectionService.lastProcessedIndex);
+                this.selectionService.lastProcessedIndex = this.selectionService.lastProcessedIndex - 1;
                 return true;
             }
         }
@@ -101,10 +121,10 @@ export class SelectionEventsHelper {
      * @returns `true` if command was applied.
      */
     protected tryDeselectLastItemInReversedRange(shiftKeyPressed: boolean): boolean {
-        if (this.selectionConfig.selectionService.lastProcessedIndex < this.selectionConfig.selectionService.itemsSource.length && shiftKeyPressed) {
-            if (this.selectionConfig.selectionService.isIndexSelected(this.selectionConfig.selectionService.lastProcessedIndex + 1)) {
-                this.selectionConfig.selectionService.deselectIndex(this.selectionConfig.selectionService.lastProcessedIndex);
-                this.selectionConfig.selectionService.lastProcessedIndex = this.selectionConfig.selectionService.lastProcessedIndex + 1;
+        if (this.selectionService.lastProcessedIndex < this.selectionService.items.length && shiftKeyPressed) {
+            if (this.selectionService.isIndexSelected(this.selectionService.lastProcessedIndex + 1)) {
+                this.selectionService.deselectIndex(this.selectionService.lastProcessedIndex);
+                this.selectionService.lastProcessedIndex = this.selectionService.lastProcessedIndex + 1;
                 return true;
             }
         }
@@ -117,8 +137,8 @@ export class SelectionEventsHelper {
      * @returns `true` if command was applied.
      */
     protected tryBuildRangeWithPreviousItemWhenLastItemWasDeselected(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
-        if (!ctrlKeyPressed && shiftKeyPressed && false === this.selectionConfig.selectionService.isIndexSelected(this.selectionConfig.selectionService.lastProcessedIndex)) {
-            this.selectionConfig.selectionService.selectRange(this.selectionConfig.selectionService.lastProcessedIndex, this.selectionConfig.selectionService.lastProcessedIndex - 1);
+        if (!ctrlKeyPressed && shiftKeyPressed && false === this.selectionService.isIndexSelected(this.selectionService.lastProcessedIndex)) {
+            this.selectionService.selectRange(this.selectionService.lastProcessedIndex, this.selectionService.lastProcessedIndex - 1);
             return true;
         }
         return false;
@@ -130,73 +150,73 @@ export class SelectionEventsHelper {
      * @returns `true` if command was applied.
      */
     protected tryBuildRangeWithNextItemWhenLastItemWasDeselected(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
-        if (!ctrlKeyPressed && shiftKeyPressed && false === this.selectionConfig.selectionService.isIndexSelected(this.selectionConfig.selectionService.lastProcessedIndex)) {
-            this.selectionConfig.selectionService.selectRange(this.selectionConfig.selectionService.lastProcessedIndex, this.selectionConfig.selectionService.lastProcessedIndex + 1);
+        if (!ctrlKeyPressed && shiftKeyPressed && false === this.selectionService.isIndexSelected(this.selectionService.lastProcessedIndex)) {
+            this.selectionService.selectRange(this.selectionService.lastProcessedIndex, this.selectionService.lastProcessedIndex + 1);
             return true;
         }
         return false;
     }
     /**
-     * Selects first element in {@link SelectionService.itemsSource} if nothing was selected before.
+     * Selects first element in {@link SelectionService.items} if nothing was selected before.
      * @returns `true` if command was applied.
      */
     protected tryInitialSelectionOfFirstItem(): boolean {
-        if (this.selectionConfig.selectionService.lastProcessedIndex === null) {
-            this.selectionConfig.selectionService.selectFirst();
+        if (this.selectionService.lastProcessedIndex === null) {
+            this.selectionService.selectFirst();
             return true;
         }
         return false;
     }
     /**
-     * Tries to select all elements starting from last selected element up to first element in {@link SelectionService.itemsSource} when `Ctrl+Shift+Arrow Up` combination was pressed
+     * Tries to select all elements starting from last selected element up to first element in {@link SelectionService.items} when `Ctrl+Shift+Arrow Up` combination was pressed
      * (`Ctrl+Shift+Arrow Left` if {@link SelectionAreaConfig.horizontal} is `true`). 
      * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
      * @param shiftKeyPressed - `true` if `Shift` key was pressed.
      * @returns `true` if command was applied.
      */
     protected trySelectAllItemsUpToFirst(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
-        if (this.selectionConfig.selectionService.lastProcessedIndex !== null && ctrlKeyPressed && shiftKeyPressed && this.selectionConfig.multiple) {
-            this.selectionConfig.selectionService.selectRange(this.selectionConfig.selectionService.lastProcessedIndex, 0);
+        if (this.selectionService.lastProcessedIndex !== null && ctrlKeyPressed && shiftKeyPressed && this.multiple) {
+            this.selectionService.selectRange(this.selectionService.lastProcessedIndex, 0);
             return true;
         }
         return false;
     }
     /**
-     * Tries to select all elements starting from last selected element up to last element in {@link SelectionService.itemsSource} when `Ctrl+Shift+Arrow Down` combination was pressed
+     * Tries to select all elements starting from last selected element up to last element in {@link SelectionService.items} when `Ctrl+Shift+Arrow Down` combination was pressed
      * (`Ctrl+Shift+Arrow Right` if {@link SelectionAreaConfig.horizontal} is `true`). 
      * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
      * @param shiftKeyPressed - `true` if `Shift` key was pressed.
      * @returns `true` if command was applied.
      */
     protected trySelectAllItemsUpToLast(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
-        if (this.selectionConfig.selectionService.lastProcessedIndex !== null && ctrlKeyPressed && shiftKeyPressed && this.selectionConfig.multiple) {
-            this.selectionConfig.selectionService.selectRange(this.selectionConfig.selectionService.lastProcessedIndex, this.selectionConfig.selectionService.itemsSource.length - 1);
+        if (this.selectionService.lastProcessedIndex !== null && ctrlKeyPressed && shiftKeyPressed && this.multiple) {
+            this.selectionService.selectRange(this.selectionService.lastProcessedIndex, this.selectionService.items.length - 1);
             return true;
         }
         return false;
     }
     /**
-     * Tries to select first element in {@link SelectionService.itemsSource} when `Ctrl+Arrow Up` combination was pressed (`Ctrl+Arrow Left` if {@link SelectionAreaConfig.horizontal} is `true`). 
+     * Tries to select first element in {@link SelectionService.items} when `Ctrl+Arrow Up` combination was pressed (`Ctrl+Arrow Left` if {@link SelectionAreaConfig.horizontal} is `true`). 
      * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
      * @param shiftKeyPressed - `true` if `Shift` key was pressed (with pressed `Shift` this command would not be applied).
      * @returns `true` if command was applied.
      */
     protected trySelectFirstItem(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
         if (ctrlKeyPressed && !shiftKeyPressed) {
-            this.selectionConfig.selectionService.selectFirst();
+            this.selectionService.selectFirst();
             return true;
         }
         return false;
     }
     /**
-     * Tries to select last element in {@link SelectionService.itemsSource} when `Ctrl+Arrow Down` combination was pressed (`Ctrl+Arrow Right` if {@link SelectionAreaConfig.horizontal} is `true`). 
+     * Tries to select last element in {@link SelectionService.items} when `Ctrl+Arrow Down` combination was pressed (`Ctrl+Arrow Right` if {@link SelectionAreaConfig.horizontal} is `true`). 
      * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
      * @param shiftKeyPressed - `true` if `Shift` key was pressed (with pressed `Shift` this command would not be applied).
      * @returns `true` if command was applied.
      */
     protected trySelectLastItem(ctrlKeyPressed: boolean, shiftKeyPressed: boolean): boolean {
         if (ctrlKeyPressed && !shiftKeyPressed) {
-            this.selectionConfig.selectionService.selectLast();
+            this.selectionService.selectLast();
             return true;
         }
         return false;
@@ -240,13 +260,13 @@ export class SelectionEventsHelper {
     public keyboardHandler(ctrlKeyPressed: boolean, shiftKeyPressed: boolean, keyCode: KeyCodes): boolean {
         switch (keyCode) {
             case KeyCodes.ArrowUp:
-                return !this.selectionConfig.horizontal && this.onPreviousKey(ctrlKeyPressed, shiftKeyPressed);
+                return !this.horizontal && this.onPreviousKey(ctrlKeyPressed, shiftKeyPressed);
             case KeyCodes.ArrowLeft:
-                return this.selectionConfig.horizontal && this.onPreviousKey(ctrlKeyPressed, shiftKeyPressed);
+                return this.horizontal && this.onPreviousKey(ctrlKeyPressed, shiftKeyPressed);
             case KeyCodes.ArrowDown:
-                return !this.selectionConfig.horizontal && this.onNextKey(ctrlKeyPressed, shiftKeyPressed);
+                return !this.horizontal && this.onNextKey(ctrlKeyPressed, shiftKeyPressed);
             case KeyCodes.ArrowRight:
-                return this.selectionConfig.horizontal && this.onNextKey(ctrlKeyPressed, shiftKeyPressed);
+                return this.horizontal && this.onNextKey(ctrlKeyPressed, shiftKeyPressed);
             case KeyCodes.Tab:
                 return ctrlKeyPressed ? false : shiftKeyPressed ? this.trySelectPreviousItem(false) : this.trySelectNextItem(false);
             case KeyCodes.A:
@@ -260,20 +280,20 @@ export class SelectionEventsHelper {
      * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
      * @param shiftKeyPressed - `true` if `Shift` key was pressed.
      * @param mouseButton specifies which mouse button was pressed.
-     * @param itemIndex index of clicked element in {@link SelectionService.itemsSource} collection.
+     * @param itemIndex index of clicked element in {@link SelectionService.items} collection.
      * @returns `true` if any of executed commands was applied.
      */
     public mouseHandler(ctrlKeyPressed: boolean, shiftKeyPressed: boolean, mouseButton: MouseButtons, itemIndex: number): boolean {
-        const isItemSelected = this.selectionConfig.selectionService.isIndexSelected(itemIndex);
+        const isItemSelected = this.selectionService.isIndexSelected(itemIndex);
         if (isItemSelected !== false && mouseButton !== MouseButtons.Left) {
             return false;
         }
-        if (shiftKeyPressed && this.selectionConfig.multiple) {
-            const minIndex = this.selectionConfig.selectionService.getMinSelectedIndex();
-            this.selectionConfig.selectionService.selectRange(minIndex === -1 ? itemIndex : minIndex, itemIndex);
+        if (shiftKeyPressed && this.multiple) {
+            const minIndex = this.selectionService.getMinSelectedIndex();
+            this.selectionService.selectRange(minIndex === -1 ? itemIndex : minIndex, itemIndex);
         } else {
-            let multiple = (ctrlKeyPressed || this.selectionConfig.toggleOnly) && this.selectionConfig.multiple;
-            this.selectionConfig.selectionService.toggleSelection(itemIndex, multiple);
+            let multiple = (ctrlKeyPressed || this.toggleOnly) && this.multiple;
+            this.selectionService.toggleSelection(itemIndex, multiple);
         }
         return true;
     }

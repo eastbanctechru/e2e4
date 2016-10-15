@@ -1,3 +1,131 @@
+<a name="2.0.0-beta.6"></a>
+# [2.0.0-beta.6](https://github.com/fshchudlo/e2e4/compare/2.0.0-beta.5...v2.0.0-beta.6) (2016-10-11)
+
+
+### Code Refactoring
+
+* **filters:** `persisted` option removed from `FilterConfig` contract ([e929a50](https://github.com/fshchudlo/e2e4/commit/e929a50))
+* **selection:** `SelectionAreaConfig` contract merged into `SelectionEventsHelper` class ([cf28138](https://github.com/fshchudlo/e2e4/commit/cf28138))
+
+
+### BREAKING CHANGES
+
+* filters: all settings related to `persisted` flag of `FilterConfig` removed from library
+* selection: `SelectionAreaConfig` contract merged into `SelectionEventsHelper` class
+
+
+
+<a name="2.0.0-beta.5"></a>
+# [2.0.0-beta.5](https://github.com/fshchudlo/e2e4/compare/2.0.0-beta.4...v2.0.0-beta.5) (2016-10-08)
+
+
+### Code Refactoring
+
+* **DefaultSelectionService:** `itemsSource` property removed ([b038959](https://github.com/fshchudlo/e2e4/commit/b038959))
+
+
+### BREAKING CHANGES
+
+* DefaultSelectionService: `itemsSource` property removed. You must use `items` arra instead and call
+
+`checkSelection` manually if needed
+
+
+
+<a name="2.0.0-beta.4"></a>
+# [2.0.0-beta.4](https://github.com/fshchudlo/e2e4/compare/2.0.0-beta.3...v2.0.0-beta.4) (2016-10-06)
+
+
+### Bug Fixes
+
+* **all:** remove `this` specification cause it breaks docs and coverage ([0cfa1f4](https://github.com/fshchudlo/e2e4/commit/0cfa1f4))
+
+
+### Code Refactoring
+
+* **FiltersService:** optional delegate to filter applied values in `getRequestState` added ([b37308d](https://github.com/fshchudlo/e2e4/commit/b37308d))
+
+
+### BREAKING CHANGES
+
+* FiltersService: `getPersistedState` method removed. You can pass delegate to `getRequestState`
+
+method anf filter values by `persisted` flag or any other condition
+
+
+
+<a name="2.0.0-beta.3"></a>
+# [2.0.0](https://github.com/fshchudlo/e2e4/compare/2.0.0-beta.2...v2.0.0-beta.2) (2016-10-03)
+
+
+### Bug Fixes
+
+* **build:** fix of `chai` import in src code ([d0d189c](https://github.com/fshchudlo/e2e4/commit/d0d189c))
+* **paging:** make `PagedListRequest` parameters required ([ba7a0b5](https://github.com/fshchudlo/e2e4/commit/ba7a0b5))
+
+
+
+<a name="2.0.0-beta.2"></a>
+# [2.0.0-beta.2](https://github.com/fshchudlo/e2e4/compare/2.0.0-beta.1...v2.0.0-beta.2) (2016-10-03)
+
+
+### Bug Fixes
+
+* **paging:** `PagedListRequest` added to exports ([d5c7e47](https://github.com/fshchudlo/e2e4/commit/d5c7e47))
+
+
+
+<a name="2.0.0-beta.1"></a>
+# [2.0.0-beta.1](https://github.com/fshchudlo/e2e4/compare/2.0.0-beta.0...v2.0.0-beta.1) (2016-10-03)
+
+
+### Features
+
+* **paging:** separate `PagedListRequest` contract added ([e13be1c](https://github.com/fshchudlo/e2e4/commit/e13be1c))
+
+
+### BREAKING CHANGES
+
+* paging: `take` and `skip` properties of `ListRequest` moved to `PagedListRequest`
+
+
+
+<a name="2.0.0-beta.0"></a>
+# [2.0.0-beta.0](https://github.com/fshchudlo/e2e4/compare/1.4.1...v2.0.0-beta.0) (2016-09-29)
+
+
+### Bug Fixes
+
+* **pagers:** reset `loadedCount` property in `reset` methods ([73dce08](https://github.com/fshchudlo/e2e4/commit/73dce08))
+
+
+### Code Refactoring
+
+* **paging:** `RegularPager` renamed to `NullObjectPager` ([d406b59](https://github.com/fshchudlo/e2e4/commit/d406b59))
+* **paging:** unified request contract implemented for `PagedPager` and `BufferedPager` ([c8aae36](https://github.com/fshchudlo/e2e4/commit/c8aae36))
+* **SortingsService:** `sort` parameter name renamed to `sortings` ([071c032](https://github.com/fshchudlo/e2e4/commit/071c032))
+
+
+### Features
+
+* **all:** all `*parameterName` properties deleted ([2536307](https://github.com/fshchudlo/e2e4/commit/2536307))
+* **paging:** `PagedPager` now calculates `displayFrom` and `displayTo` properties by himself ([d1001b9](https://github.com/fshchudlo/e2e4/commit/d1001b9))
+* **paging:** `processResponse` method now accepts objects of `ListResponse` type instead of any ([b6a73c0](https://github.com/fshchudlo/e2e4/commit/b6a73c0))
+
+
+### BREAKING CHANGES
+
+* SortingsService: `sort` parameter renamed to `sortings`
+* paging: `BufferedListRequest` and `PagedListRequest` contracts deleted
+* paging: `RegularPager` renamed to `NullObjectPager`
+* paging: `PagedListResponse` contract removed because `PagedPager` now calculates
+
+`displayFrom` and `displayTo` properties by himself and this contract becomes useless
+* paging: `Pager.processResponse` method now accepts objects of `ListResponse` type
+* all: All `*parameterName` config properties were deleted since it's a lot easier to map request/response parameters manually  in end-user code
+
+
+
 <a name="1.4.2"></a>
 ## [1.4.2](https://github.com/fshchudlo/e2e4/compare/1.4.1...v1.4.2) (2016-09-24)
 

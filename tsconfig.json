@@ -21,7 +21,8 @@
         "lib": [
             "dom",
             "es2016"
-        ]
+        ],
+        "types": []
     },
     "exclude": [
         "node_modules"

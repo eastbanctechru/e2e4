@@ -1,7 +1,7 @@
 import { SelectionItem } from '../src/contracts/selection-service';
 import { DefaultSelectionService } from '../src/default-selection-service';
 
-import { assert, expect  } from 'chai';
+import { assert, expect } from 'chai';
 import * as sinon from 'sinon';
 
 const savePrevious = true;
@@ -38,7 +38,7 @@ describe('SelectionService', () => {
         it('returns empty array if nothing is selected', () => {
             const items = [1, 2, 3, 4, 5];
             let selectionService = new DefaultSelectionService();
-            selectionService.itemsSource = items;
+            selectionService.items = items;
             expect(selectionService.getSelectedElements()).eql([]);
             selectionService.selectAll();
             expect(selectionService.getSelectedElements()).eql([1, 2, 3, 4, 5]);
@@ -49,14 +49,14 @@ describe('SelectionService', () => {
         it('returns empty array if nothing is selected', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             expect(target.selectionService.getSelectedElements()).eql([]);
         });
 
         it('returns selections array', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.selectFirst();
             expect(target.selectionService.getSelectedElements()).eql([target.items[0]]);
         });
@@ -66,7 +66,7 @@ describe('SelectionService', () => {
         it('set first element selected', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.selectFirst();
 
             expect(target.selectionService.getSelectedElements()).eql([target.items[0]]);
@@ -76,7 +76,7 @@ describe('SelectionService', () => {
             const target = toTarget();
             const firstSelectionIndex = 2;
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.items[firstSelectionIndex].selected = true;
             target.selectionService.selectFirst();
 
@@ -87,7 +87,7 @@ describe('SelectionService', () => {
         it(`doesn't throw on empty collection`, () => {
             const target = toEmptyTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             assert.doesNotThrow(function (): void {
                 target.selectionService.selectFirst();
             });
@@ -98,7 +98,7 @@ describe('SelectionService', () => {
         it('set last element selected', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.selectLast();
             expect(target.selectionService.getSelectedElements()).eql([target.items[target.items.length - 1]]);
             expect(target.items.every((item: Item, index: number, array: Array<Item>) => !item.selected || index === array.length - 1)).eql(true);
@@ -108,7 +108,7 @@ describe('SelectionService', () => {
             const target = toTarget();
             const firstSelectionIndex = 0;
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.items[firstSelectionIndex].selected = true;
             target.selectionService.selectLast();
 
@@ -119,7 +119,7 @@ describe('SelectionService', () => {
         it(`doesn't throw on empty collection`, () => {
             const target = toEmptyTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             assert.doesNotThrow(function (): void {
                 target.selectionService.selectLast();
             });
@@ -130,7 +130,7 @@ describe('SelectionService', () => {
         it('set element at index selected', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.selectIndex(1, savePrevious);
 
             expect(target.items[0].selected).eql(false);
@@ -141,7 +141,7 @@ describe('SelectionService', () => {
         it('handles duplicate selection', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.selectIndex(1, savePrevious);
             target.selectionService.selectIndex(1, savePrevious);
             expect(target.selectionService.getSelectedIndexes()).eql([1]);
@@ -150,7 +150,7 @@ describe('SelectionService', () => {
         it(`can save previously selected`, () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.selectFirst();
             target.selectionService.selectIndex(1, savePrevious);
             expect(target.selectionService.getSelectedElements()).eql([target.items[0], target.items[1]]);
@@ -163,7 +163,7 @@ describe('SelectionService', () => {
         it(`can clear previously selected`, () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.selectFirst();
             target.selectionService.selectIndex(1, doNotSavePrevious);
             expect(target.selectionService.getSelectedElements()).eql([target.items[1]]);
@@ -176,7 +176,7 @@ describe('SelectionService', () => {
         it(`ignores incorrect values`, () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
 
             target.selectionService.selectIndex(-20);
             expect(target.selectionService.getSelectedElements()).empty;
@@ -193,7 +193,7 @@ describe('SelectionService', () => {
         it('set element at index deselected', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.selectIndex(1, savePrevious);
             expect(target.selectionService.getSelectedElements()).eql([target.items[1]]);
 
@@ -209,7 +209,7 @@ describe('SelectionService', () => {
         it(`ignores incorrect values`, () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
 
             target.selectionService.deselectIndex(-20);
             expect(target.selectionService.getSelectedElements()).empty;
@@ -223,7 +223,7 @@ describe('SelectionService', () => {
         it(`normally handles deselection of itam that wasn't selected`, () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
 
             target.selectionService.deselectAll();
             target.selectionService.deselectIndex(1);
@@ -236,7 +236,7 @@ describe('SelectionService', () => {
         it('toggle element selection at index', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.toggleSelection(1, savePrevious);
             expect(target.selectionService.getSelectedElements()).eql([target.items[1]]);
 
@@ -251,7 +251,7 @@ describe('SelectionService', () => {
         it('toggle element selection only at index when multiple items selected', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.toggleSelection(1, savePrevious);
             target.selectionService.toggleSelection(2, savePrevious);
             expect(target.selectionService.getSelectedElements()).eql([target.items[1], target.items[2]]);
@@ -269,7 +269,7 @@ describe('SelectionService', () => {
             const target = toTarget();
 
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.toggleSelection(1, doNotSavePrevious);
             expect(target.selectionService.getSelectedElements()).eql([target.items[1]]);
 
@@ -286,7 +286,7 @@ describe('SelectionService', () => {
         it('toggle element selection at index, multi item mode', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.toggleSelection(1, savePrevious);
             expect(target.selectionService.getSelectedElements()).eql([target.items[1]]);
 
@@ -307,7 +307,7 @@ describe('SelectionService', () => {
         it(`ignores incorrect values`, () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
 
             target.selectionService.toggleSelection(-20);
             expect(target.selectionService.getSelectedElements()).empty;
@@ -325,7 +325,7 @@ describe('SelectionService', () => {
         it('works when single item  selected', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.toggleSelection(1, savePrevious);
             expect(target.selectionService.getMinSelectedIndex()).eql(1);
         });
@@ -333,7 +333,7 @@ describe('SelectionService', () => {
         it('works when multiple items selected', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.toggleSelection(0, savePrevious);
             target.selectionService.toggleSelection(1, savePrevious);
             expect(target.selectionService.getMinSelectedIndex()).eql(0);
@@ -341,7 +341,7 @@ describe('SelectionService', () => {
         it('works when selection order reversed', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.toggleSelection(1, savePrevious);
             target.selectionService.toggleSelection(0, savePrevious);
             expect(target.selectionService.getMinSelectedIndex()).eql(0);
@@ -349,7 +349,7 @@ describe('SelectionService', () => {
         it('works when nothing selected', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             expect(target.selectionService.getMinSelectedIndex()).eql(-1);
         });
     });
@@ -358,7 +358,7 @@ describe('SelectionService', () => {
         it('works when single item selected', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.toggleSelection(1, savePrevious);
             expect(target.selectionService.getMaxSelectedIndex()).eql(1);
         });
@@ -366,7 +366,7 @@ describe('SelectionService', () => {
         it('works when multiple items selected', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.toggleSelection(0, savePrevious);
             target.selectionService.toggleSelection(1, savePrevious);
             expect(target.selectionService.getMaxSelectedIndex()).eql(1);
@@ -375,7 +375,7 @@ describe('SelectionService', () => {
         it('works when selection order reversed', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.toggleSelection(1, savePrevious);
             target.selectionService.toggleSelection(0, savePrevious);
             expect(target.selectionService.getMaxSelectedIndex()).eql(1);
@@ -383,7 +383,7 @@ describe('SelectionService', () => {
         it('works when nothing selected', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             expect(target.selectionService.getMaxSelectedIndex()).eql(-1);
         });
     });
@@ -392,7 +392,7 @@ describe('SelectionService', () => {
         it('return selection state for index in valid range', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.toggleSelection(1, savePrevious);
             expect(target.selectionService.isIndexSelected(1)).eql(true);
         });
@@ -400,7 +400,7 @@ describe('SelectionService', () => {
         it('return false for index in out of range', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             expect(target.selectionService.isIndexSelected(-1)).eql(false);
             expect(target.selectionService.isIndexSelected(4)).eql(false);
         });
@@ -409,7 +409,7 @@ describe('SelectionService', () => {
         it('return index for item in items source', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             expect(target.selectionService.getItemIndex(target.items[0])).eq(0);
             expect(target.selectionService.getItemIndex(target.items[1])).eq(1);
             expect(target.selectionService.getItemIndex(target.items[2])).eq(2);
@@ -418,7 +418,7 @@ describe('SelectionService', () => {
         it('return -1 for item that not from items source', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             expect(target.selectionService.getItemIndex(
                 {
                     name: 'cadabra',
@@ -426,51 +426,57 @@ describe('SelectionService', () => {
                 } as SelectionItem)).eq(-1);
         });
     });
-    describe('itemsSource', () => {
+    describe('checkSelection', () => {
         it('clear selection when pass null as source', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.selectAll();
             expect(target.selectionService.getSelectedElements().length).eq(target.items.length);
             target.items.pop();
-            target.selectionService.itemsSource = null;
+            target.selectionService.items = null;
+            target.selectionService.checkSelection();
+
             expect(target.selectionService.getSelectedElements().length).eq(0);
         });
         it('remove deleted item from selections on set', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.selectAll();
             expect(target.selectionService.getSelectedElements().length).eq(target.items.length);
             target.items.pop();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
+            target.selectionService.checkSelection();
             expect(target.selectionService.getSelectedElements().length).eq(target.items.length);
         });
         it('remove shifted items from selections on set', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.selectAll();
             target.items.unshift(target.items.pop());
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
+            target.selectionService.checkSelection();
             expect(target.selectionService.getSelectedElements().length).eq(0);
         });
         it('use referential equals as trackBy function by default', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.selectAll();
-            target.selectionService.itemsSource = target.items.map((item: Item) => ({ name: item.name } as Item));
+            target.selectionService.items = target.items.map((item: Item) => ({ name: item.name } as Item));
+            target.selectionService.checkSelection();
             expect(target.selectionService.getSelectedElements().length).eq(0);
         });
         it('can use custom trackBy function', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.trackByFn = (index: number, item: any) => item.name;
             target.selectionService.selectAll();
-            target.selectionService.itemsSource = target.items.map((item: Item) => ({ name: item.name, selected: false } as Item));
+            target.selectionService.items = target.items.map((item: Item) => ({ name: item.name, selected: false } as Item));
+            target.selectionService.checkSelection();
             expect(target.selectionService.getSelectedElements().length).eq(5);
         });
     });
@@ -479,7 +485,7 @@ describe('SelectionService', () => {
         it('return boolean', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             expect(target.selectionService.hasSelections()).eql(false);
             target.selectionService.toggleSelection(1, savePrevious);
             expect(target.selectionService.hasSelections()).eql(true);
@@ -490,7 +496,7 @@ describe('SelectionService', () => {
         it('ignore invalid indexes', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
 
             target.selectionService.selectRange(-1, 5);
 
@@ -501,7 +507,7 @@ describe('SelectionService', () => {
         it('select all items in range', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
 
             target.selectionService.selectRange(0, 1);
 
@@ -515,7 +521,7 @@ describe('SelectionService', () => {
         it('doesn`t preserve previous selections', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.toggleSelection(2, savePrevious);
             target.selectionService.selectRange(0, 1);
             expect(target.selectionService.getSelectedElements()).eql([target.items[0], target.items[1]]);
@@ -524,7 +530,7 @@ describe('SelectionService', () => {
         it('checks that range already selected', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             let spy = sinon.spy(target.selectionService, 'isRangeSelected');
             target.selectionService.selectRange(0, 1);
             target.selectionService.selectRange(0, 1);
@@ -538,20 +544,20 @@ describe('SelectionService', () => {
         it('returns false if nothing selected at all', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             expect(target.selectionService.isRangeSelected(0, 1)).eq(false);
         });
         it('returns true if all items selected', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.selectAll();
             expect(target.selectionService.isRangeSelected(0, target.items.length - 1)).eq(true);
         });
         it('handles by element checks', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.selectRange(1, 3);
             expect(target.selectionService.isRangeSelected(1, 3)).eq(true);
             expect(target.selectionService.isRangeSelected(0, 2)).eq(false);
@@ -562,7 +568,7 @@ describe('SelectionService', () => {
         it('clears selections list and last processed index', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.selectAll();
             expect(target.selectionService.getSelectedElements().length).equal(target.items.length);
             target.selectionService.destroy();
@@ -572,16 +578,16 @@ describe('SelectionService', () => {
         it('removes items source', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.destroy();
-            expect(target.selectionService.itemsSource).null;
+            expect(target.selectionService.items).null;
         });
 
         it('but keep initial collection untouched', () => {
             const target = toTarget();
             const tempItems = target.items.slice();
             target.selectionService = new DefaultSelectionService();
-            target.selectionService.itemsSource = target.items;
+            target.selectionService.items = target.items;
             target.selectionService.destroy();
             expect(target.items).eql(tempItems);
         });

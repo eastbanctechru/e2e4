@@ -1,16 +1,16 @@
 import { ListRequest } from './list-request';
 /**
- * Represents request to the server for getting paged list data.
+ * Represents parameters of request to the server to retrieve list data.
  * 
- * You can use this contract in your end-user code for better code completion if you have no need to change default parameters names when use {@link PagedPager}.
+ * You can use this contract in your end-user code for better code completion.
  */
 export interface PagedListRequest extends ListRequest {
     /**
-     * Size of page that must be loaded to the list on next request.
+     * Number of items already loaded to the list that must be skipped on next request.
      */
-    pageSize: number;
+    skip: number;
     /**
-     * Number of page that must be loaded to the list on next request.
+     * Number of items that must be loaded on next request.
      */
-    pageNumber: number;
+    take: number;
 }

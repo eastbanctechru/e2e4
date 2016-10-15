@@ -1,5 +1,5 @@
-import {FilterConfig} from './contracts/filter-config';
-import {cloneAsLiteral, coerceValue } from './utilities';
+import { FilterConfig } from './contracts/filter-config';
+import { cloneAsLiteral, coerceValue } from './utilities';
 /**
  * Used to declarative building of objects which represents valuable state of target object.
  * 
@@ -26,10 +26,9 @@ import {cloneAsLiteral, coerceValue } from './utilities';
  * ```
  *  - by calling {@link resetValues} we can reset annotated properties state to initial values (or to what is specified as {@link FilterConfig.defaultValue}). 
  *  - by calling {@link applyParams} we can automatically apply any set of values to annotated properties (we can pass queryString object to automatically apply values from it, for example). 
- *  - by calling {@link getPersistedState} we can get the same serializable state as with {@link getRequestState}. But only properties that was marked with {@link FilterConfig.persisted} will be applied. 
- * You can persist any components state in localStorage or on the server and automatically apply it at next user session with {@link applyParams}, for example.
+ *  - by calling {@link getRequestState} with some filters we can "query" the state of filters and save it to the settings storage, for example. 
  *  - by calling {@link registerFilterTarget} you can add any count of additional objects and get their 
- * composed state via {@link getRequestState} and {@link getPersistedState} methods as well as process them all with {@link resetValues} and {@link applyParams}.
+ * composed state via {@link getRequestState} method as well as process them all with {@link resetValues} and {@link applyParams}.
  */
 export class FiltersService {
     /**
@@ -61,7 +60,7 @@ export class FiltersService {
     /**
      * Used to build resulted value of `target property` based on specified {@link FilterConfig}.
      * 
-     * This method is used by {@link getRequestState}, {@link getPersistedState} and also calls oneself for the case of array values.
+     * This method is used by {@link getRequestState} and also calls oneself for the case of array values.
      * 
      * 
      * In addition to {@link FilterConfig} configuration, this method checks if `target property` has method `toRequest()`. If so this method will be used to get serialized value.
@@ -108,7 +107,7 @@ export class FiltersService {
      * 
      * This collection is also filled up with configurations of passed `target objects` base classes since config applicability is determined by `instanceof` check. 
      * 
-     * This collection is "lazy" and will be filled up on first call of {@link resetValues}, {@link applyParams}, {@link getPersistedState} or {@link getRequestState} method.
+     * This collection is "lazy" and will be filled up on first call of {@link resetValues}, {@link applyParams} or {@link getRequestState} method.
      */
     public get appliedFiltersMap(): Map<Object, Array<FilterConfig>> {
         if (!this.filtersMapBuilded) {
@@ -122,7 +121,7 @@ export class FiltersService {
      * Default value will be determined as:
      *  - If value for {@link FilterConfig.defaultValue} is specified it will be applied.
      *  - Otherwise this service writes to {@link FilterConfig.defaultValue} value of `target property` at the moment of first call of 
-     * {@link resetValues}, {@link applyParams}, {@link getPersistedState} or {@link getRequestState}.
+     * {@link resetValues}, {@link applyParams} or {@link getRequestState}.
      * 
      * This method performs next actions:
      *  - If value specified as {@link FilterConfig.defaultValue} is function it will be called with `target object` as `this` scope. If specified value is not a function it will be used by itself.
@@ -152,9 +151,8 @@ export class FiltersService {
         this.appliedFiltersMap.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
             for (let i = 0; i < targetConfig.length; i++) {
                 const config = targetConfig[i];
-                const parameterName = this.getParameterName(target, config);
-                if (params && params.hasOwnProperty(parameterName) && false === config.ignoreOnAutoMap) {
-                    let proposedVal = config.emptyIsNull ? params[parameterName] || null : params[parameterName];
+                if (params && params.hasOwnProperty(config.parameterName) && false === config.ignoreOnAutoMap) {
+                    let proposedVal = config.emptyIsNull ? params[config.parameterName] || null : params[config.parameterName];
                     proposedVal = config.coerce ? coerceValue(proposedVal) : proposedVal;
                     target[config.propertyName] = config.parseFormatter ? config.parseFormatter.call(target, proposedVal, params) : proposedVal;
                 }
@@ -167,45 +165,27 @@ export class FiltersService {
      * Typical usage of this method is building request to send it to the server. 
      * 
      * Names of properties in result object depends on {@link FilterConfig.parameterName}. Final values would be constructed by {@link buildFilterValue} method. 
-     * @param appendTo - object to which result will be appended. If nothing was passed then new object will be created.
+     * @param appendTo - optional object to which result will be appended. If nothing was passed then new object will be created.
+     * @param filterFn - optional function to filter applied values.
      * @returns resulted object literal.
      */
-    public getRequestState(appendTo?: Object): any {
-        appendTo = appendTo || {};
+    public getRequestState(filterFn?: (config: FilterConfig, proposedValue: any, targetObject: Object) => boolean): any {
+        let result = {};
         this.appliedFiltersMap.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
             for (let i = 0; i < targetConfig.length; i++) {
-                const config = targetConfig[i];
+                let config = Object.assign({}, targetConfig[i]);
                 const proposedVal = target[config.propertyName];
-                appendTo[this.getParameterName(target, config)] = FiltersService.buildFilterValue(target, proposedVal, config);
-            }
-        });
-        return appendTo;
-    }
-    /**
-     * The same as {@link FiltersService.getRequestState}, but only properties for which {@link FilterConfig.persisted} flag is specified would be applied to result object. 
-     * @param appendTo - object to which result will be appended. If nothing was passed then new object will be created.
-     * @returns resulted object literal.
-     */
-    public getPersistedState(appendTo?: Object): any {
-        appendTo = appendTo || {};
-        this.appliedFiltersMap.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
-            for (let i = 0; i < targetConfig.length; i++) {
-                const config = targetConfig[i];
-                const persisted = (typeof config.persisted === 'function') ? (config.persisted as any).call(target) : config.persisted;
-                if (!persisted) {
-                    continue;
+                if (filterFn ? filterFn(config, proposedVal, target) : true) {
+                    result[config.parameterName] = FiltersService.buildFilterValue(target, proposedVal, config);
                 }
-                const proposedVal = target[config.propertyName];
-                const parameterName = this.getParameterName(target, config);
-                appendTo[parameterName] = FiltersService.buildFilterValue(target, proposedVal, config);
             }
         });
-        return appendTo;
+        return result;
     }
     /**
      * Registers passed object as `target object` for current service instance.
      * 
-     * {@link getRequestState} and {@link getPersistedState} methods will compose their result from objects that were registered by this method.
+     * {@link getRequestState} method will compose result from objects that were registered by this method.
      * 
      * {@link applyParams} and {@link resetValues} methods processes registered objects that were registered by this method.   
      * @param targets object(s) to register as `target object`.
@@ -221,23 +201,13 @@ export class FiltersService {
     /**
      * Removes passed object from `target objects` collection for current service instance.
      * 
-     * This means that {@link getRequestState}, {@link getPersistedState}, {@link applyParams} and {@link resetValues} methods stops to process this objects.   
+     * This means that {@link getRequestState}, {@link applyParams} and {@link resetValues} methods stops to process this objects.   
      * @param targets object(s) to remove from collection of `target object`.
      */
     public removeFilterTarget(...targets: Object[]): void {
         targets.forEach((target: Object) => {
             this.appliedFiltersMapInternal.delete(target);
         });
-    }
-    /**
-     * Computes parameter name for `target property` which will be used by {@link getRequestState} and {@link getPersistedState} methods to apply values to returned state.
-     * 
-     * @param target `target object` that owns `target property`. This value will be used as `this` scope for the case when {@link FilterConfig.parameterName} is method.
-     * @param config filter configuration for `target property`.
-     * @returns calculated parameter name.
-     */
-    private getParameterName(target: Object, config: FilterConfig): string {
-        return (typeof config.parameterName === 'function') ? (config.parameterName as any).call(target) : config.parameterName;
     }
     /**
      * Builds final map of settings for objects that were registered as `target objects`.
