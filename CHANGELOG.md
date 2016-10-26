@@ -1,3 +1,19 @@
+<a name="2.0.0-beta.7"></a>
+# [2.0.0-beta.7](https://github.com/fshchudlo/e2e4/compare/2.0.0-beta.6...v2.0.0-beta.7) (2016-10-26)
+
+
+### Bug Fixes
+
+* **package:** sourcemap generation returned ([fc7df15](https://github.com/fshchudlo/e2e4/commit/fc7df15))
+
+
+### Features
+
+* **BufferedPager:** `canLoadMore` property added ([a448b97](https://github.com/fshchudlo/e2e4/commit/a448b97))
+* **PagedPager:** `canMoveBackward` and `canMoveForward` properties added ([9d9d481](https://github.com/fshchudlo/e2e4/commit/9d9d481))
+
+
+
 <a name="2.0.0-beta.6"></a>
 # [2.0.0-beta.6](https://github.com/fshchudlo/e2e4/compare/2.0.0-beta.5...v2.0.0-beta.6) (2016-10-11)
 

@@ -34,7 +34,7 @@ gulp.task('build-es6', function () {
 
 gulp.task('build-commonjs', function () {
     var options = getCjsOptions();
-    var srcResult = gulp.src(paths.source).pipe(gulpTypescript(options));
+    var srcResult = gulp.src(paths.source).pipe(sourcemaps.init()).pipe(gulpTypescript(options));
     var indexResult = gulp.src('index.ts').pipe(gulpTypescript(options));
     return merge([
         srcResult.dts.pipe(gulp.dest('src/')),
