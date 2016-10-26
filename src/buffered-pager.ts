@@ -113,6 +113,12 @@ export class BufferedPager implements Pager {
         this.takeRowCountInternal = rowCount;
     }
     /**
+     * Returns `true` if it's possible to load more records (e.g. currently not all records loaded to the list).
+     */
+    public get canLoadMore(): boolean {
+        return this.skip < this.totalCount;
+    }
+    /**
      * @see {@link Pager.processResponse}
      */
     public processResponse(response: ListResponse<any>): void {

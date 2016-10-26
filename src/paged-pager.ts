@@ -176,7 +176,6 @@ export class PagedPager implements Pager {
     public get canMoveBackward(): boolean {
         return this.pageNumber !== 1;
     }
-
     /**
      * Returns `true` if it's possible to move pager to the next page (e.g. currently pager is not on the last page).
      */
