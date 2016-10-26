@@ -363,6 +363,39 @@ describe('PagedPager', () => {
                     expect(wasHandled).false;
                 });
             });
+            describe('canMoveBackward', () => {
+                it('returns false if pager is on the first page', () => {
+                    let pager = new PagedPager();
+                    let response = toResponseObject();
+                    pager.processResponse(response);
+                    expect(pager.pageNumber).eq(1);
+                    expect(pager.canMoveBackward).false;
+                });
+
+                it('returns true if pager is not on the first page', () => {
+                    let pager = new PagedPager();
+                    let response = toResponseObject();
+                    pager.processResponse(response);
+                    pager.pageNumber = 2;
+                    expect(pager.canMoveBackward).true;
+                });
+            });
+            describe('canMoveForward', () => {
+                it('returns false if pager is not on the last page', () => {
+                    let pager = new PagedPager();
+                    let response = toResponseObject();
+                    pager.processResponse(response);
+                    pager.tryMoveToLastPage();
+                    expect(pager.canMoveForward).false;
+                });
+
+                it('returns true if pager is not on the last page', () => {
+                    let pager = new PagedPager();
+                    let response = toResponseObject();
+                    pager.processResponse(response);
+                    expect(pager.canMoveForward).true;
+                });
+            });
         });
         describe('pageNumber', () => {
             it('sets pageNumber to 1 on invalid', () => {

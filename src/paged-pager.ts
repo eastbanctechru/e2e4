@@ -171,6 +171,19 @@ export class PagedPager implements Pager {
         this.displayTo = this.displayFrom + this.loadedCount - 1;
     }
     /**
+     * Returns `true` if it's possible to move pager to the previous page (e.g. currently pager is not on the first page).
+     */
+    public get canMoveBackward(): boolean {
+        return this.pageNumber !== 1;
+    }
+
+    /**
+     * Returns `true` if it's possible to move pager to the next page (e.g. currently pager is not on the last page).
+     */
+    public get canMoveForward(): boolean {
+        return this.pageNumber !== this.pageCount;
+    }
+    /**
      * Sets {@link pageNumber} property to `1` if it's possible.
      * @returns `true` if {@link pageNumber} value was changed.
      */
