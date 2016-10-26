@@ -4,7 +4,7 @@ var conventionalGithubReleaser = require('conventional-github-releaser');
 var git = require('gulp-git');
 var fs = require('fs');
 
-var currentBranch = 'v2';
+var currentBranch = 'master';
 
 gulp.task('git-commit-changes', function () {
     return gulp.src('.')
