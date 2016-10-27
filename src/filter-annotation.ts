@@ -1,7 +1,7 @@
 import { FilterConfig } from './contracts/filter-config';
 import { FiltersService } from './filters-service';
 /**
- * Returns object literal that meets {@link FilterConfig} contract with next values:
+ * Returns object literal that implements {@link FilterConfig} contract with next values:
  * ```Javascript
  * {
  *        coerce: true,
@@ -32,10 +32,9 @@ export function getDefaultFilterConfig(propertyName: string): FilterConfig {
 /**
  * Annotation that can be used to configure type property as filter to use with {@link FiltersService}
  * @param targetOrNameOrConfig 
- *  - if annotation is applied without any parameters then value returned by {@link getDefaultFilterConfig} will be used. {@link FilterConfig.parameterName} value will be equal to annotated property name.
- *  - if annotation is applied with string parameter then value returned by {@link getDefaultFilterConfig} will be used. {@link FilterConfig.parameterName} value will be equal to applied parameter value.
- *  - if annotation is applied with object as parameter then value returned by {@link getDefaultFilterConfig} will be used. 
- * All properties which were specified in applied parameter would be applied to result configuration via Object.assign.
+ *  - if annotation is applied without any parameters then result of {@link getDefaultFilterConfig} function will be used. Value of {@link FilterConfig.parameterName} property will be equal to annotated property name.
+ *  - if annotation is applied with string parameter then result of {@link getDefaultFilterConfig} function will be used. Value of {@link FilterConfig.parameterName} property will be equal to applied parameter value.
+ *  - if annotation is applied with object as parameter then result of {@link getDefaultFilterConfig} will be used and  all properties which were specified in passed object would be applied to resulting configuration via Object.assign.
  * @param key specified by TypeScript automatically.
  * @see {@link FilterConfig}
  */

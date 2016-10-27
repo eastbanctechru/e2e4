@@ -136,14 +136,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/5e3d745/src/utilities.ts#L10">utilities.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/8fb3df0/src/utilities.ts#L10">utilities.ts:10</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Copies values of all properties from passed object to the new object literal.</p>
 								</div>
-								<p>If any of the properties of passed object is also complex object then <a href="index.html#cloneasliteral">cloneAsLiteral</a> will be called recursively.</p>
+								<p>If any of the properties of passed object is also a complex object then <a href="index.html#cloneasliteral">cloneAsLiteral</a> will be called recursively.</p>
 								<p>Function declarations are ignored.</p>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -170,14 +170,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/5e3d745/src/utilities.ts#L48">utilities.ts:48</a></li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/8fb3df0/src/utilities.ts#L48">utilities.ts:48</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Coerce type of passed value.</p>
 								</div>
-								<p>This means that passed string &#39;null&#39; becomes <code>null</code>, &#39;true&#39; becomes <code>true</code>, &#39;1.0&#39; becomes <code>1.0</code> etc.</p>
+								<p>For example if you pass string with value &#39;null&#39; it returns <code>null</code>, if you pass &#39;true&#39; it returns boolean value <code>true</code>, if you pass &#39;1.0&#39; it returns number <code>1.0</code> etc.</p>
 								<p>If passed value is complex object or array this method will be called for each property or array item.</p>
 								<dl class="tsd-comment-tags">
 									<dt>see</dt>
@@ -209,14 +209,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/5e3d745/src/utilities.ts#L77">utilities.ts:77</a></li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/8fb3df0/src/utilities.ts#L77">utilities.ts:77</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Executes clean up of passed array by calling <code>splice</code> function.</p>
+									<p>Cleaning up passed array by calling <code>splice</code> function.</p>
 								</div>
-								<p>Next, each element of passed array will be checked for existence of <code>destroy</code> method and if it exists this method will be called.</p>
+								<p>Next, each element of passed array will be checked for existence of <code>destroy</code> method and if it exists it will be called.</p>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -229,7 +229,7 @@
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> async: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;true</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>if <code>true</code> then elements iteration and destroy will be called via setTimeout (,0).</p>
+										<p>if <code>true</code> then iterating over array and <code>destroy</code> methods calling will be executed via setTimeout (,0).</p>
 									</div>
 								</li>
 							</ul>
@@ -247,7 +247,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/5e3d745/src/filter-annotation.ts#L42">filter-annotation.ts:42</a></li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/8fb3df0/src/filter-annotation.ts#L41">filter-annotation.ts:41</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -266,10 +266,9 @@
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> targetOrNameOrConfig: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="interfaces/filterconfig.html" class="tsd-signature-type">FilterConfig</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<ul>
-											<li>if annotation is applied without any parameters then value returned by <a href="index.html#getdefaultfilterconfig">getDefaultFilterConfig</a> will be used. <a href="interfaces/filterconfig.html#parametername">FilterConfig.parameterName</a> value will be equal to annotated property name.</li>
-											<li>if annotation is applied with string parameter then value returned by <a href="index.html#getdefaultfilterconfig">getDefaultFilterConfig</a> will be used. <a href="interfaces/filterconfig.html#parametername">FilterConfig.parameterName</a> value will be equal to applied parameter value.</li>
-											<li>if annotation is applied with object as parameter then value returned by <a href="index.html#getdefaultfilterconfig">getDefaultFilterConfig</a> will be used.
-											All properties which were specified in applied parameter would be applied to result configuration via Object.assign.</li>
+											<li>if annotation is applied without any parameters then result of <a href="index.html#getdefaultfilterconfig">getDefaultFilterConfig</a> function will be used. Value of <a href="interfaces/filterconfig.html#parametername">FilterConfig.parameterName</a> property will be equal to annotated property name.</li>
+											<li>if annotation is applied with string parameter then result of <a href="index.html#getdefaultfilterconfig">getDefaultFilterConfig</a> function will be used. Value of <a href="interfaces/filterconfig.html#parametername">FilterConfig.parameterName</a> property will be equal to applied parameter value.</li>
+											<li>if annotation is applied with object as parameter then result of <a href="index.html#getdefaultfilterconfig">getDefaultFilterConfig</a> will be used and  all properties which were specified in passed object would be applied to resulting configuration via Object.assign.</li>
 										</ul>
 									</div>
 								</li>
@@ -294,12 +293,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/5e3d745/src/filter-annotation.ts#L20">filter-annotation.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/8fb3df0/src/filter-annotation.ts#L20">filter-annotation.ts:20</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns object literal that meets <a href="interfaces/filterconfig.html">FilterConfig</a> contract with next values:</p>
+									<p>Returns object literal that implements <a href="interfaces/filterconfig.html">FilterConfig</a> contract with next values:</p>
 									<pre><code class="lang-Javascript">{
        <span class="hljs-attr">coerce</span>: <span class="hljs-literal">true</span>,
        <span class="hljs-attr">defaultValue</span>: <span class="hljs-literal">undefined</span>,
@@ -340,7 +339,7 @@
 					<div class="tsd-signature tsd-kind-icon">coerce<wbr>Types<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/5e3d745/src/utilities.ts#L36">utilities.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/8fb3df0/src/utilities.ts#L36">utilities.ts:36</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -354,7 +353,7 @@
 						<div class="tsd-signature tsd-kind-icon">false<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;!1</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/5e3d745/src/utilities.ts#L36">utilities.ts:36</a></li>
+								<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/8fb3df0/src/utilities.ts#L36">utilities.ts:36</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -364,7 +363,7 @@
 						<div class="tsd-signature tsd-kind-icon">null<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> =&nbsp;null</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/5e3d745/src/utilities.ts#L36">utilities.ts:36</a></li>
+								<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/8fb3df0/src/utilities.ts#L36">utilities.ts:36</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -374,7 +373,7 @@
 						<div class="tsd-signature tsd-kind-icon">true<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;!0</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/5e3d745/src/utilities.ts#L36">utilities.ts:36</a></li>
+								<li>Defined in <a href="https://github.com/fshchudlo/e2e4/blob/8fb3df0/src/utilities.ts#L36">utilities.ts:36</a></li>
 							</ul>
 						</aside>
 					</section>

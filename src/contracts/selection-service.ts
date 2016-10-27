@@ -22,9 +22,9 @@ export interface SelectionService {
     /**
      * Optional function which can be used to compare {@link items} elements.
      * 
-     * This function can be used by {@link checkSelection} implementation.
+     * This function can be used by {@link checkSelection}.
      * 
-     * Also it's reasonable to use this function for {@link getItemIndex} implementation.
+     * Also it's reasonable to use this function for {@link getItemIndex}.
      * @param index index of element in {@link items} collection.
      * @param actual element from {@link items} collection.
      */
@@ -34,7 +34,7 @@ export interface SelectionService {
      */
     lastProcessedIndex: number;
     /**
-     * In application-defined implementations must perform check that every selected element is actually selected.
+     * Performs check that every selected element is actually selected.
      * 
      */
     checkSelection(): void;
@@ -48,12 +48,12 @@ export interface SelectionService {
     selectAll(): void;
     /**
      * Selects range of elements in {@link items} collection.
-     * @param fromIndex index from which elements must be selected.
-     * @param toIndex index to which elements must be selected. 
+     * @param fromIndex index of element from which selection range begins.
+     * @param toIndex index of element on which selection range ends. 
      */
     selectRange(fromIndex: number, toIndex: number): void;
     /**
-     * Checks, that all elements inside specified range are selected in {@link items} collection.
+     * Checks that all elements inside specified range are selected in {@link items} collection.
      * @param fromIndex index of element from which check must be performed.
      * @param toIndex index of element to which check must be performed.
      * @returns `true` if all elements inside specified range are selected. 
@@ -71,12 +71,12 @@ export interface SelectionService {
      */
     isIndexSelected(index: number): boolean;
     /**
-     * Returns index of first selected element from {@link items}.
+     * Returns index of first selected element from {@link items} collection.
      * @returns index of first selected element. -1 if nothing is selected.
      */
     getMinSelectedIndex(): number;
     /**
-     * Returns index of last selected element from {@link items}.
+     * Returns index of last selected element from {@link items} collection.
      * @returns index of last selected element. -1 if nothing is selected.
      */
     getMaxSelectedIndex(): number;

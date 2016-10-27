@@ -1,7 +1,7 @@
 ﻿/**
  * Copies values of all properties from passed object to the new object literal. 
  * 
- * If any of the properties of passed object is also complex object then {@link cloneAsLiteral} will be called recursively.
+ * If any of the properties of passed object is also a complex object then {@link cloneAsLiteral} will be called recursively.
  * 
  * Function declarations are ignored.
  * @param value value to clone.
@@ -38,7 +38,7 @@ export var coerceTypes: any = { 'true': !0, 'false': !1, 'null': null };
 /**
  * Coerce type of passed value.
  * 
- * This means that passed string 'null' becomes `null`, 'true' becomes `true`, '1.0' becomes `1.0` etc.
+ * For example if you pass string with value 'null' it returns `null`, if you pass 'true' it returns boolean value `true`, if you pass '1.0' it returns number `1.0` etc.
  * 
  * If passed value is complex object or array this method will be called for each property or array item.
  * @param value value to coerce.
@@ -68,11 +68,11 @@ export function coerceValue(value: any): any {
     return value;
 }
 /**
- * Executes clean up of passed array by calling `splice` function.
+ * Cleaning up passed array by calling `splice` function.
  * 
- * Next, each element of passed array will be checked for existence of `destroy` method and if it exists this method will be called.
+ * Next, each element of passed array will be checked for existence of `destroy` method and if it exists it will be called.
  * @param collection array of elements to destroy.
- * @param async if `true` then elements iteration and destroy will be called via setTimeout (,0).
+ * @param async if `true` then iterating over array and `destroy` methods calling will be executed via setTimeout (,0).
  */
 export function destroyAll(collection: any[], async: boolean = true): void {
     if (!Array.isArray(collection)) {

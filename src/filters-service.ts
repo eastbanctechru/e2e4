@@ -1,9 +1,9 @@
 import { FilterConfig } from './contracts/filter-config';
 import { cloneAsLiteral, coerceValue } from './utilities';
 /**
- * Used to declarative building of objects which represents valuable state of target object.
+ * Used for declarative building of objects which represent valuable state of `target object`.
  * 
- * Since this declaration is pretty abstract and hard to understand, let's look to concrete sample.
+ * Since this declaration is pretty abstract and hard to understand, let's look at a specific sample.
  * 
  * Typical usage of this service is something like this: 
  * ```JavaScript
@@ -24,7 +24,7 @@ import { cloneAsLiteral, coerceValue } from './utilities';
  *         parameter2: 'There'
  *      }
  * ```
- *  - by calling {@link resetValues} we can reset annotated properties state to initial values (or to what is specified as {@link FilterConfig.defaultValue}). 
+ *  - by calling {@link resetValues} we can reset values of annotated properties to initial values (or to what was specified in {@link FilterConfig.defaultValue} property). 
  *  - by calling {@link applyParams} we can automatically apply any set of values to annotated properties (we can pass queryString object to automatically apply values from it, for example). 
  *  - by calling {@link getRequestState} with some filters we can "query" the state of filters and save it to the settings storage, for example. 
  *  - by calling {@link registerFilterTarget} you can add any count of additional objects and get their 
