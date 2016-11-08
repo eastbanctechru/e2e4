@@ -1,3 +1,13 @@
+<a name="2.0.02.0.0-beta.8"></a>
+# [2.0.0-beta.8](https://github.com/fshchudlo/e2e4/compare/2.0.0-beta.7...v2.0.0-beta.8) (2016-11-08)
+
+
+### Bug Fixes
+
+* **pagers:** fix logic of `canLoadMore`, `canMoveBackward` and `canMoveForward` methods for empty pagers ([cb27b72](https://github.com/fshchudlo/e2e4/commit/cb27b72))
+
+
+
 <a name="2.0.0-beta.7"></a>
 # [2.0.0-beta.7](https://github.com/fshchudlo/e2e4/compare/2.0.0-beta.6...v2.0.0-beta.7) (2016-10-26)
 
