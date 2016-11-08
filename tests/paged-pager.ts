@@ -364,6 +364,11 @@ describe('PagedPager', () => {
                 });
             });
             describe('canMoveBackward', () => {
+                it('returns false if pageCount is 0', () => {
+                    let pager = new PagedPager();
+                    expect(pager.pageCount).eq(0);
+                    expect(pager.canMoveBackward).false;
+                });
                 it('returns false if pager is on the first page', () => {
                     let pager = new PagedPager();
                     let response = toResponseObject();
@@ -381,6 +386,11 @@ describe('PagedPager', () => {
                 });
             });
             describe('canMoveForward', () => {
+                it('returns false if pageCount is 0', () => {
+                    let pager = new PagedPager();
+                    expect(pager.pageCount).eq(0);
+                    expect(pager.canMoveForward).false;
+                });
                 it('returns false if pager is not on the last page', () => {
                     let pager = new PagedPager();
                     let response = toResponseObject();

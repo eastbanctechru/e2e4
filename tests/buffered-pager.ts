@@ -197,12 +197,17 @@ describe('BufferedPager', () => {
             pager.takeRowCount = pager.totalCount - pager.skip - 10;
             expect(pager.takeRowCount).eq(pager.totalCount - pager.skip - 10);
         });
-        it('canLoadMore is false if not all records loaded', () => {
+        it('canLoadMore is true if not all records loaded', () => {
             let pager = new BufferedPager();
             pager.processResponse(toResponseObject());
             expect(pager.canLoadMore).true;
         });
-        it('canLoadMore is true if all records loaded', () => {
+        it('canLoadMore is false if totalCount is 0', () => {
+            let pager = new BufferedPager();
+            expect(pager.totalCount).eq(0);
+            expect(pager.canLoadMore).false;
+        });
+        it('canLoadMore is false if all records loaded', () => {
             let pager = new BufferedPager();
             pager.processResponse(toResponseObject());
             pager.skip = pager.totalCount;

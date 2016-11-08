@@ -116,7 +116,7 @@ export class BufferedPager implements Pager {
      * Returns `true` if it's possible to load more records (e.g. currently not all records loaded to the list).
      */
     public get canLoadMore(): boolean {
-        return this.skip < this.totalCount;
+        return this.totalCount !== 0 && this.skip < this.totalCount;
     }
     /**
      * @see {@link Pager.processResponse}

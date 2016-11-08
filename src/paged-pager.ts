@@ -174,20 +174,20 @@ export class PagedPager implements Pager {
      * Returns `true` if it's possible to move pager to the previous page (e.g. currently pager is not on the first page).
      */
     public get canMoveBackward(): boolean {
-        return this.pageNumber !== 1;
+        return this.pageCount !== 0 && this.pageNumber !== 1;
     }
     /**
      * Returns `true` if it's possible to move pager to the next page (e.g. currently pager is not on the last page).
      */
     public get canMoveForward(): boolean {
-        return this.pageNumber !== this.pageCount;
+        return this.pageCount !== 0 && this.pageNumber < this.pageCount;
     }
     /**
      * Sets {@link pageNumber} property to `1` if it's possible.
      * @returns `true` if {@link pageNumber} value was changed.
      */
     public tryMoveToFirstPage(): boolean {
-        if (this.pageNumber > 1) {
+        if (this.canMoveBackward) {
             this.pageNumber = 1;
             return true;
         }
@@ -198,7 +198,7 @@ export class PagedPager implements Pager {
      * @returns `true` if {@link pageNumber} value was changed.
      */
     public tryMoveToPreviousPage(): boolean {
-        if (this.pageNumber > 1) {
+        if (this.canMoveBackward) {
             this.pageNumber -= 1;
             return true;
         }
@@ -209,7 +209,7 @@ export class PagedPager implements Pager {
      * @returns `true` if {@link pageNumber} value was changed.
      */
     public tryMoveToNextPage(): boolean {
-        if (this.pageNumber < this.pageCount) {
+        if (this.canMoveForward) {
             this.pageNumber += 1;
             return true;
         }
@@ -220,7 +220,7 @@ export class PagedPager implements Pager {
      * @returns `true` if {@link pageNumber} value was changed.
      */
     public tryMoveToLastPage(): boolean {
-        if (this.pageNumber < this.pageCount) {
+        if (this.canMoveForward) {
             this.pageNumber = this.pageCount;
             return true;
         }
