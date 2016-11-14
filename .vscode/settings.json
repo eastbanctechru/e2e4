@@ -16,7 +16,6 @@
         "**/docs": true,
         "**/esm": true,
         "**/coverage": true
-    }
-,
+    },
 "typescript.tsdk": "./node_modules/typescript/lib"
 }
