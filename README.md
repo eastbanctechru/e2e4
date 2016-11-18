@@ -1,20 +1,20 @@
 # e2e4
 
-[![Build Status](https://travis-ci.org/fshchudlo/e2e4.svg?branch=master)](https://travis-ci.org/fshchudlo/e2e4)
-[![Coverage Status](https://coveralls.io/repos/github/fshchudlo/e2e4/badge.svg?branch=master)](https://coveralls.io/github/fshchudlo/e2e4?branch=master)
+[![Build Status](https://travis-ci.org/eastbanctechru/e2e4.svg?branch=master)](https://travis-ci.org/eastbanctechru/e2e4)
+[![Coverage Status](https://coveralls.io/repos/github/eastbanctechru/e2e4/badge.svg?branch=master)](https://coveralls.io/github/eastbanctechru/e2e4?branch=master)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-[![Dependency Status](https://david-dm.org/fshchudlo/e2e4.svg)](https://david-dm.org/fshchudlo/e2e4)
-[![devDependency Status](https://david-dm.org/fshchudlo/e2e4/dev-status.svg)](https://david-dm.org/fshchudlo/e2e4?type=dev)
+[![Dependency Status](https://david-dm.org/eastbanctechru/e2e4.svg)](https://david-dm.org/eastbanctechru/e2e4)
+[![devDependency Status](https://david-dm.org/eastbanctechru/e2e4/dev-status.svg)](https://david-dm.org/eastbanctechru/e2e4?type=dev)
 [![npm version](https://badge.fury.io/js/e2e4.svg)](https://badge.fury.io/js/e2e4)
 
 Set of base classes and utilities to build unobtrusive list models. 
-This is abstract codebase which can be used to implement bridges to end-user frameworks (such as [Angular bridge](https://github.com/fshchudlo/right-angled)).
+This is abstract codebase which can be used to implement bridges to end-user frameworks (such as [Angular bridge](https://github.com/eastbanctechru/right-angled)).
 
 ## Documentation
-Documentation is available [here](http://fshchudlo.github.io/e2e4)
+Documentation is available [here](http://eastbanctechru.github.io/e2e4)
 
 ## Changelog
-Changelog is available [here](https://github.com/fshchudlo/e2e4/blob/master/CHANGELOG.md)
+Changelog is available [here](https://github.com/eastbanctechru/e2e4/blob/master/CHANGELOG.md)
 
 ## How to build the project
 

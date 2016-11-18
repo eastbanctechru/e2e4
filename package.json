@@ -6,15 +6,15 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fshchudlo/e2e4.git"
+    "url": "git+https://github.com/eastbanctechru/e2e4.git"
   },
   "keywords": [],
   "author": "Fedor Shchudlo",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/fshchudlo/e2e4/issues"
+    "url": "https://github.com/eastbanctechru/e2e4/issues"
   },
-  "homepage": "https://github.com/fshchudlo/e2e4#readme",
+  "homepage": "https://github.com/eastbanctechru/e2e4#readme",
   "scripts": {
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
   },
@@ -65,6 +65,7 @@
     "require-dir": "^0.3.1",
     "run-sequence": "^1.2.2",
     "sinon": "2.0.0-pre.3",
+    "ts-helpers": "^1.1.2",
     "ts-loader": "^1.2.1",
     "tslint": "^3.15.1",
     "typedoc": "^0.5.1",
@@ -76,6 +77,5 @@
     "yargs": "^6.4.0"
   },
   "dependencies": {
-    "ts-helpers": "^1.1.2"
   }
 }

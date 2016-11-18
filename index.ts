@@ -1,6 +1,6 @@
 /**
  * e2e4 library by Fedor Shchudlo
- * You can read docs here - http://fshchudlo.github.io/e2e4
+ * You can read docs here - http://eastbanctechru.github.io/e2e4
  */
 
 export * from './src/progress-state';
