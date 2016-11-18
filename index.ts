@@ -1,5 +1,5 @@
 /**
- * e2e4 library by Fedor Shchudlo
+ * e2e4 library by EastBanc Technologies
  * You can read docs here - http://eastbanctechru.github.io/e2e4
  */
 
