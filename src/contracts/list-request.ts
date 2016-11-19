@@ -8,5 +8,5 @@ export interface ListRequest {
     /**
      * Sortings, which must be applied to the data.
      */
-    sortings: Array<SortParameter>;
+    sortings: SortParameter[];
 }

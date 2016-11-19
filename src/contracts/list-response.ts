@@ -7,7 +7,7 @@ export interface ListResponse<TItem> {
     /**
      * Returned collection of records.
      */
-    items: Array<TItem>;
+    items: TItem[];
     /**
      * Total count of records in remote data source.
      * This property is used internally by pagers (e.g. to calculate total pages count in ({@link PagedPager}) and can be used to display total records count on UI.

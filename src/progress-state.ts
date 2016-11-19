@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Represents possible values for progress state of operation (e.g. of request to the server).  
  */
 export enum ProgressState {

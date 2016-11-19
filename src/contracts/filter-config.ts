@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Represents settings which can be used to configure {@link FiltersService} behavior (e.g. via {@link filter} annotation).
  * 
  * Let's define several terms for better understanding.

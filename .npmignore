@@ -6,11 +6,11 @@ docs
 node_modules
 coverage
 tests
+esm/tests
 **/*[!.][!d].ts
 
 .cleandir.sh
 .travis.yml
-gulpfile.js
 karma.conf.js
 tsconfig.json
 tslint.json

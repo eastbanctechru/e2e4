@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copies values of all properties from passed object to the new object literal. 
  * 
  * If any of the properties of passed object is also a complex object then {@link cloneAsLiteral} will be called recursively.
@@ -33,7 +33,7 @@ export function cloneAsLiteral(value: any): any {
  * Set of key-value pairs which is used by {@link coerceValue} method to coerce specific values. 
  */
 // tslint:disable-next-line: object-literal-key-quotes
-export var coerceTypes: any = { 'true': !0, 'false': !1, 'null': null };
+export let coerceTypes: any = { 'true': !0, 'false': !1, 'null': null };
 
 /**
  * Coerce type of passed value.

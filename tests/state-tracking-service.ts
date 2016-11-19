@@ -1,8 +1,9 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 
+import { Operation } from '../src/operation';
 import { ProgressState } from '../src/progress-state';
-import { Operation, StateTrackingService } from '../src/state-tracking-service';
+import { StateTrackingService } from '../src/state-tracking-service';
 
 function toTarget(): StateTrackingService {
     return new StateTrackingService();

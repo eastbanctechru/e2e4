@@ -1,3 +1,4 @@
+// tslint:disable:max-classes-per-file
 import { cloneAsLiteral, coerceValue, destroyAll } from '../src/utilities';
 
 import { expect } from 'chai';

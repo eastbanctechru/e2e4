@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Represents element which can be processed as selected/deselected by any implementation of {@link SelectionService}.
  */
 export interface SelectionItem {
@@ -18,7 +18,7 @@ export interface SelectionService {
     /**
      * Collection of elements for selection.
      */
-    items: Array<SelectionItem>;
+    items: SelectionItem[];
     /**
      * Optional function which can be used to compare {@link items} elements.
      * 
@@ -116,12 +116,12 @@ export interface SelectionService {
      * Returns all elements from {@link items} collection which are marked as selected.
      * @returns collection of selected elements.
      */
-    getSelectedElements(): Array<Object>;
+    getSelectedElements(): Object[];
     /**
      * Returns indexes of all elements from {@link items} collection which are marked as selected.
      * @returns collection of selected elements indexes in {@link items} collection.
      */
-    getSelectedIndexes(): Array<number>;
+    getSelectedIndexes(): number[];
     /**
      * Performs application-defined logic for service destroy.
      */

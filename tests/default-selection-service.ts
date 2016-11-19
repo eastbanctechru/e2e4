@@ -81,7 +81,7 @@ describe('SelectionService', () => {
             target.selectionService.selectFirst();
 
             expect(target.selectionService.getSelectedElements()).eql([target.items[0]]);
-            expect(target.items.every((item: Item, index: number, array: Array<Item>) => !item.selected || index === firstSelectionIndex || index === 0)).eql(true);
+            expect(target.items.every((item: Item, index: number, array: Item[]) => !item.selected || index === firstSelectionIndex || index === 0)).eql(true);
         });
 
         it(`doesn't throw on empty collection`, () => {
@@ -101,7 +101,7 @@ describe('SelectionService', () => {
             target.selectionService.items = target.items;
             target.selectionService.selectLast();
             expect(target.selectionService.getSelectedElements()).eql([target.items[target.items.length - 1]]);
-            expect(target.items.every((item: Item, index: number, array: Array<Item>) => !item.selected || index === array.length - 1)).eql(true);
+            expect(target.items.every((item: Item, index: number, array: Item[]) => !item.selected || index === array.length - 1)).eql(true);
         });
 
         it(`doesn't affect previously selected items`, () => {
@@ -113,7 +113,7 @@ describe('SelectionService', () => {
             target.selectionService.selectLast();
 
             expect(target.selectionService.getSelectedElements()).eql([target.items[target.items.length - 1]]);
-            expect(target.items.every((item: Item, index: number, array: Array<Item>) => !item.selected || index === firstSelectionIndex || index === array.length - 1)).eql(true);
+            expect(target.items.every((item: Item, index: number, array: Item[]) => !item.selected || index === firstSelectionIndex || index === array.length - 1)).eql(true);
         });
 
         it(`doesn't throw on empty collection`, () => {

@@ -28,12 +28,12 @@ export class DefaultSelectionService implements SelectionService {
     /**
      * @see {@link SelectionService.items}  
      */
-    public items: Array<SelectionItem>;
+    public items: SelectionItem[];
 
     /**
      * Collection of {@link SelectionTuple} elements which represents currently selected items in {@link items} collection.  
      */
-    protected selectionsList: Array<SelectionTuple> = new Array<SelectionTuple>();
+    protected selectionsList: SelectionTuple[] = new Array<SelectionTuple>();
     /**
      * Default tracking function that will be used if nothing was specified for {@link trackByFn}.
      * Implements comparison by reference equality of objects.
@@ -129,8 +129,8 @@ export class DefaultSelectionService implements SelectionService {
      */
     public deselectAll(): void {
         const list = this.selectionsList.splice(0, this.selectionsList.length);
-        for (let i = 0; i < list.length; i++) {
-            this.processSelection(list[i], false);
+        for (let item of list) {
+            this.processSelection(item, false);
         }
         this.lastProcessedIndex = null;
     }
@@ -267,13 +267,13 @@ export class DefaultSelectionService implements SelectionService {
     /**
      * @see {@link SelectionService.getSelectedElements}
      */
-    public getSelectedElements(): Array<Object> {
+    public getSelectedElements(): Object[] {
         return this.selectionsList.map((selectionItem: SelectionTuple) => selectionItem.item);
     }
     /**
      * @see {@link SelectionService.getSelectedIndexes}
      */
-    public getSelectedIndexes(): Array<number> {
+    public getSelectedIndexes(): number[] {
         return this.selectionsList.map((selectionItem: SelectionTuple) => selectionItem.index);
     }
 }

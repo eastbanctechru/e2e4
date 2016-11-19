@@ -36,11 +36,11 @@ export class FiltersService {
      * 
      * Used to build {@link appliedFiltersMap} for concrete set of objects that were registered as `target objects` via {@link registerFilterTarget} for concrete service instance.
      */
-    public static filterPropertiesMap: Map<any, Array<FilterConfig>> = new Map<any, Array<FilterConfig>>();
+    public static filterPropertiesMap: Map<any, FilterConfig[]> = new Map<any, FilterConfig[]>();
     /**
      * Internal implementation of {@link appliedFiltersMap} 
      */
-    protected appliedFiltersMapInternal: Map<Object, Array<FilterConfig>> = new Map<Object, Array<FilterConfig>>();
+    protected appliedFiltersMapInternal: Map<Object, FilterConfig[]> = new Map<Object, FilterConfig[]>();
     /**
      * Specifies was {@link appliedFiltersMap} already constructed or not. 
      */
@@ -109,7 +109,7 @@ export class FiltersService {
      * 
      * This collection is "lazy" and will be filled up on first call of {@link resetValues}, {@link applyParams} or {@link getRequestState} method.
      */
-    public get appliedFiltersMap(): Map<Object, Array<FilterConfig>> {
+    public get appliedFiltersMap(): Map<Object, FilterConfig[]> {
         if (!this.filtersMapBuilded) {
             this.buildFiltersMap();
         }
@@ -130,9 +130,8 @@ export class FiltersService {
      *  - Result of previous steps is applied as value to `target property`. 
      */
     public resetValues(): void {
-        this.appliedFiltersMap.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
-            for (let i = 0; i < targetConfig.length; i++) {
-                const config = targetConfig[i];
+        this.appliedFiltersMap.forEach((targetConfig: FilterConfig[], target: Object) => {
+            for (let config of targetConfig) {
                 const defaultValue = (typeof config.defaultValue === 'function') ? (config.defaultValue as Function).call(target) : config.defaultValue;
                 const clonedObject = cloneAsLiteral({ defaultValue });
                 target[config.propertyName] = config.parseFormatter ? config.parseFormatter.call(target, clonedObject.defaultValue) : clonedObject.defaultValue;
@@ -148,9 +147,8 @@ export class FiltersService {
      * @param params - object with values to apply. 
      */
     public applyParams(params: Object): void {
-        this.appliedFiltersMap.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
-            for (let i = 0; i < targetConfig.length; i++) {
-                const config = targetConfig[i];
+        this.appliedFiltersMap.forEach((targetConfig: FilterConfig[], target: Object) => {
+            for (let config of targetConfig) {
                 if (params && params.hasOwnProperty(config.parameterName) && false === config.ignoreOnAutoMap) {
                     let proposedVal = config.emptyIsNull ? params[config.parameterName] || null : params[config.parameterName];
                     proposedVal = config.coerce ? coerceValue(proposedVal) : proposedVal;
@@ -171,9 +169,9 @@ export class FiltersService {
      */
     public getRequestState(filterFn?: (config: FilterConfig, proposedValue: any, targetObject: Object) => boolean): any {
         let result = {};
-        this.appliedFiltersMap.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
-            for (let i = 0; i < targetConfig.length; i++) {
-                let config = Object.assign({}, targetConfig[i]);
+        this.appliedFiltersMap.forEach((targetConfig: FilterConfig[], target: Object) => {
+            for (let config of targetConfig) {
+                config = Object.assign({}, config);
                 const proposedVal = target[config.propertyName];
                 if (filterFn ? filterFn(config, proposedVal, target) : true) {
                     result[config.parameterName] = FiltersService.buildFilterValue(target, proposedVal, config);
@@ -215,7 +213,7 @@ export class FiltersService {
      * This method is called automatically before first usage of {@link appliedFiltersMap}.
      */
     private buildFiltersMap(): void {
-        this.appliedFiltersMapInternal.forEach((targetConfig: Array<FilterConfig>, target: Object) => {
+        this.appliedFiltersMapInternal.forEach((targetConfig: FilterConfig[], target: Object) => {
             this.buildFilterTargetMap(target);
         });
         this.filtersMapBuilded = true;
@@ -226,11 +224,10 @@ export class FiltersService {
      */
     private buildFilterTargetMap(target: Object): void {
         let targetConfig = new Array<FilterConfig>();
-        FiltersService.filterPropertiesMap.forEach((typeConfig: Array<FilterConfig>, type: any) => {
+        FiltersService.filterPropertiesMap.forEach((typeConfig: FilterConfig[], type: any) => {
             if (target instanceof type) {
                 targetConfig = targetConfig.concat(typeConfig);
-                for (let i = 0; i < targetConfig.length; i++) {
-                    let config = targetConfig[i];
+                for (let config of targetConfig) {
                     if (config.defaultValue === undefined) {
                         config.defaultValue = cloneAsLiteral({ defaultValue: target[config.propertyName] }).defaultValue;
                     }

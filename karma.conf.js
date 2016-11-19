@@ -24,6 +24,7 @@ module.exports = function (config) {
         webpack: {
             devtool: 'inline-source-map',
             ts: {
+                configFileName: "tsconfig.cjs.json",
                 compilerOptions: {
                     noEmitHelpers: true
                 }

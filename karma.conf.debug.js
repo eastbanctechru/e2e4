@@ -3,6 +3,7 @@ var path = require('path');
 module.exports = function (config) {
     config.set({
         browsers: ['Chrome'],
+        singleRun: false,
         frameworks: ['mocha'],
         files: [
             'node_modules/es6-shim/es6-shim.js',
@@ -15,6 +16,7 @@ module.exports = function (config) {
         webpack: {
             devtool: 'inline-source-map',
             ts: {
+                configFileName: "tsconfig.cjs.json",
                 compilerOptions: {
                     noEmitHelpers: true
                 }

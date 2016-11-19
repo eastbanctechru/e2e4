@@ -1,3 +1,4 @@
+// tslint:disable:max-classes-per-file
 import { FilterConfig } from '../src/contracts/filter-config';
 import { filter, getDefaultFilterConfig } from '../src/filter-annotation';
 import { FiltersService } from '../src/filters-service';

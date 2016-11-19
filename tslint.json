@@ -1,7 +1,10 @@
 {
     "extends": "tslint:latest",
     "rules": {
-        "only-arrow-functions": false,
+        //"jsdoc-format": false,
+        "only-arrow-functions": [
+            false
+        ],
         "interface-name": [
             true,
             "never-prefix"
@@ -21,7 +24,9 @@
             "variables-before-functions"
         ],
         "no-default-export": true,
-        "no-inferrable-types": false,
+        "no-inferrable-types": [
+            false
+        ],
         "no-mergeable-namespace": true,
         "no-namespace": true,
         "no-null-keyword": false,
@@ -29,7 +34,9 @@
         "no-require-imports": true,
         "no-switch-case-fall-through": true,
         "no-use-before-declare": true,
-        "one-variable-per-declaration": true,
+        "one-variable-per-declaration": [
+            true
+        ],
         "quotemark": [
             true,
             "single"

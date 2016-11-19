@@ -44,9 +44,9 @@ export class SortingsService {
      * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
      */
     @filter({
-        defaultValue(): Array<SortParameter> { return (<SortingsService>this).cloneDefaultSortings(); },
+        defaultValue(): SortParameter[] { return (<SortingsService>this).cloneDefaultSortings(); },
         parameterName: 'sortings',
-        parseFormatter(rawValue: any): Array<Object> {
+        parseFormatter(rawValue: any): Object[] {
             return Array.isArray(rawValue) ? rawValue.map((sort: SortParameter) => ({ direction: sort.direction * 1, fieldName: sort.fieldName })) : [];
         },
         serializeFormatter(): Object {
@@ -55,12 +55,12 @@ export class SortingsService {
             }));
         }
     } as FilterConfig)
-    public sortings: Array<SortParameter> = new Array<SortParameter>();
+    public sortings: SortParameter[] = new Array<SortParameter>();
     /**
      * Internal method for default sortings cloning.
      * This method is used as {@link FilterConfig.defaultValue} as well as for copying to {@link sortings} when {@link defaultSortings} setter is used and {@link sortings} is empty. 
      */
-    protected cloneDefaultSortings(): Array<SortParameter> {
+    protected cloneDefaultSortings(): SortParameter[] {
         return this.defaultSortingsInternal.map((s: SortParameter) => ({ direction: s.direction, fieldName: s.fieldName }));
     }
     /**
@@ -72,7 +72,7 @@ export class SortingsService {
     /**
      * If called when {@link sortings} is empty then applied value will be copied to {@link sortings} immediately.
      */
-    public set defaultSortings(value: Array<SortParameter>) {
+    public set defaultSortings(value: SortParameter[]) {
         this.defaultSortingsInternal = value || [];
         if (this.sortings.length === 0) {
             this.sortings = this.cloneDefaultSortings();

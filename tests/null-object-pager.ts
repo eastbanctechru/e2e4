@@ -1,5 +1,6 @@
 import { ListResponse } from '../src/contracts/list-response';
 import { NullObjectPager } from '../src/null-object-pager';
+
 import { expect } from 'chai';
 
 function toResponseObject(): ListResponse<any> {

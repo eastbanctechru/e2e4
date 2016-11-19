@@ -14,40 +14,33 @@ This is abstract codebase which can be used to implement bridges to end-user fra
 Documentation is available [here](http://eastbanctechru.github.io/e2e4)
 
 ## Changelog
-Changelog is available [here](https://github.com/eastbanctechru/e2e4/blob/master/CHANGELOG.md)
+Changelog is available [here](https://github.com/eastbanctechru/e2e4/releases)
 
 ## How to build the project
 
 To build the project, follow these steps:
 
 1. Ensure that [NodeJS](http://nodejs.org/) is installed. This provides the platform on which the build tooling runs.
-2. Ensure that [Gulp](http://gulpjs.com/) is installed. If you need to install them, use the following command:
 
-  ```shell
-  npm install -g gulp
-  ```
-
-3. From the project folder, execute the following command to install project dependencies:
+2. From the project folder, execute the following command to install project dependencies:
 
   ```shell
   npm install
   ```
-4. From the project folder, execute the following command to build the source code:
+3. From the project folder, execute the following command to build the source code:
 
   ```shell
-  gulp build
+  npm build
   ```
-5. You will find ES5-compiled code in the `src` folder and ES6-compiled code in `esm` folder.
-
 ## How to run tests
 
-You can run tests in chrome with watch mode by executing the following command: 
+You can run tests in Chrome with watch mode by executing the following command: 
 
   ```shell
-  gulp test
+  npm test:watch
   ```
   or execute single run in PhantomJS:
   
   ```shell
-  gulp test-single-run
+  npm test
   ```

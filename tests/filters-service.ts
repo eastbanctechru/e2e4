@@ -1,3 +1,4 @@
+// tslint:disable:max-classes-per-file
 import { FilterConfig } from '../src/contracts/filter-config';
 import { filter, getDefaultFilterConfig } from '../src/filter-annotation';
 import { FiltersService } from '../src/filters-service';
@@ -159,7 +160,7 @@ describe('FiltersService', () => {
         it('clones default values on registrtaion', () => {
             class TargetType {
                 @filter
-                public property: Array<string> = ['one', 'two', 'three'];
+                public property: string[] = ['one', 'two', 'three'];
             }
 
             let target = new TargetType();
@@ -293,7 +294,7 @@ describe('FiltersService', () => {
             let toRequestSpy = sinon.spy(() => { return 'first'; });
             class TargetType {
                 @filter()
-                public arrayProperty: Array<any> = [{ toRequest: toRequestSpy }, 'first'];
+                public arrayProperty: any[] = [{ toRequest: toRequestSpy }, 'first'];
             }
 
             let target = new TargetType();
