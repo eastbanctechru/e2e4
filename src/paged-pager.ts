@@ -136,7 +136,7 @@ export class PagedPager implements Pager {
         return this.pageSizeInternal;
     }
     /**
-     * Executes several checks. For example, it doesn't accept values than {@link maxPageSize}.
+     * Executes several checks. For example, it doesn't accept values bigger than {@link maxPageSize}.
      */
     public set pageSize(value: number) {
         const valueStr = (value + '').replace(/[^0-9]/g, '');
