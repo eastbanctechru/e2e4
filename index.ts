@@ -13,6 +13,7 @@ export * from './src/contracts/list-response';
 export * from './src/contracts/pager';
 export * from './src/contracts/selection-service';
 
+export * from './src/async-subscriber';
 export * from './src/buffered-pager';
 export * from './src/filter-annotation';
 export * from './src/filters-service';
@@ -22,5 +23,6 @@ export * from './src/default-selection-service';
 export * from './src/null-object-pager';
 export * from './src/operation';
 export * from './src/sortings-service';
+export * from './src/state-service';
 export * from './src/state-tracking-service';
 

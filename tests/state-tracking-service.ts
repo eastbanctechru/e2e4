@@ -62,7 +62,7 @@ describe('StateTrackingService', () => {
         const target = toTarget();
         const sid = target.trackStatus('new status 1');
         expect(target.operationsList.length).eq(0);
-        // Get to the time maschine!
+        // Get to the time machine!
         clock.tick(StateTrackingService.progressDelayInterval);
         expect(target.isActive).eq(true);
         expect(target.operationsList.length).eq(1);
