@@ -163,7 +163,6 @@ export class FiltersService {
      * Typical usage of this method is building request to send it to the server. 
      * 
      * Names of properties in result object depends on {@link FilterConfig.parameterName}. Final values would be constructed by {@link buildFilterValue} method. 
-     * @param appendTo - optional object to which result will be appended. If nothing was passed then new object will be created.
      * @param filterFn - optional function to filter applied values.
      * @returns resulted object literal.
      */

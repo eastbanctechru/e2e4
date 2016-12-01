@@ -17,6 +17,7 @@ export * from './src/async-subscriber';
 export * from './src/buffered-pager';
 export * from './src/filter-annotation';
 export * from './src/filters-service';
+export * from './src/list';
 export * from './src/paged-pager';
 export * from './src/selection-events-helper';
 export * from './src/default-selection-service';
@@ -25,4 +26,3 @@ export * from './src/operation';
 export * from './src/sortings-service';
 export * from './src/state-service';
 export * from './src/state-tracking-service';
-

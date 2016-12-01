@@ -60,7 +60,7 @@ export interface FilterConfig {
      */
     coerce?: boolean;
     /**
-     * Optional function to serialize `target property` value when {@link FiltersService.getRequestState} method builds resuilting state object.
+     * Optional function to serialize `target property` value when {@link FiltersService.getRequestState} method builds resulting state object.
      */
     serializeFormatter?: (value: Object) => Object;
     /**

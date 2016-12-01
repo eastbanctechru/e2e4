@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Operation | e2e4</title>
+	<title>PushBasedSubscriptionProxy | e2e4</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,10 @@
 					<a href="../index.html">Globals</a>
 				</li>
 				<li>
-					<a href="operation.html">Operation</a>
+					<a href="pushbasedsubscriptionproxy.html">PushBasedSubscriptionProxy</a>
 				</li>
 			</ul>
-			<h1>Class Operation</h1>
+			<h1>Class PushBasedSubscriptionProxy</h1>
 		</div>
 	</div>
 </header>
@@ -69,7 +69,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Represents state of operation that must be displayed on UI inside <a href="statetrackingservice.html">StateTrackingService</a>.</p>
+						<p>Implementation of <a href="../interfaces/subscriptionproxy.html">SubscriptionProxy</a> to work with any objects with <code>subscribe/unsubscribe</code> contracts. This contract is suitable for Observable, for example.</p>
 					</div>
 				</div>
 			</section>
@@ -77,8 +77,14 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Operation</span>
+						<span class="target">PushBasedSubscriptionProxy</span>
 					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../interfaces/subscriptionproxy.html" class="tsd-signature-type">SubscriptionProxy</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -86,211 +92,127 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Constructors</h3>
+							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="operation.html#constructor" class="tsd-kind-icon">constructor</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Properties</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="operation.html#sid" class="tsd-kind-icon">sid</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="operation.html#status" class="tsd-kind-icon">status</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="operation.html#title" class="tsd-kind-icon">title</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Accessors</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="operation.html#classname" class="tsd-kind-icon">class<wbr>Name</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Object literals</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-object-literal tsd-parent-kind-class tsd-is-static"><a href="operation.html#settings" class="tsd-kind-icon">settings</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pushbasedsubscriptionproxy.html#attach" class="tsd-kind-icon">attach</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="pushbasedsubscriptionproxy.html#detach" class="tsd-kind-icon">detach</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="pushbasedsubscriptionproxy.html#isacceptable" class="tsd-kind-icon">is<wbr>Acceptable</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
-					<a name="constructor" class="tsd-anchor"></a>
-					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Operation<span class="tsd-signature-symbol">(</span>status<span class="tsd-signature-symbol">: </span><a href="../enums/progressstate.html" class="tsd-signature-type">ProgressState</a>, title<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="operation.html" class="tsd-signature-type">Operation</a></li>
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="attach" class="tsd-anchor"></a>
+					<h3>attach</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">attach<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, completeAction<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, errorAction<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/operation.ts#L38">operation.ts:38</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/async-subscriber.ts#L34">async-subscriber.ts:34</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>inheritdoc</dt>
+									<dd></dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>status: <a href="../enums/progressstate.html" class="tsd-signature-type">ProgressState</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>value for <a href="operation.html#status">status</a> property.</p>
-										</div>
-									</div>
+									<h5>target: <span class="tsd-signature-type">any</span></h5>
 								</li>
 								<li>
-									<h5>title: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>value for <a href="operation.html#title">title</a> property.</p>
-										</div>
-									</div>
+									<h5>completeAction: <span class="tsd-signature-type">any</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> errorAction: <span class="tsd-signature-type">function</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>error<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>error: <span class="tsd-signature-type">any</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="operation.html" class="tsd-signature-type">Operation</a></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 						</li>
 					</ul>
 				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="sid" class="tsd-anchor"></a>
-					<h3>sid</h3>
-					<div class="tsd-signature tsd-kind-icon">sid<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/operation.ts#L30">operation.ts:30</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Identifier that was returned by <code>setTimeout</code> method.
-							Used to track object in <a href="statetrackingservice.html">StateTrackingService</a></p>
-						</div>
-					</div>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="detach" class="tsd-anchor"></a>
+					<h3>detach</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">detach<span class="tsd-signature-symbol">(</span>subscription<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/subscriptionproxy.html">SubscriptionProxy</a>.<a href="../interfaces/subscriptionproxy.html#detach">detach</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/async-subscriber.ts#L40">async-subscriber.ts:40</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Detaches from underlying subscription</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>subscription: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="status" class="tsd-anchor"></a>
-					<h3>status</h3>
-					<div class="tsd-signature tsd-kind-icon">status<span class="tsd-signature-symbol">:</span> <a href="../enums/progressstate.html" class="tsd-signature-type">ProgressState</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/operation.ts#L34">operation.ts:34</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Current progress state.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="title" class="tsd-anchor"></a>
-					<h3>title</h3>
-					<div class="tsd-signature tsd-kind-icon">title<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/operation.ts#L38">operation.ts:38</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Description that will be displayed on UI.</p>
-						</div>
-					</div>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Accessors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
-					<a name="classname" class="tsd-anchor"></a>
-					<h3>class<wbr>Name</h3>
-					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> className<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="isacceptable" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> is<wbr>Acceptable</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Acceptable<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/operation.ts#L50">operation.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/async-subscriber.ts#L28">async-subscriber.ts:28</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns class name from <a href="operation.html#settings">Operation.settings</a> that corresponds to current <a href="operation.html#status">status</a> value.</p>
+									<p>Returns <code>true</code> if this proxy type can subscribe to passed object. <code>false</code> otherwise.</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>target: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Object literals</h2>
-				<section class="tsd-panel tsd-member tsd-kind-object-literal tsd-parent-kind-class tsd-is-static">
-					<a name="settings" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> settings</h3>
-					<div class="tsd-signature tsd-kind-icon">settings<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/operation.ts#L12">operation.ts:12</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Settings for names of css classes that are relevant to <a href="operation.html#status">status</a> value.
-							This settings is used by <a href="operation.html#classname">className</a> property and changing of this settings affects every object of <a href="operation.html">Operation</a> type.</p>
-						</div>
-					</div>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-						<a name="settings.statusdoneclassname" class="tsd-anchor"></a>
-						<h3>status<wbr>Done<wbr>Class<wbr>Name</h3>
-						<div class="tsd-signature tsd-kind-icon">status<wbr>Done<wbr>Class<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;status-done&quot;</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/operation.ts#L16">operation.ts:16</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Name of css class that corresponds to <a href="../enums/progressstate.html#done">ProgressState.Done</a>.</p>
-							</div>
-						</div>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-						<a name="settings.statusfailclassname" class="tsd-anchor"></a>
-						<h3>status<wbr>Fail<wbr>Class<wbr>Name</h3>
-						<div class="tsd-signature tsd-kind-icon">status<wbr>Fail<wbr>Class<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;status-fail&quot;</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/operation.ts#L20">operation.ts:20</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Name of css class that corresponds to <a href="../enums/progressstate.html#fail">ProgressState.Fail</a>.</p>
-							</div>
-						</div>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-						<a name="settings.statusprogressclassname" class="tsd-anchor"></a>
-						<h3>status<wbr>Progress<wbr>Class<wbr>Name</h3>
-						<div class="tsd-signature tsd-kind-icon">status<wbr>Progress<wbr>Class<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;status-progress&quot;</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/operation.ts#L24">operation.ts:24</a></li>
-							</ul>
-						</aside>
-						<div class="tsd-comment tsd-typography">
-							<div class="lead">
-								<p>Name of css class that corresponds to <a href="../enums/progressstate.html#progress">ProgressState.Progress</a>.</p>
-							</div>
-						</div>
-					</section>
 				</section>
 			</section>
 		</div>
@@ -334,42 +256,33 @@
 					<li class=" tsd-kind-class">
 						<a href="nullobjectpager.html" class="tsd-kind-icon">Null<wbr>Object<wbr>Pager</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-class">
+					<li class=" tsd-kind-class">
 						<a href="operation.html" class="tsd-kind-icon">Operation</a>
-						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="operation.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="operation.html#sid" class="tsd-kind-icon">sid</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="operation.html#status" class="tsd-kind-icon">status</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="operation.html#title" class="tsd-kind-icon">title</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="operation.html#classname" class="tsd-kind-icon">class<wbr>Name</a>
-							</li>
-							<li class=" tsd-kind-object-literal tsd-parent-kind-class tsd-is-static">
-								<a href="operation.html#settings" class="tsd-kind-icon">settings</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-class">
 						<a href="pagedpager.html" class="tsd-kind-icon">Paged<wbr>Pager</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="promisesubscriptionproxy.html" class="tsd-kind-icon">Promise<wbr>Subscription<wbr>Proxy</a>
 					</li>
-					<li class=" tsd-kind-class">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class">
 						<a href="pushbasedsubscriptionproxy.html" class="tsd-kind-icon">Push<wbr>Based<wbr>Subscription<wbr>Proxy</a>
+						<ul>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="pushbasedsubscriptionproxy.html#attach" class="tsd-kind-icon">attach</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="pushbasedsubscriptionproxy.html#detach" class="tsd-kind-icon">detach</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="pushbasedsubscriptionproxy.html#isacceptable" class="tsd-kind-icon">is<wbr>Acceptable</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-class">
 						<a href="selectioneventshelper.html" class="tsd-kind-icon">Selection<wbr>Events<wbr>Helper</a>
 					</li>

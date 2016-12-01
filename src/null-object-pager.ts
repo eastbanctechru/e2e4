@@ -6,27 +6,27 @@ import { Pager } from './contracts/pager';
  */
 export class NullObjectPager implements Pager {
     /**
-     * @see {@link Pager.appendedOnLoad}
+     * @inheritdoc
      */
     public appendedOnLoad: boolean = false;
 
     /**
-     * @see {@link Pager.totalCount}
+     * @inheritdoc
      */
     public totalCount: number = 0;
     /**
-     * @see {@link Pager.loadedCount}
+     * @inheritdoc
      */
     public loadedCount: number = 0;
     /**
-     * @see {@link Pager.processResponse}
+     * @inheritdoc
      */
     public processResponse(response: ListResponse<any>): void {
         this.loadedCount = response.loadedCount || (response.items && response.items.length ? response.items.length : 0);
         this.totalCount = response.totalCount || 0;
     }
     /**
-     * @see {@link Pager.reset}
+     * @inheritdoc
      */
     public reset(): void {
         this.totalCount = 0;

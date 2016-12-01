@@ -141,15 +141,13 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/selectionservice.html">SelectionService</a>.<a href="../interfaces/selectionservice.html#items">items</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/default-selection-service.ts#L31">default-selection-service.ts:31</a></li>
+							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/default-selection-service.ts#L31">default-selection-service.ts:31</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
-						<dl class="tsd-comment-tags">
-							<dt>see</dt>
-							<dd><p><a href="../interfaces/selectionservice.html#items">SelectionService.items</a></p>
-							</dd>
-						</dl>
+						<div class="lead">
+							<p>Collection of elements for selection.</p>
+						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
@@ -159,15 +157,13 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/selectionservice.html">SelectionService</a>.<a href="../interfaces/selectionservice.html#lastprocessedindex">lastProcessedIndex</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/default-selection-service.ts#L23">default-selection-service.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/default-selection-service.ts#L23">default-selection-service.ts:23</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
-						<dl class="tsd-comment-tags">
-							<dt>see</dt>
-							<dd><p><a href="../interfaces/selectionservice.html#lastprocessedindex">SelectionService.lastProcessedIndex</a></p>
-							</dd>
-						</dl>
+						<div class="lead">
+							<p>Index of last selected/deselected element in <a href="defaultselectionservice.html#items">items</a> collection.</p>
+						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
@@ -176,7 +172,7 @@
 					<div class="tsd-signature tsd-kind-icon">selections<wbr>List<span class="tsd-signature-symbol">:</span> <a href="../interfaces/selectiontuple.html" class="tsd-signature-type">SelectionTuple</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;new Array&lt;SelectionTuple&gt;()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/default-selection-service.ts#L36">default-selection-service.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/default-selection-service.ts#L36">default-selection-service.ts:36</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -192,13 +188,21 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/selectionservice.html">SelectionService</a>.<a href="../interfaces/selectionservice.html#trackbyfn">trackByFn</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/default-selection-service.ts#L27">default-selection-service.ts:27</a></li>
+							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/default-selection-service.ts#L27">default-selection-service.ts:27</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Optional function which can be used to compare <a href="defaultselectionservice.html#items">items</a> elements.</p>
+						</div>
+						<p>This function can be used by <a href="defaultselectionservice.html#checkselection">checkSelection</a>.</p>
+						<p>Also it&#39;s reasonable to use this function for <a href="defaultselectionservice.html#getitemindex">getItemIndex</a>.</p>
 						<dl class="tsd-comment-tags">
-							<dt>see</dt>
-							<dd><p><a href="../interfaces/selectionservice.html#trackbyfn">SelectionService.trackByFn</a></p>
+							<dt>param</dt>
+							<dd><p>index of element in <a href="defaultselectionservice.html#items">items</a> collection.</p>
+							</dd>
+							<dt>param</dt>
+							<dd><p>element from <a href="defaultselectionservice.html#items">items</a> collection.</p>
 							</dd>
 						</dl>
 					</div>
@@ -241,15 +245,13 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/selectionservice.html">SelectionService</a>.<a href="../interfaces/selectionservice.html#checkselection">checkSelection</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/default-selection-service.ts#L102">default-selection-service.ts:102</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/default-selection-service.ts#L102">default-selection-service.ts:102</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>see</dt>
-									<dd><p><a href="../interfaces/selectionservice.html#checkselection">SelectionService.checkSelection</a></p>
-									</dd>
-								</dl>
+								<div class="lead">
+									<p>Performs check that every selected element is actually selected.</p>
+								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
@@ -266,15 +268,13 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/selectionservice.html">SelectionService</a>.<a href="../interfaces/selectionservice.html#deselectall">deselectAll</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/default-selection-service.ts#L130">default-selection-service.ts:130</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/default-selection-service.ts#L130">default-selection-service.ts:130</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>see</dt>
-									<dd><p><a href="../interfaces/selectionservice.html#deselectall">SelectionService.deselectAll</a></p>
-									</dd>
-								</dl>
+								<div class="lead">
+									<p>Deselects all elements in <a href="defaultselectionservice.html#items">items</a> collection.</p>
+								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
@@ -291,15 +291,13 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/selectionservice.html">SelectionService</a>.<a href="../interfaces/selectionservice.html#deselectindex">deselectIndex</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/default-selection-service.ts#L248">default-selection-service.ts:248</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/default-selection-service.ts#L248">default-selection-service.ts:248</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>see</dt>
-									<dd><p><a href="../interfaces/selectionservice.html#deselectindex">SelectionService.deselectIndex</a></p>
-									</dd>
-								</dl>
+								<div class="lead">
+									<p>Deselects element at specified index in <a href="defaultselectionservice.html#items">items</a> collection.</p>
+								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -321,7 +319,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/default-selection-service.ts#L63">default-selection-service.ts:63</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/default-selection-service.ts#L63">default-selection-service.ts:63</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -350,15 +348,13 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/selectionservice.html">SelectionService</a>.<a href="../interfaces/selectionservice.html#destroy">destroy</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/default-selection-service.ts#L45">default-selection-service.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/default-selection-service.ts#L45">default-selection-service.ts:45</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>see</dt>
-									<dd><p><a href="../interfaces/selectionservice.html#destroy">SelectionService.destroy</a></p>
-									</dd>
-								</dl>
+								<div class="lead">
+									<p>Performs application-defined logic for service destroy.</p>
+								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
@@ -374,14 +370,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/default-selection-service.ts#L198">default-selection-service.ts:198</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/default-selection-service.ts#L198">default-selection-service.ts:198</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<dl class="tsd-comment-tags">
-									<dt>see</dt>
-									<dd><p><a href="../interfaces/selectionservice.html#getitemindex">SelectionService.getItemIndex</a></p>
-									</dd>
+									<dt>inheritdoc</dt>
+									<dd></dd>
 								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -405,17 +400,16 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/selectionservice.html">SelectionService</a>.<a href="../interfaces/selectionservice.html#getmaxselectedindex">getMaxSelectedIndex</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/default-selection-service.ts#L214">default-selection-service.ts:214</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/default-selection-service.ts#L214">default-selection-service.ts:214</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>see</dt>
-									<dd><p><a href="../interfaces/selectionservice.html#getmaxselectedindex">SelectionService.getMaxSelectedIndex</a></p>
-									</dd>
-								</dl>
+								<div class="lead">
+									<p>Returns index of last selected element from <a href="defaultselectionservice.html#items">items</a> collection.</p>
+								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+							<p>index of last selected element. -1 if nothing is selected.</p>
 						</li>
 					</ul>
 				</section>
@@ -430,17 +424,16 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/selectionservice.html">SelectionService</a>.<a href="../interfaces/selectionservice.html#getminselectedindex">getMinSelectedIndex</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/default-selection-service.ts#L204">default-selection-service.ts:204</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/default-selection-service.ts#L204">default-selection-service.ts:204</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>see</dt>
-									<dd><p><a href="../interfaces/selectionservice.html#getminselectedindex">SelectionService.getMinSelectedIndex</a></p>
-									</dd>
-								</dl>
+								<div class="lead">
+									<p>Returns index of first selected element from <a href="defaultselectionservice.html#items">items</a> collection.</p>
+								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+							<p>index of first selected element. -1 if nothing is selected.</p>
 						</li>
 					</ul>
 				</section>
@@ -455,17 +448,16 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/selectionservice.html">SelectionService</a>.<a href="../interfaces/selectionservice.html#getselectedelements">getSelectedElements</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/default-selection-service.ts#L270">default-selection-service.ts:270</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/default-selection-service.ts#L270">default-selection-service.ts:270</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>see</dt>
-									<dd><p><a href="../interfaces/selectionservice.html#getselectedelements">SelectionService.getSelectedElements</a></p>
-									</dd>
-								</dl>
+								<div class="lead">
+									<p>Returns all elements from <a href="defaultselectionservice.html#items">items</a> collection which are marked as selected.</p>
+								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol">[]</span></h4>
+							<p>collection of selected elements.</p>
 						</li>
 					</ul>
 				</section>
@@ -480,17 +472,16 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/selectionservice.html">SelectionService</a>.<a href="../interfaces/selectionservice.html#getselectedindexes">getSelectedIndexes</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/default-selection-service.ts#L276">default-selection-service.ts:276</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/default-selection-service.ts#L276">default-selection-service.ts:276</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>see</dt>
-									<dd><p><a href="../interfaces/selectionservice.html#getselectedindexes">SelectionService.getSelectedIndexes</a></p>
-									</dd>
-								</dl>
+								<div class="lead">
+									<p>Returns indexes of all elements from <a href="defaultselectionservice.html#items">items</a> collection which are marked as selected.</p>
+								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h4>
+							<p>collection of selected elements indexes in <a href="defaultselectionservice.html#items">items</a> collection.</p>
 						</li>
 					</ul>
 				</section>
@@ -504,7 +495,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/default-selection-service.ts#L93">default-selection-service.ts:93</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/default-selection-service.ts#L93">default-selection-service.ts:93</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -533,17 +524,16 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/selectionservice.html">SelectionService</a>.<a href="../interfaces/selectionservice.html#hasselections">hasSelections</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/default-selection-service.ts#L168">default-selection-service.ts:168</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/default-selection-service.ts#L168">default-selection-service.ts:168</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>see</dt>
-									<dd><p><a href="../interfaces/selectionservice.html#hasselections">SelectionService.hasSelections</a></p>
-									</dd>
-								</dl>
+								<div class="lead">
+									<p>Checks that at least one element selected in <a href="defaultselectionservice.html#items">items</a> collection.</p>
+								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p><code>true</code> if anything is selected.</p>
 						</li>
 					</ul>
 				</section>
@@ -557,7 +547,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/default-selection-service.ts#L124">default-selection-service.ts:124</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/default-selection-service.ts#L124">default-selection-service.ts:124</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -590,15 +580,13 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/selectionservice.html">SelectionService</a>.<a href="../interfaces/selectionservice.html#isindexselected">isIndexSelected</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/default-selection-service.ts#L189">default-selection-service.ts:189</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/default-selection-service.ts#L189">default-selection-service.ts:189</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>see</dt>
-									<dd><p><a href="../interfaces/selectionservice.html#isindexselected">SelectionService.isIndexSelected</a></p>
-									</dd>
-								</dl>
+								<div class="lead">
+									<p>Checks that element at specified index is selected.</p>
+								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -607,6 +595,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p><code>true</code> if element is selected.</p>
 						</li>
 					</ul>
 				</section>
@@ -621,15 +610,13 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/selectionservice.html">SelectionService</a>.<a href="../interfaces/selectionservice.html#israngeselected">isRangeSelected</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/default-selection-service.ts#L174">default-selection-service.ts:174</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/default-selection-service.ts#L174">default-selection-service.ts:174</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>see</dt>
-									<dd><p><a href="../interfaces/selectionservice.html#israngeselected">SelectionService.isRangeSelected</a></p>
-									</dd>
-								</dl>
+								<div class="lead">
+									<p>Checks that all elements inside specified range are selected in <a href="defaultselectionservice.html#items">items</a> collection.</p>
+								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -641,6 +628,7 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p><code>true</code> if all elements inside specified range are selected.</p>
 						</li>
 					</ul>
 				</section>
@@ -654,7 +642,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/default-selection-service.ts#L55">default-selection-service.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/default-selection-service.ts#L55">default-selection-service.ts:55</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -687,15 +675,13 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/selectionservice.html">SelectionService</a>.<a href="../interfaces/selectionservice.html#selectall">selectAll</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/default-selection-service.ts#L140">default-selection-service.ts:140</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/default-selection-service.ts#L140">default-selection-service.ts:140</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>see</dt>
-									<dd><p><a href="../interfaces/selectionservice.html#selectall">SelectionService.selectAll</a></p>
-									</dd>
-								</dl>
+								<div class="lead">
+									<p>Selects all elements in <a href="defaultselectionservice.html#items">items</a> collection.</p>
+								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
@@ -712,15 +698,13 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/selectionservice.html">SelectionService</a>.<a href="../interfaces/selectionservice.html#selectfirst">selectFirst</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/default-selection-service.ts#L224">default-selection-service.ts:224</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/default-selection-service.ts#L224">default-selection-service.ts:224</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>see</dt>
-									<dd><p><a href="../interfaces/selectionservice.html#selectfirst">SelectionService.selectFirst</a></p>
-									</dd>
-								</dl>
+								<div class="lead">
+									<p>Selects first element in <a href="defaultselectionservice.html#items">items</a> collection.</p>
+								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
@@ -737,15 +721,13 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/selectionservice.html">SelectionService</a>.<a href="../interfaces/selectionservice.html#selectindex">selectIndex</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/default-selection-service.ts#L240">default-selection-service.ts:240</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/default-selection-service.ts#L240">default-selection-service.ts:240</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>see</dt>
-									<dd><p><a href="../interfaces/selectionservice.html#selectindex">SelectionService.selectIndex</a></p>
-									</dd>
-								</dl>
+								<div class="lead">
+									<p>Selects element at specified index in <a href="defaultselectionservice.html#items">items</a> collection.</p>
+								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -770,7 +752,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/default-selection-service.ts#L74">default-selection-service.ts:74</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/default-selection-service.ts#L74">default-selection-service.ts:74</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -802,15 +784,13 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/selectionservice.html">SelectionService</a>.<a href="../interfaces/selectionservice.html#selectlast">selectLast</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/default-selection-service.ts#L232">default-selection-service.ts:232</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/default-selection-service.ts#L232">default-selection-service.ts:232</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>see</dt>
-									<dd><p><a href="../interfaces/selectionservice.html#selectlast">SelectionService.selectLast</a></p>
-									</dd>
-								</dl>
+								<div class="lead">
+									<p>Selects last element in <a href="defaultselectionservice.html#items">items</a> collection.</p>
+								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
@@ -827,15 +807,13 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/selectionservice.html">SelectionService</a>.<a href="../interfaces/selectionservice.html#selectrange">selectRange</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/default-selection-service.ts#L146">default-selection-service.ts:146</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/default-selection-service.ts#L146">default-selection-service.ts:146</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>see</dt>
-									<dd><p><a href="../interfaces/selectionservice.html#selectrange">SelectionService.selectRange</a></p>
-									</dd>
-								</dl>
+								<div class="lead">
+									<p>Selects range of elements in <a href="defaultselectionservice.html#items">items</a> collection.</p>
+								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -861,15 +839,13 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/selectionservice.html">SelectionService</a>.<a href="../interfaces/selectionservice.html#toggleselection">toggleSelection</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/default-selection-service.ts#L256">default-selection-service.ts:256</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/default-selection-service.ts#L256">default-selection-service.ts:256</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>see</dt>
-									<dd><p><a href="../interfaces/selectionservice.html#toggleselection">SelectionService.toggleSelection</a></p>
-									</dd>
-								</dl>
+								<div class="lead">
+									<p>Toggles selection state of element at specified index.</p>
+								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -894,7 +870,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/default-selection-service.ts#L41">default-selection-service.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/default-selection-service.ts#L41">default-selection-service.ts:41</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -939,6 +915,9 @@
 					</li>
 					<li class=" tsd-kind-enum">
 						<a href="../enums/sortdirection.html" class="tsd-kind-icon">Sort<wbr>Direction</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="asyncsubscriber.html" class="tsd-kind-icon">Async<wbr>Subscriber</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="bufferedpager.html" class="tsd-kind-icon">Buffered<wbr>Pager</a>
@@ -1040,6 +1019,9 @@
 						<a href="filtersservice.html" class="tsd-kind-icon">Filters<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="list.html" class="tsd-kind-icon">List</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="nullobjectpager.html" class="tsd-kind-icon">Null<wbr>Object<wbr>Pager</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -1049,10 +1031,19 @@
 						<a href="pagedpager.html" class="tsd-kind-icon">Paged<wbr>Pager</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="promisesubscriptionproxy.html" class="tsd-kind-icon">Promise<wbr>Subscription<wbr>Proxy</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="pushbasedsubscriptionproxy.html" class="tsd-kind-icon">Push<wbr>Based<wbr>Subscription<wbr>Proxy</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="selectioneventshelper.html" class="tsd-kind-icon">Selection<wbr>Events<wbr>Helper</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="sortingsservice.html" class="tsd-kind-icon">Sortings<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="stateservice.html" class="tsd-kind-icon">State<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="statetrackingservice.html" class="tsd-kind-icon">State<wbr>Tracking<wbr>Service</a>
@@ -1083,6 +1074,9 @@
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/sortparameter.html" class="tsd-kind-icon">Sort<wbr>Parameter</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/subscriptionproxy.html" class="tsd-kind-icon">Subscription<wbr>Proxy</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="../index.html#cloneasliteral" class="tsd-kind-icon">clone<wbr>AsLiteral</a>

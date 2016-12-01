@@ -53,7 +53,7 @@ export class PagedPager implements Pager {
     } as FilterConfig)
     protected pageNumberInternal: number = 1;
     /**
-     * @see {@link Pager.appendedOnLoad}
+     * @inheritdoc
      */
     public appendedOnLoad: boolean = false;
     /**
@@ -69,11 +69,11 @@ export class PagedPager implements Pager {
      */
     public minPageSize: number = PagedPager.settings.minPageSize;
     /**
-     * @see {@link Pager.totalCount}
+     * @inheritdoc
      */
     public totalCount: number = 0;
     /**
-     * @see {@link Pager.loadedCount}
+     * @inheritdoc
      */
     public loadedCount: number = 0;
 
@@ -161,7 +161,7 @@ export class PagedPager implements Pager {
         this.pageSizeInternal = pageSize;
     }
     /**
-     * @see {@link Pager.processResponse}
+     * @inheritdoc
      */
     public processResponse(response: ListResponse<any>): void {
         this.loadedCount = response.loadedCount || (response.items && response.items.length ? response.items.length : 0);
@@ -228,7 +228,7 @@ export class PagedPager implements Pager {
     }
 
     /**
-     * @see {@link Pager.reset}
+     * @inheritdoc
      */
     public reset(): void {
         this.totalCount = 0;

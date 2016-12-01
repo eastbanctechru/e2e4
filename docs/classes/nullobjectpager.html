@@ -123,15 +123,13 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/pager.html">Pager</a>.<a href="../interfaces/pager.html#appendedonload">appendedOnLoad</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/null-object-pager.ts#L11">null-object-pager.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/null-object-pager.ts#L11">null-object-pager.ts:11</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
-						<dl class="tsd-comment-tags">
-							<dt>see</dt>
-							<dd><p><a href="../interfaces/pager.html#appendedonload">Pager.appendedOnLoad</a></p>
-							</dd>
-						</dl>
+						<div class="lead">
+							<p>Must be <code>true</code> for such pager implementations which destroy previously loaded data only on full reload and keep data on next chunk loading.</p>
+						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
@@ -141,13 +139,16 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/pager.html">Pager</a>.<a href="../interfaces/pager.html#loadedcount">loadedCount</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/null-object-pager.ts#L20">null-object-pager.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/null-object-pager.ts#L20">null-object-pager.ts:20</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Count of records that was loaded at last request.</p>
+						</div>
 						<dl class="tsd-comment-tags">
 							<dt>see</dt>
-							<dd><p><a href="../interfaces/pager.html#loadedcount">Pager.loadedCount</a></p>
+							<dd><p><a href="../interfaces/listresponse.html#loadedcount">ListResponse.loadedCount</a></p>
 							</dd>
 						</dl>
 					</div>
@@ -159,13 +160,16 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/pager.html">Pager</a>.<a href="../interfaces/pager.html#totalcount">totalCount</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/null-object-pager.ts#L16">null-object-pager.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/null-object-pager.ts#L16">null-object-pager.ts:16</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Total count of records in remote data source.</p>
+						</div>
 						<dl class="tsd-comment-tags">
 							<dt>see</dt>
-							<dd><p><a href="../interfaces/pager.html#totalcount">Pager.totalCount</a></p>
+							<dd><p><a href="../interfaces/listresponse.html#totalcount">ListResponse.totalCount</a></p>
 							</dd>
 						</dl>
 					</div>
@@ -184,15 +188,13 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/pager.html">Pager</a>.<a href="../interfaces/pager.html#processresponse">processResponse</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/null-object-pager.ts#L24">null-object-pager.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/null-object-pager.ts#L24">null-object-pager.ts:24</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>see</dt>
-									<dd><p><a href="../interfaces/pager.html#processresponse">Pager.processResponse</a></p>
-									</dd>
-								</dl>
+								<div class="lead">
+									<p>Performs logic associated with parsing of server response returned at data request.</p>
+								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -215,15 +217,13 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/pager.html">Pager</a>.<a href="../interfaces/pager.html#reset">reset</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/3bf0426/src/null-object-pager.ts#L31">null-object-pager.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/db3ab0b/src/null-object-pager.ts#L31">null-object-pager.ts:31</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>see</dt>
-									<dd><p><a href="../interfaces/pager.html#reset">Pager.reset</a></p>
-									</dd>
-								</dl>
+								<div class="lead">
+									<p>Performs logic associated with pager state reset.</p>
+								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
@@ -254,6 +254,9 @@
 						<a href="../enums/sortdirection.html" class="tsd-kind-icon">Sort<wbr>Direction</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="asyncsubscriber.html" class="tsd-kind-icon">Async<wbr>Subscriber</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="bufferedpager.html" class="tsd-kind-icon">Buffered<wbr>Pager</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -261,6 +264,9 @@
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="filtersservice.html" class="tsd-kind-icon">Filters<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="list.html" class="tsd-kind-icon">List</a>
 					</li>
 				</ul>
 				<ul class="current">
@@ -293,10 +299,19 @@
 						<a href="pagedpager.html" class="tsd-kind-icon">Paged<wbr>Pager</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="promisesubscriptionproxy.html" class="tsd-kind-icon">Promise<wbr>Subscription<wbr>Proxy</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="pushbasedsubscriptionproxy.html" class="tsd-kind-icon">Push<wbr>Based<wbr>Subscription<wbr>Proxy</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="selectioneventshelper.html" class="tsd-kind-icon">Selection<wbr>Events<wbr>Helper</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="sortingsservice.html" class="tsd-kind-icon">Sortings<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="stateservice.html" class="tsd-kind-icon">State<wbr>Service</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="statetrackingservice.html" class="tsd-kind-icon">State<wbr>Tracking<wbr>Service</a>
@@ -327,6 +342,9 @@
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/sortparameter.html" class="tsd-kind-icon">Sort<wbr>Parameter</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/subscriptionproxy.html" class="tsd-kind-icon">Subscription<wbr>Proxy</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="../index.html#cloneasliteral" class="tsd-kind-icon">clone<wbr>AsLiteral</a>

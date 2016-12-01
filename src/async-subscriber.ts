@@ -3,7 +3,7 @@
 /**
  * Internal contract to implement abstracted subscription proxy which hides any details of underlying subscription  
  */
-interface SubscriptionProxy {
+export interface SubscriptionProxy {
     /**
      * Subscribes to passed object
      * @param target object to subscribe
@@ -21,7 +21,7 @@ interface SubscriptionProxy {
 /**
  * Implementation of {@link SubscriptionProxy} to work with any objects with `subscribe/unsubscribe` contracts. This contract is suitable for Observable, for example.  
  */
-class PushBasedSubscriptionProxy implements SubscriptionProxy {
+export class PushBasedSubscriptionProxy implements SubscriptionProxy {
     /**
      * Returns `true` if this proxy type can subscribe to passed object. `false` otherwise.
      */
@@ -29,13 +29,13 @@ class PushBasedSubscriptionProxy implements SubscriptionProxy {
         return !!target.subscribe;
     }
     /**
-     * @see {@link SubscriptionProxy.attach}  
+     * @inheritdoc  
      */
     public attach(target: any, completeAction: any, errorAction?: (error: any) => any): any {
         return target.subscribe({ error: errorAction, next: completeAction });
     }
     /**
-     * @see {@link SubscriptionProxy.detach}  
+     * @inheritdoc  
      */
     public detach(subscription: any): void { subscription.unsubscribe(); }
 }
@@ -43,7 +43,7 @@ class PushBasedSubscriptionProxy implements SubscriptionProxy {
 /**
  * Implementation of {@link SubscriptionProxy} which works with Promise and adds ability to unsubscribe from it.  
  */
-class PromiseSubscriptionProxy implements SubscriptionProxy {
+export class PromiseSubscriptionProxy implements SubscriptionProxy {
     private isAlive: boolean = true;
     /**
      * Returns `true` if this proxy type can subscribe to passed object. `false` otherwise.
@@ -52,7 +52,7 @@ class PromiseSubscriptionProxy implements SubscriptionProxy {
         return target instanceof Promise;
     }
     /**
-     * @see {@link SubscriptionProxy.attach}  
+     * @inheritdoc  
      */
     public attach(target: Promise<any>, completeAction: (value: any) => any, errorAction?: (error: any) => any): any {
         return target.then((value: any) => {
@@ -66,13 +66,13 @@ class PromiseSubscriptionProxy implements SubscriptionProxy {
         });
     }
     /**
-     * @see {@link SubscriptionProxy.destroy}  
+     * @inheritdoc  
      */
     public detach(subscription: any): void { this.isAlive = false; }
 }
 
 /**
- * Implementation of {@link SubscriptionProxy} which acts as proxy to concrete implementations.  
+ * Service to manage async subscriptions which acts as mediator to {@link SubscriptionProxy} contract implementations.  
  */
 export class AsyncSubscriber {
     private proxy: SubscriptionProxy = null;
@@ -91,7 +91,7 @@ export class AsyncSubscriber {
     /**
      * @see {@link SubscriptionProxy.attach}  
      */
-    public attach(target: any, completeAction: (v: any) => any, errorAction?: (error: any) => any): void {
+    public attach(target: any, completeAction: (value: any) => any, errorAction?: (error: any) => any): void {
         if (this.lastTarget !== null) {
             this.destroy();
         }
@@ -100,7 +100,7 @@ export class AsyncSubscriber {
         this.subscription = this.proxy.attach(target, completeAction, errorAction);
     }
     /**
-     * @see {@link SubscriptionProxy.destroy}  
+     * Detaches from underlying subscription and destroys all internal objects.
      */
     public destroy(): void {
         if (this.proxy) {

@@ -49,15 +49,15 @@ export class BufferedPager implements Pager {
     } as FilterConfig)
     protected takeRowCountInternal: number = BufferedPager.settings.defaultRowCount;
     /**
-     * @see {@link Pager.appendedOnLoad}
+     * @inheritdoc
      */
     public appendedOnLoad: boolean = true;
     /**
-     * @see {@link Pager.totalCount}
+     * @inheritdoc
      */
     public totalCount: number = 0;
     /**
-     * @see {@link Pager.loadedCount}
+     * @inheritdoc
      */
     public loadedCount: number = 0;
     /**
@@ -119,7 +119,7 @@ export class BufferedPager implements Pager {
         return this.totalCount !== 0 && this.skip < this.totalCount;
     }
     /**
-     * @see {@link Pager.processResponse}
+     * @inheritdoc
      */
     public processResponse(response: ListResponse<any>): void {
         this.totalCount = response.totalCount || 0;
@@ -128,7 +128,7 @@ export class BufferedPager implements Pager {
         this.loadedCount = this.skip;
     }
     /**
-     * @see {@link Pager.reset}
+     * @inheritdoc
      */
     public reset(): void {
         this.totalCount = 0;

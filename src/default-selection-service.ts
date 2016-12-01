@@ -18,15 +18,15 @@ export interface SelectionTuple {
  */
 export class DefaultSelectionService implements SelectionService {
     /**
-     * @see {@link SelectionService.lastProcessedIndex}
+     * @inheritdoc  
      */
     public lastProcessedIndex: number;
     /**
-     * @see {@link SelectionService.trackByFn}
+     * @inheritdoc
      */
     public trackByFn: (index: number, item: any) => any = this.trackByIdentity;
     /**
-     * @see {@link SelectionService.items}  
+     * @inheritdoc  
      */
     public items: SelectionItem[];
 
@@ -40,7 +40,7 @@ export class DefaultSelectionService implements SelectionService {
      */
     protected trackByIdentity: (index: number, item: any) => any = (index: number, item: any) => { return item; };
     /**
-     * @see {@link SelectionService.destroy}
+     * @inheritdoc
      */
     public destroy(): void {
         this.selectionsList.length = 0;
@@ -97,7 +97,7 @@ export class DefaultSelectionService implements SelectionService {
         };
     }
     /**
-     * @see {@link SelectionService.checkSelection}
+     * @inheritdoc
      */
     public checkSelection(): void {
         if (this.items !== null && this.items !== undefined) {
@@ -125,7 +125,7 @@ export class DefaultSelectionService implements SelectionService {
         return index !== null && index !== undefined && index >= 0 && this.items && this.items.length > index;
     }
     /**
-     * @see {@link SelectionService.deselectAll}
+     * @inheritdoc
      */
     public deselectAll(): void {
         const list = this.selectionsList.splice(0, this.selectionsList.length);
@@ -135,13 +135,13 @@ export class DefaultSelectionService implements SelectionService {
         this.lastProcessedIndex = null;
     }
     /**
-     * @see {@link SelectionService.selectAll}
+     * @inheritdoc
      */
     public selectAll(): void {
         this.selectRange(0, this.items.length - 1);
     }
     /**
-     * @see {@link SelectionService.selectRange}
+     * @inheritdoc
      */
     public selectRange(fromIndex: number, toIndex: number): void {
         if (toIndex < 0 || this.items.length <= toIndex || fromIndex < 0 || this.items.length <= fromIndex) {
@@ -163,13 +163,13 @@ export class DefaultSelectionService implements SelectionService {
         this.lastProcessedIndex = endIndex;
     }
     /**
-     * @see {@link SelectionService.hasSelections}
+     * @inheritdoc
      */
     public hasSelections(): boolean {
         return this.selectionsList.length !== 0;
     }
     /**
-     * @see {@link SelectionService.isRangeSelected}
+     * @inheritdoc
      */
     public isRangeSelected(from: number, to: number): boolean {
         // nothing selected
@@ -184,7 +184,7 @@ export class DefaultSelectionService implements SelectionService {
         return (1 + to - from === orderedIndexes.length) && (orderedIndexes[0] === from) && (orderedIndexes[orderedIndexes.length - 1] === to);
     }
     /**
-     * @see {@link SelectionService.isIndexSelected}
+     * @inheritdoc
      */
     public isIndexSelected(index: number): boolean {
         if (this.selectionsList.length > 0 && this.isIndexAcceptable(index)) {
@@ -193,13 +193,13 @@ export class DefaultSelectionService implements SelectionService {
         return false;
     }
     /**
-     * @see {@link SelectionService.getItemIndex}
+     * @inheritdoc
      */
     public getItemIndex(item: SelectionItem): number {
         return this.items.findIndex((value: SelectionItem) => value === item);
     }
     /**
-     * @see {@link SelectionService.getMinSelectedIndex}
+     * @inheritdoc
      */
     public getMinSelectedIndex(): number {
         let minIndex = -1;
@@ -209,7 +209,7 @@ export class DefaultSelectionService implements SelectionService {
         return minIndex;
     }
     /**
-     * @see {@link SelectionService.getMaxSelectedIndex}
+     * @inheritdoc
      */
     public getMaxSelectedIndex(): number {
         let maxIndex = -1;
@@ -219,7 +219,7 @@ export class DefaultSelectionService implements SelectionService {
         return maxIndex;
     }
     /**
-     * @see {@link SelectionService.selectFirst}
+     * @inheritdoc
      */
     public selectFirst(): void {
         if (this.items.length > 0) {
@@ -227,7 +227,7 @@ export class DefaultSelectionService implements SelectionService {
         }
     }
     /**
-     * @see {@link SelectionService.selectLast}
+     * @inheritdoc
      */
     public selectLast(): void {
         if (this.items.length > 0) {
@@ -235,7 +235,7 @@ export class DefaultSelectionService implements SelectionService {
         }
     }
     /**
-     * @see {@link SelectionService.selectIndex}
+     * @inheritdoc
      */
     public selectIndex(index: number, savePrevious: boolean = false): void {
         if (this.isIndexAcceptable(index)) {
@@ -243,7 +243,7 @@ export class DefaultSelectionService implements SelectionService {
         }
     }
     /**
-     * @see {@link SelectionService.deselectIndex}
+     * @inheritdoc
      */
     public deselectIndex(index: number): void {
         if (this.isIndexAcceptable(index)) {
@@ -251,7 +251,7 @@ export class DefaultSelectionService implements SelectionService {
         }
     }
     /**
-     * @see {@link SelectionService.toggleSelection}
+     * @inheritdoc
      */
     public toggleSelection(index: number, savePrevious: boolean = false): void {
         if (!this.isIndexAcceptable(index)) {
@@ -265,13 +265,13 @@ export class DefaultSelectionService implements SelectionService {
         this.selectItem(tuple, savePrevious);
     }
     /**
-     * @see {@link SelectionService.getSelectedElements}
+     * @inheritdoc
      */
     public getSelectedElements(): Object[] {
         return this.selectionsList.map((selectionItem: SelectionTuple) => selectionItem.item);
     }
     /**
-     * @see {@link SelectionService.getSelectedIndexes}
+     * @inheritdoc
      */
     public getSelectedIndexes(): number[] {
         return this.selectionsList.map((selectionItem: SelectionTuple) => selectionItem.index);

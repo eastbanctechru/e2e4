@@ -10,13 +10,13 @@ export interface Pager {
     /**
      * Total count of records in remote data source.
      * 
-     * @see {@link ListResponse}
+     * @see {@link ListResponse.totalCount}
      */
     totalCount: number;
     /**
      * Count of records that was loaded at last request.
      * 
-     * @see {@link ListResponse}
+     * @see {@link ListResponse.loadedCount}
      */
     loadedCount: number;
     /**
