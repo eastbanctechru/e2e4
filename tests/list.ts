@@ -3,8 +3,8 @@ import { AsyncSubscriber } from './../src/async-subscriber';
 import { FiltersService } from './../src/filters-service';
 import { List } from './../src/list';
 import { NullObjectPager } from './../src/null-object-pager';
+import { OperationStatus } from './../src/operation-status';
 import { PagedPager } from './../src/paged-pager';
-import { ProgressState } from './../src/progress-state';
 import { SortingsService } from './../src/sortings-service';
 import { StateService } from './../src/state-service';
 
@@ -105,33 +105,33 @@ describe('List', () => {
             expect(spy.calledOnce).true;
         });
     });
-    describe('state', () => {
-        it('List.busy is true only when state equal to ProgressState.Progress', () => {
-            list.state = ProgressState.Initial;
+    describe('status', () => {
+        it('List.busy is true only when status is equal to OperationStatus.Progress', () => {
+            list.status = OperationStatus.Initial;
             expect(list.busy).false;
-            list.state = ProgressState.Cancelled;
+            list.status = OperationStatus.Cancelled;
             expect(list.busy).false;
-            list.state = ProgressState.Done;
+            list.status = OperationStatus.Done;
             expect(list.busy).false;
-            list.state = ProgressState.Fail;
+            list.status = OperationStatus.Fail;
             expect(list.busy).false;
-            list.state = ProgressState.NoData;
+            list.status = OperationStatus.NoData;
             expect(list.busy).false;
-            list.state = ProgressState.Progress;
+            list.status = OperationStatus.Progress;
             expect(list.busy).true;
         });
-        it('List.busy is true when state not equal to ProgressState.Progress', () => {
-            list.state = ProgressState.Initial;
+        it('List.busy is true when status is not equal to OperationStatus.Progress', () => {
+            list.status = OperationStatus.Initial;
             expect(list.ready).true;
-            list.state = ProgressState.Cancelled;
+            list.status = OperationStatus.Cancelled;
             expect(list.ready).true;
-            list.state = ProgressState.Done;
+            list.status = OperationStatus.Done;
             expect(list.ready).true;
-            list.state = ProgressState.Fail;
+            list.status = OperationStatus.Fail;
             expect(list.ready).true;
-            list.state = ProgressState.NoData;
+            list.status = OperationStatus.NoData;
             expect(list.ready).true;
-            list.state = ProgressState.Progress;
+            list.status = OperationStatus.Progress;
             expect(list.ready).false;
         });
     });
@@ -153,16 +153,16 @@ describe('List', () => {
         });
     });
     describe('cancelRequests', () => {
-        it('sets list state to Cancelled', () => {
+        it('sets list status to Cancelled', () => {
             list.init();
             list.loadData();
             list.cancelRequests();
-            expect(list.state).eql(ProgressState.Cancelled);
+            expect(list.status).eql(OperationStatus.Cancelled);
         });
-        it('sets list state to Cancelled only if list is busy', () => {
+        it('sets list status to Cancelled only if list is busy', () => {
             list.init();
             list.cancelRequests();
-            expect(list.state).not.eql(ProgressState.Cancelled);
+            expect(list.status).not.eql(OperationStatus.Cancelled);
         });
         it('calls AsyncSubscriber.detach', () => {
             let spy = sinon.spy(asyncSubscriber, 'detach');
@@ -193,7 +193,7 @@ describe('List', () => {
             let clearSpy = sinon.spy(list, 'clearData');
             let loadSpy = sinon.spy(list, 'loadData');
             list.init();
-            list.state = ProgressState.Progress;
+            list.status = OperationStatus.Progress;
             list.reloadData();
             expect(clearSpy.notCalled).true;
             expect(loadSpy.notCalled).true;
@@ -246,11 +246,11 @@ describe('List', () => {
         });
     });
     describe('loadData', () => {
-        it('sets list state to Progress', () => {
+        it('sets list status to Progress', () => {
             list.init();
-            expect(list.state).not.eql(ProgressState.Progress);
+            expect(list.status).not.eql(OperationStatus.Progress);
             list.loadData();
-            expect(list.state).eql(ProgressState.Progress);
+            expect(list.status).eql(OperationStatus.Progress);
         });
         it('calls specified fetchMethod with FiltersService.getRequestState value as parameter', () => {
             let fetchSpy = sinon.spy(list, 'fetchMethod');
@@ -297,7 +297,7 @@ describe('List', () => {
             expect(attachSpy.calledOnce).true;
             expect(attachSpy.calledWith(observable, (<any>list).loadSuccessCallback, (<any>list).loadFailCallback)).true;
         });
-        it('returns without request if list state is equal to ProgressState.Progress', () => {
+        it('returns without request if list status is equal to OperationStatus.Progress', () => {
             let observable = Observable.create((observer: any) => {
                 setTimeout(() => {
                     observer.next([]);
@@ -306,7 +306,7 @@ describe('List', () => {
             list.fetchMethod = () => observable;
             let attachSpy = sinon.spy(asyncSubscriber, 'attach');
             list.init();
-            list.state = ProgressState.Progress;
+            list.status = OperationStatus.Progress;
             list.loadData();
             expect(attachSpy.notCalled).true;
         });
@@ -325,7 +325,7 @@ describe('List', () => {
         });
     });
     describe('loadData callbacks', () => {
-        it('loadFailCallback sets state to failed', () => {
+        it('loadFailCallback sets status to failed', () => {
             list.fetchMethod = () => Observable.create((observer: any) => {
                 setTimeout(() => {
                     observer.error();
@@ -333,10 +333,10 @@ describe('List', () => {
             });
             list.loadData();
             clock.tick(delay);
-            expect(list.state).eq(ProgressState.Fail);
+            expect(list.status).eq(OperationStatus.Fail);
         });
         describe('loadSuccessCallback', () => {
-            it('sets state to NoData if async returns empty array', () => {
+            it('sets status to NoData if async returns empty array', () => {
                 list.fetchMethod = () => Observable.create((observer: any) => {
                     setTimeout(() => {
                         observer.next([]);
@@ -344,9 +344,9 @@ describe('List', () => {
                 });
                 list.loadData();
                 clock.tick(delay);
-                expect(list.state).eq(ProgressState.NoData);
+                expect(list.status).eq(OperationStatus.NoData);
             });
-            it('sets state to Done data returned', () => {
+            it('sets status to Done data returned', () => {
                 list.fetchMethod = () => Observable.create((observer: any) => {
                     setTimeout(() => {
                         observer.next([1]);
@@ -354,7 +354,7 @@ describe('List', () => {
                 });
                 list.loadData();
                 clock.tick(delay);
-                expect(list.state).eq(ProgressState.Done);
+                expect(list.status).eq(OperationStatus.Done);
             });
             it('calls Pager.reset and List.clearData if empty array returned', () => {
                 let resetSpy = sinon.spy(list.pager, 'reset');

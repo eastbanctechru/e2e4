@@ -1,7 +1,7 @@
 /**
- * Represents possible values for progress state of operation (e.g. of request to the server).  
+ * Represents possible values for operation status (e.g. of request to the server).  
  */
-export enum ProgressState {
+export enum OperationStatus {
     /**
      * Nothing was performed before.
      */

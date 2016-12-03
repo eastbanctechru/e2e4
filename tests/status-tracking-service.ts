@@ -2,40 +2,40 @@ import { expect } from 'chai';
 import * as sinon from 'sinon';
 
 import { Operation } from '../src/operation';
-import { ProgressState } from '../src/progress-state';
-import { StateTrackingService } from '../src/state-tracking-service';
+import { OperationStatus } from '../src/operation-status';
+import { StatusTrackingService } from '../src/status-tracking-service';
 
-function toTarget(): StateTrackingService {
-    return new StateTrackingService();
+function toTarget(): StatusTrackingService {
+    return new StatusTrackingService();
 }
 describe('Status', () => {
     it('creates new model', () => {
-        const model = new Operation(ProgressState.Initial, 'title');
+        const model = new Operation(OperationStatus.Initial, 'title');
 
-        expect(model.status).eql(ProgressState.Initial);
+        expect(model.status).eql(OperationStatus.Initial);
         expect(model.title).eql('title');
     });
 
     it('expect model return proper classNames', () => {
-        const model = new Operation(ProgressState.Initial, 'title');
+        const model = new Operation(OperationStatus.Initial, 'title');
         expect(model.className).eql('');
 
-        model.status = ProgressState.Done;
+        model.status = OperationStatus.Done;
         expect(model.className).eql(Operation.settings.statusDoneClassName);
 
-        model.status = ProgressState.Fail;
+        model.status = OperationStatus.Fail;
         expect(model.className).eql(Operation.settings.statusFailClassName);
 
-        model.status = ProgressState.Progress;
+        model.status = OperationStatus.Progress;
         expect(model.className).eql(Operation.settings.statusProgressClassName);
 
-        model.status = ProgressState.Cancelled;
+        model.status = OperationStatus.Cancelled;
         expect(model.className).eql('');
     });
 
 });
 
-describe('StateTrackingService', () => {
+describe('StatusTrackingService', () => {
     let clock;
     beforeEach(() => {
         clock = sinon.useFakeTimers();
@@ -45,7 +45,7 @@ describe('StateTrackingService', () => {
     });
 
     it('tracks if status is active', () => {
-        expect(new StateTrackingService().isActive).eq(false);
+        expect(new StatusTrackingService().isActive).eq(false);
     });
 
     it('async switches to Progress, when tracking status', () => {
@@ -53,7 +53,7 @@ describe('StateTrackingService', () => {
         target.trackStatus('new status');
         expect(target.operationsList.length).eq(0);
         // To the future;
-        clock.tick(StateTrackingService.progressDelayInterval);
+        clock.tick(StatusTrackingService.progressDelayInterval);
         expect(target.isActive).eq(true);
         expect(target.operationsList.length).eq(1);
     });
@@ -63,27 +63,27 @@ describe('StateTrackingService', () => {
         const sid = target.trackStatus('new status 1');
         expect(target.operationsList.length).eq(0);
         // Get to the time machine!
-        clock.tick(StateTrackingService.progressDelayInterval);
+        clock.tick(StatusTrackingService.progressDelayInterval);
         expect(target.isActive).eq(true);
         expect(target.operationsList.length).eq(1);
-        target.changeStatus(sid, ProgressState.Done);
+        target.changeStatus(sid, OperationStatus.Done);
         // One more time travel
-        clock.tick(StateTrackingService.elementVisibilityInterval);
+        clock.tick(StatusTrackingService.elementVisibilityInterval);
         expect(target.operationsList.length).eq(0);
-        expect(target.status).eql(ProgressState.Done);
+        expect(target.status).eql(OperationStatus.Done);
 
     });
 
     it('Handles duplicate resolve normally', function (): void {
         const target = toTarget();
         const sid = target.trackStatus('new status 1');
-        clock.tick(StateTrackingService.progressDelayInterval);
-        target.changeStatus(sid, ProgressState.Done);
-        target.changeStatus(sid, ProgressState.Done);
-        clock.tick(StateTrackingService.elementVisibilityInterval);
+        clock.tick(StatusTrackingService.progressDelayInterval);
+        target.changeStatus(sid, OperationStatus.Done);
+        target.changeStatus(sid, OperationStatus.Done);
+        clock.tick(StatusTrackingService.elementVisibilityInterval);
         expect(target.operationsList.length).eq(0);
-        expect(target.status).eql(ProgressState.Done);
-        target.changeStatus(sid, ProgressState.Done);
+        expect(target.status).eql(OperationStatus.Done);
+        target.changeStatus(sid, OperationStatus.Done);
     });
 
     it('resolves one of several status. Tracked status stays Progress', function (): void {
@@ -92,14 +92,14 @@ describe('StateTrackingService', () => {
         target.trackStatus('new status 2');
         expect(target.operationsList.length).eq(0);
 
-        clock.tick(StateTrackingService.progressDelayInterval);
+        clock.tick(StatusTrackingService.progressDelayInterval);
 
         expect(target.isActive).eq(true);
         expect(target.operationsList.length).eq(2);
-        target.changeStatus(sid, ProgressState.Done);
+        target.changeStatus(sid, OperationStatus.Done);
 
-        clock.tick(StateTrackingService.elementVisibilityInterval);
+        clock.tick(StatusTrackingService.elementVisibilityInterval);
         expect(target.operationsList.length).eq(1);
-        expect(target.status).eql(ProgressState.Progress);
+        expect(target.status).eql(OperationStatus.Progress);
     });
 });

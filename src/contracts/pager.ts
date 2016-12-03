@@ -20,7 +20,7 @@ export interface Pager {
      */
     loadedCount: number;
     /**
-     * Performs logic associated with pager state reset.
+     * Performs logic associated with pager internal state reset.
      */
     reset(): void;
     /**

@@ -107,7 +107,7 @@ export interface SelectionService {
      */
     deselectIndex(index: number): void;
     /**
-     * Toggles selection state of element at specified index.
+     * Toggles selection of element at the specified index.
      * @param index index of element in {@link items} collection.
      * @param savePrevious `true` if previously selected elements must stay selected after current selection.
      */

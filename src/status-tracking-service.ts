@@ -1,47 +1,47 @@
 ﻿import { Operation } from './operation';
-import { ProgressState } from './progress-state';
+import { OperationStatus } from './operation-status';
 
 /**
- * Used to manage state of operations which description must be displayed on UI.
+ * Used to manage operations which description must be displayed on UI.
  * 
  * It can be used to implement application-defined UI component to display visual mask that hides part of UI controls until some operations aren't completed.
  * 
  * The typical usage scenario is:
  *  - Operation is registered with {@link trackStatus}, which returns unique identifier of operation.
- *  - To resolve or change state of operation {@link changeStatus} method can be used.
+ *  - To resolve or change operation status {@link changeStatus} method can be used.
  *  - Registered operation would be added to the {@link operationsList} after {@link progressDelayInterval} timeout elapsed.
- *  - {@link status} will be equal to {@link ProgressState.Progress} while {@link operationsList} contains any operation that is not in {@link ProgressState.Done} state.
- *  - To set state of operation to {@link ProgressState.Done} or {@link ProgressState.Fail} method {@link changeStatus} can be used.
- *  - When {@link elementVisibilityInterval} interval is elapsed all operations with status different than {@link ProgressState.Progress} will be removed from {@link operationsList}.
- *  - When {@link operationsList} collection becomes empty {@link status} property becomes {@link ProgressState.Done}.
+ *  - {@link status} will be equal to {@link OperationStatus.Progress} while {@link operationsList} contains any operation that is not in {@link OperationStatus.Done} status.
+ *  - To set operation status to {@link OperationStatus.Done} or {@link OperationStatus.Fail} method {@link changeStatus} can be used.
+ *  - When {@link elementVisibilityInterval} interval is elapsed all operations with status different than {@link OperationStatus.Progress} will be removed from {@link operationsList}.
+ *  - When {@link operationsList} collection becomes empty {@link status} property becomes {@link OperationStatus.Done}.
  */
-export class StateTrackingService {
+export class StatusTrackingService {
     /**
      * Global timing settings.
      * 
-     * These settings are static and their values are copied to the properties of the same name for each instance of {@link StateTrackingService} type.
+     * These settings are static and their values are copied to the properties of the same name for each instance of {@link StatusTrackingService} type.
      * 
-     * So, changing of this settings will affect all instances of {@link StateTrackingService} type that will be created after such changes.
+     * So, changing of this settings will affect all instances of {@link StatusTrackingService} type that will be created after such changes.
      * If you want to change settings of concrete object you can use it the same name properties.
      */
     // tslint:disable-next-line: typedef
     public static settings =
     {
         /**
-         * @see {@link StateTrackingService.elementVisibilityInterval}
+         * @see {@link StatusTrackingService.elementVisibilityInterval}
          */
         elementVisibilityInterval: 500,
         /**
-         * @see {@link StateTrackingService.progressDelayInterval}
+         * @see {@link StatusTrackingService.progressDelayInterval}
          */
         progressDelayInterval: 500
     };
     /**
-     * Specifies how much time must elapse from moment when operation becomes {@link ProgressState.Done} to it's disappearing from UI.
+     * Specifies how much time must elapse from moment when operation becomes {@link OperationStatus.Done} to it's disappearing from UI.
      * 
      * In fact this is minimal time of operation visibility. If operation was completed right after {@link progressDelayInterval} it will be displayed at least specified in this property amount of milliseconds. 
      */
-    public static elementVisibilityInterval: number = StateTrackingService.elementVisibilityInterval;
+    public static elementVisibilityInterval: number = StatusTrackingService.elementVisibilityInterval;
     /**
      * Specifies how much time must elapse from start of operation to it's appearance on UI.
      * 
@@ -49,15 +49,15 @@ export class StateTrackingService {
      * 
      * This approach helps to avoid situations when mask is hided right after it was rendered since it can be pretty irritating.
      */
-    public static progressDelayInterval: number = StateTrackingService.progressDelayInterval;
+    public static progressDelayInterval: number = StatusTrackingService.progressDelayInterval;
     /**
-     * Current state of the service.
+     * Current status of the service.
      * 
-     * It is equal to {@link ProgressState.Progress} if {@link operationsList} contains any operation. This means that mask can be displayed on UI for example.
+     * It is equal to {@link OperationStatus.Progress} if {@link operationsList} contains any operation. This means that mask can be displayed on UI for example.
      * 
-     * When {@link operationsList} becomes empty this property becomes equal to {@link ProgressState.Done}.
+     * When {@link operationsList} becomes empty this property becomes equal to {@link OperationStatus.Done}.
      */
-    public status: ProgressState = ProgressState.Done;
+    public status: OperationStatus = OperationStatus.Done;
     /**
      * Collection of operations which currently tracked by service and must be displayed on UI.
      * 
@@ -65,10 +65,10 @@ export class StateTrackingService {
      */
     public operationsList: Operation[] = new Array<Operation>();
     /**
-     * `true`, if current {@link status} doesn't equal to {@link ProgressState.Done}.
+     * `true`, if current {@link status} doesn't equal to {@link OperationStatus.Done}.
      */
     public get isActive(): boolean {
-        return this.status !== ProgressState.Done;
+        return this.status !== OperationStatus.Done;
     }
     /**
      * Registers operation for tracking.
@@ -77,11 +77,11 @@ export class StateTrackingService {
      */
     public trackStatus(title: string): number {
         const sid = setTimeout(() => {
-            this.status = ProgressState.Progress;
-            const status = new Operation(ProgressState.Progress, title);
+            this.status = OperationStatus.Progress;
+            const status = new Operation(OperationStatus.Progress, title);
             status.sid = sid;
             this.operationsList.push(status);
-        }, StateTrackingService.progressDelayInterval);
+        }, StatusTrackingService.progressDelayInterval);
         return sid;
     }
     /**
@@ -89,9 +89,9 @@ export class StateTrackingService {
      * @param sid operation identifier that was returned by {@link trackStatus}.
      * @param status status that must be applied to operation.
      * 
-     * In case when applied status doesn't equal to {@link ProgressState.Progress}, operation will be deleted from {@link operationsList} after {@link elementVisibilityInterval} interval elapsed.
+     * In case when applied status doesn't equal to {@link OperationStatus.Progress}, operation will be deleted from {@link operationsList} after {@link elementVisibilityInterval} interval elapsed.
      */
-    public changeStatus(sid: number, status: ProgressState): void {
+    public changeStatus(sid: number, status: OperationStatus): void {
         clearTimeout(sid);
         const current = this.operationsList.find((item: Operation) => {
             return item.sid === sid;
@@ -101,11 +101,11 @@ export class StateTrackingService {
         }
         setTimeout((): void => {
             const undone = this.operationsList.find((item: Operation) => {
-                return item.status === ProgressState.Progress;
+                return item.status === OperationStatus.Progress;
             });
             if (undone === undefined) {
                 this.operationsList.length = 0;
-                this.status = ProgressState.Done;
+                this.status = OperationStatus.Done;
             } else {
                 for (let i = this.operationsList.length - 1; i >= 0; i--) {
                     if (this.operationsList[i].sid === sid) {
@@ -113,6 +113,6 @@ export class StateTrackingService {
                     }
                 }
             }
-        }, StateTrackingService.elementVisibilityInterval);
+        }, StatusTrackingService.elementVisibilityInterval);
     };
 }

@@ -16,7 +16,7 @@ export enum SortDirection {
 }
 
 /**
- * Represents state of sorting parameter applied to the server request by {@link SortingsService}.
+ * Represents sorting parameter applied to the server request by {@link SortingsService}.
  */
 export interface SortParameter {
     /**

@@ -4,7 +4,7 @@ import { ListResponse } from './contracts/list-response';
 import { Pager } from './contracts/pager';
 import { FiltersService } from './filters-service';
 import { NullObjectPager } from './null-object-pager';
-import { ProgressState } from './progress-state';
+import { OperationStatus } from './operation-status';
 import { SortingsService } from './sortings-service';
 import { StateService } from './state-service';
 import { destroyAll } from './utilities';
@@ -46,18 +46,18 @@ export class List {
     /**
      * Current execution status of the list.  
      */
-    public state: ProgressState = ProgressState.Initial;
+    public status: OperationStatus = OperationStatus.Initial;
     /**
      * returns `true`, if there is a data request executed at the moment (i.e. {@link state} is equal to {@link ProgressState.Progress})
      */
     public get busy(): boolean {
-        return this.state === ProgressState.Progress;
+        return this.status === OperationStatus.Progress;
     }
     /**
      * returns `true`, if there is no data request executed at the moment (i.e. {@link state} is NOT equal to {@link ProgressState.Progress})  
      */
     public get ready(): boolean {
-        return this.state !== ProgressState.Progress;
+        return this.status !== OperationStatus.Progress;
     }
     constructor(private asyncSubscriber: AsyncSubscriber, stateServices: StateService | StateService[], private sortingsService: SortingsService, private filtersService: FiltersService) {
         if (stateServices != null) {
@@ -88,14 +88,14 @@ export class List {
             this.clearData();
             this.pager.reset();
         }
-        this.state = this.pager.totalCount === 0 ? ProgressState.NoData : ProgressState.Done;
+        this.status = this.pager.totalCount === 0 ? OperationStatus.NoData : OperationStatus.Done;
         return result;
     }
     /**
      * Callback which is executed if {@link fetchMethod} execution finished with error.
      */
     private loadFailCallback = (): void => {
-        this.state = ProgressState.Fail;
+        this.status = OperationStatus.Fail;
     }
     /**
      * Calls {@link Pager.reset} method and clears {@link items} array. Calls {@link destroyAll} method for {@link items} array to perform optional destroy logic of the elements.
@@ -136,7 +136,7 @@ export class List {
         if (this.busy) {
             return;
         }
-        this.state = ProgressState.Progress;
+        this.status = OperationStatus.Progress;
         let requestState = this.filtersService.getRequestState();
         const subscribable = this.fetchMethod(requestState);
         if (this.pager.appendedOnLoad === false) {
@@ -161,7 +161,7 @@ export class List {
     public cancelRequests(): void {
         if (this.busy) {
             this.asyncSubscriber.detach();
-            this.state = ProgressState.Cancelled;
+            this.status = OperationStatus.Cancelled;
         }
     }
     /**

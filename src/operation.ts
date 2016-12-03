@@ -1,7 +1,7 @@
-import { ProgressState } from './progress-state';
+import { OperationStatus } from './operation-status';
 
 /**
- * Represents state of operation that must be displayed on UI inside {@link StateTrackingService}. 
+ * Represents status of operation that must be displayed on UI inside {@link StatusTrackingService}. 
  */
 export class Operation {
     /**
@@ -11,27 +11,27 @@ export class Operation {
     // tslint:disable-next-line: typedef
     public static settings = {
         /**
-         * Name of css class that corresponds to {@link ProgressState.Done}.
+         * Name of css class that corresponds to {@link OperationStatus.Done}.
          */
         statusDoneClassName: 'status-done',
         /**
-         * Name of css class that corresponds to {@link ProgressState.Fail}.
+         * Name of css class that corresponds to {@link OperationStatus.Fail}.
          */
         statusFailClassName: 'status-fail',
         /**
-         * Name of css class that corresponds to {@link ProgressState.Progress}.
+         * Name of css class that corresponds to {@link OperationStatus.Progress}.
          */
         statusProgressClassName: 'status-progress'
     };
     /**
      * Identifier that was returned by `setTimeout` method.
-     * Used to track object in {@link StateTrackingService}
+     * Used to track object in {@link StatusTrackingService}
      */
     public sid: number;
     /**
-     * Current progress state.
+     * Current progress status.
      */
-    public status: ProgressState;
+    public status: OperationStatus;
     /**
      * Description that will be displayed on UI.
      */
@@ -40,7 +40,7 @@ export class Operation {
      * @param status value for {@link status} property.  
      * @param title value for {@link title} property.
      */
-    constructor(status: ProgressState, title: string) {
+    constructor(status: OperationStatus, title: string) {
         this.status = status;
         this.title = title;
     }
@@ -49,11 +49,11 @@ export class Operation {
      */
     public get className(): string {
         switch (this.status) {
-            case ProgressState.Done:
+            case OperationStatus.Done:
                 return Operation.settings.statusDoneClassName;
-            case ProgressState.Progress:
+            case OperationStatus.Progress:
                 return Operation.settings.statusProgressClassName;
-            case ProgressState.Fail:
+            case OperationStatus.Fail:
                 return Operation.settings.statusFailClassName;
             default:
                 return '';

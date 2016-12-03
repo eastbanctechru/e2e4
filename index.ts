@@ -3,7 +3,7 @@
  * You can read docs here - http://eastbanctechru.github.io/e2e4
  */
 
-export * from './src/progress-state';
+export * from './src/operation-status';
 export * from './src/utilities';
 
 export * from './src/contracts/filter-config';
@@ -25,4 +25,4 @@ export * from './src/null-object-pager';
 export * from './src/operation';
 export * from './src/sortings-service';
 export * from './src/state-service';
-export * from './src/state-tracking-service';
+export * from './src/status-tracking-service';
