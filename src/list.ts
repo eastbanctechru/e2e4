@@ -10,7 +10,7 @@ import { StateService } from './state-service';
 import { destroyAll } from './utilities';
 
 export class List {
-    private pagerInternal: Pager;
+    protected pagerInternal: Pager;
     /**
      * Method for getting data. This parameter is required and its configuration is necessary.
      * 
@@ -19,7 +19,7 @@ export class List {
      * For the simple lists the response should contain array with the records. As for the paged ones, it should implement {@link ListResponse} contract.
      */
     public fetchMethod: (requestParams: any) => any;
-    private stateServices: StateService[] = new Array<StateService>();
+    protected stateServices: StateService[] = new Array<StateService>();
     /**
      * Configured {@link Pager} service.
      */
@@ -59,7 +59,7 @@ export class List {
     public get ready(): boolean {
         return this.status !== OperationStatus.Progress;
     }
-    constructor(private asyncSubscriber: AsyncSubscriber, stateServices: StateService | StateService[], private sortingsService: SortingsService, private filtersService: FiltersService) {
+    constructor(protected asyncSubscriber: AsyncSubscriber, stateServices: StateService | StateService[], protected sortingsService: SortingsService, protected filtersService: FiltersService) {
         if (stateServices != null) {
             if (Array.isArray(stateServices)) {
                 this.stateServices.push(...<StateService[]>stateServices);
@@ -72,7 +72,7 @@ export class List {
     /**
      * Callback which is executed if {@link fetchMethod} execution finished successfully.
      */
-    private loadSuccessCallback = (result: ListResponse<any> | any[]): Object => {
+    protected loadSuccessCallback = (result: ListResponse<any> | any[]): Object => {
         if (Array.isArray(result)) {
             result = {
                 items: result,
@@ -94,14 +94,14 @@ export class List {
     /**
      * Callback which is executed if {@link fetchMethod} execution finished with error.
      */
-    private loadFailCallback = (): void => {
+    protected loadFailCallback = (): void => {
         this.status = OperationStatus.Fail;
     }
     /**
      * Calls {@link Pager.reset} method and clears {@link items} array. Calls {@link destroyAll} method for {@link items} array to perform optional destroy logic of the elements.
      * {@see destroyAll}  
      */
-    private clearData(): void {
+    protected clearData(): void {
         this.pager.reset();
         destroyAll(this.items);
         this.items = [];
