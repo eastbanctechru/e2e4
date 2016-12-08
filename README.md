@@ -13,9 +13,6 @@ This is abstract codebase which can be used to implement bridges to end-user fra
 ## Documentation
 Documentation is available [here](http://eastbanctechru.github.io/e2e4)
 
-## Changelog
-Changelog is available [here](https://github.com/eastbanctechru/e2e4/releases)
-
 ## How to build the project
 
 To build the project, follow these steps:
@@ -44,3 +41,5 @@ You can run tests in Chrome with watch mode by executing the following command:
   ```shell
   npm test
   ```
+
+You can also use [Yarn](https://yarnpkg.com/)
