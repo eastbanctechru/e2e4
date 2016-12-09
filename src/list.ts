@@ -11,6 +11,9 @@ import { destroyAll } from './utilities';
 
 export class List {
     protected pagerInternal: Pager;
+    protected statusInternal: OperationStatus = OperationStatus.Initial;
+    protected destroyedInternal: boolean = false;
+    protected initedInternal: boolean = false;
     /**
      * Method for getting data. This parameter is required and its configuration is necessary.
      * 
@@ -38,15 +41,21 @@ export class List {
     /**
      * True if the service was already destroyed via {@link destroy} call.  
      */
-    public destroyed: boolean = false;
+    public get destroyed(): boolean {
+        return this.destroyedInternal;
+    }
     /**
      * True if the service was already initialized via {@link init} call.  
      */
-    public inited: boolean = false;
+    public get inited(): boolean {
+        return this.initedInternal;
+    }
     /**
      * Current execution status of the list.  
      */
-    public status: OperationStatus = OperationStatus.Initial;
+    public get status(): OperationStatus {
+        return this.statusInternal;
+    }
     /**
      * returns `true`, if there is a data request executed at the moment (i.e. {@link state} is equal to {@link ProgressState.Progress})
      */
@@ -88,14 +97,14 @@ export class List {
             this.clearData();
             this.pager.reset();
         }
-        this.status = this.pager.totalCount === 0 ? OperationStatus.NoData : OperationStatus.Done;
+        this.statusInternal = this.pager.totalCount === 0 ? OperationStatus.NoData : OperationStatus.Done;
         return result;
     }
     /**
      * Callback which is executed if {@link fetchMethod} execution finished with error.
      */
     protected loadFailCallback = (): void => {
-        this.status = OperationStatus.Fail;
+        this.statusInternal = OperationStatus.Fail;
     }
     /**
      * Calls {@link Pager.reset} method and clears {@link items} array. Calls {@link destroyAll} method for {@link items} array to perform optional destroy logic of the elements.
@@ -117,7 +126,7 @@ export class List {
         let restoredState = {};
         Object.assign(restoredState, ...this.stateServices.map((service: StateService) => service.getState() || {}));
         this.filtersService.applyParams(restoredState);
-        this.inited = true;
+        this.initedInternal = true;
     }
     /**
      * Performs destroy logic of the list itself and all of the inner services.
@@ -127,7 +136,7 @@ export class List {
         this.filtersService.destroy();
         this.sortingsService.destroy();
         this.clearData();
-        this.destroyed = true;
+        this.destroyedInternal = true;
     }
     /**
      * Performs data loading by calling specified {@link fetchMethod} delegate.
@@ -136,7 +145,7 @@ export class List {
         if (this.busy) {
             return;
         }
-        this.status = OperationStatus.Progress;
+        this.statusInternal = OperationStatus.Progress;
         let requestState = this.filtersService.getRequestState();
         const subscribable = this.fetchMethod(requestState);
         if (this.pager.appendedOnLoad === false) {
@@ -161,7 +170,7 @@ export class List {
     public cancelRequests(): void {
         if (this.busy) {
             this.asyncSubscriber.detach();
-            this.status = OperationStatus.Cancelled;
+            this.statusInternal = OperationStatus.Cancelled;
         }
     }
     /**

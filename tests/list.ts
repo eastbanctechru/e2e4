@@ -107,31 +107,31 @@ describe('List', () => {
     });
     describe('status', () => {
         it('List.busy is true only when status is equal to OperationStatus.Progress', () => {
-            list.status = OperationStatus.Initial;
+            (<any>list).statusInternal = OperationStatus.Initial;
             expect(list.busy).false;
-            list.status = OperationStatus.Cancelled;
+            (<any>list).statusInternal = OperationStatus.Cancelled;
             expect(list.busy).false;
-            list.status = OperationStatus.Done;
+            (<any>list).statusInternal = OperationStatus.Done;
             expect(list.busy).false;
-            list.status = OperationStatus.Fail;
+            (<any>list).statusInternal = OperationStatus.Fail;
             expect(list.busy).false;
-            list.status = OperationStatus.NoData;
+            (<any>list).statusInternal = OperationStatus.NoData;
             expect(list.busy).false;
-            list.status = OperationStatus.Progress;
+            (<any>list).statusInternal = OperationStatus.Progress;
             expect(list.busy).true;
         });
         it('List.busy is true when status is not equal to OperationStatus.Progress', () => {
-            list.status = OperationStatus.Initial;
+            (<any>list).statusInternal = OperationStatus.Initial;
             expect(list.ready).true;
-            list.status = OperationStatus.Cancelled;
+            (<any>list).statusInternal = OperationStatus.Cancelled;
             expect(list.ready).true;
-            list.status = OperationStatus.Done;
+            (<any>list).statusInternal = OperationStatus.Done;
             expect(list.ready).true;
-            list.status = OperationStatus.Fail;
+            (<any>list).statusInternal = OperationStatus.Fail;
             expect(list.ready).true;
-            list.status = OperationStatus.NoData;
+            (<any>list).statusInternal = OperationStatus.NoData;
             expect(list.ready).true;
-            list.status = OperationStatus.Progress;
+            (<any>list).statusInternal = OperationStatus.Progress;
             expect(list.ready).false;
         });
     });
@@ -193,7 +193,7 @@ describe('List', () => {
             let clearSpy = sinon.spy(list, 'clearData');
             let loadSpy = sinon.spy(list, 'loadData');
             list.init();
-            list.status = OperationStatus.Progress;
+            (<any>list).statusInternal = OperationStatus.Progress;
             list.reloadData();
             expect(clearSpy.notCalled).true;
             expect(loadSpy.notCalled).true;
@@ -207,7 +207,7 @@ describe('List', () => {
         });
         it('returns if already inited', () => {
             let spy = sinon.spy(filtersService, 'registerFilterTarget');
-            list.inited = true;
+            (<any>list).initedInternal = true;
             list.init();
             expect(spy.notCalled).true;
         });
@@ -306,7 +306,7 @@ describe('List', () => {
             list.fetchMethod = () => observable;
             let attachSpy = sinon.spy(asyncSubscriber, 'attach');
             list.init();
-            list.status = OperationStatus.Progress;
+            (<any>list).statusInternal = OperationStatus.Progress;
             list.loadData();
             expect(attachSpy.notCalled).true;
         });
