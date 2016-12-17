@@ -32,22 +32,6 @@ export class BufferedPager implements Pager {
          */
         minRowCount: 1
     };
-
-    /**
-     * Internal implementation of {@link takeRowCount}. 
-     */
-    @filter({
-        defaultValue(): number { return (<BufferedPager>this).defaultRowCount; },
-        parameterName: 'take',
-        parseFormatter(rawValue: any, allValues: any): number {
-            let result;
-            if (allValues && !isNaN(allValues.skip) && !isNaN(allValues.take)) {
-                result = (allValues.skip || 0) + (allValues.take || 0);
-            }
-            return result || (<BufferedPager>this).defaultRowCount;
-        }
-    } as FilterConfig)
-    protected takeRowCountInternal: number = BufferedPager.settings.defaultRowCount;
     /**
      * @inheritdoc
      */
@@ -84,6 +68,22 @@ export class BufferedPager implements Pager {
         parseFormatter(): number { return 0; }
     } as FilterConfig)
     public skip: number = 0;
+
+    /**
+     * Internal implementation of {@link takeRowCount}. 
+     */
+    @filter({
+        defaultValue(): number { return (<BufferedPager>this).defaultRowCount; },
+        parameterName: 'take',
+        parseFormatter(rawValue: any, allValues: any): number {
+            let result;
+            if (allValues && !isNaN(allValues.skip) && !isNaN(allValues.take)) {
+                result = (allValues.skip || 0) + (allValues.take || 0);
+            }
+            return result || (<BufferedPager>this).defaultRowCount;
+        }
+    } as FilterConfig)
+    protected takeRowCountInternal: number = BufferedPager.settings.defaultRowCount;
 
     /**
      * This property is applied to the server request and it specifies how many rows must be loaded on next request.

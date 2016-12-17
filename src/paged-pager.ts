@@ -33,26 +33,6 @@ export class PagedPager implements Pager {
         minPageSize: 1
     };
     /**
-     * Internal implementation of {@link pageSize}. 
-     */
-    protected pageSizeInternal: number = PagedPager.settings.defaultPageSize;
-    /**
-     * Internal implementation of {@link pageNumber}.
-     */
-    @filter({
-        defaultValue: 0,
-        parameterName: 'skip',
-        parseFormatter(rawValue: any, allValues: any): number {
-            let skip = isNaN(rawValue) || !rawValue ? 0 : rawValue;
-            let pageSize = !allValues || isNaN(allValues.take) || !allValues.take ? (<PagedPager>this).defaultPageSize : allValues.take * 1;
-            return skip % pageSize === 0 ? (skip / pageSize + 1) : 1;
-        },
-        serializeFormatter(value: Object): number {
-            return ((<PagedPager>this).pageNumber - 1) * (<PagedPager>this).pageSize;
-        }
-    } as FilterConfig)
-    protected pageNumberInternal: number = 1;
-    /**
      * @inheritdoc
      */
     public appendedOnLoad: boolean = false;
@@ -89,6 +69,28 @@ export class PagedPager implements Pager {
      * For example, it will be equal to 40 when loads second page of list with page size of 20. Or it will be equal to total count of available records if records count is less than 40.
      */
     public displayTo: number = 0;
+
+    /**
+     * Internal implementation of {@link pageSize}. 
+     */
+    protected pageSizeInternal: number = PagedPager.settings.defaultPageSize;
+    /**
+     * Internal implementation of {@link pageNumber}.
+     */
+    @filter({
+        defaultValue: 0,
+        parameterName: 'skip',
+        parseFormatter(rawValue: any, allValues: any): number {
+            let skip = isNaN(rawValue) || !rawValue ? 0 : rawValue;
+            let pageSize = !allValues || isNaN(allValues.take) || !allValues.take ? (<PagedPager>this).defaultPageSize : allValues.take * 1;
+            return skip % pageSize === 0 ? (skip / pageSize + 1) : 1;
+        },
+        serializeFormatter(value: Object): number {
+            return ((<PagedPager>this).pageNumber - 1) * (<PagedPager>this).pageSize;
+        }
+    } as FilterConfig)
+    protected pageNumberInternal: number = 1;
+
     /**
      * Total pages count computed as {@link totalCount} / {@link pageSize}.
      * Used to check correctness of values applied to {@link pageNumber}.

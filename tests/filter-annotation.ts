@@ -83,9 +83,9 @@ describe('filterAnnotation', () => {
         config.emptyIsNull = !config.emptyIsNull;
         config.ignoreOnAutoMap = !config.ignoreOnAutoMap;
         config.parameterName = 'parameterName';
-        config.parseFormatter = function (proposedValue: any): any { return proposedValue; };
+        config.parseFormatter = (proposedValue: any) => proposedValue;
         config.propertyName = 'propertyName';
-        config.serializeFormatter = function (): any { return ''; };
+        config.serializeFormatter = () => '';
 
         class RequestObject {
             @filter(config)

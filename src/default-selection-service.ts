@@ -35,66 +35,12 @@ export class DefaultSelectionService implements SelectionService {
      */
     protected selectionsList: SelectionTuple[] = new Array<SelectionTuple>();
     /**
-     * Default tracking function that will be used if nothing was specified for {@link trackByFn}.
-     * Implements comparison by reference equality of objects.
-     */
-    protected trackByIdentity: (index: number, item: any) => any = (index: number, item: any) => { return item; };
-    /**
      * @inheritdoc
      */
     public destroy(): void {
         this.selectionsList.length = 0;
         this.lastProcessedIndex = null;
         this.items = null;
-    }
-    /**
-     * Performs final processing of selection/deselection of element.
-     * 
-     * Current implementation just sets {@link SelectionItem.selected} (if it's defined) but it can be extended in derived classes.
-     */
-    protected processSelection(tuple: SelectionTuple, selected: boolean): void {
-        if (Object.prototype.hasOwnProperty.call(tuple.item, 'selected')) {
-            tuple.item.selected = selected;
-        }
-    }
-    /**
-     * Internal method that used to perform item selection.
-     */
-    protected deselectItem(selectionTuple: SelectionTuple): void {
-        const index = this.selectionsList.findIndex((selectedItem: SelectionTuple) => (selectedItem.item === selectionTuple.item));
-        if (index !== -1) {
-            this.selectionsList.splice(index, 1);
-        }
-        this.processSelection(selectionTuple, false);
-        this.lastProcessedIndex = selectionTuple.index;
-    }
-    /**
-     * Internal method that used to execute item deselection.
-     */
-    protected selectItem(selectionTuple: SelectionTuple, savePrevious: boolean = false): void {
-        if (savePrevious) {
-            const index = this.selectionsList.findIndex((selectedItem: SelectionTuple) => (selectedItem.item === selectionTuple.item));
-            if (index !== -1) {
-                this.selectionsList.splice(index, 1);
-            }
-            this.selectionsList.push(selectionTuple);
-            this.processSelection(selectionTuple, true);
-        } else {
-            const list = this.selectionsList.splice(0, this.selectionsList.length);
-            list.forEach((selectedItem: SelectionTuple) => { this.processSelection(selectedItem, false); });
-            this.selectionsList.push(selectionTuple);
-            this.processSelection(selectionTuple, true);
-        }
-        this.lastProcessedIndex = selectionTuple.index;
-    }
-    /**
-     * Internal method that used to represent selection item as {@link SelectionTuple}.
-     */
-    protected getSelectionTuple(index: number): SelectionTuple {
-        return {
-            index,
-            item: this.items[index]
-        };
     }
     /**
      * @inheritdoc
@@ -275,5 +221,60 @@ export class DefaultSelectionService implements SelectionService {
      */
     public getSelectedIndexes(): number[] {
         return this.selectionsList.map((selectionItem: SelectionTuple) => selectionItem.index);
+    }
+    /**
+     * Default tracking function that will be used if nothing was specified for {@link trackByFn}.
+     * Implements comparison by reference equality of objects.
+     */
+    protected trackByIdentity: (index: number, item: any) => any = (index: number, item: any) => { return item; };
+
+    /**
+     * Performs final processing of selection/deselection of element.
+     * 
+     * Current implementation just sets {@link SelectionItem.selected} (if it's defined) but it can be extended in derived classes.
+     */
+    protected processSelection(tuple: SelectionTuple, selected: boolean): void {
+        if (Object.prototype.hasOwnProperty.call(tuple.item, 'selected')) {
+            tuple.item.selected = selected;
+        }
+    }
+    /**
+     * Internal method that used to perform item selection.
+     */
+    protected deselectItem(selectionTuple: SelectionTuple): void {
+        const index = this.selectionsList.findIndex((selectedItem: SelectionTuple) => (selectedItem.item === selectionTuple.item));
+        if (index !== -1) {
+            this.selectionsList.splice(index, 1);
+        }
+        this.processSelection(selectionTuple, false);
+        this.lastProcessedIndex = selectionTuple.index;
+    }
+    /**
+     * Internal method that used to execute item deselection.
+     */
+    protected selectItem(selectionTuple: SelectionTuple, savePrevious: boolean = false): void {
+        if (savePrevious) {
+            const index = this.selectionsList.findIndex((selectedItem: SelectionTuple) => (selectedItem.item === selectionTuple.item));
+            if (index !== -1) {
+                this.selectionsList.splice(index, 1);
+            }
+            this.selectionsList.push(selectionTuple);
+            this.processSelection(selectionTuple, true);
+        } else {
+            const list = this.selectionsList.splice(0, this.selectionsList.length);
+            list.forEach((selectedItem: SelectionTuple) => { this.processSelection(selectedItem, false); });
+            this.selectionsList.push(selectionTuple);
+            this.processSelection(selectionTuple, true);
+        }
+        this.lastProcessedIndex = selectionTuple.index;
+    }
+    /**
+     * Internal method that used to represent selection item as {@link SelectionTuple}.
+     */
+    protected getSelectionTuple(index: number): SelectionTuple {
+        return {
+            index,
+            item: this.items[index]
+        };
     }
 }

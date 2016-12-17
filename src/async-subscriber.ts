@@ -44,13 +44,13 @@ export class PushBasedSubscriptionProxy implements SubscriptionProxy {
  * Implementation of {@link SubscriptionProxy} which works with Promise and adds ability to unsubscribe from it.  
  */
 export class PromiseSubscriptionProxy implements SubscriptionProxy {
-    private isAlive: boolean = true;
     /**
      * Returns `true` if this proxy type can subscribe to passed object. `false` otherwise.
      */
     public static isAcceptable(target: any): boolean {
         return target instanceof Promise;
     }
+    private isAlive: boolean = true;
     /**
      * @inheritdoc  
      */
@@ -79,15 +79,6 @@ export class AsyncSubscriber {
     private lastTarget: any = null;
     private subscription: any = null;
 
-    private getProxy(target: any): SubscriptionProxy {
-        if (PromiseSubscriptionProxy.isAcceptable(target)) {
-            return new PromiseSubscriptionProxy();
-        }
-        if (PushBasedSubscriptionProxy.isAcceptable(target)) {
-            return new PushBasedSubscriptionProxy();
-        }
-        throw new Error('Can\'t subscribe to passed object');
-    }
     /**
      * @see {@link SubscriptionProxy.attach}  
      */
@@ -114,4 +105,13 @@ export class AsyncSubscriber {
      * @see {@link SubscriptionProxy.detach}  
      */
     public detach(): void { this.proxy.detach(this.subscription); }
+    private getProxy(target: any): SubscriptionProxy {
+        if (PromiseSubscriptionProxy.isAcceptable(target)) {
+            return new PromiseSubscriptionProxy();
+        }
+        if (PushBasedSubscriptionProxy.isAcceptable(target)) {
+            return new PushBasedSubscriptionProxy();
+        }
+        throw new Error('Can\'t subscribe to passed object');
+    }
 }

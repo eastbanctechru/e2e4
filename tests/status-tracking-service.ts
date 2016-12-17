@@ -58,7 +58,7 @@ describe('StatusTrackingService', () => {
         expect(target.operationsList.length).eq(1);
     });
 
-    it('resolves single status. Tracked status becomes Done', function (): void {
+    it('resolves single status. Tracked status becomes Done', () => {
         const target = toTarget();
         const sid = target.trackStatus('new status 1');
         expect(target.operationsList.length).eq(0);
@@ -71,10 +71,9 @@ describe('StatusTrackingService', () => {
         clock.tick(StatusTrackingService.elementVisibilityInterval);
         expect(target.operationsList.length).eq(0);
         expect(target.status).eql(OperationStatus.Done);
-
     });
 
-    it('Handles duplicate resolve normally', function (): void {
+    it('Handles duplicate resolve normally', () => {
         const target = toTarget();
         const sid = target.trackStatus('new status 1');
         clock.tick(StatusTrackingService.progressDelayInterval);
@@ -86,7 +85,7 @@ describe('StatusTrackingService', () => {
         target.changeStatus(sid, OperationStatus.Done);
     });
 
-    it('resolves one of several status. Tracked status stays Progress', function (): void {
+    it('resolves one of several status. Tracked status stays Progress', () => {
         const target = toTarget();
         const sid = target.trackStatus('new status 1');
         target.trackStatus('new status 2');

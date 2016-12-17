@@ -60,6 +60,54 @@ export class SelectionEventsHelper {
         this.selectionService = selectionService;
     }
     /**
+     * Common handler for keyboard events. Depending on specified parameters calls {@link onNextKey}, {@link onPreviousKey}, {@link trySelectPreviousItem}, {@link trySelectNextItem} or {@link trySelectAll} handler. 
+     * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
+     * @param shiftKeyPressed - `true` if `Shift` key was pressed.
+     * @param keyCode - specifies code of key that was pressed. This method can handle next keys: {@link KeyCodes.ArrowUp}, {@link KeyCodes.ArrowLeft}, {@link KeyCodes.ArrowDown}, {@link KeyCodes.ArrowRight}, 
+     * {@link KeyCodes.Tab} and {@link KeyCodes.A}.
+     * @returns `true` if any of executed commands was applied.
+     */
+    public keyboardHandler(ctrlKeyPressed: boolean, shiftKeyPressed: boolean, keyCode: KeyCodes): boolean {
+        switch (keyCode) {
+            case KeyCodes.ArrowUp:
+                return !this.horizontal && this.onPreviousKey(ctrlKeyPressed, shiftKeyPressed);
+            case KeyCodes.ArrowLeft:
+                return this.horizontal && this.onPreviousKey(ctrlKeyPressed, shiftKeyPressed);
+            case KeyCodes.ArrowDown:
+                return !this.horizontal && this.onNextKey(ctrlKeyPressed, shiftKeyPressed);
+            case KeyCodes.ArrowRight:
+                return this.horizontal && this.onNextKey(ctrlKeyPressed, shiftKeyPressed);
+            case KeyCodes.Tab:
+                return ctrlKeyPressed ? false : shiftKeyPressed ? this.trySelectPreviousItem(false) : this.trySelectNextItem(false);
+            case KeyCodes.A:
+                return this.trySelectAll(ctrlKeyPressed, shiftKeyPressed);
+            default:
+                return false;
+        }
+    }
+    /**
+     * Common handler for mouse events. 
+     * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
+     * @param shiftKeyPressed - `true` if `Shift` key was pressed.
+     * @param mouseButton specifies which mouse button was pressed.
+     * @param itemIndex index of clicked element in {@link SelectionService.items} collection.
+     * @returns `true` if any of executed commands was applied.
+     */
+    public mouseHandler(ctrlKeyPressed: boolean, shiftKeyPressed: boolean, mouseButton: MouseButtons, itemIndex: number): boolean {
+        const isItemSelected = this.selectionService.isIndexSelected(itemIndex);
+        if (isItemSelected !== false && mouseButton !== MouseButtons.Left) {
+            return false;
+        }
+        if (shiftKeyPressed && this.multiple) {
+            const minIndex = this.selectionService.getMinSelectedIndex();
+            this.selectionService.selectRange(minIndex === -1 ? itemIndex : minIndex, itemIndex);
+        } else {
+            let multiple = (ctrlKeyPressed || this.toggleOnly) && this.multiple;
+            this.selectionService.toggleSelection(itemIndex, multiple);
+        }
+        return true;
+    }
+    /**
      * Tries to select all items if `Ctrl+A` combination was pressed.
      * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
      * @param shiftKeyPressed - `true` if `Shift` key was pressed (with pressed `Shift` this command would not be applied).
@@ -248,53 +296,5 @@ export class SelectionEventsHelper {
             this.tryBuildRangeWithNextItemWhenLastItemWasDeselected(ctrlKeyPressed, shiftKeyPressed) ||
             this.tryDeselectLastItemInReversedRange(shiftKeyPressed) ||
             this.trySelectNextItem(shiftKeyPressed);
-    }
-    /**
-     * Common handler for keyboard events. Depending on specified parameters calls {@link onNextKey}, {@link onPreviousKey}, {@link trySelectPreviousItem}, {@link trySelectNextItem} or {@link trySelectAll} handler. 
-     * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
-     * @param shiftKeyPressed - `true` if `Shift` key was pressed.
-     * @param keyCode - specifies code of key that was pressed. This method can handle next keys: {@link KeyCodes.ArrowUp}, {@link KeyCodes.ArrowLeft}, {@link KeyCodes.ArrowDown}, {@link KeyCodes.ArrowRight}, 
-     * {@link KeyCodes.Tab} and {@link KeyCodes.A}.
-     * @returns `true` if any of executed commands was applied.
-     */
-    public keyboardHandler(ctrlKeyPressed: boolean, shiftKeyPressed: boolean, keyCode: KeyCodes): boolean {
-        switch (keyCode) {
-            case KeyCodes.ArrowUp:
-                return !this.horizontal && this.onPreviousKey(ctrlKeyPressed, shiftKeyPressed);
-            case KeyCodes.ArrowLeft:
-                return this.horizontal && this.onPreviousKey(ctrlKeyPressed, shiftKeyPressed);
-            case KeyCodes.ArrowDown:
-                return !this.horizontal && this.onNextKey(ctrlKeyPressed, shiftKeyPressed);
-            case KeyCodes.ArrowRight:
-                return this.horizontal && this.onNextKey(ctrlKeyPressed, shiftKeyPressed);
-            case KeyCodes.Tab:
-                return ctrlKeyPressed ? false : shiftKeyPressed ? this.trySelectPreviousItem(false) : this.trySelectNextItem(false);
-            case KeyCodes.A:
-                return this.trySelectAll(ctrlKeyPressed, shiftKeyPressed);
-            default:
-                return false;
-        }
-    }
-    /**
-     * Common handler for mouse events. 
-     * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
-     * @param shiftKeyPressed - `true` if `Shift` key was pressed.
-     * @param mouseButton specifies which mouse button was pressed.
-     * @param itemIndex index of clicked element in {@link SelectionService.items} collection.
-     * @returns `true` if any of executed commands was applied.
-     */
-    public mouseHandler(ctrlKeyPressed: boolean, shiftKeyPressed: boolean, mouseButton: MouseButtons, itemIndex: number): boolean {
-        const isItemSelected = this.selectionService.isIndexSelected(itemIndex);
-        if (isItemSelected !== false && mouseButton !== MouseButtons.Left) {
-            return false;
-        }
-        if (shiftKeyPressed && this.multiple) {
-            const minIndex = this.selectionService.getMinSelectedIndex();
-            this.selectionService.selectRange(minIndex === -1 ? itemIndex : minIndex, itemIndex);
-        } else {
-            let multiple = (ctrlKeyPressed || this.toggleOnly) && this.multiple;
-            this.selectionService.toggleSelection(itemIndex, multiple);
-        }
-        return true;
     }
 }

@@ -35,10 +35,6 @@ export interface SortParameter {
  */
 export class SortingsService {
     /**
-     * Internal implementation of {@link defaultSortings}.
-     */
-    protected defaultSortingsInternal: SortParameter[] = new Array<SortParameter>();
-    /**
      * Sortings that were selected by the user and must be applied on next request of data.
      * 
      * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
@@ -57,12 +53,9 @@ export class SortingsService {
     } as FilterConfig)
     public sortings: SortParameter[] = new Array<SortParameter>();
     /**
-     * Internal method for default sortings cloning.
-     * This method is used as {@link FilterConfig.defaultValue} as well as for copying to {@link sortings} when {@link defaultSortings} setter is used and {@link sortings} is empty. 
+     * Internal implementation of {@link defaultSortings}.
      */
-    protected cloneDefaultSortings(): SortParameter[] {
-        return this.defaultSortingsInternal.map((s: SortParameter) => ({ direction: s.direction, fieldName: s.fieldName }));
-    }
+    protected defaultSortingsInternal: SortParameter[] = new Array<SortParameter>();
     /**
      * Default sortings that will be used by service.
      */
@@ -109,5 +102,12 @@ export class SortingsService {
     public destroy(): void {
         this.defaultSortingsInternal.length = 0;
         this.sortings.length = 0;
+    }
+    /**
+     * Internal method for default sortings cloning.
+     * This method is used as {@link FilterConfig.defaultValue} as well as for copying to {@link sortings} when {@link defaultSortings} setter is used and {@link sortings} is empty. 
+     */
+    protected cloneDefaultSortings(): SortParameter[] {
+        return this.defaultSortingsInternal.map((s: SortParameter) => ({ direction: s.direction, fieldName: s.fieldName }));
     }
 }

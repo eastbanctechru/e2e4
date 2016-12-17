@@ -10,10 +10,6 @@ import { StateService } from './state-service';
 import { destroyAll } from './utilities';
 
 export class List {
-    protected pagerInternal: Pager;
-    protected statusInternal: OperationStatus = OperationStatus.Initial;
-    protected destroyedInternal: boolean = false;
-    protected initedInternal: boolean = false;
     /**
      * Method for getting data. This parameter is required and its configuration is necessary.
      * 
@@ -22,6 +18,15 @@ export class List {
      * For the simple lists the response should contain array with the records. As for the paged ones, it should implement {@link ListResponse} contract.
      */
     public fetchMethod: (requestParams: any) => any;
+    /**
+     * Array of elements transferred in the {@link ListResponse.items} property.
+     */
+    public items: any[] = new Array<any>();
+
+    protected pagerInternal: Pager;
+    protected statusInternal: OperationStatus = OperationStatus.Initial;
+    protected destroyedInternal: boolean = false;
+    protected initedInternal: boolean = false;
     protected stateServices: StateService[] = new Array<StateService>();
     /**
      * Configured {@link Pager} service.
@@ -34,10 +39,6 @@ export class List {
         this.pagerInternal = value;
         this.filtersService.registerFilterTarget(this.pagerInternal);
     }
-    /**
-     * Array of elements transferred in the {@link ListResponse.items} property.
-     */
-    public items: any[] = new Array<any>();
     /**
      * True if the service was already destroyed via {@link destroy} call.  
      */
@@ -77,43 +78,6 @@ export class List {
             }
         }
         this.pager = new NullObjectPager();
-    }
-    /**
-     * Callback which is executed if {@link fetchMethod} execution finished successfully.
-     */
-    protected loadSuccessCallback = (result: ListResponse<any> | any[]): Object => {
-        if (Array.isArray(result)) {
-            result = {
-                items: result,
-                loadedCount: result.length,
-                totalCount: result.length
-            } as ListResponse<any>;
-        }
-        this.items = this.items.concat(result.items);
-
-        this.pager.processResponse(result);
-        // In case when filter changed from last request and there's no data now
-        if (this.pager.totalCount === 0) {
-            this.clearData();
-            this.pager.reset();
-        }
-        this.statusInternal = this.pager.totalCount === 0 ? OperationStatus.NoData : OperationStatus.Done;
-        return result;
-    }
-    /**
-     * Callback which is executed if {@link fetchMethod} execution finished with error.
-     */
-    protected loadFailCallback = (): void => {
-        this.statusInternal = OperationStatus.Fail;
-    }
-    /**
-     * Calls {@link Pager.reset} method and clears {@link items} array. Calls {@link destroyAll} method for {@link items} array to perform optional destroy logic of the elements.
-     * {@see destroyAll}  
-     */
-    protected clearData(): void {
-        this.pager.reset();
-        destroyAll(this.items);
-        this.items = [];
     }
     /**
      * Performs initialization logic of the service. This method must be called before first use of the service.
@@ -216,5 +180,42 @@ export class List {
      */
     public resetSettings(): void {
         this.filtersService.resetValues();
+    }
+    /**
+     * Callback which is executed if {@link fetchMethod} execution finished successfully.
+     */
+    protected loadSuccessCallback = (result: ListResponse<any> | any[]): Object => {
+        if (Array.isArray(result)) {
+            result = {
+                items: result,
+                loadedCount: result.length,
+                totalCount: result.length
+            } as ListResponse<any>;
+        }
+        this.items = this.items.concat(result.items);
+
+        this.pager.processResponse(result);
+        // In case when filter changed from last request and there's no data now
+        if (this.pager.totalCount === 0) {
+            this.clearData();
+            this.pager.reset();
+        }
+        this.statusInternal = this.pager.totalCount === 0 ? OperationStatus.NoData : OperationStatus.Done;
+        return result;
+    }
+    /**
+     * Callback which is executed if {@link fetchMethod} execution finished with error.
+     */
+    protected loadFailCallback = (): void => {
+        this.statusInternal = OperationStatus.Fail;
+    }
+    /**
+     * Calls {@link Pager.reset} method and clears {@link items} array. Calls {@link destroyAll} method for {@link items} array to perform optional destroy logic of the elements.
+     * {@see destroyAll}  
+     */
+    protected clearData(): void {
+        this.pager.reset();
+        destroyAll(this.items);
+        this.items = [];
     }
 }

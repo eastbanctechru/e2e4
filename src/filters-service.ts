@@ -37,14 +37,7 @@ export class FiltersService {
      * Used to build {@link appliedFiltersMap} for concrete set of objects that were registered as `target objects` via {@link registerFilterTarget} for concrete service instance.
      */
     public static filterPropertiesMap: Map<any, FilterConfig[]> = new Map<any, FilterConfig[]>();
-    /**
-     * Internal implementation of {@link appliedFiltersMap} 
-     */
-    protected appliedFiltersMapInternal: Map<Object, FilterConfig[]> = new Map<Object, FilterConfig[]>();
-    /**
-     * Specifies was {@link appliedFiltersMap} already constructed or not. 
-     */
-    protected filtersMapBuilded: boolean = false;
+
     /**
      * Used to register type property as `target property` with specified filter config for later usage with {@link FiltersService}. 
      * 
@@ -96,6 +89,23 @@ export class FiltersService {
         }
         return value;
     }
+    /**
+     * Internal implementation of {@link appliedFiltersMap} 
+     */
+    protected appliedFiltersMapInternal: Map<Object, FilterConfig[]> = new Map<Object, FilterConfig[]>();
+    /**
+     * Specifies was {@link appliedFiltersMap} already constructed or not. 
+     */
+    protected filtersMapBuilded: boolean = false;
+    /**
+     * @param target `target object` that will be registered with {@link registerFilterTarget} method.
+     */
+    constructor(target?: Object) {
+        if (target) {
+            this.registerFilterTarget(target);
+        }
+    }
+
     /**
      * Performs service destroy.
      */
@@ -237,14 +247,6 @@ export class FiltersService {
             this.appliedFiltersMapInternal.set(target, targetConfig);
         } else {
             this.appliedFiltersMapInternal.delete(target);
-        }
-    }
-    /**
-     * @param target `target object` that will be registered with {@link registerFilterTarget} method.
-     */
-    constructor(target?: Object) {
-        if (target) {
-            this.registerFilterTarget(target);
         }
     }
 }

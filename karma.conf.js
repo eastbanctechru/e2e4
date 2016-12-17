@@ -3,60 +3,60 @@ var path = require('path');
 module.exports = function (config) {
     config.set({
         browsers: ['PhantomJS'],
-        singleRun: true,
-        frameworks: ['mocha'],
-        files: [
-            'node_modules/es6-shim/es6-shim.js',
-            'node_modules/ts-helpers/index.js',
-            'tests/**/*.ts'
-        ],
-        preprocessors: {
-            'tests/**/*.ts': ['webpack', 'sourcemap'],
-            'src/**/*.js': ['coverage']
-        },
-        reporters: ['spec', 'coverage'],
         coverageReporter: {
             dir: './',
             reporters: [
                 { type: 'lcov', subdir: 'coverage' }
             ]
         },
+        files: [
+            'node_modules/es6-shim/es6-shim.js',
+            'tests/**/*.ts'
+        ],
+        frameworks: ['mocha'],
+        preprocessors: {
+            'src/**/*.js': ['coverage'],
+            'tests/**/*.ts': ['webpack', 'sourcemap']
+        },
+        reporters: ['spec', 'coverage'],
+        singleRun: true,
         webpack: {
             devtool: 'inline-source-map',
-            ts: {
-                configFileName: "tsconfig.cjs.json",
-                compilerOptions: {
-                    noEmitHelpers: true
-                }
-            },
             module: {
                 loaders: [
                     {
-                        test: /.*(?!\.d\.ts)|(\.ts)$/,
-                        loader: 'ts-loader',
+                        exclude: [path.resolve(__dirname, 'node_modules')],
                         include: [
                             path.resolve(__dirname, 'src'),
                             path.resolve(__dirname, 'tests')
                         ],
-                        exclude: [path.resolve(__dirname, 'node_modules')]
+                        loader: 'ts-loader',
+                        test: /.*(?!\.d\.ts)|(\.ts)$/
                     }
                 ],
                 postLoaders: [{
-                    test: /\.ts$/,
                     include: [path.resolve(__dirname, 'src')],
-                    loader: 'istanbul-instrumenter'
+                    loader: 'istanbul-instrumenter',
+                    test: /\.ts$/
                 }]
             },
             resolve: {
+                extensions: ['', '.ts', '.tsx', '.json', '.js'],
                 modulesDirectories: [
                     'node_modules'
-                ],
-                extensions: ['', '.ts', '.tsx', '.json', '.js']
+                ]
+            },
+            ts: {
+                compilerOptions: {
+                    importHelpers: true,
+                    noEmitHelpers: true
+                },
+                configFileName: 'tsconfig.cjs.json'
             }
         },
         webpackServer: {
-            noLog: true,
-            noInfo: true
+            noInfo: true,
+            noLog: true
         }
     });
 };

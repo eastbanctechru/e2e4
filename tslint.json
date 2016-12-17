@@ -2,9 +2,6 @@
     "extends": "tslint:latest",
     "rules": {
         //"jsdoc-format": false,
-        "only-arrow-functions": [
-            false
-        ],
         "interface-name": [
             true,
             "never-prefix"
@@ -14,23 +11,11 @@
             true,
             240
         ],
-        "member-access": [
-            true,
-            "check-accessor"
-        ],
-        "member-ordering": [
-            true,
-            "static-before-instance",
-            "variables-before-functions"
-        ],
         "no-default-export": true,
         "no-inferrable-types": [
             false
         ],
         "no-mergeable-namespace": true,
-        "no-namespace": true,
-        "no-null-keyword": false,
-        "no-reference": true,
         "no-require-imports": true,
         "no-switch-case-fall-through": true,
         "no-use-before-declare": true,
@@ -66,12 +51,6 @@
                 "variable-declaration": "nospace"
             }
         ],
-        "variable-name": [
-            true,
-            "ban-keywords",
-            "check-format",
-            "allow-pascal-case"
-        ],
         "whitespace": [
             true,
             "check-branch",
@@ -80,6 +59,16 @@
             "check-module",
             "check-separator",
             "check-type"
+        ]
+    },
+    "jsRules": {
+        "quotemark": [
+            true,
+            "single",
+            "avoid-escape"
+        ],
+        "trailing-comma": [
+            false
         ]
     }
 }

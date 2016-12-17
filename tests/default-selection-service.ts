@@ -88,9 +88,7 @@ describe('SelectionService', () => {
             const target = toEmptyTarget();
             target.selectionService = new DefaultSelectionService();
             target.selectionService.items = target.items;
-            assert.doesNotThrow(function (): void {
-                target.selectionService.selectFirst();
-            });
+            assert.doesNotThrow(() => target.selectionService.selectFirst());
         });
     });
 
@@ -120,9 +118,7 @@ describe('SelectionService', () => {
             const target = toEmptyTarget();
             target.selectionService = new DefaultSelectionService();
             target.selectionService.items = target.items;
-            assert.doesNotThrow(function (): void {
-                target.selectionService.selectLast();
-            });
+            assert.doesNotThrow(() => target.selectionService.selectLast());
         });
     });
 
