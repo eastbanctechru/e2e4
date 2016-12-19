@@ -83,7 +83,7 @@ export function destroyAll(collection: any[], async: boolean = true): void {
     if (async) {
         setTimeout(() => {
             items.forEach((item: any) => {
-                if (item.destroy) {
+                if (item && item.destroy) {
                     item.destroy();
                 }
             });
@@ -92,7 +92,7 @@ export function destroyAll(collection: any[], async: boolean = true): void {
 
     } else {
         items.forEach((item: any) => {
-            if (item.destroy) {
+            if (item && item.destroy) {
                 item.destroy();
             }
         });

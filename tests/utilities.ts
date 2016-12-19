@@ -6,7 +6,7 @@ import * as sinon from 'sinon';
 
 describe('Utilities', () => {
     describe('destroyAll', () => {
-        it('destroyAll sync', () => {
+        it('destroyAll sync calls "destroy" method of elements if it exists', () => {
             const destroySpy = sinon.spy();
             const collection = [{ destroy: destroySpy }];
 
@@ -14,7 +14,7 @@ describe('Utilities', () => {
             expect(destroySpy.calledOnce).eql(true);
         });
 
-        it('destroyAll async', (done: () => void) => {
+        it('destroyAll async calls "destroy" method of elements if it exists', (done: () => void) => {
             const destroySpy = sinon.spy();
             const collection = [{ destroy: destroySpy }];
 
@@ -35,6 +35,20 @@ describe('Utilities', () => {
         it('doesn\'t break on invalid collections async', () => {
             let callFn = (): void => {
                 destroyAll(null);
+            };
+            expect(callFn).not.throw();
+        });
+
+        it('doesn\'t break on invalid collection elements sync', () => {
+            let callFn = (): void => {
+                destroyAll([undefined, null], false);
+            };
+            expect(callFn).not.throw();
+        });
+
+        it('doesn\'t break on invalid collection elements async', () => {
+            let callFn = (): void => {
+                destroyAll([undefined, null]);
             };
             expect(callFn).not.throw();
         });
