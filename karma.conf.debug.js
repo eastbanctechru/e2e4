@@ -36,8 +36,7 @@ module.exports = function (config) {
                 compilerOptions: {
                     importHelpers: true,
                     noEmitHelpers: true
-                },
-                configFileName: 'tsconfig.cjs.json'
+                }
             }
         },
         webpackServer: {

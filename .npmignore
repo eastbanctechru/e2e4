@@ -12,6 +12,7 @@ esm/tests
 .cleandir.sh
 .travis.yml
 karma.conf.js
+tsconfig.esm.json
 tsconfig.json
 tslint.json
 wallaby.js
