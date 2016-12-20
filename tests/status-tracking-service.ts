@@ -36,7 +36,7 @@ describe('Status', () => {
 });
 
 describe('StatusTrackingService', () => {
-    let clock;
+    let clock: sinon.SinonFakeTimers;
     beforeEach(() => {
         clock = sinon.useFakeTimers();
     });

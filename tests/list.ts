@@ -30,7 +30,7 @@ class SecondStubStateService implements StateService {
 }
 
 describe('List', () => {
-    let clock;
+    let clock: sinon.SinonFakeTimers;
     let delay = 100;
     let list: List;
     let firstStubStateService: FirstStubStateService;

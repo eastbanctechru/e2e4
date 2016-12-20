@@ -398,7 +398,7 @@ describe('FiltersService', () => {
             let target = new TargetType();
             let filtersService = new FiltersService(target);
 
-            let params = {
+            let params: any = {
                 emptyString: '',
                 falseProperty: false,
                 nullProperty: null,

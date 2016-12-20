@@ -14,10 +14,12 @@
         "diagnostics": true,
         "allowUnreachableCode": false,
         "allowUnusedLabels": false,
-        "noImplicitAny": false,
+        "noImplicitAny": true,
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
         "noUnusedLocals": true,
+        "noImplicitThis": true,
+        "suppressExcessPropertyErrors": false,
         "suppressImplicitAnyIndexErrors": false,
         "lib": [
             "dom",

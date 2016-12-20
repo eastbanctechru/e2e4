@@ -18,7 +18,7 @@ export function cloneAsLiteral(value: any): any {
         return value.map((i: any) => cloneAsLiteral(i));
     }
     if (typeof value === 'object') {
-        let result = {};
+        let result: { [id: string]: any } = {};
         for (let index in value) {
             if (value.hasOwnProperty(index) && (typeof value[index] !== 'function')) {
                 result[index] = cloneAsLiteral(value[index]);

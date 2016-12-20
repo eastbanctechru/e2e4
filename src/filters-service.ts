@@ -140,7 +140,7 @@ export class FiltersService {
      *  - Result of previous steps is applied as value to `target property`. 
      */
     public resetValues(): void {
-        this.appliedFiltersMap.forEach((targetConfig: FilterConfig[], target: Object) => {
+        this.appliedFiltersMap.forEach((targetConfig: FilterConfig[], target: { [id: string]: any }) => {
             for (let config of targetConfig) {
                 const defaultValue = (typeof config.defaultValue === 'function') ? (config.defaultValue as Function).call(target) : config.defaultValue;
                 const clonedObject = cloneAsLiteral({ defaultValue });
@@ -156,8 +156,8 @@ export class FiltersService {
      * {@link FilterConfig.ignoreOnAutoMap}, {@link FilterConfig.emptyIsNull}, {@link FilterConfig.coerce}, {@link FilterConfig.parseFormatter}.
      * @param params - object with values to apply. 
      */
-    public applyParams(params: Object): void {
-        this.appliedFiltersMap.forEach((targetConfig: FilterConfig[], target: Object) => {
+    public applyParams(params: { [id: string]: any }): void {
+        this.appliedFiltersMap.forEach((targetConfig: FilterConfig[], target: { [id: string]: any }) => {
             for (let config of targetConfig) {
                 if (params && params.hasOwnProperty(config.parameterName) && false === config.ignoreOnAutoMap) {
                     let proposedVal = config.emptyIsNull ? params[config.parameterName] || null : params[config.parameterName];
@@ -177,8 +177,8 @@ export class FiltersService {
      * @returns resulted object literal.
      */
     public getRequestState(filterFn?: (config: FilterConfig, proposedValue: any, targetObject: Object) => boolean): any {
-        let result = {};
-        this.appliedFiltersMap.forEach((targetConfig: FilterConfig[], target: Object) => {
+        let result: { [id: string]: any } = {};
+        this.appliedFiltersMap.forEach((targetConfig: FilterConfig[], target: { [id: string]: any }) => {
             for (let config of targetConfig) {
                 config = Object.assign({}, config);
                 const proposedVal = target[config.propertyName];
@@ -231,7 +231,7 @@ export class FiltersService {
      * Builds map of settings for passed `target object`.
      * 
      */
-    private buildFilterTargetMap(target: Object): void {
+    private buildFilterTargetMap(target: { [id: string]: any }): void {
         let targetConfig = new Array<FilterConfig>();
         FiltersService.filterPropertiesMap.forEach((typeConfig: FilterConfig[], type: any) => {
             if (target instanceof type) {

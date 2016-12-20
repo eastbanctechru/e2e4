@@ -120,7 +120,7 @@ describe('PagedPager', () => {
             let filtersService = new FiltersService(pager);
 
             expect(pager.pageNumber).eq(1);
-            let params = {
+            let params: any = {
                 skip: null,
                 take: 10
             };
@@ -147,7 +147,7 @@ describe('PagedPager', () => {
             let filtersService = new FiltersService(pager);
 
             expect(pager.pageNumber).eq(1);
-            let params = {
+            let params: any = {
                 skip: 20,
                 take: null
             };

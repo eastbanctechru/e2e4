@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import * as sinon from 'sinon';
 
 describe('AsyncSubscriber', () => {
-    let clock;
+    let clock: sinon.SinonFakeTimers;
     let delay = 100;
     let resolveValue = 5;
     let rejectValue = 5;

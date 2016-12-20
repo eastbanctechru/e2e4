@@ -85,7 +85,7 @@ describe('Utilities', () => {
         });
 
         it('clones object literals', () => {
-            let toClone = {
+            let toClone: any = {
                 arrayProperty: ['Hello world', 5, null],
                 literalProperty: {
                     innerArrayProperty: ['Hello world', 5, null],
