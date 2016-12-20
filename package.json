@@ -1,6 +1,6 @@
 {
   "name": "e2e4",
-  "version": "2.0.0-beta.9",
+  "version": "2.0.0-rc.0",
   "description": "Set of base classes and utilities to build unobtrusive list models",
   "jsnext:main": "esm/index.js",
   "main": "index.js",
@@ -79,6 +79,5 @@
     "wallaby-webpack": "^0.0.26",
     "webpack": "^1.14.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }

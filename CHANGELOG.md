@@ -1,3 +1,19 @@
+<a name="2.0.0-rc.0"></a>
+# [2.0.0-rc.0](https://github.com/eastbanctechru/e2e4/compare/v2.0.0-beta.9...v2.0.0-rc.0) (2016-12-20)
+
+
+### Bug Fixes
+
+* **destroyAll:** correct handling of `null` and `undefined` as array elements ([c0ecfdb](https://github.com/eastbanctechru/e2e4/commit/c0ecfdb))
+* **lists:** make `List` private properties protected ([f0ad990](https://github.com/eastbanctechru/e2e4/commit/f0ad990))
+
+
+### Features
+
+* **package:** changelog generation added ([699404f](https://github.com/eastbanctechru/e2e4/commit/699404f))
+
+
+
 <a name="2.0.0-beta.9"></a>
 # [2.0.0-beta.9](https://github.com/eastbanctechru/e2e4/compare/2.0.0-beta.8...v2.0.0-beta.9) (2016-12-03)
 
