@@ -26,28 +26,28 @@ describe('Utilities', () => {
         });
 
         it('doesn\'t break on invalid collections sync', () => {
-            let callFn = (): void => {
+            const callFn = (): void => {
                 destroyAll(null, false);
             };
             expect(callFn).not.throw();
         });
 
         it('doesn\'t break on invalid collections async', () => {
-            let callFn = (): void => {
+            const callFn = (): void => {
                 destroyAll(null);
             };
             expect(callFn).not.throw();
         });
 
         it('doesn\'t break on invalid collection elements sync', () => {
-            let callFn = (): void => {
+            const callFn = (): void => {
                 destroyAll([undefined, null], false);
             };
             expect(callFn).not.throw();
         });
 
         it('doesn\'t break on invalid collection elements async', () => {
-            let callFn = (): void => {
+            const callFn = (): void => {
                 destroyAll([undefined, null]);
             };
             expect(callFn).not.throw();
@@ -78,14 +78,14 @@ describe('Utilities', () => {
         });
 
         it('clones arrays', () => {
-            let toClone = ['Hello world', 5, null];
-            let cloned = cloneAsLiteral(toClone);
+            const toClone = ['Hello world', 5, null];
+            const cloned = cloneAsLiteral(toClone);
             expect(cloned).to.not.equal(toClone);
             expect(cloned).to.deep.equal(toClone);
         });
 
         it('clones object literals', () => {
-            let toClone: any = {
+            const toClone: any = {
                 arrayProperty: ['Hello world', 5, null],
                 literalProperty: {
                     innerArrayProperty: ['Hello world', 5, null],
@@ -97,18 +97,18 @@ describe('Utilities', () => {
                 numberProperty: 5,
                 stringProperty: 'Hello world'
             };
-            let cloned = cloneAsLiteral(toClone);
+            const cloned = cloneAsLiteral(toClone);
             expect(cloned).to.not.equal(toClone);
             expect(cloned).to.deep.equal(toClone);
         });
         it('clones only properties', () => {
-            let toClone = {
+            const toClone = {
                 arrayProperty: ['Hello world', 5, null],
                 functionProperty(): void {
                     return;
                 }
             };
-            let cloned = cloneAsLiteral(toClone);
+            const cloned = cloneAsLiteral(toClone);
             expect(cloned).to.not.equal(toClone);
             expect(cloned).to.not.deep.equal(toClone);
             expect(cloned.functionProperty).undefined;

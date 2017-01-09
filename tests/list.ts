@@ -31,7 +31,7 @@ class SecondStubStateService implements StateService {
 
 describe('List', () => {
     let clock: sinon.SinonFakeTimers;
-    let delay = 100;
+    const delay = 100;
     let list: List;
     let firstStubStateService: FirstStubStateService;
     let secondStubStateService: SecondStubStateService;
@@ -60,11 +60,11 @@ describe('List', () => {
     describe('ctor', () => {
         it('sets stateServices array with passed service', () => {
             list = new List(asyncSubscriber, null, sortingsService, filtersService);
-            expect((<any>list).stateServices).empty;
+            expect((list as any).stateServices).empty;
             list = new List(asyncSubscriber, firstStubStateService, sortingsService, filtersService);
-            expect((<any>list).stateServices).eql([firstStubStateService]);
+            expect((list as any).stateServices).eql([firstStubStateService]);
             list = new List(asyncSubscriber, [firstStubStateService, secondStubStateService], sortingsService, filtersService);
-            expect((<any>list).stateServices).eql([firstStubStateService, secondStubStateService]);
+            expect((list as any).stateServices).eql([firstStubStateService, secondStubStateService]);
         });
         it('inits pager as NullObjectPager', () => {
             expect(list.pager).instanceof(NullObjectPager);
@@ -72,10 +72,10 @@ describe('List', () => {
     });
     describe('pager', () => {
         it('pager setter unregister old service and registers new as filter', () => {
-            let oldPager = list.pager;
-            let newPager = new PagedPager();
-            let removeSpy = sinon.spy(filtersService, 'removeFilterTarget');
-            let registerSpy = sinon.spy(filtersService, 'registerFilterTarget');
+            const oldPager = list.pager;
+            const newPager = new PagedPager();
+            const removeSpy = sinon.spy(filtersService, 'removeFilterTarget');
+            const registerSpy = sinon.spy(filtersService, 'registerFilterTarget');
             list.pager = newPager;
             expect(removeSpy.calledOnce).true;
             expect(removeSpy.calledWith(oldPager)).true;
@@ -85,67 +85,67 @@ describe('List', () => {
     });
     describe('filters', () => {
         it('resetSettings is a proxy to FiltersService.resetValues method', () => {
-            let spy = sinon.spy(filtersService, 'resetValues');
+            const spy = sinon.spy(filtersService, 'resetValues');
             list.resetSettings();
             expect(spy.calledOnce).true;
         });
         it('registerFilterTarget is a proxy to FiltersService.registerFilterTarget method', () => {
-            let spy = sinon.spy(filtersService, 'registerFilterTarget');
+            const spy = sinon.spy(filtersService, 'registerFilterTarget');
             list.registerFilterTarget({}, {}, {});
             expect(spy.calledOnce).true;
         });
         it('removeFilterTarget is a proxy to FiltersService.removeFilterTarget method', () => {
-            let spy = sinon.spy(filtersService, 'removeFilterTarget');
+            const spy = sinon.spy(filtersService, 'removeFilterTarget');
             list.removeFilterTarget({}, {}, {});
             expect(spy.calledOnce).true;
         });
         it('getRequestState is a proxy to FiltersService.getRequestState method', () => {
-            let spy = sinon.spy(filtersService, 'getRequestState');
+            const spy = sinon.spy(filtersService, 'getRequestState');
             list.getRequestState();
             expect(spy.calledOnce).true;
         });
     });
     describe('status', () => {
         it('List.busy is true only when status is equal to OperationStatus.Progress', () => {
-            (<any>list).statusInternal = OperationStatus.Initial;
+            (list as any).statusInternal = OperationStatus.Initial;
             expect(list.busy).false;
-            (<any>list).statusInternal = OperationStatus.Cancelled;
+            (list as any).statusInternal = OperationStatus.Cancelled;
             expect(list.busy).false;
-            (<any>list).statusInternal = OperationStatus.Done;
+            (list as any).statusInternal = OperationStatus.Done;
             expect(list.busy).false;
-            (<any>list).statusInternal = OperationStatus.Fail;
+            (list as any).statusInternal = OperationStatus.Fail;
             expect(list.busy).false;
-            (<any>list).statusInternal = OperationStatus.NoData;
+            (list as any).statusInternal = OperationStatus.NoData;
             expect(list.busy).false;
-            (<any>list).statusInternal = OperationStatus.Progress;
+            (list as any).statusInternal = OperationStatus.Progress;
             expect(list.busy).true;
         });
         it('List.busy is true when status is not equal to OperationStatus.Progress', () => {
-            (<any>list).statusInternal = OperationStatus.Initial;
+            (list as any).statusInternal = OperationStatus.Initial;
             expect(list.ready).true;
-            (<any>list).statusInternal = OperationStatus.Cancelled;
+            (list as any).statusInternal = OperationStatus.Cancelled;
             expect(list.ready).true;
-            (<any>list).statusInternal = OperationStatus.Done;
+            (list as any).statusInternal = OperationStatus.Done;
             expect(list.ready).true;
-            (<any>list).statusInternal = OperationStatus.Fail;
+            (list as any).statusInternal = OperationStatus.Fail;
             expect(list.ready).true;
-            (<any>list).statusInternal = OperationStatus.NoData;
+            (list as any).statusInternal = OperationStatus.NoData;
             expect(list.ready).true;
-            (<any>list).statusInternal = OperationStatus.Progress;
+            (list as any).statusInternal = OperationStatus.Progress;
             expect(list.ready).false;
         });
     });
     describe('state services', () => {
         it('adds state services to stateServices collection on registerStateService call', () => {
-            expect((<any>list).stateServices).to.eql([]);
+            expect((list as any).stateServices).to.eql([]);
             list.registerStateService(firstStubStateService, secondStubStateService);
-            expect((<any>list).stateServices).to.eql([firstStubStateService, secondStubStateService]);
+            expect((list as any).stateServices).to.eql([firstStubStateService, secondStubStateService]);
         });
         it('removes state service from stateServices collection on removeStateService call', () => {
             list.registerStateService(firstStubStateService, secondStubStateService);
-            expect((<any>list).stateServices).to.eql([firstStubStateService, secondStubStateService]);
+            expect((list as any).stateServices).to.eql([firstStubStateService, secondStubStateService]);
             list.removeStateService(firstStubStateService);
-            expect((<any>list).stateServices).to.eql([secondStubStateService]);
+            expect((list as any).stateServices).to.eql([secondStubStateService]);
         });
         it('doesn\'t throw if not registered service unregistered', () => {
             list.registerStateService(firstStubStateService);
@@ -165,7 +165,7 @@ describe('List', () => {
             expect(list.status).not.eql(OperationStatus.Cancelled);
         });
         it('calls AsyncSubscriber.detach', () => {
-            let spy = sinon.spy(asyncSubscriber, 'detach');
+            const spy = sinon.spy(asyncSubscriber, 'detach');
             list.init();
             list.loadData();
             expect(spy.notCalled).true;
@@ -173,7 +173,7 @@ describe('List', () => {
             expect(spy.calledOnce).true;
         });
         it('calls AsyncSubscriber.detach only if list is busy', () => {
-            let spy = sinon.spy(asyncSubscriber, 'detach');
+            const spy = sinon.spy(asyncSubscriber, 'detach');
             list.init();
             expect(spy.notCalled).true;
             list.cancelRequests();
@@ -182,18 +182,18 @@ describe('List', () => {
     });
     describe('reloadData', () => {
         it('calls clearData and loadData methods', () => {
-            let clearSpy = sinon.spy(list, 'clearData');
-            let loadSpy = sinon.spy(list, 'loadData');
+            const clearSpy = sinon.spy(list, 'clearData');
+            const loadSpy = sinon.spy(list, 'loadData');
             list.init();
             list.reloadData();
             expect(clearSpy.calledOnce).true;
             expect(loadSpy.calledOnce).true;
         });
         it('calls clearData method only if list is ready', () => {
-            let clearSpy = sinon.spy(list, 'clearData');
-            let loadSpy = sinon.spy(list, 'loadData');
+            const clearSpy = sinon.spy(list, 'clearData');
+            const loadSpy = sinon.spy(list, 'loadData');
             list.init();
-            (<any>list).statusInternal = OperationStatus.Progress;
+            (list as any).statusInternal = OperationStatus.Progress;
             list.reloadData();
             expect(clearSpy.notCalled).true;
             expect(loadSpy.notCalled).true;
@@ -206,19 +206,19 @@ describe('List', () => {
             expect(list.inited).true;
         });
         it('returns if already inited', () => {
-            let spy = sinon.spy(filtersService, 'registerFilterTarget');
-            (<any>list).initedInternal = true;
+            const spy = sinon.spy(filtersService, 'registerFilterTarget');
+            (list as any).initedInternal = true;
             list.init();
             expect(spy.notCalled).true;
         });
         it('registers sortings and paging services as filter targets', () => {
-            let spy = sinon.spy(filtersService, 'registerFilterTarget');
+            const spy = sinon.spy(filtersService, 'registerFilterTarget');
             list.init();
             expect(spy.calledOnce).true;
             expect(spy.calledWith(list.pager, sortingsService)).true;
         });
         it('calls registered state service getState method on init', () => {
-            let spy = sinon.spy(firstStubStateService, 'getState');
+            const spy = sinon.spy(firstStubStateService, 'getState');
             list.registerStateService(firstStubStateService);
             expect(spy.notCalled).true;
             list.init();
@@ -228,10 +228,10 @@ describe('List', () => {
     describe('destroy', () => {
         it('calls underlying services destroy methods and own clearData method', () => {
             list.init();
-            let subscriberSpy = sinon.spy(asyncSubscriber, 'destroy');
-            let filtersSpy = sinon.spy(filtersService, 'destroy');
-            let sortingsSpy = sinon.spy(sortingsService, 'destroy');
-            let clearSpy = sinon.spy(list, 'clearData');
+            const subscriberSpy = sinon.spy(asyncSubscriber, 'destroy');
+            const filtersSpy = sinon.spy(filtersService, 'destroy');
+            const sortingsSpy = sinon.spy(sortingsService, 'destroy');
+            const clearSpy = sinon.spy(list, 'clearData');
             list.destroy();
             expect(subscriberSpy.calledOnce).true;
             expect(filtersSpy.calledOnce).true;
@@ -253,7 +253,7 @@ describe('List', () => {
             expect(list.status).eql(OperationStatus.Progress);
         });
         it('calls specified fetchMethod with FiltersService.getRequestState value as parameter', () => {
-            let fetchSpy = sinon.spy(list, 'fetchMethod');
+            const fetchSpy = sinon.spy(list, 'fetchMethod');
             list.init();
             list.loadData();
             expect(fetchSpy.calledOnce).true;
@@ -275,8 +275,8 @@ describe('List', () => {
         });
         it('calls destroy methods of items elements if it exists', () => {
             list.init();
-            let item1 = { destroy: sinon.spy() };
-            let item2 = { destroy: sinon.spy() };
+            const item1 = { destroy: sinon.spy() };
+            const item2 = { destroy: sinon.spy() };
             list.items = [item1, item2];
 
             list.loadData();
@@ -285,33 +285,33 @@ describe('List', () => {
             expect(item2.destroy.calledOnce).true;
         });
         it('calls attach method of asyncSubscriber to listen observable', () => {
-            let observable = Observable.create((observer: any) => {
+            const observable = Observable.create((observer: any) => {
                 setTimeout(() => {
                     observer.next([]);
                 }, delay);
             });
             list.fetchMethod = () => observable;
-            let attachSpy = sinon.spy(asyncSubscriber, 'attach');
+            const attachSpy = sinon.spy(asyncSubscriber, 'attach');
             list.init();
             list.loadData();
             expect(attachSpy.calledOnce).true;
-            expect(attachSpy.calledWith(observable, (<any>list).loadSuccessCallback, (<any>list).loadFailCallback)).true;
+            expect(attachSpy.calledWith(observable, (list as any).loadSuccessCallback, (list as any).loadFailCallback)).true;
         });
         it('returns without request if list status is equal to OperationStatus.Progress', () => {
-            let observable = Observable.create((observer: any) => {
+            const observable = Observable.create((observer: any) => {
                 setTimeout(() => {
                     observer.next([]);
                 }, delay);
             });
             list.fetchMethod = () => observable;
-            let attachSpy = sinon.spy(asyncSubscriber, 'attach');
+            const attachSpy = sinon.spy(asyncSubscriber, 'attach');
             list.init();
-            (<any>list).statusInternal = OperationStatus.Progress;
+            (list as any).statusInternal = OperationStatus.Progress;
             list.loadData();
             expect(attachSpy.notCalled).true;
         });
         it('calls registered state service persistState method', () => {
-            let spy = sinon.spy(firstStubStateService, 'persistState');
+            const spy = sinon.spy(firstStubStateService, 'persistState');
             list.registerStateService(firstStubStateService);
             expect(spy.notCalled).true;
             list.init();
@@ -357,9 +357,9 @@ describe('List', () => {
                 expect(list.status).eq(OperationStatus.Done);
             });
             it('calls Pager.reset and List.clearData if empty array returned', () => {
-                let resetSpy = sinon.spy(list.pager, 'reset');
-                let clearSpy = sinon.spy(list, 'clearData');
-                let data = [1];
+                const resetSpy = sinon.spy(list.pager, 'reset');
+                const clearSpy = sinon.spy(list, 'clearData');
+                const data = [1];
                 list.fetchMethod = () => Observable.create((observer: any) => {
                     setTimeout(() => {
                         observer.next(data);
@@ -378,8 +378,8 @@ describe('List', () => {
                 expect(clearSpy.called).true;
             });
             it('calls pager.processResponse with returned response object', () => {
-                let processSpy = sinon.spy(list.pager, 'processResponse');
-                let response = { totalCount: 10, loadedCount: 5, items: [1, 2, 3, 4, 5] };
+                const processSpy = sinon.spy(list.pager, 'processResponse');
+                const response = { totalCount: 10, loadedCount: 5, items: [1, 2, 3, 4, 5] };
                 list.fetchMethod = () => Observable.create((observer: any) => {
                     setTimeout(() => {
                         observer.next(response);
@@ -393,8 +393,8 @@ describe('List', () => {
                 expect(processSpy.calledWith(response)).true;
             });
             it('calls pager.processResponse with constructed response if simple array was returned as response', () => {
-                let processSpy = sinon.spy(list.pager, 'processResponse');
-                let response = [1, 2, 3, 4, 5];
+                const processSpy = sinon.spy(list.pager, 'processResponse');
+                const response = [1, 2, 3, 4, 5];
                 list.fetchMethod = () => Observable.create((observer: any) => {
                     setTimeout(() => {
                         observer.next(response);

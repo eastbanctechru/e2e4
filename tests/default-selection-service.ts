@@ -37,7 +37,7 @@ describe('SelectionService', () => {
     describe('can work without \'selected\' property', () => {
         it('returns empty array if nothing is selected', () => {
             const items = [1, 2, 3, 4, 5];
-            let selectionService = new DefaultSelectionService();
+            const selectionService = new DefaultSelectionService();
             selectionService.items = items;
             expect(selectionService.getSelectedElements()).eql([]);
             selectionService.selectAll();
@@ -527,7 +527,7 @@ describe('SelectionService', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
             target.selectionService.items = target.items;
-            let spy = sinon.spy(target.selectionService, 'isRangeSelected');
+            const spy = sinon.spy(target.selectionService, 'isRangeSelected');
             target.selectionService.selectRange(0, 1);
             target.selectionService.selectRange(0, 1);
             expect(spy.calledTwice).eq(true);

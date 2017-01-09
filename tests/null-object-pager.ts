@@ -13,29 +13,29 @@ function toResponseObject(): ListResponse<any> {
 describe('NullObjectPager', () => {
 
     it('created with good state', () => {
-        let pager = new NullObjectPager();
+        const pager = new NullObjectPager();
         expect(pager.totalCount).eq(0);
         expect(pager.loadedCount).eq(0);
     });
 
     it('process response values', () => {
-        let pager = new NullObjectPager();
-        let response = toResponseObject();
+        const pager = new NullObjectPager();
+        const response = toResponseObject();
         pager.processResponse(response);
         expect(pager.totalCount).eq(response.totalCount);
         expect(pager.loadedCount).eq(response.loadedCount);
     });
 
     it('process incorrect totalCount as 0', () => {
-        let pager = new NullObjectPager();
-        let response = toResponseObject();
+        const pager = new NullObjectPager();
+        const response = toResponseObject();
         response.totalCount = null;
         pager.processResponse(response);
         expect(pager.totalCount).eq(0);
     });
     it('can calculate loadedCount from items array', () => {
-        let pager = new NullObjectPager();
-        let response = toResponseObject();
+        const pager = new NullObjectPager();
+        const response = toResponseObject();
         response.loadedCount = null;
         response.totalCount = 20;
         pager.processResponse(response);
@@ -43,8 +43,8 @@ describe('NullObjectPager', () => {
     });
 
     it('sets loadedCount to 0 if it not specified in response and items array is empty', () => {
-        let pager = new NullObjectPager();
-        let response = toResponseObject();
+        const pager = new NullObjectPager();
+        const response = toResponseObject();
         response.loadedCount = null;
         response.items.length = 0;
         pager.processResponse(response);
@@ -52,8 +52,8 @@ describe('NullObjectPager', () => {
     });
 
     it('resets contract properties', () => {
-        let pager = new NullObjectPager();
-        let response = toResponseObject();
+        const pager = new NullObjectPager();
+        const response = toResponseObject();
         pager.processResponse(response);
         pager.reset();
         expect(pager.totalCount).eq(0);

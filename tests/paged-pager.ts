@@ -15,7 +15,7 @@ function toResponseObject(): ListResponse<any> {
 describe('PagedPager', () => {
     describe('ctor', () => {
         it('created with good state', () => {
-            let pager = new PagedPager();
+            const pager = new PagedPager();
             expect(pager.totalCount).eq(0);
             expect(pager.loadedCount).eq(0);
             expect(pager.pageNumber).eq(1);
@@ -28,8 +28,8 @@ describe('PagedPager', () => {
 
     describe('response processing', () => {
         it('process response values', () => {
-            let pager = new PagedPager();
-            let response = toResponseObject();
+            const pager = new PagedPager();
+            const response = toResponseObject();
             pager.processResponse(response);
 
             expect(pager.totalCount).eq(response.totalCount);
@@ -37,32 +37,32 @@ describe('PagedPager', () => {
         });
 
         it('process incorrect totalCount as 0', () => {
-            let pager = new PagedPager();
-            let response = toResponseObject();
+            const pager = new PagedPager();
+            const response = toResponseObject();
             response.totalCount = null;
             pager.processResponse(response);
             expect(pager.totalCount).eq(0);
         });
 
         it('can calculate loadedCount from items array', () => {
-            let pager = new PagedPager();
-            let response = toResponseObject();
+            const pager = new PagedPager();
+            const response = toResponseObject();
             response.loadedCount = null;
             response.totalCount = 20;
             pager.processResponse(response);
             expect(pager.loadedCount).eq(response.items.length);
         });
         it('sets loadedCount to 0 if it not specified in response and items array is empty', () => {
-            let pager = new PagedPager();
-            let response = toResponseObject();
+            const pager = new PagedPager();
+            const response = toResponseObject();
             response.loadedCount = null;
             response.items.length = 0;
             pager.processResponse(response);
             expect(pager.loadedCount).eq(0);
         });
         it('calculates displayFrom and displayTo', () => {
-            let pager = new PagedPager();
-            let response = toResponseObject();
+            const pager = new PagedPager();
+            const response = toResponseObject();
             response.loadedCount = 20;
             response.totalCount = 35;
             pager.processResponse(response);
@@ -77,8 +77,8 @@ describe('PagedPager', () => {
         });
 
         it('resets contract properties', () => {
-            let pager = new PagedPager();
-            let response = toResponseObject();
+            const pager = new PagedPager();
+            const response = toResponseObject();
             pager.processResponse(response);
             pager.reset();
             expect(pager.totalCount).eq(0);
@@ -88,8 +88,8 @@ describe('PagedPager', () => {
     });
     describe('as filter target', () => {
         it('maps pageNumber to skip param on building request', () => {
-            let pager = new PagedPager();
-            let filtersService = new FiltersService(pager);
+            const pager = new PagedPager();
+            const filtersService = new FiltersService(pager);
             let result = filtersService.getRequestState();
             expect(result.skip).eq(0);
             pager.totalCount = 100;
@@ -98,17 +98,17 @@ describe('PagedPager', () => {
             expect(result.skip).eq(pager.pageSize);
         });
         it('maps pageSize to take param on building request', () => {
-            let pager = new PagedPager();
-            let filtersService = new FiltersService(pager);
-            let result = filtersService.getRequestState();
+            const pager = new PagedPager();
+            const filtersService = new FiltersService(pager);
+            const result = filtersService.getRequestState();
             expect(result.take).eq(pager.pageSize);
         });
         it('parse skip param to pageNumber', () => {
-            let pager = new PagedPager();
-            let filtersService = new FiltersService(pager);
+            const pager = new PagedPager();
+            const filtersService = new FiltersService(pager);
 
             expect(pager.pageNumber).eq(1);
-            let params = {
+            const params = {
                 skip: 50,
                 take: 10
             };
@@ -116,11 +116,11 @@ describe('PagedPager', () => {
             expect(pager.pageNumber).eq(6);
         });
         it('parse pageNumber as 1 if skip param is invalid', () => {
-            let pager = new PagedPager();
-            let filtersService = new FiltersService(pager);
+            const pager = new PagedPager();
+            const filtersService = new FiltersService(pager);
 
             expect(pager.pageNumber).eq(1);
-            let params: any = {
+            const params: any = {
                 skip: null,
                 take: 10
             };
@@ -131,11 +131,11 @@ describe('PagedPager', () => {
             expect(pager.pageNumber).eq(1);
         });
         it('doesn\'t round pageNumber (if skip % take!=0 then 1)', () => {
-            let pager = new PagedPager();
-            let filtersService = new FiltersService(pager);
+            const pager = new PagedPager();
+            const filtersService = new FiltersService(pager);
 
             expect(pager.pageNumber).eq(1);
-            let params = {
+            const params = {
                 skip: 7,
                 take: 10
             };
@@ -143,11 +143,11 @@ describe('PagedPager', () => {
             expect(pager.pageNumber).eq(1);
         });
         it('parse pageSize as defaultPageSize if take param is invalid', () => {
-            let pager = new PagedPager();
-            let filtersService = new FiltersService(pager);
+            const pager = new PagedPager();
+            const filtersService = new FiltersService(pager);
 
             expect(pager.pageNumber).eq(1);
-            let params: any = {
+            const params: any = {
                 skip: 20,
                 take: null
             };
@@ -158,11 +158,11 @@ describe('PagedPager', () => {
             expect(pager.pageSize).eq(pager.defaultPageSize);
         });
         it('parse pageSize from take param', () => {
-            let pager = new PagedPager();
-            let filtersService = new FiltersService(pager);
+            const pager = new PagedPager();
+            const filtersService = new FiltersService(pager);
 
             expect(pager.pageNumber).eq(1);
-            let params = {
+            const params = {
                 skip: 50,
                 take: 10
             };
@@ -171,8 +171,8 @@ describe('PagedPager', () => {
         });
 
         it('sets pageSize to defaultPageSize on reset', () => {
-            let pager = new PagedPager();
-            let filtersService = new FiltersService(pager);
+            const pager = new PagedPager();
+            const filtersService = new FiltersService(pager);
             pager.pageSize = 40;
             expect(pager.pageSize).eq(40);
             filtersService.resetValues();
@@ -180,8 +180,8 @@ describe('PagedPager', () => {
         });
 
         it('can have own defaultPageSize', () => {
-            let pager = new PagedPager();
-            let filtersService = new FiltersService(pager);
+            const pager = new PagedPager();
+            const filtersService = new FiltersService(pager);
             pager.defaultPageSize = 5;
             filtersService.resetValues();
             expect(pager.pageSize).eq(5);
@@ -191,7 +191,7 @@ describe('PagedPager', () => {
     describe('internal state', () => {
         describe('pageSize', () => {
             it('sets pageNumber to defaultPageSize on invalid', () => {
-                let pager = new PagedPager();
+                const pager = new PagedPager();
                 pager.pageSize = null;
                 expect(pager.pageSize).eq(pager.defaultPageSize);
                 pager.pageSize = undefined;
@@ -200,13 +200,13 @@ describe('PagedPager', () => {
                 expect(pager.pageSize).eq(pager.defaultPageSize);
             });
             it('sets pageSize to maxPageSize when try to set bigger value', () => {
-                let pager = new PagedPager();
+                const pager = new PagedPager();
                 pager.pageSize = PagedPager.settings.maxPageSize + 100;
                 expect(pager.pageSize).eq(PagedPager.settings.maxPageSize);
             });
 
             it('can have own maxPageSize', () => {
-                let pager = new PagedPager();
+                const pager = new PagedPager();
                 pager.maxPageSize = PagedPager.settings.maxPageSize + 100;
                 pager.pageSize = pager.maxPageSize + 100;
                 expect(pager.pageSize).eq(pager.maxPageSize);
@@ -214,13 +214,13 @@ describe('PagedPager', () => {
             });
 
             it('sets pageSize to defaultPageSize when try to set value less then minPageSize', () => {
-                let pager = new PagedPager();
+                const pager = new PagedPager();
                 pager.pageSize = PagedPager.settings.minPageSize - 1;
                 expect(pager.pageSize).eq(pager.defaultPageSize);
             });
 
             it('can have own minPageSize', () => {
-                let pager = new PagedPager();
+                const pager = new PagedPager();
                 pager.minPageSize = PagedPager.settings.minPageSize + 10;
                 pager.pageSize = pager.minPageSize - 10;
                 expect(pager.pageSize).eq(pager.defaultPageSize);
@@ -228,24 +228,24 @@ describe('PagedPager', () => {
             });
 
             it('sets pageSize to totalCount when try to set value greater then totalCount', () => {
-                let response = toResponseObject();
-                let pager = new PagedPager();
+                const response = toResponseObject();
+                const pager = new PagedPager();
                 pager.processResponse(response);
                 pager.pageSize = response.totalCount + 1;
                 expect(pager.pageSize).eq(response.totalCount);
             });
 
             it('sets pageSize to specified value when totalCount is not zero', () => {
-                let response = toResponseObject();
-                let pager = new PagedPager();
+                const response = toResponseObject();
+                const pager = new PagedPager();
                 pager.processResponse(response);
                 pager.pageSize = response.totalCount - 1;
                 expect(pager.pageSize).eq(response.totalCount - 1);
             });
 
             it('sets pageSize to maximum possible for current pageNumber', () => {
-                let response = toResponseObject();
-                let pager = new PagedPager();
+                const response = toResponseObject();
+                const pager = new PagedPager();
                 pager.processResponse(response);
 
                 pager.pageNumber = response.totalCount / response.loadedCount;
@@ -255,8 +255,8 @@ describe('PagedPager', () => {
             });
 
             it('sets pageSize to maximum possible for current pageNumber and not bigger then maxPageSize', () => {
-                let response = toResponseObject();
-                let pager = new PagedPager();
+                const response = toResponseObject();
+                const pager = new PagedPager();
                 pager.processResponse(response);
                 pager.maxPageSize = response.loadedCount / 2;
                 pager.pageNumber = response.totalCount / response.loadedCount;
@@ -267,8 +267,8 @@ describe('PagedPager', () => {
         describe('Pages navigation', () => {
             describe('tryMoveToFirstPage', () => {
                 it('Goes to first page', () => {
-                    let pager = new PagedPager();
-                    let response = toResponseObject();
+                    const pager = new PagedPager();
+                    const response = toResponseObject();
                     pager.processResponse(response);
 
                     pager.pageNumber = pager.pageCount;
@@ -279,8 +279,8 @@ describe('PagedPager', () => {
                 });
 
                 it('Doesn\'t go to first page if it\'s already first', () => {
-                    let pager = new PagedPager();
-                    let response = toResponseObject();
+                    const pager = new PagedPager();
+                    const response = toResponseObject();
                     pager.processResponse(response);
 
                     expect(pager.pageNumber).eq(1);
@@ -291,8 +291,8 @@ describe('PagedPager', () => {
             });
             describe('tryMoveToPreviousPage', () => {
                 it('Goes to previous page', () => {
-                    let pager = new PagedPager();
-                    let response = toResponseObject();
+                    const pager = new PagedPager();
+                    const response = toResponseObject();
                     pager.processResponse(response);
 
                     pager.pageNumber = pager.pageCount;
@@ -303,8 +303,8 @@ describe('PagedPager', () => {
                 });
 
                 it('Doesn\'t go to previous page if it\'s already first', () => {
-                    let pager = new PagedPager();
-                    let response = toResponseObject();
+                    const pager = new PagedPager();
+                    const response = toResponseObject();
                     pager.processResponse(response);
 
                     expect(pager.pageNumber).eq(1);
@@ -315,8 +315,8 @@ describe('PagedPager', () => {
             });
             describe('tryMoveToLastPage', () => {
                 it('Goes to last page', () => {
-                    let pager = new PagedPager();
-                    let response = toResponseObject();
+                    const pager = new PagedPager();
+                    const response = toResponseObject();
                     pager.processResponse(response);
                     expect(pager.pageNumber).eq(1);
 
@@ -327,8 +327,8 @@ describe('PagedPager', () => {
                 });
 
                 it('Doesn\'t go to last page if it\'s already last', () => {
-                    let pager = new PagedPager();
-                    let response = toResponseObject();
+                    const pager = new PagedPager();
+                    const response = toResponseObject();
                     pager.processResponse(response);
                     pager.pageNumber = pager.pageCount;
                     expect(pager.pageNumber).eq(pager.pageCount);
@@ -340,8 +340,8 @@ describe('PagedPager', () => {
             });
             describe('tryMoveToNextPage', () => {
                 it('Goes to next page', () => {
-                    let pager = new PagedPager();
-                    let response = toResponseObject();
+                    const pager = new PagedPager();
+                    const response = toResponseObject();
                     pager.processResponse(response);
                     expect(pager.pageNumber).eq(1);
 
@@ -352,8 +352,8 @@ describe('PagedPager', () => {
                 });
 
                 it('Doesn\'t go to next page if it\'s already last page', () => {
-                    let pager = new PagedPager();
-                    let response = toResponseObject();
+                    const pager = new PagedPager();
+                    const response = toResponseObject();
                     pager.processResponse(response);
                     pager.pageNumber = pager.pageCount;
                     expect(pager.pageNumber).eq(pager.pageCount);
@@ -365,21 +365,21 @@ describe('PagedPager', () => {
             });
             describe('canMoveBackward', () => {
                 it('returns false if pageCount is 0', () => {
-                    let pager = new PagedPager();
+                    const pager = new PagedPager();
                     expect(pager.pageCount).eq(0);
                     expect(pager.canMoveBackward).false;
                 });
                 it('returns false if pager is on the first page', () => {
-                    let pager = new PagedPager();
-                    let response = toResponseObject();
+                    const pager = new PagedPager();
+                    const response = toResponseObject();
                     pager.processResponse(response);
                     expect(pager.pageNumber).eq(1);
                     expect(pager.canMoveBackward).false;
                 });
 
                 it('returns true if pager is not on the first page', () => {
-                    let pager = new PagedPager();
-                    let response = toResponseObject();
+                    const pager = new PagedPager();
+                    const response = toResponseObject();
                     pager.processResponse(response);
                     pager.pageNumber = 2;
                     expect(pager.canMoveBackward).true;
@@ -387,21 +387,21 @@ describe('PagedPager', () => {
             });
             describe('canMoveForward', () => {
                 it('returns false if pageCount is 0', () => {
-                    let pager = new PagedPager();
+                    const pager = new PagedPager();
                     expect(pager.pageCount).eq(0);
                     expect(pager.canMoveForward).false;
                 });
                 it('returns false if pager is not on the last page', () => {
-                    let pager = new PagedPager();
-                    let response = toResponseObject();
+                    const pager = new PagedPager();
+                    const response = toResponseObject();
                     pager.processResponse(response);
                     pager.tryMoveToLastPage();
                     expect(pager.canMoveForward).false;
                 });
 
                 it('returns true if pager is not on the last page', () => {
-                    let pager = new PagedPager();
-                    let response = toResponseObject();
+                    const pager = new PagedPager();
+                    const response = toResponseObject();
                     pager.processResponse(response);
                     expect(pager.canMoveForward).true;
                 });
@@ -409,7 +409,7 @@ describe('PagedPager', () => {
         });
         describe('pageNumber', () => {
             it('sets pageNumber to 1 on invalid', () => {
-                let pager = new PagedPager();
+                const pager = new PagedPager();
                 pager.pageNumber = null;
                 expect(pager.pageNumber).eq(1);
                 pager.pageNumber = undefined;
@@ -419,15 +419,15 @@ describe('PagedPager', () => {
             });
 
             it('sets pageNumber to 1 if invalid', () => {
-                let pager = new PagedPager();
+                const pager = new PagedPager();
                 pager.pageNumber = null;
                 expect(pager.pageNumber).eq(1);
                 pager.pageNumber = undefined;
                 expect(pager.pageNumber).eq(1);
             });
             it('sets pageNumber no bigger then pageCount', () => {
-                let pager = new PagedPager();
-                let response = toResponseObject();
+                const pager = new PagedPager();
+                const response = toResponseObject();
                 pager.processResponse(response);
                 pager.pageNumber = pager.pageCount;
                 expect(pager.pageNumber).eq(pager.pageCount);
@@ -436,8 +436,8 @@ describe('PagedPager', () => {
             });
         });
         it('calculates pageCount as count/size', () => {
-            let pager = new PagedPager();
-            let response = toResponseObject();
+            const pager = new PagedPager();
+            const response = toResponseObject();
             pager.processResponse(response);
             expect(pager.pageCount).eq(Math.ceil(pager.totalCount / pager.pageSize));
         });

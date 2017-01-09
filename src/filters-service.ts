@@ -141,7 +141,7 @@ export class FiltersService {
      */
     public resetValues(): void {
         this.appliedFiltersMap.forEach((targetConfig: FilterConfig[], target: { [id: string]: any }) => {
-            for (let config of targetConfig) {
+            for (const config of targetConfig) {
                 const defaultValue = (typeof config.defaultValue === 'function') ? (config.defaultValue as Function).call(target) : config.defaultValue;
                 const clonedObject = cloneAsLiteral({ defaultValue });
                 target[config.propertyName] = config.parseFormatter ? config.parseFormatter.call(target, clonedObject.defaultValue) : clonedObject.defaultValue;
@@ -158,7 +158,7 @@ export class FiltersService {
      */
     public applyParams(params: { [id: string]: any }): void {
         this.appliedFiltersMap.forEach((targetConfig: FilterConfig[], target: { [id: string]: any }) => {
-            for (let config of targetConfig) {
+            for (const config of targetConfig) {
                 if (params && params.hasOwnProperty(config.parameterName) && false === config.ignoreOnAutoMap) {
                     let proposedVal = config.emptyIsNull ? params[config.parameterName] || null : params[config.parameterName];
                     proposedVal = config.coerce ? coerceValue(proposedVal) : proposedVal;
@@ -177,7 +177,7 @@ export class FiltersService {
      * @returns resulted object literal.
      */
     public getRequestState(filterFn?: (config: FilterConfig, proposedValue: any, targetObject: Object) => boolean): any {
-        let result: { [id: string]: any } = {};
+        const result: { [id: string]: any } = {};
         this.appliedFiltersMap.forEach((targetConfig: FilterConfig[], target: { [id: string]: any }) => {
             for (let config of targetConfig) {
                 config = Object.assign({}, config);
@@ -236,7 +236,7 @@ export class FiltersService {
         FiltersService.filterPropertiesMap.forEach((typeConfig: FilterConfig[], type: any) => {
             if (target instanceof type) {
                 targetConfig = targetConfig.concat(typeConfig);
-                for (let config of targetConfig) {
+                for (const config of targetConfig) {
                     if (config.defaultValue === undefined) {
                         config.defaultValue = cloneAsLiteral({ defaultValue: target[config.propertyName] }).defaultValue;
                     }

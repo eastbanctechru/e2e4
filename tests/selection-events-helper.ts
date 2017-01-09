@@ -11,7 +11,7 @@ const notPressedCtrl = false;
 const pressedCtrl = true;
 
 function toSelectionService(): DefaultSelectionService {
-    let selectionService = new DefaultSelectionService();
+    const selectionService = new DefaultSelectionService();
     selectionService.items = [
         { selected: false, title: 'one' } as SelectionItem,
         { selected: false, title: 'two' } as SelectionItem,
@@ -24,7 +24,7 @@ function toSelectionService(): DefaultSelectionService {
 }
 
 function toDefaultSelectionHelper(): SelectionEventsHelper {
-    let helper = new SelectionEventsHelper(toSelectionService());
+    const helper = new SelectionEventsHelper(toSelectionService());
     helper.horizontal = false;
     helper.multiple = true;
     helper.toggleOnly = false;
@@ -34,27 +34,27 @@ function toDefaultSelectionHelper(): SelectionEventsHelper {
 describe('SelectionEventsHelper', () => {
     describe('keyboard', () => {
         it('calls trySelectNextItem for Tab key', () => {
-            let helper = toDefaultSelectionHelper();
-            let trySelectNextItemSpy = sinon.spy(helper, 'trySelectNextItem');
+            const helper = toDefaultSelectionHelper();
+            const trySelectNextItemSpy = sinon.spy(helper, 'trySelectNextItem');
             helper.keyboardHandler(notPressedCtrl, notPressedShift, KeyCodes.Tab);
             expect(trySelectNextItemSpy.calledOnce).true;
         });
         it('calls trySelectPreviousItem for Shift+Tab key', () => {
-            let helper = toDefaultSelectionHelper();
-            let trySelectPreviousItemSpy = sinon.spy(helper, 'trySelectPreviousItem');
+            const helper = toDefaultSelectionHelper();
+            const trySelectPreviousItemSpy = sinon.spy(helper, 'trySelectPreviousItem');
             helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.Tab);
             expect(trySelectPreviousItemSpy.calledOnce).true;
         });
         it('skips handling of Ctrl+Tab key', () => {
-            let helper = toDefaultSelectionHelper();
+            const helper = toDefaultSelectionHelper();
             let handled = helper.keyboardHandler(pressedCtrl, pressedShift, KeyCodes.Tab);
             expect(handled).false;
             handled = helper.keyboardHandler(pressedCtrl, notPressedShift, KeyCodes.Tab);
             expect(handled).false;
         });
         it('selects all items on exact Ctrl+A combination', () => {
-            let helper = toDefaultSelectionHelper();
-            let selectAllSpy = sinon.spy(helper.selectionService, 'selectAll');
+            const helper = toDefaultSelectionHelper();
+            const selectAllSpy = sinon.spy(helper.selectionService, 'selectAll');
             helper.keyboardHandler(pressedCtrl, pressedShift, KeyCodes.Enter);
             expect(selectAllSpy.notCalled).true;
 
@@ -68,9 +68,9 @@ describe('SelectionEventsHelper', () => {
             expect(selectAllSpy.calledOnce).true;
         });
         it('Doesn\'t handle Ctrl+A combination if multiple is false', () => {
-            let helper = toDefaultSelectionHelper();
+            const helper = toDefaultSelectionHelper();
             helper.multiple = false;
-            let trySelectAllSpy = sinon.spy(helper, 'trySelectAll');
+            const trySelectAllSpy = sinon.spy(helper, 'trySelectAll');
             helper.keyboardHandler(pressedCtrl, notPressedShift, KeyCodes.A);
             expect(trySelectAllSpy.calledOnce).true;
             expect(trySelectAllSpy.returnValues[0]).false;
@@ -79,8 +79,8 @@ describe('SelectionEventsHelper', () => {
 
         describe('horizontal behavior', () => {
             it('calls onPreviousKey for ArrowUp or horizontal and ArrowLeft', () => {
-                let helper = toDefaultSelectionHelper();
-                let onPreviousKeySpy = sinon.spy(helper, 'onPreviousKey');
+                const helper = toDefaultSelectionHelper();
+                const onPreviousKeySpy = sinon.spy(helper, 'onPreviousKey');
 
                 helper.keyboardHandler(notPressedCtrl, notPressedShift, KeyCodes.ArrowUp);
                 expect(onPreviousKeySpy.called).true;
@@ -97,8 +97,8 @@ describe('SelectionEventsHelper', () => {
                 expect(onPreviousKeySpy.called).true;
             });
             it('calls onNextKey for ArrowDown or horizontal and ArrowRight', () => {
-                let helper = toDefaultSelectionHelper();
-                let onNextKeySpy = sinon.spy(helper, 'onNextKey');
+                const helper = toDefaultSelectionHelper();
+                const onNextKeySpy = sinon.spy(helper, 'onNextKey');
 
                 helper.keyboardHandler(notPressedCtrl, notPressedShift, KeyCodes.ArrowDown);
                 expect(onNextKeySpy.called).true;
@@ -117,31 +117,31 @@ describe('SelectionEventsHelper', () => {
         });
         describe('onPreviousKey', () => {
             it('selects first item on previous key when nothing\'s selected', () => {
-                let helper = toDefaultSelectionHelper();
+                const helper = toDefaultSelectionHelper();
 
                 helper.selectionService.deselectAll();
 
-                let selectAllSpy = sinon.spy(helper.selectionService, 'selectFirst');
+                const selectAllSpy = sinon.spy(helper.selectionService, 'selectFirst');
 
                 helper.keyboardHandler(notPressedCtrl, notPressedShift, KeyCodes.ArrowUp);
                 expect(selectAllSpy.calledOnce).true;
             });
 
             it('selects first item on Ctrl+ArrowUp combination', () => {
-                let helper = toDefaultSelectionHelper();
+                const helper = toDefaultSelectionHelper();
 
                 helper.selectionService.selectLast();
 
-                let selectAllSpy = sinon.spy(helper.selectionService, 'selectFirst');
+                const selectAllSpy = sinon.spy(helper.selectionService, 'selectFirst');
                 helper.keyboardHandler(pressedCtrl, notPressedShift, KeyCodes.ArrowUp);
                 expect(selectAllSpy.calledOnce).true;
             });
 
             it('selects up to first item on Ctrl+Shift+ArrowUp combination', () => {
-                let helper = toDefaultSelectionHelper();
+                const helper = toDefaultSelectionHelper();
                 helper.selectionService.selectLast();
 
-                let selectAllSpy = sinon.spy(helper.selectionService, 'selectRange');
+                const selectAllSpy = sinon.spy(helper.selectionService, 'selectRange');
                 helper.keyboardHandler(pressedCtrl, pressedShift, KeyCodes.ArrowUp);
                 expect(selectAllSpy.calledOnce).true;
                 expect(selectAllSpy.calledWith(helper.selectionService.items.length - 1, 0)).true;
@@ -154,18 +154,18 @@ describe('SelectionEventsHelper', () => {
             });
 
             it('selects two items on Shift+ArrowUp combination when last operation is unselection of item', () => {
-                let helper = toDefaultSelectionHelper();
+                const helper = toDefaultSelectionHelper();
 
                 helper.selectionService.selectIndex(2);
                 helper.selectionService.deselectIndex(2);
 
-                let selectAllSpy = sinon.spy(helper.selectionService, 'selectRange');
+                const selectAllSpy = sinon.spy(helper.selectionService, 'selectRange');
                 helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowUp);
                 expect(selectAllSpy.calledOnce).true;
                 expect(selectAllSpy.calledWith(2, 1)).true;
             });
             it('resets previous selections on Shift+ArrowUp combination when last operation is unselection of item', () => {
-                let helper = toDefaultSelectionHelper();
+                const helper = toDefaultSelectionHelper();
 
                 helper.selectionService.selectAll();
                 helper.selectionService.deselectIndex(2);
@@ -174,7 +174,7 @@ describe('SelectionEventsHelper', () => {
                 expect(helper.selectionService.getSelectedIndexes()).eql([1, 2]);
             });
             it('deselects last selected item in range and sets last processed index to previous item', () => {
-                let helper = toDefaultSelectionHelper();
+                const helper = toDefaultSelectionHelper();
 
                 helper.selectionService.selectIndex(2);
                 helper.selectionService.selectIndex(3, true);
@@ -184,7 +184,7 @@ describe('SelectionEventsHelper', () => {
                 expect(helper.selectionService.lastProcessedIndex).eql(2);
             });
             it('moves to previous item on ArrowUp when not first item selected', () => {
-                let helper = toDefaultSelectionHelper();
+                const helper = toDefaultSelectionHelper();
 
                 helper.selectionService.selectIndex(3);
                 expect(helper.selectionService.getSelectedIndexes()).eql([3]);
@@ -194,7 +194,7 @@ describe('SelectionEventsHelper', () => {
                 expect(helper.selectionService.getSelectedIndexes()).eql([1]);
             });
             it('moves to previous item and save on Shift+ArrowUp when not first item selected', () => {
-                let helper = toDefaultSelectionHelper();
+                const helper = toDefaultSelectionHelper();
 
                 helper.selectionService.selectIndex(3);
                 expect(helper.selectionService.getSelectedIndexes()).eql([3]);
@@ -204,7 +204,7 @@ describe('SelectionEventsHelper', () => {
                 expect(helper.selectionService.getSelectedIndexes()).eql([3, 2, 1]);
             });
             it('don\'t do anything when first index selected', () => {
-                let helper = toDefaultSelectionHelper();
+                const helper = toDefaultSelectionHelper();
 
                 helper.selectionService.selectFirst();
                 helper.keyboardHandler(pressedCtrl, pressedShift, KeyCodes.ArrowUp);
@@ -227,31 +227,31 @@ describe('SelectionEventsHelper', () => {
 
         describe('onNextKey', () => {
             it('selects first item on ArrowDown when nothings selected', () => {
-                let helper = toDefaultSelectionHelper();
+                const helper = toDefaultSelectionHelper();
 
                 helper.selectionService.deselectAll();
 
-                let selectAllSpy = sinon.spy(helper.selectionService, 'selectFirst');
+                const selectAllSpy = sinon.spy(helper.selectionService, 'selectFirst');
                 helper.keyboardHandler(notPressedCtrl, notPressedShift, KeyCodes.ArrowDown);
                 expect(selectAllSpy.calledOnce).true;
             });
 
             it('selects last item on Ctrl+ArrowDown combination', () => {
-                let helper = toDefaultSelectionHelper();
+                const helper = toDefaultSelectionHelper();
 
                 helper.selectionService.selectLast();
 
-                let selectAllSpy = sinon.spy(helper.selectionService, 'selectLast');
+                const selectAllSpy = sinon.spy(helper.selectionService, 'selectLast');
                 helper.keyboardHandler(pressedCtrl, notPressedShift, KeyCodes.ArrowDown);
                 expect(selectAllSpy.calledOnce).true;
             });
 
             it('selects up to last item on Ctrl+Shift+ArrowDown combination', () => {
-                let helper = toDefaultSelectionHelper();
+                const helper = toDefaultSelectionHelper();
 
                 helper.selectionService.selectFirst();
 
-                let selectAllSpy = sinon.spy(helper.selectionService, 'selectRange');
+                const selectAllSpy = sinon.spy(helper.selectionService, 'selectRange');
                 helper.keyboardHandler(pressedCtrl, pressedShift, KeyCodes.ArrowDown);
                 expect(selectAllSpy.calledOnce).true;
                 expect(selectAllSpy.calledWith(0, helper.selectionService.items.length - 1)).true;
@@ -264,18 +264,18 @@ describe('SelectionEventsHelper', () => {
             });
 
             it('selects two items on Shift+ArrowDown combination when last operation is unselection of item', () => {
-                let helper = toDefaultSelectionHelper();
+                const helper = toDefaultSelectionHelper();
 
                 helper.selectionService.selectIndex(2);
                 helper.selectionService.deselectIndex(2);
 
-                let selectAllSpy = sinon.spy(helper.selectionService, 'selectRange');
+                const selectAllSpy = sinon.spy(helper.selectionService, 'selectRange');
                 helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.ArrowDown);
                 expect(selectAllSpy.calledOnce).true;
                 expect(selectAllSpy.calledWith(2, 3)).true;
             });
             it('resets previous selections on Shift+ArrowDown combination when last operation is unselection of item', () => {
-                let helper = toDefaultSelectionHelper();
+                const helper = toDefaultSelectionHelper();
 
                 helper.selectionService.selectAll();
                 helper.selectionService.deselectIndex(2);
@@ -284,7 +284,7 @@ describe('SelectionEventsHelper', () => {
                 expect(helper.selectionService.getSelectedIndexes()).eql([2, 3]);
             });
             it('deselects last selected item in range and sets last processed index to previous item', () => {
-                let helper = toDefaultSelectionHelper();
+                const helper = toDefaultSelectionHelper();
 
                 helper.selectionService.selectIndex(3);
                 helper.selectionService.selectIndex(2, true);
@@ -294,7 +294,7 @@ describe('SelectionEventsHelper', () => {
                 expect(helper.selectionService.lastProcessedIndex).eql(3);
             });
             it('moves to next item on ArrowDown when not last item selected', () => {
-                let helper = toDefaultSelectionHelper();
+                const helper = toDefaultSelectionHelper();
 
                 helper.selectionService.selectIndex(1);
                 expect(helper.selectionService.getSelectedIndexes()).eql([1]);
@@ -305,7 +305,7 @@ describe('SelectionEventsHelper', () => {
             });
             it('moves to next item and save on Shift+ArrowDown when not last item selected', () => {
 
-                let helper = toDefaultSelectionHelper();
+                const helper = toDefaultSelectionHelper();
 
                 helper.selectionService.selectIndex(1);
                 expect(helper.selectionService.getSelectedIndexes()).eql([1]);
@@ -315,10 +315,10 @@ describe('SelectionEventsHelper', () => {
                 expect(helper.selectionService.getSelectedIndexes()).eql([1, 2, 3]);
             });
             it('don\'t do anything when last index selected', () => {
-                let helper = toDefaultSelectionHelper();
+                const helper = toDefaultSelectionHelper();
 
                 helper.selectionService.selectLast();
-                let lastIndex = helper.selectionService.lastProcessedIndex;
+                const lastIndex = helper.selectionService.lastProcessedIndex;
 
                 helper.keyboardHandler(pressedCtrl, pressedShift, KeyCodes.ArrowDown);
                 expect(helper.selectionService.getSelectedIndexes()).eql([lastIndex]);
@@ -339,10 +339,10 @@ describe('SelectionEventsHelper', () => {
         });
         describe('allowMultipleSelection setted to false', () => {
             it('selects previous item on Ctrl?+Shift+ArrowUp combination and allowMultipleSelection setted to false', () => {
-                let helper = toDefaultSelectionHelper();
+                const helper = toDefaultSelectionHelper();
                 helper.multiple = false;
                 helper.selectionService.selectLast();
-                let lastItemIndex = helper.selectionService.items.length - 1;
+                const lastItemIndex = helper.selectionService.items.length - 1;
                 expect(helper.selectionService.getSelectedIndexes()).eql([lastItemIndex]);
                 helper.keyboardHandler(pressedCtrl, pressedShift, KeyCodes.ArrowUp);
                 expect(helper.selectionService.getSelectedIndexes()).eql([lastItemIndex - 1]);
@@ -352,10 +352,10 @@ describe('SelectionEventsHelper', () => {
             });
 
             it('selects up to last item on Ctrl+Shift+ArrowDown combination', () => {
-                let helper = toDefaultSelectionHelper();
+                const helper = toDefaultSelectionHelper();
                 helper.multiple = false;
                 helper.selectionService.selectFirst();
-                let firstItemIndex = 0;
+                const firstItemIndex = 0;
 
                 expect(helper.selectionService.getSelectedIndexes()).eql([firstItemIndex]);
                 helper.keyboardHandler(pressedCtrl, pressedShift, KeyCodes.ArrowDown);
@@ -366,7 +366,7 @@ describe('SelectionEventsHelper', () => {
             });
 
             it('moves to previous item on Shift+ArrowUp when not first item selected', () => {
-                let helper = toDefaultSelectionHelper();
+                const helper = toDefaultSelectionHelper();
                 helper.multiple = false;
                 helper.selectionService.selectIndex(3);
                 expect(helper.selectionService.getSelectedIndexes()).eql([3]);
@@ -377,7 +377,7 @@ describe('SelectionEventsHelper', () => {
             });
 
             it('moves to next item on Shift+ArrowDown when not last item selected', () => {
-                let helper = toDefaultSelectionHelper();
+                const helper = toDefaultSelectionHelper();
                 helper.multiple = false;
                 helper.selectionService.selectIndex(1);
                 expect(helper.selectionService.getSelectedIndexes()).eql([1]);
@@ -390,7 +390,7 @@ describe('SelectionEventsHelper', () => {
     });
     describe('mouse', () => {
         it('selects item on click', () => {
-            let helper = toDefaultSelectionHelper();
+            const helper = toDefaultSelectionHelper();
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
             expect(helper.selectionService.getSelectedIndexes()).eql([0]);
 
@@ -403,14 +403,14 @@ describe('SelectionEventsHelper', () => {
             expect(helper.selectionService.getSelectedIndexes()).eql([0]);
         });
         it('deselects already selected item on click', () => {
-            let helper = toDefaultSelectionHelper();
+            const helper = toDefaultSelectionHelper();
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
             expect(helper.selectionService.getSelectedIndexes()).eql([]);
         });
 
         it('add item to seletions on ctrl+click', () => {
-            let helper = toDefaultSelectionHelper();
+            const helper = toDefaultSelectionHelper();
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
             expect(helper.selectionService.getSelectedIndexes()).eql([0]);
             helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 3);
@@ -419,7 +419,7 @@ describe('SelectionEventsHelper', () => {
             expect(helper.selectionService.getSelectedIndexes()).eql([0, 3, 4]);
         });
         it('removes item from seletions on ctrl+click selected item', () => {
-            let helper = toDefaultSelectionHelper();
+            const helper = toDefaultSelectionHelper();
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
             helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 3);
             expect(helper.selectionService.getSelectedIndexes()).eql([0, 3]);
@@ -427,7 +427,7 @@ describe('SelectionEventsHelper', () => {
             expect(helper.selectionService.getSelectedIndexes()).eql([0]);
         });
         it('resets previous seletions on click item', () => {
-            let helper = toDefaultSelectionHelper();
+            const helper = toDefaultSelectionHelper();
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
             helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 3);
             helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 4);
@@ -436,7 +436,7 @@ describe('SelectionEventsHelper', () => {
             expect(helper.selectionService.getSelectedIndexes()).eql([2]);
         });
         it('resets previous seletions on click already selected item', () => {
-            let helper = toDefaultSelectionHelper();
+            const helper = toDefaultSelectionHelper();
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
             helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 3);
             helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 4);
@@ -445,13 +445,13 @@ describe('SelectionEventsHelper', () => {
             expect(helper.selectionService.getSelectedIndexes()).eql([0]);
         });
         it('select range of items on shift+click', () => {
-            let helper = toDefaultSelectionHelper();
+            const helper = toDefaultSelectionHelper();
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
             helper.mouseHandler(notPressedCtrl, pressedShift, MouseButtons.Left, 3);
             expect(helper.selectionService.getSelectedIndexes()).eql([0, 1, 2, 3]);
         });
         it('prevents deselection of selected item on non-left button click', () => {
-            let helper = toDefaultSelectionHelper();
+            const helper = toDefaultSelectionHelper();
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
             expect(helper.selectionService.getSelectedIndexes()).eql([0]);
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Right, 0);
@@ -459,7 +459,7 @@ describe('SelectionEventsHelper', () => {
         });
 
         it('saves selection on regular click when toggleOnly=true', () => {
-            let helper = toDefaultSelectionHelper();
+            const helper = toDefaultSelectionHelper();
             helper.toggleOnly = true;
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
             expect(helper.selectionService.getSelectedIndexes()).eql([0]);
@@ -469,7 +469,7 @@ describe('SelectionEventsHelper', () => {
             expect(helper.selectionService.getSelectedIndexes()).eql([0, 3, 1]);
         });
         it('doesn\'t reset previous seletions on click item with toggleOnly=true', () => {
-            let helper = toDefaultSelectionHelper();
+            const helper = toDefaultSelectionHelper();
             helper.toggleOnly = true;
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
             helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 3);
@@ -480,7 +480,7 @@ describe('SelectionEventsHelper', () => {
         });
 
         it('doesn\'t reset previous seletions on click already selected item with toggleOnly=true', () => {
-            let helper = toDefaultSelectionHelper();
+            const helper = toDefaultSelectionHelper();
             helper.toggleOnly = true;
             helper.mouseHandler(notPressedCtrl, notPressedShift, MouseButtons.Left, 0);
             helper.mouseHandler(pressedCtrl, notPressedShift, MouseButtons.Left, 3);

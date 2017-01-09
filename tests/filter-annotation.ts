@@ -32,8 +32,8 @@ describe('filterAnnotation', () => {
             @filter
             public requestProperty: string;
         }
-        let actualConfig = FiltersService.filterPropertiesMap.get(RequestObject)[0];
-        let expectedConfig = getDefaultFilterConfig('requestProperty');
+        const actualConfig = FiltersService.filterPropertiesMap.get(RequestObject)[0];
+        const expectedConfig = getDefaultFilterConfig('requestProperty');
         checkConfigsEquality(actualConfig, expectedConfig);
     });
 
@@ -42,8 +42,8 @@ describe('filterAnnotation', () => {
             @filter('changedName')
             public requestProperty: string;
         }
-        let actualConfig = FiltersService.filterPropertiesMap.get(RequestObject)[0];
-        let expectedConfig = getDefaultFilterConfig('requestProperty');
+        const actualConfig = FiltersService.filterPropertiesMap.get(RequestObject)[0];
+        const expectedConfig = getDefaultFilterConfig('requestProperty');
         expectedConfig.parameterName = 'changedName';
         checkConfigsEquality(actualConfig, expectedConfig);
     });
@@ -62,8 +62,8 @@ describe('filterAnnotation', () => {
             public requestProperty: string;
         }
 
-        let actualConfig = FiltersService.filterPropertiesMap.get(RequestObject)[0];
-        let expectedConfig = {
+        const actualConfig = FiltersService.filterPropertiesMap.get(RequestObject)[0];
+        const expectedConfig = {
             coerce: false,
             defaultValue: 1,
             emptyIsNull: true,
@@ -77,7 +77,7 @@ describe('filterAnnotation', () => {
     });
     it('overrides all properties on create', () => {
 
-        let config = getDefaultFilterConfig('propertyName');
+        const config = getDefaultFilterConfig('propertyName');
         config.coerce = !config.coerce;
         config.defaultValue = 'defaultValue';
         config.emptyIsNull = !config.emptyIsNull;
@@ -92,7 +92,7 @@ describe('filterAnnotation', () => {
             public requestProperty: string;
         }
 
-        let actualConfig = FiltersService.filterPropertiesMap.get(RequestObject)[0];
+        const actualConfig = FiltersService.filterPropertiesMap.get(RequestObject)[0];
         expect(config.coerce).eq(actualConfig.coerce);
         expect(config.defaultValue).eq(actualConfig.defaultValue);
         expect(config.emptyIsNull).eq(actualConfig.emptyIsNull);

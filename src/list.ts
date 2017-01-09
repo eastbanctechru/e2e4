@@ -72,7 +72,7 @@ export class List {
     constructor(protected asyncSubscriber: AsyncSubscriber, stateServices: StateService | StateService[], protected sortingsService: SortingsService, protected filtersService: FiltersService) {
         if (stateServices != null) {
             if (Array.isArray(stateServices)) {
-                this.stateServices.push(...<StateService[]>stateServices);
+                this.stateServices.push(...stateServices as StateService[]);
             } else {
                 this.stateServices.push(stateServices);
             }
@@ -87,7 +87,7 @@ export class List {
             return;
         }
         this.filtersService.registerFilterTarget(this.pager, this.sortingsService);
-        let restoredState = {};
+        const restoredState = {};
         Object.assign(restoredState, ...this.stateServices.map((service: StateService) => service.getState() || {}));
         this.filtersService.applyParams(restoredState);
         this.initedInternal = true;
@@ -110,7 +110,7 @@ export class List {
             return;
         }
         this.statusInternal = OperationStatus.Progress;
-        let requestState = this.filtersService.getRequestState();
+        const requestState = this.filtersService.getRequestState();
         const subscribable = this.fetchMethod(requestState);
         if (this.pager.appendedOnLoad === false) {
             destroyAll(this.items);

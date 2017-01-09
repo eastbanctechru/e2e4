@@ -97,7 +97,7 @@ describe('SortingsService', () => {
             expect(sortingsService.defaultSortings).not.equal(sortingsService.sortings);
             expect(sortingsService.defaultSortings).eql(sortingsService.sortings);
 
-            let filtersService = new FiltersService(sortingsService);
+            const filtersService = new FiltersService(sortingsService);
             sortingsService.setSort('name', doNotSavePrevious);
             filtersService.resetValues();
 
@@ -109,7 +109,7 @@ describe('SortingsService', () => {
             const {sortingsService} = target;
             sortingsService.setSort('field', false);
             const filtersService = new FiltersService(sortingsService);
-            let serviceState = filtersService.getRequestState();
+            const serviceState = filtersService.getRequestState();
             expect(serviceState).eql({
                 sortings: [{ direction: SortDirection.Asc, fieldName: 'field' }]
             });
@@ -193,16 +193,16 @@ describe('SortingsService', () => {
         it('parse invalid params object as empty array', () => {
             const target = toTarget();
             const {sortingsService} = target;
-            let filtersService = new FiltersService(sortingsService);
-            let params = { sortings: { direction: SortDirection.Desc, fieldName: 'id' } };
+            const filtersService = new FiltersService(sortingsService);
+            const params = { sortings: { direction: SortDirection.Desc, fieldName: 'id' } };
             filtersService.applyParams(params);
             expect(sortingsService.sortings.length).equal(0);
         });
         it('parse params object to correct sortings array', () => {
             const target = toTarget();
             const {sortingsService} = target;
-            let filtersService = new FiltersService(sortingsService);
-            let params = { sortings: [{ direction: SortDirection.Desc, fieldName: 'id' }, { direction: SortDirection.Desc, fieldName: 'name' }] };
+            const filtersService = new FiltersService(sortingsService);
+            const params = { sortings: [{ direction: SortDirection.Desc, fieldName: 'id' }, { direction: SortDirection.Desc, fieldName: 'name' }] };
             filtersService.applyParams(params);
             expect(sortingsService.sortings.length).equal(2);
             expect(sortingsService.sortings[0].fieldName).eql(params.sortings[0].fieldName);

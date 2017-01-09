@@ -102,7 +102,7 @@ export class SelectionEventsHelper {
             const minIndex = this.selectionService.getMinSelectedIndex();
             this.selectionService.selectRange(minIndex === -1 ? itemIndex : minIndex, itemIndex);
         } else {
-            let multiple = (ctrlKeyPressed || this.toggleOnly) && this.multiple;
+            const multiple = (ctrlKeyPressed || this.toggleOnly) && this.multiple;
             this.selectionService.toggleSelection(itemIndex, multiple);
         }
         return true;

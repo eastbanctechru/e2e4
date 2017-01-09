@@ -81,8 +81,8 @@ export class PagedPager implements Pager {
         defaultValue: 0,
         parameterName: 'skip',
         parseFormatter(this: PagedPager, rawValue: any, allValues: any): number {
-            let skip = isNaN(rawValue) || !rawValue ? 0 : rawValue;
-            let pageSize = !allValues || isNaN(allValues.take) || !allValues.take ? this.defaultPageSize : allValues.take * 1;
+            const skip = isNaN(rawValue) || !rawValue ? 0 : rawValue;
+            const pageSize = !allValues || isNaN(allValues.take) || !allValues.take ? this.defaultPageSize : allValues.take * 1;
             return skip % pageSize === 0 ? (skip / pageSize + 1) : 1;
         },
         serializeFormatter(this: PagedPager, value: Object): number {

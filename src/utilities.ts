@@ -18,8 +18,8 @@ export function cloneAsLiteral(value: any): any {
         return value.map((i: any) => cloneAsLiteral(i));
     }
     if (typeof value === 'object') {
-        let result: { [id: string]: any } = {};
-        for (let index in value) {
+        const result: { [id: string]: any } = {};
+        for (const index in value) {
             if (value.hasOwnProperty(index) && (typeof value[index] !== 'function')) {
                 result[index] = cloneAsLiteral(value[index]);
             }
@@ -53,7 +53,7 @@ export function coerceValue(value: any): any {
         return undefined;
     }
     if (typeof value === 'object' || Array.isArray(value)) {
-        for (let index in value) {
+        for (const index in value) {
             if (value.hasOwnProperty(index)) {
                 value[index] = coerceValue(value[index]);
             }

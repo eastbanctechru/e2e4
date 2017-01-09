@@ -75,7 +75,7 @@ export class DefaultSelectionService implements SelectionService {
      */
     public deselectAll(): void {
         const list = this.selectionsList.splice(0, this.selectionsList.length);
-        for (let item of list) {
+        for (const item of list) {
             this.processSelection(item, false);
         }
         this.lastProcessedIndex = null;
@@ -126,7 +126,7 @@ export class DefaultSelectionService implements SelectionService {
         if (from === 0 && to === this.items.length - 1 && this.selectionsList.length === this.items.length) {
             return true;
         }
-        let orderedIndexes = this.selectionsList.map((tuple: SelectionTuple) => tuple.index).sort();
+        const orderedIndexes = this.selectionsList.map((tuple: SelectionTuple) => tuple.index).sort();
         return (1 + to - from === orderedIndexes.length) && (orderedIndexes[0] === from) && (orderedIndexes[orderedIndexes.length - 1] === to);
     }
     /**
