@@ -1,6 +1,7 @@
 {
     "includeDeclarations": false,
     "excludePrivate": true,
+    "exclude": "tests/*.*",
     "ignoreCompilerErrors": true,
     "gaID": "UA-47538916-3",
     "mode": "file",

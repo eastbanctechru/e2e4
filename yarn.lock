@@ -21,8 +21,8 @@
   resolved "https://registry.yarnpkg.com/@types/highlight.js/-/highlight.js-9.1.9.tgz#ed6336955eaf233b75eb7923b9b1f373d045ef01"
 
 "@types/lodash@^4.14.37":
-  version "4.14.48"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.48.tgz#d4d7747c28c63581e803bb2d03d0f0f36d2ac624"
+  version "4.14.50"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.50.tgz#2227da4d65fafe249bccd59c7b9396e27674c8f7"
 
 "@types/marked@0.0.28":
   version "0.0.28"
@@ -37,8 +37,8 @@
   resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-2.2.37.tgz#8e0d5327ffa0734999c1010967853de917f3a38e"
 
 "@types/node@*":
-  version "6.0.59"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.59.tgz#b7fd8f3144c447c829a8eab8805c3a523e9e5b44"
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.0.tgz#c081147b109da5f9c57af70571771be97ce9c0ba"
 
 "@types/shelljs@^0.3.32":
   version "0.3.33"
@@ -1051,8 +1051,8 @@ engine.io@1.6.10:
     ws "1.0.1"
 
 enhanced-resolve@^3.0.0:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/enhanced-resolve/-/enhanced-resolve-3.0.2.tgz#0fa709f29e59ee23e6bbcb070c85f992d6247cd1"
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/enhanced-resolve/-/enhanced-resolve-3.0.3.tgz#df14c06b5fc5eecade1094c9c5a12b4b3edc0b62"
   dependencies:
     graceful-fs "^4.1.2"
     memory-fs "^0.4.0"
@@ -2248,9 +2248,9 @@ karma-spec-reporter@^0.0.26:
   dependencies:
     colors "~0.6.0"
 
-karma-webpack@^1.8.1:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/karma-webpack/-/karma-webpack-1.8.1.tgz#39d5fd2edeea3cc3ef5b405989b37d5b0e6a3b4e"
+karma-webpack@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/karma-webpack/-/karma-webpack-2.0.1.tgz#271ac955685b9bd99365ef010ffc5655eac28ef6"
   dependencies:
     async "~0.9.0"
     loader-utils "^0.2.5"
@@ -3153,9 +3153,13 @@ qjobs@^1.1.4:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/qjobs/-/qjobs-1.1.5.tgz#659de9f2cf8dcc27a1481276f205377272382e73"
 
-qs@6.2.0, qs@~6.2.0:
+qs@6.2.0:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.2.0.tgz#3b7848c03c2dece69a9522b0fae8c4126d745f3b"
+
+qs@~6.2.0:
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.2.1.tgz#ce03c5ff0935bc1d9d69a9f14cbd18e568d67625"
 
 qs@~6.3.0:
   version "6.3.0"
@@ -3596,8 +3600,8 @@ socket.io@1.4.7:
     socket.io-parser "2.2.6"
 
 source-list-map@~0.1.7:
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-0.1.7.tgz#d4b5ce2a46535c72c7e8527c71a77d250618172e"
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-0.1.8.tgz#c550b2ab5427f6b3f21f5afead88c4f5587b2106"
 
 source-map@^0.1.41:
   version "0.1.43"
@@ -3690,8 +3694,8 @@ stream-consume@~0.1.0:
   resolved "https://registry.yarnpkg.com/stream-consume/-/stream-consume-0.1.0.tgz#a41ead1a6d6081ceb79f65b061901b6d8f3d1d0f"
 
 stream-http@^2.3.1:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/stream-http/-/stream-http-2.6.0.tgz#adf3309ced17624ebfb7ef13e6ac4cfe405a8b12"
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/stream-http/-/stream-http-2.6.1.tgz#7d20fcdfebc16b16e4174e31dd94cd9c70f10e89"
   dependencies:
     builtin-status-codes "^3.0.0"
     inherits "^2.0.1"
@@ -3778,8 +3782,8 @@ tapable@^0.1.8, tapable@~0.1.8:
   resolved "https://registry.yarnpkg.com/tapable/-/tapable-0.1.10.tgz#29c35707c2b70e50d07482b5d202e8ed446dafd4"
 
 tapable@^0.2.5:
-  version "0.2.5"
-  resolved "https://registry.yarnpkg.com/tapable/-/tapable-0.2.5.tgz#1ff6ce7ade58e734ca9bfe36ba342304b377a4d0"
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/tapable/-/tapable-0.2.6.tgz#206be8e188860b514425375e6f1ae89bfb01fd8d"
 
 tar-pack@~3.3.0:
   version "3.3.0"
@@ -3962,12 +3966,12 @@ typedarray@~0.0.5:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
 typedoc-default-themes@^0.4.0:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/typedoc-default-themes/-/typedoc-default-themes-0.4.1.tgz#98ebcf2202aac7711a06a9a8638f05ebd28b0e26"
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/typedoc-default-themes/-/typedoc-default-themes-0.4.2.tgz#640b854fd7ef19e6774496ea7741ec31a0dcaddc"
 
-typedoc@^0.5.1:
-  version "0.5.3"
-  resolved "https://registry.yarnpkg.com/typedoc/-/typedoc-0.5.3.tgz#83d9d42017f41c0406deb2e25fc5c7ba6d7672c0"
+typedoc@0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/typedoc/-/typedoc-0.5.1.tgz#150f92bdc4a36d8e114b27f1d296329d27e837dd"
   dependencies:
     "@types/fs-extra" "0.0.33"
     "@types/handlebars" "^4.0.31"
@@ -3985,11 +3989,15 @@ typedoc@^0.5.1:
     progress "^1.1.8"
     shelljs "^0.7.0"
     typedoc-default-themes "^0.4.0"
-    typescript "2.1.4"
+    typescript "2.0.6"
 
-typescript@2.1.4, typescript@^2.1.4:
-  version "2.1.4"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.1.4.tgz#b53b69fb841126acb1dd4b397d21daba87572251"
+typescript@2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.0.6.tgz#5385499ac9811508c2c43e0ea07a1ddca435e111"
+
+typescript@^2.1.5:
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.1.5.tgz#6fe9479e00e01855247cea216e7561bafcdbcd4a"
 
 uglify-js@^2.6, uglify-js@~2.7.3:
   version "2.7.5"
