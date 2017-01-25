@@ -1,7 +1,5 @@
 # e2e4
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/eastbanctechru/e2e4.svg)](https://greenkeeper.io/)
-
 [![Build Status](https://travis-ci.org/eastbanctechru/e2e4.svg?branch=master)](https://travis-ci.org/eastbanctechru/e2e4)
 [![Coverage Status](https://coveralls.io/repos/github/eastbanctechru/e2e4/badge.svg?branch=master)](https://coveralls.io/github/eastbanctechru/e2e4?branch=master)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
