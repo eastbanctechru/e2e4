@@ -1,7 +1,7 @@
 import { OperationStatus } from './operation-status';
 
 /**
- * Represents status of operation that must be displayed on UI inside {@link StatusTrackingService}. 
+ * Represents status of operation that must be displayed on UI inside {@link StatusTrackingService}.
  */
 export class Operation {
     /**
@@ -37,7 +37,7 @@ export class Operation {
      */
     public title: string;
     /**
-     * @param status value for {@link status} property.  
+     * @param status value for {@link status} property.
      * @param title value for {@link title} property.
      */
     constructor(status: OperationStatus, title: string) {

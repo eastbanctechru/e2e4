@@ -1,7 +1,7 @@
 // tslint:disable:max-classes-per-file
 
 /**
- * Internal contract to implement abstracted subscription proxy which hides any details of underlying subscription  
+ * Internal contract to implement abstracted subscription proxy which hides any details of underlying subscription
  */
 export interface SubscriptionProxy {
     /**
@@ -19,7 +19,7 @@ export interface SubscriptionProxy {
 }
 
 /**
- * Implementation of {@link SubscriptionProxy} to work with any objects with `subscribe/unsubscribe` contracts. This contract is suitable for Observable, for example.  
+ * Implementation of {@link SubscriptionProxy} to work with any objects with `subscribe/unsubscribe` contracts. This contract is suitable for Observable, for example.
  */
 export class PushBasedSubscriptionProxy implements SubscriptionProxy {
     /**
@@ -29,19 +29,19 @@ export class PushBasedSubscriptionProxy implements SubscriptionProxy {
         return !!target.subscribe;
     }
     /**
-     * @inheritdoc  
+     * @inheritdoc
      */
     public attach(target: any, completeAction: any, errorAction?: (error: any) => any): any {
         return target.subscribe({ error: errorAction, next: completeAction });
     }
     /**
-     * @inheritdoc  
+     * @inheritdoc
      */
     public detach(subscription: any): void { subscription.unsubscribe(); }
 }
 
 /**
- * Implementation of {@link SubscriptionProxy} which works with Promise and adds ability to unsubscribe from it.  
+ * Implementation of {@link SubscriptionProxy} which works with Promise and adds ability to unsubscribe from it.
  */
 export class PromiseSubscriptionProxy implements SubscriptionProxy {
     /**
@@ -52,7 +52,7 @@ export class PromiseSubscriptionProxy implements SubscriptionProxy {
     }
     private isAlive: boolean = true;
     /**
-     * @inheritdoc  
+     * @inheritdoc
      */
     public attach(target: Promise<any>, completeAction: (value: any) => any, errorAction?: (error: any) => any): any {
         return target.then((value: any) => {
@@ -66,13 +66,13 @@ export class PromiseSubscriptionProxy implements SubscriptionProxy {
         });
     }
     /**
-     * @inheritdoc  
+     * @inheritdoc
      */
     public detach(subscription: any): void { this.isAlive = false; }
 }
 
 /**
- * Service to manage async subscriptions which acts as mediator to {@link SubscriptionProxy} contract implementations.  
+ * Service to manage async subscriptions which acts as mediator to {@link SubscriptionProxy} contract implementations.
  */
 export class AsyncSubscriber {
     private proxy: SubscriptionProxy = null;
@@ -80,7 +80,7 @@ export class AsyncSubscriber {
     private subscription: any = null;
 
     /**
-     * @see {@link SubscriptionProxy.attach}  
+     * @see {@link SubscriptionProxy.attach}
      */
     public attach(target: any, completeAction: (value: any) => any, errorAction?: (error: any) => any): void {
         if (this.lastTarget !== null) {
@@ -102,7 +102,7 @@ export class AsyncSubscriber {
         this.subscription = null;
     }
     /**
-     * @see {@link SubscriptionProxy.detach}  
+     * @see {@link SubscriptionProxy.detach}
      */
     public detach(): void { this.proxy.detach(this.subscription); }
     private getProxy(target: any): SubscriptionProxy {

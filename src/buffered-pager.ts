@@ -4,15 +4,15 @@ import { Pager } from './contracts/pager';
 import { filter } from './filter-annotation';
 
 /**
- * Implements {@link Pager} contract and represents buffered list behavior. 
+ * Implements {@link Pager} contract and represents buffered list behavior.
  * @note This type is configured to use with {@link FiltersService}.
  */
 export class BufferedPager implements Pager {
     /**
      * Global settings for properties such as default values and constraints for pager properties.
-     * 
+     *
      * These settings are static and their values are copied to the properties of the same name for each instance of {@link BufferedPager} type.
-     * 
+     *
      * So, changing of this settings will affect all instances of {@link BufferedPager} type that will be created after such changes.
      * If you want to change settings of concrete object you can use it the same name properties.
      */
@@ -45,22 +45,22 @@ export class BufferedPager implements Pager {
      */
     public loadedCount: number = 0;
     /**
-     * This is both initial value and value which will be applied to {@link takeRowCount} property on {@link reset} method execution. 
+     * This is both initial value and value which will be applied to {@link takeRowCount} property on {@link reset} method execution.
      */
     public defaultRowCount: number = BufferedPager.settings.defaultRowCount;
     /**
-     * The smallest value that can be applied to {@link takeRowCount} property. 
+     * The smallest value that can be applied to {@link takeRowCount} property.
      */
     public minRowCount: number = BufferedPager.settings.minRowCount;
     /**
-     * The biggest value that can be applied to {@link takeRowCount} property. 
+     * The biggest value that can be applied to {@link takeRowCount} property.
      */
     public maxRowCount: number = BufferedPager.settings.maxRowCount;
     /**
-     * This property is applied to the server request and it specifies how many rows are already loaded and must be skipped on next request. 
-     * 
+     * This property is applied to the server request and it specifies how many rows are already loaded and must be skipped on next request.
+     *
      * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
-     * @see {@link BufferedListRequest.skip} 
+     * @see {@link BufferedListRequest.skip}
      */
     @filter({
         defaultValue: 0,
@@ -70,7 +70,7 @@ export class BufferedPager implements Pager {
     public skip: number = 0;
 
     /**
-     * Internal implementation of {@link takeRowCount}. 
+     * Internal implementation of {@link takeRowCount}.
      */
     @filter({
         defaultValue(this: BufferedPager): number { return this.defaultRowCount; },
@@ -88,7 +88,7 @@ export class BufferedPager implements Pager {
     /**
      * This property is applied to the server request and it specifies how many rows must be loaded on next request.
      * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
-     * @see {@link BufferedListRequest.take} 
+     * @see {@link BufferedListRequest.take}
      */
     public get takeRowCount(): number {
         return this.takeRowCountInternal;

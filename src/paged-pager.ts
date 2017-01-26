@@ -10,9 +10,9 @@ import { filter } from './filter-annotation';
 export class PagedPager implements Pager {
     /**
      * Global settings for properties such as default values and constraints for pager properties.
-     * 
+     *
      * These settings are static and their values are copied to the properties of the same name for each instance of {@link PagedPager} type.
-     * 
+     *
      * So, changing of this settings will affect all instances of {@link PagedPager} type that will be created after such changes.
      * If you want to change settings of concrete object you can use it the same name properties.
      */
@@ -28,7 +28,7 @@ export class PagedPager implements Pager {
          */
         maxPageSize: 200,
         /**
-         * @see {@link PagedPager.minPageSize} 
+         * @see {@link PagedPager.minPageSize}
          */
         minPageSize: 1
     };
@@ -41,11 +41,11 @@ export class PagedPager implements Pager {
      */
     public defaultPageSize: number = PagedPager.settings.defaultPageSize;
     /**
-     * The biggest value that can be applied to {@link pageSize} property. 
+     * The biggest value that can be applied to {@link pageSize} property.
      */
     public maxPageSize: number = PagedPager.settings.maxPageSize;
     /**
-     * The smallest value that can be applied to {@link pageSize} property. 
+     * The smallest value that can be applied to {@link pageSize} property.
      */
     public minPageSize: number = PagedPager.settings.minPageSize;
     /**
@@ -58,20 +58,20 @@ export class PagedPager implements Pager {
     public loadedCount: number = 0;
 
     /**
-     * Number of record in remote data source from which data was loaded at last request. 
-     * 
+     * Number of record in remote data source from which data was loaded at last request.
+     *
      * For example, it will be equal to 21 when loads second page of list with page size of 20.
      */
     public displayFrom: number = 0;
     /**
      * Number of record in remote data source to which data was loaded at last request.
-     *  
+     *
      * For example, it will be equal to 40 when loads second page of list with page size of 20. Or it will be equal to total count of available records if records count is less than 40.
      */
     public displayTo: number = 0;
 
     /**
-     * Internal implementation of {@link pageSize}. 
+     * Internal implementation of {@link pageSize}.
      */
     protected pageSizeInternal: number = PagedPager.settings.defaultPageSize;
     /**
@@ -100,9 +100,9 @@ export class PagedPager implements Pager {
     }
     /**
      * Specifies number of the page that must be loaded on next request.
-     * 
+     *
      * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
-     * @see {@link PagedListRequest.pageNumber} 
+     * @see {@link PagedListRequest.pageNumber}
      */
     public get pageNumber(): number {
         return this.pageNumberInternal;
@@ -123,9 +123,9 @@ export class PagedPager implements Pager {
     }
     /**
      * Specifies size of page that must be loaded on next request.
-     *  
+     *
      * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
-     * @see {@link PagedListRequest.pageSize} 
+     * @see {@link PagedListRequest.pageSize}
      */
     @filter({
         defaultValue(this: PagedPager): number { return this.defaultPageSize; },

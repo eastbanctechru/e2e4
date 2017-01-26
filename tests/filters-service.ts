@@ -238,7 +238,7 @@ describe('FiltersService', () => {
 
             class TargetType {
                 @filter()
-                public first: any = { toRequest: sinon.spy(() => { return 'first'; }) };
+                public first: any = { toRequest: sinon.spy(() => 'first') };
             }
             const target = new TargetType();
             const filtersService = new FiltersService(target);
@@ -248,7 +248,7 @@ describe('FiltersService', () => {
         });
 
         it('calls \'serializeFormatter\' method of config if defined', () => {
-            const serializeSpy = sinon.spy(() => { return 'first'; });
+            const serializeSpy = sinon.spy(() => 'first');
             class TargetType {
                 @filter({ serializeFormatter: serializeSpy } as FilterConfig)
                 public first: string = 'first';
@@ -291,7 +291,7 @@ describe('FiltersService', () => {
             expect(requestState.falseProperty).null;
         });
         it('handles arrays', () => {
-            const toRequestSpy = sinon.spy(() => { return 'first'; });
+            const toRequestSpy = sinon.spy(() => 'first');
             class TargetType {
                 @filter()
                 public arrayProperty: any[] = [{ toRequest: toRequestSpy }, 'first'];
@@ -412,7 +412,7 @@ describe('FiltersService', () => {
             expect(target.falseProperty).null;
         });
         it('calls parseFormatter', () => {
-            const parseSpy = sinon.spy((value: string) => { return 'parsed ' + value; });
+            const parseSpy = sinon.spy((value: string) => 'parsed ' + value);
 
             class TargetType {
                 @filter({ parseFormatter: parseSpy } as FilterConfig)
@@ -461,7 +461,7 @@ describe('FiltersService', () => {
             expect(target.value).eql(cfg.defaultValue);
         });
         it('calls defaultValue if it\'s function', () => {
-            const defaultSpy = sinon.spy(() => { return 'default value'; });
+            const defaultSpy = sinon.spy(() => 'default value');
 
             class TargetType {
                 @filter({ defaultValue: defaultSpy } as FilterConfig)
@@ -478,7 +478,7 @@ describe('FiltersService', () => {
 
         it('calls parseFormatter', () => {
             const defaultValue = 'value';
-            const parseSpy = sinon.spy((value: string) => { return 'parsed ' + value; });
+            const parseSpy = sinon.spy((value: string) => 'parsed ' + value);
 
             class TargetType {
                 @filter({ parseFormatter: parseSpy } as FilterConfig)

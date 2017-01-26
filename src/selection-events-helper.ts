@@ -1,6 +1,6 @@
 import { SelectionService } from './contracts/selection-service';
 /**
- * Used by {@link SelectionEventsHelper} to determine which key was pressed on keyboard.  
+ * Used by {@link SelectionEventsHelper} to determine which key was pressed on keyboard.
  */
 export enum KeyCodes {
     Tab = 9,
@@ -17,7 +17,7 @@ export enum KeyCodes {
 }
 
 /**
- * Used by {@link SelectionEventsHelper} to determine which mouse button is pressed.  
+ * Used by {@link SelectionEventsHelper} to determine which mouse button is pressed.
  */
 export enum MouseButtons {
     None = 0,
@@ -27,9 +27,9 @@ export enum MouseButtons {
 }
 /**
  * Helper class that can be used by application-defined UI components for handling keyboard and mouse interaction with component.
- * 
+ *
  * Implements selection model that is similar to Excel or Google Sheets. Concrete handled patterns you can see in concrete methods documentation.
- * 
+ *
  * This implementation doesn't use any browser specific objects such as events and doesn't use any browser API.
  */
 export class SelectionEventsHelper {
@@ -60,10 +60,10 @@ export class SelectionEventsHelper {
         this.selectionService = selectionService;
     }
     /**
-     * Common handler for keyboard events. Depending on specified parameters calls {@link onNextKey}, {@link onPreviousKey}, {@link trySelectPreviousItem}, {@link trySelectNextItem} or {@link trySelectAll} handler. 
+     * Common handler for keyboard events. Depending on specified parameters calls {@link onNextKey}, {@link onPreviousKey}, {@link trySelectPreviousItem}, {@link trySelectNextItem} or {@link trySelectAll} handler.
      * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
      * @param shiftKeyPressed - `true` if `Shift` key was pressed.
-     * @param keyCode - specifies code of key that was pressed. This method can handle next keys: {@link KeyCodes.ArrowUp}, {@link KeyCodes.ArrowLeft}, {@link KeyCodes.ArrowDown}, {@link KeyCodes.ArrowRight}, 
+     * @param keyCode - specifies code of key that was pressed. This method can handle next keys: {@link KeyCodes.ArrowUp}, {@link KeyCodes.ArrowLeft}, {@link KeyCodes.ArrowDown}, {@link KeyCodes.ArrowRight},
      * {@link KeyCodes.Tab} and {@link KeyCodes.A}.
      * @returns `true` if any of executed commands was applied.
      */
@@ -86,7 +86,7 @@ export class SelectionEventsHelper {
         }
     }
     /**
-     * Common handler for mouse events. 
+     * Common handler for mouse events.
      * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
      * @param shiftKeyPressed - `true` if `Shift` key was pressed.
      * @param mouseButton specifies which mouse button was pressed.
@@ -121,8 +121,8 @@ export class SelectionEventsHelper {
         return false;
     }
     /**
-     * Tries to select previous item when `Arrow Up` was pressed (`Arrow Left` if {@link SelectionAreaConfig.horizontal} is `true`). 
-     * 
+     * Tries to select previous item when `Arrow Up` was pressed (`Arrow Left` if {@link SelectionAreaConfig.horizontal} is `true`).
+     *
      * If `Shift` was pressed and {@link SelectionAreaConfig.multiple} is 'true' then elements selected before stays selected.
      * @param shiftKeyPressed - `true` if `Shift` key was pressed.
      * @returns `true` if command was applied.
@@ -136,7 +136,7 @@ export class SelectionEventsHelper {
     }
     /**
      * Tries to select next item when `Arrow Down` was pressed (`Right Arrow` if {@link SelectionAreaConfig.horizontal} is `true`).
-     *  
+     *
      * If `Shift` was pressed and {@link SelectionAreaConfig.multiple} is 'true' then elements selected before stays selected.
      * @param shiftKeyPressed - `true` if `Shift` key was pressed.
      * @returns `true` if command was applied.
@@ -149,7 +149,7 @@ export class SelectionEventsHelper {
         return false;
     }
     /**
-     * Tries to deselect last selected element when `Shift+Arrow Up` combination pressed (`Shift+Arrow Left` if {@link SelectionAreaConfig.horizontal} is `true`). 
+     * Tries to deselect last selected element when `Shift+Arrow Up` combination pressed (`Shift+Arrow Left` if {@link SelectionAreaConfig.horizontal} is `true`).
      * @param shiftKeyPressed - `true` if `Shift` key was pressed.
      * @returns `true` if command was applied.
      */
@@ -164,7 +164,7 @@ export class SelectionEventsHelper {
         return false;
     }
     /**
-     * Tries to deselect last selected element when `Shift+Arrow Down` combination pressed (`Shift+Arrow Right` if {@link SelectionAreaConfig.horizontal} is `true`). 
+     * Tries to deselect last selected element when `Shift+Arrow Down` combination pressed (`Shift+Arrow Right` if {@link SelectionAreaConfig.horizontal} is `true`).
      * @param shiftKeyPressed - `true` if `Shift` key was pressed.
      * @returns `true` if command was applied.
      */
@@ -192,7 +192,7 @@ export class SelectionEventsHelper {
         return false;
     }
     /**
-     * Tries to select element that is next to the last processed element and last processed element was deselected. 
+     * Tries to select element that is next to the last processed element and last processed element was deselected.
      * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
      * @param shiftKeyPressed - `true` if `Shift` key was pressed.
      * @returns `true` if command was applied.
@@ -217,7 +217,7 @@ export class SelectionEventsHelper {
     }
     /**
      * Tries to select all elements starting from last selected element up to first element in {@link SelectionService.items} when `Ctrl+Shift+Arrow Up` combination was pressed
-     * (`Ctrl+Shift+Arrow Left` if {@link SelectionAreaConfig.horizontal} is `true`). 
+     * (`Ctrl+Shift+Arrow Left` if {@link SelectionAreaConfig.horizontal} is `true`).
      * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
      * @param shiftKeyPressed - `true` if `Shift` key was pressed.
      * @returns `true` if command was applied.
@@ -231,7 +231,7 @@ export class SelectionEventsHelper {
     }
     /**
      * Tries to select all elements starting from last selected element up to last element in {@link SelectionService.items} when `Ctrl+Shift+Arrow Down` combination was pressed
-     * (`Ctrl+Shift+Arrow Right` if {@link SelectionAreaConfig.horizontal} is `true`). 
+     * (`Ctrl+Shift+Arrow Right` if {@link SelectionAreaConfig.horizontal} is `true`).
      * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
      * @param shiftKeyPressed - `true` if `Shift` key was pressed.
      * @returns `true` if command was applied.
@@ -244,7 +244,7 @@ export class SelectionEventsHelper {
         return false;
     }
     /**
-     * Tries to select first element in {@link SelectionService.items} when `Ctrl+Arrow Up` combination was pressed (`Ctrl+Arrow Left` if {@link SelectionAreaConfig.horizontal} is `true`). 
+     * Tries to select first element in {@link SelectionService.items} when `Ctrl+Arrow Up` combination was pressed (`Ctrl+Arrow Left` if {@link SelectionAreaConfig.horizontal} is `true`).
      * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
      * @param shiftKeyPressed - `true` if `Shift` key was pressed (with pressed `Shift` this command would not be applied).
      * @returns `true` if command was applied.
@@ -257,7 +257,7 @@ export class SelectionEventsHelper {
         return false;
     }
     /**
-     * Tries to select last element in {@link SelectionService.items} when `Ctrl+Arrow Down` combination was pressed (`Ctrl+Arrow Right` if {@link SelectionAreaConfig.horizontal} is `true`). 
+     * Tries to select last element in {@link SelectionService.items} when `Ctrl+Arrow Down` combination was pressed (`Ctrl+Arrow Right` if {@link SelectionAreaConfig.horizontal} is `true`).
      * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
      * @param shiftKeyPressed - `true` if `Shift` key was pressed (with pressed `Shift` this command would not be applied).
      * @returns `true` if command was applied.
@@ -270,7 +270,7 @@ export class SelectionEventsHelper {
         return false;
     }
     /**
-     * Common handler for `Arrow Up` key (`Arrow Left` if {@link SelectionAreaConfig.horizontal} is `true`). Calls applicable handlers one by one until any returns `true`. 
+     * Common handler for `Arrow Up` key (`Arrow Left` if {@link SelectionAreaConfig.horizontal} is `true`). Calls applicable handlers one by one until any returns `true`.
      * @param ctrlKeyPressed - `true` if `Ctrl` key was pressed.
      * @param shiftKeyPressed - `true` if `Shift` key was pressed.
      * @returns `true` if any of executed commands was applied.

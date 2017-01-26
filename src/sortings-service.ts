@@ -2,7 +2,7 @@ import { FilterConfig } from './contracts/filter-config';
 import { filter } from './filter-annotation';
 
 /**
- * Represents sort direction that applied as parameter by {@link SortParameter} class.  
+ * Represents sort direction that applied as parameter by {@link SortParameter} class.
  */
 export enum SortDirection {
     /**
@@ -10,7 +10,7 @@ export enum SortDirection {
      */
     Asc = 0,
     /**
-     * Descending sort order.  
+     * Descending sort order.
      */
     Desc = 1
 }
@@ -20,23 +20,23 @@ export enum SortDirection {
  */
 export interface SortParameter {
     /**
-     * Sort direction.  
+     * Sort direction.
      */
     direction: SortDirection;
     /**
-     * Name of the field by which sorting must be performed.  
+     * Name of the field by which sorting must be performed.
      */
     fieldName: string;
 }
 
 /**
- * Provides sorting functionality. 
+ * Provides sorting functionality.
  * @note This type is configured to use with {@link FiltersService}.
  */
 export class SortingsService {
     /**
      * Sortings that were selected by the user and must be applied on next request of data.
-     * 
+     *
      * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
      */
     @filter({
@@ -74,10 +74,10 @@ export class SortingsService {
     /**
      * Sets {@link sortings} according to specified parameters.
      * @param fieldName name of the field by which sorting must be executed on server. This value will be used as {@link SortParameter.fieldName}.
-     * 
+     *
      * In case when sorting with the same field name is already specified, direction of this sorting will be toggled to reversed value and this sorting will be pushed to the end of {@link sortings} array.
      * So it will be applied last.
-     * @param savePrevious `true` to keep previously applied sortings in {@link sortings} array. 
+     * @param savePrevious `true` to keep previously applied sortings in {@link sortings} array.
      */
     public setSort(fieldName: string, savePrevious: boolean): void {
         let newSort = { direction: SortDirection.Asc, fieldName };
@@ -105,7 +105,7 @@ export class SortingsService {
     }
     /**
      * Internal method for default sortings cloning.
-     * This method is used as {@link FilterConfig.defaultValue} as well as for copying to {@link sortings} when {@link defaultSortings} setter is used and {@link sortings} is empty. 
+     * This method is used as {@link FilterConfig.defaultValue} as well as for copying to {@link sortings} when {@link defaultSortings} setter is used and {@link sortings} is empty.
      */
     protected cloneDefaultSortings(): SortParameter[] {
         return this.defaultSortingsInternal.map((s: SortParameter) => ({ direction: s.direction, fieldName: s.fieldName }));

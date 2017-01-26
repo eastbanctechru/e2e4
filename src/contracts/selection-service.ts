@@ -11,7 +11,7 @@ export interface SelectionItem {
 
 /**
  * Represents possible operations with selection model.
- * 
+ *
  * Default implementation in this library is {@link DefaultSelectionService}, but you can extend it or replace with your own implementation.
  */
 export interface SelectionService {
@@ -21,21 +21,21 @@ export interface SelectionService {
     items: SelectionItem[];
     /**
      * Optional function which can be used to compare {@link items} elements.
-     * 
+     *
      * This function can be used by {@link checkSelection}.
-     * 
+     *
      * Also it's reasonable to use this function for {@link getItemIndex}.
      * @param index index of element in {@link items} collection.
      * @param actual element from {@link items} collection.
      */
     trackByFn: (index: number, item: any) => any;
     /**
-     * Index of last selected/deselected element in {@link items} collection. 
+     * Index of last selected/deselected element in {@link items} collection.
      */
     lastProcessedIndex: number;
     /**
      * Performs check that every selected element is actually selected.
-     * 
+     *
      */
     checkSelection(): void;
     /**
@@ -49,14 +49,14 @@ export interface SelectionService {
     /**
      * Selects range of elements in {@link items} collection.
      * @param fromIndex index of element from which selection range begins.
-     * @param toIndex index of element on which selection range ends. 
+     * @param toIndex index of element on which selection range ends.
      */
     selectRange(fromIndex: number, toIndex: number): void;
     /**
      * Checks that all elements inside specified range are selected in {@link items} collection.
      * @param fromIndex index of element from which check must be performed.
      * @param toIndex index of element to which check must be performed.
-     * @returns `true` if all elements inside specified range are selected. 
+     * @returns `true` if all elements inside specified range are selected.
      */
     isRangeSelected(from: number, to: number): boolean;
     /**

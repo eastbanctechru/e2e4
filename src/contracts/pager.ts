@@ -9,13 +9,13 @@ export interface Pager {
     appendedOnLoad: boolean;
     /**
      * Total count of records in remote data source.
-     * 
+     *
      * @see {@link ListResponse.totalCount}
      */
     totalCount: number;
     /**
      * Count of records that was loaded at last request.
-     * 
+     *
      * @see {@link ListResponse.loadedCount}
      */
     loadedCount: number;
@@ -24,8 +24,8 @@ export interface Pager {
      */
     reset(): void;
     /**
-     * Performs logic associated with parsing of server response returned at data request. 
-     * 
+     * Performs logic associated with parsing of server response returned at data request.
+     *
      * @param response server response to process.
      */
     processResponse(response: ListResponse<any>): void;

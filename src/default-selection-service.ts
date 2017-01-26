@@ -18,7 +18,7 @@ export interface SelectionTuple {
  */
 export class DefaultSelectionService implements SelectionService {
     /**
-     * @inheritdoc  
+     * @inheritdoc
      */
     public lastProcessedIndex: number;
     /**
@@ -26,12 +26,12 @@ export class DefaultSelectionService implements SelectionService {
      */
     public trackByFn: (index: number, item: any) => any = this.trackByIdentity;
     /**
-     * @inheritdoc  
+     * @inheritdoc
      */
     public items: SelectionItem[];
 
     /**
-     * Collection of {@link SelectionTuple} elements which represents currently selected items in {@link items} collection.  
+     * Collection of {@link SelectionTuple} elements which represents currently selected items in {@link items} collection.
      */
     protected selectionsList: SelectionTuple[] = new Array<SelectionTuple>();
     /**
@@ -226,11 +226,11 @@ export class DefaultSelectionService implements SelectionService {
      * Default tracking function that will be used if nothing was specified for {@link trackByFn}.
      * Implements comparison by reference equality of objects.
      */
-    protected trackByIdentity: (index: number, item: any) => any = (index: number, item: any) => { return item; };
+    protected trackByIdentity: (index: number, item: any) => any = (index: number, item: any) => item;
 
     /**
      * Performs final processing of selection/deselection of element.
-     * 
+     *
      * Current implementation just sets {@link SelectionItem.selected} (if it's defined) but it can be extended in derived classes.
      */
     protected processSelection(tuple: SelectionTuple, selected: boolean): void {

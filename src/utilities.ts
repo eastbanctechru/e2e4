@@ -1,11 +1,11 @@
 /**
- * Copies values of all properties from passed object to the new object literal. 
- * 
+ * Copies values of all properties from passed object to the new object literal.
+ *
  * If any of the properties of passed object is also a complex object then {@link cloneAsLiteral} will be called recursively.
- * 
+ *
  * Function declarations are ignored.
  * @param value value to clone.
- * @returns resulted literal. 
+ * @returns resulted literal.
  */
 export function cloneAsLiteral(value: any): any {
     if (value === null) {
@@ -30,16 +30,16 @@ export function cloneAsLiteral(value: any): any {
 }
 
 /**
- * Set of key-value pairs which is used by {@link coerceValue} method to coerce specific values. 
+ * Set of key-value pairs which is used by {@link coerceValue} method to coerce specific values.
  */
 // tslint:disable-next-line: object-literal-key-quotes
 export let coerceTypes: any = { 'true': !0, 'false': !1, 'null': null };
 
 /**
  * Coerce type of passed value.
- * 
+ *
  * For example if you pass string with value 'null' it returns `null`, if you pass 'true' it returns boolean value `true`, if you pass '1.0' it returns number `1.0` etc.
- * 
+ *
  * If passed value is complex object or array this method will be called for each property or array item.
  * @param value value to coerce.
  * @returns resulted value.
@@ -69,7 +69,7 @@ export function coerceValue(value: any): any {
 }
 /**
  * Cleaning up passed array by calling `splice` function.
- * 
+ *
  * Next, each element of passed array will be checked for existence of `destroy` method and if it exists it will be called.
  * @param collection array of elements to destroy.
  * @param async if `true` then iterating over array and `destroy` methods calling will be executed via setTimeout (,0).

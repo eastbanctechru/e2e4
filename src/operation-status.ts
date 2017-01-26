@@ -1,5 +1,5 @@
 /**
- * Represents possible values for operation status (e.g. of request to the server).  
+ * Represents possible values for operation status (e.g. of request to the server).
  */
 export enum OperationStatus {
     /**
@@ -11,11 +11,11 @@ export enum OperationStatus {
      */
     Done = 1,
     /**
-     * Operation is performing right now.  
+     * Operation is performing right now.
      */
     Progress = 2,
     /**
-     * Last operation completed with failure.  
+     * Last operation completed with failure.
      */
     Fail = 3,
     /**

@@ -12,9 +12,9 @@ import { destroyAll } from './utilities';
 export class List {
     /**
      * Method for getting data. This parameter is required and its configuration is necessary.
-     * 
+     *
      * This method get one parameter with the settings of the request implementing {@link ListRequest} contract for the simple lists and {@link PagedListRequest} one for the paged lists.
-     * The return value of this method should be any subscribable object which can be handled by {@link AsyncSubscriber}. 
+     * The return value of this method should be any subscribable object which can be handled by {@link AsyncSubscriber}.
      * For the simple lists the response should contain array with the records. As for the paged ones, it should implement {@link ListResponse} contract.
      */
     public fetchMethod: (requestParams: any) => any;
@@ -40,19 +40,19 @@ export class List {
         this.filtersService.registerFilterTarget(this.pagerInternal);
     }
     /**
-     * True if the service was already destroyed via {@link destroy} call.  
+     * True if the service was already destroyed via {@link destroy} call.
      */
     public get destroyed(): boolean {
         return this.destroyedInternal;
     }
     /**
-     * True if the service was already initialized via {@link init} call.  
+     * True if the service was already initialized via {@link init} call.
      */
     public get inited(): boolean {
         return this.initedInternal;
     }
     /**
-     * Current execution status of the list.  
+     * Current execution status of the list.
      */
     public get status(): OperationStatus {
         return this.statusInternal;
@@ -64,7 +64,7 @@ export class List {
         return this.status === OperationStatus.Progress;
     }
     /**
-     * returns `true`, if there is no data request executed at the moment (i.e. {@link state} is NOT equal to {@link ProgressState.Progress})  
+     * returns `true`, if there is no data request executed at the moment (i.e. {@link state} is NOT equal to {@link ProgressState.Progress})
      */
     public get ready(): boolean {
         return this.status !== OperationStatus.Progress;
@@ -211,7 +211,7 @@ export class List {
     }
     /**
      * Calls {@link Pager.reset} method and clears {@link items} array. Calls {@link destroyAll} method for {@link items} array to perform optional destroy logic of the elements.
-     * {@see destroyAll}  
+     * {@see destroyAll}
      */
     protected clearData(): void {
         this.pager.reset();

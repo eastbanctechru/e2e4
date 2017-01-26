@@ -1,7 +1,7 @@
 /**
  * Represents server response which is returned on list data request.
- * 
- * You can use this contract in your end-user code for better code completion. 
+ *
+ * You can use this contract in your end-user code for better code completion.
  */
 export interface ListResponse<TItem> {
     /**
@@ -15,7 +15,7 @@ export interface ListResponse<TItem> {
     totalCount: number;
     /**
      * Count of records that was loaded at last request.
-     * 
+     *
      * Typically it's equal to `items.length` value. But it can differ for grouped lists, for example, so it's placed to a separate property.
      */
     loadedCount?: number;

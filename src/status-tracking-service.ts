@@ -1,11 +1,12 @@
-﻿import { Operation } from './operation';
+﻿
+import { Operation } from './operation';
 import { OperationStatus } from './operation-status';
 
 /**
  * Used to manage operations which description must be displayed on UI.
- * 
+ *
  * It can be used to implement application-defined UI component to display visual mask that hides part of UI controls until some operations aren't completed.
- * 
+ *
  * The typical usage scenario is:
  *  - Operation is registered with {@link trackStatus}, which returns unique identifier of operation.
  *  - To resolve or change operation status {@link changeStatus} method can be used.
@@ -18,9 +19,9 @@ import { OperationStatus } from './operation-status';
 export class StatusTrackingService {
     /**
      * Global timing settings.
-     * 
+     *
      * These settings are static and their values are copied to the properties of the same name for each instance of {@link StatusTrackingService} type.
-     * 
+     *
      * So, changing of this settings will affect all instances of {@link StatusTrackingService} type that will be created after such changes.
      * If you want to change settings of concrete object you can use it the same name properties.
      */
@@ -38,29 +39,29 @@ export class StatusTrackingService {
     };
     /**
      * Specifies how much time must elapse from moment when operation becomes {@link OperationStatus.Done} to it's disappearing from UI.
-     * 
-     * In fact this is minimal time of operation visibility. If operation was completed right after {@link progressDelayInterval} it will be displayed at least specified in this property amount of milliseconds. 
+     *
+     * In fact this is minimal time of operation visibility. If operation was completed right after {@link progressDelayInterval} it will be displayed at least specified in this property amount of milliseconds.
      */
     public static elementVisibilityInterval: number = StatusTrackingService.elementVisibilityInterval;
     /**
      * Specifies how much time must elapse from start of operation to it's appearance on UI.
-     * 
+     *
      * This means that if operation was performed faster than that interval it wouldn't be displayed on UI at all.
-     * 
+     *
      * This approach helps to avoid situations when mask is hided right after it was rendered since it can be pretty irritating.
      */
     public static progressDelayInterval: number = StatusTrackingService.progressDelayInterval;
     /**
      * Current status of the service.
-     * 
+     *
      * It is equal to {@link OperationStatus.Progress} if {@link operationsList} contains any operation. This means that mask can be displayed on UI for example.
-     * 
+     *
      * When {@link operationsList} becomes empty this property becomes equal to {@link OperationStatus.Done}.
      */
     public status: OperationStatus = OperationStatus.Done;
     /**
      * Collection of operations which currently tracked by service and must be displayed on UI.
-     * 
+     *
      * This collection is managed by {@link trackStatus} and {@link changeStatus} methods.
      */
     public operationsList: Operation[] = new Array<Operation>();
@@ -73,7 +74,7 @@ export class StatusTrackingService {
     /**
      * Registers operation for tracking.
      * @param title operation description that must be displayed on UI.
-     * @returns identifier of `setTimeout` on elapsing of which operation will be added to {@link operationsList} 
+     * @returns identifier of `setTimeout` on elapsing of which operation will be added to {@link operationsList}
      */
     public trackStatus(title: string): number {
         const sid = setTimeout(() => {
@@ -88,7 +89,7 @@ export class StatusTrackingService {
      * Changes tracked operation status.
      * @param sid operation identifier that was returned by {@link trackStatus}.
      * @param status status that must be applied to operation.
-     * 
+     *
      * In case when applied status doesn't equal to {@link OperationStatus.Progress}, operation will be deleted from {@link operationsList} after {@link elementVisibilityInterval} interval elapsed.
      */
     public changeStatus(sid: number, status: OperationStatus): void {

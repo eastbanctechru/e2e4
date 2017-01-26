@@ -1,7 +1,7 @@
 import { ListRequest } from './list-request';
 /**
  * Represents parameters of request to the server to retrieve list data.
- * 
+ *
  * You can use this contract in your end-user code for better code completion.
  */
 export interface PagedListRequest extends ListRequest {
