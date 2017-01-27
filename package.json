@@ -76,7 +76,7 @@
     "tslint": "^4.4.1",
     "typedoc": "0.5.1",
     "typescript": "^2.1.5",
-    "wallaby-webpack": "^0.0.31",
+    "wallaby-webpack": "^0.0.32",
     "webpack": "^1.14.0"
   },
   "dependencies": {},
