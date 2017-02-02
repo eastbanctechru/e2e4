@@ -23,7 +23,7 @@ module.exports = function (config) {
         webpack: {
             devtool: 'inline-source-map',
             module: {
-                loaders: [
+                rules: [
                     {
                         exclude: [path.resolve(__dirname, 'node_modules')],
                         include: [
@@ -31,26 +31,27 @@ module.exports = function (config) {
                             path.resolve(__dirname, 'tests')
                         ],
                         loader: 'ts-loader',
-                        test: /.*(?!\.d\.ts)|(\.ts)$/
+                        test: /.*(?!\.d\.ts)|(\.ts)$/,
+                        options: {
+                            compilerOptions: {
+                                importHelpers: true,
+                                noEmitHelpers: true
+                            }
+                        }
+                    },
+                    {
+                        include: [path.resolve(__dirname, 'src')],
+                        enforce: 'post',
+                        loader: 'istanbul-instrumenter-loader',
+                        test: /\.ts$/
                     }
-                ],
-                postLoaders: [{
-                    include: [path.resolve(__dirname, 'src')],
-                    loader: 'istanbul-instrumenter',
-                    test: /\.ts$/
-                }]
-            },
-            resolve: {
-                extensions: ['', '.ts', '.tsx', '.json', '.js'],
-                modulesDirectories: [
-                    'node_modules'
                 ]
             },
-            ts: {
-                compilerOptions: {
-                    importHelpers: true,
-                    noEmitHelpers: true
-                }
+            resolve: {
+                extensions: ['.ts', '.tsx', '.json', '.js'],
+                modules: [
+                    'node_modules'
+                ]
             }
         },
         webpackServer: {
