@@ -3,6 +3,7 @@ var path = require('path');
 module.exports = function (config) {
     config.set({
         browsers: ['Chrome'],
+		colors: true,
         files: [
             'node_modules/es6-shim/es6-shim.js',
             'tests/**/*.ts'
@@ -15,28 +16,29 @@ module.exports = function (config) {
         webpack: {
             devtool: 'inline-source-map',
             module: {
-                loaders: [
+                rules: [
                     {
+						exclude: [path.resolve(__dirname, 'node_modules')],
                         include: [
                             path.resolve(__dirname, 'src'),
                             path.resolve(__dirname, 'tests')
                         ],
                         loader: 'ts-loader',
-                        test: /.*(?!\.d\.ts)|(\.ts)$/
+                        test: /.*(?!\.d\.ts)|(\.ts)$/,
+                        options: {
+                            compilerOptions: {
+                                importHelpers: true,
+                                noEmitHelpers: true
+                            }
+                        }
                     }
                 ]
             },
             resolve: {
-                extensions: ['', '.ts', '.tsx', '.json', '.js'],
-                modulesDirectories: [
+                extensions: ['.ts', '.tsx', '.json', '.js'],
+                modules: [
                     'node_modules'
                 ]
-            },
-            ts: {
-                compilerOptions: {
-                    importHelpers: true,
-                    noEmitHelpers: true
-                }
             }
         },
         webpackServer: {
