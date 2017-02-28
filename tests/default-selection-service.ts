@@ -465,6 +465,16 @@ describe('SelectionService', () => {
             target.selectionService.checkSelection();
             expect(target.selectionService.getSelectedElements().length).eq(0);
         });
+        it('use referential equals if trackBy is undefined', () => {
+            const target = toTarget();
+            target.selectionService = new DefaultSelectionService();
+            target.selectionService.trackByFn = undefined;
+            target.selectionService.items = target.items;
+            target.selectionService.selectAll();
+            target.selectionService.items = target.items.map((item: Item) => ({ name: item.name } as Item));
+            target.selectionService.checkSelection();
+            expect(target.selectionService.getSelectedElements().length).eq(0);
+        });
         it('can use custom trackBy function', () => {
             const target = toTarget();
             target.selectionService = new DefaultSelectionService();
