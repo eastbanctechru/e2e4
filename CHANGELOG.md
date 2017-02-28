@@ -1,3 +1,8 @@
+<a name="2.0.0-rc.1"></a>
+# [2.0.0-rc.1](https://github.com/eastbanctechru/e2e4/compare/v2.0.0-rc.0...v2.0.0-rc.1) (2017-02-28)
+
+
+
 <a name="2.0.0-rc.0"></a>
 # [2.0.0-rc.0](https://github.com/eastbanctechru/e2e4/compare/v2.0.0-beta.9...v2.0.0-rc.0) (2016-12-20)
 
