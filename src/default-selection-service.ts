@@ -24,7 +24,7 @@ export class DefaultSelectionService implements SelectionService {
     /**
      * @inheritdoc
      */
-    public trackByFn: (index: number, item: any) => any = this.trackByIdentity;
+    public trackByFn: (index: number, item: any) => any;
     /**
      * @inheritdoc
      */
@@ -34,6 +34,10 @@ export class DefaultSelectionService implements SelectionService {
      * Collection of {@link SelectionTuple} elements which represents currently selected items in {@link items} collection.
      */
     protected selectionsList: SelectionTuple[] = new Array<SelectionTuple>();
+
+    constructor() {
+        this.trackByFn = this.trackByIdentity;
+    }
     /**
      * @inheritdoc
      */
