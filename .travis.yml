@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - "6"
 script:
-  - npm run precommit
+  - npm run ci
 after_success: 
   - 'npm run coveralls'
   

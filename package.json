@@ -26,6 +26,7 @@
     "version": "npm run docs && git add -A docs && npm run changelog && git add CHANGELOG.md",
     "postversion": "git push && git push --tags && conventional-github-releaser -p angular",
     "build": "npm run clean:src && npm run compile:cjs && npm run compile:esm",
+    "ci": "npm run lint && npm run build && npm run test",
     "precommit": "npm run rimraf -- esm coverage && npm run clean:src && npm run clean:tests && npm run lint && npm run build && npm run test",
     "clean:src": "npm run rimraf -- \"src/**/*.+(js|js.map|d.ts)\" ",
     "clean:tests": "npm run rimraf -- \"tests/**/*.+(js|js.map|d.ts)\" ",
