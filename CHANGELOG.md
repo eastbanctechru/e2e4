@@ -1,3 +1,13 @@
+<a name="2.0.0-rc.2"></a>
+# [2.0.0-rc.2](https://github.com/eastbanctechru/e2e4/compare/v2.0.0-rc.1...v2.0.0-rc.2) (2017-03-11)
+
+
+### Features
+
+* **list:** `stateServices` property, `loadSuccessCallback`, `loadFailCallback` and `clearData` meth ([838f67c](https://github.com/eastbanctechru/e2e4/commit/838f67c))
+
+
+
 <a name="2.0.0-rc.1"></a>
 # [2.0.0-rc.1](https://github.com/eastbanctechru/e2e4/compare/v2.0.0-rc.0...v2.0.0-rc.1) (2017-02-28)
 
