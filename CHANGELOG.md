@@ -1,3 +1,13 @@
+<a name="2.0.0-rc.4"></a>
+# [2.0.0-rc.4](https://github.com/eastbanctechru/e2e4/compare/v2.0.0-rc.3...v2.0.0-rc.4) (2017-03-11)
+
+
+### Bug Fixes
+
+* **list:** `reloadData` now returns result of `loadData` methid if it was called. `null` otherwise ([a82a2bf](https://github.com/eastbanctechru/e2e4/commit/a82a2bf))
+
+
+
 <a name="2.0.0-rc.3"></a>
 # [2.0.0-rc.3](https://github.com/eastbanctechru/e2e4/compare/v2.0.0-rc.2...v2.0.0-rc.3) (2017-03-11)
 
