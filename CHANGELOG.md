@@ -1,3 +1,13 @@
+<a name="2.0.0-rc.3"></a>
+# [2.0.0-rc.3](https://github.com/eastbanctechru/e2e4/compare/v2.0.0-rc.2...v2.0.0-rc.3) (2017-03-11)
+
+
+### Features
+
+* **list:** `loadData` method now returns result of `fetchMethod` delegate ([90f1b4b](https://github.com/eastbanctechru/e2e4/commit/90f1b4b))
+
+
+
 <a name="2.0.0-rc.2"></a>
 # [2.0.0-rc.2](https://github.com/eastbanctechru/e2e4/compare/v2.0.0-rc.1...v2.0.0-rc.2) (2017-03-11)
 
