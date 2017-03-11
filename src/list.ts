@@ -107,6 +107,7 @@ export class List {
     }
     /**
      * Performs data loading by calling specified {@link fetchMethod} delegate.
+     * @return result of {@link fetchMethod} execution.
      */
     public loadData(): any {
         if (this.busy) {
@@ -124,13 +125,15 @@ export class List {
         return subscribable;
     }
     /**
-     * Resets paging parameters and performs data loading by calling {@link loadData}.
+     * Resets paging parameters and performs data loading by calling {@link loadData} if list not in {@link OperationStatus.Progress} state.
+     * @return result of {@link fetchMethod} if it was called. `null` otherwise.
      */
-    public reloadData(): void {
+    public reloadData(): any {
         if (this.ready) {
             this.clearData();
-            this.loadData();
+            return this.loadData();
         }
+        return null;
     }
     /**
      * Cancels the request executed at the moment.
