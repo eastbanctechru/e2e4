@@ -22,12 +22,15 @@ export class List {
      * Array of elements transferred in the {@link ListResponse.items} property.
      */
     public items: any[] = new Array<any>();
+    /**
+     * Array of registered {@link StateService} instances.
+     */
+    public stateServices: StateService[] = new Array<StateService>();
 
     protected pagerInternal: Pager;
     protected statusInternal: OperationStatus = OperationStatus.Initial;
     protected destroyedInternal: boolean = false;
     protected initedInternal: boolean = false;
-    protected stateServices: StateService[] = new Array<StateService>();
     /**
      * Configured {@link Pager} service.
      */
@@ -184,7 +187,7 @@ export class List {
     /**
      * Callback which is executed if {@link fetchMethod} execution finished successfully.
      */
-    protected loadSuccessCallback = (result: ListResponse<any> | any[]): Object => {
+    public loadSuccessCallback = (result: ListResponse<any> | any[]): Object => {
         if (Array.isArray(result)) {
             result = {
                 items: result,
@@ -206,14 +209,14 @@ export class List {
     /**
      * Callback which is executed if {@link fetchMethod} execution finished with error.
      */
-    protected loadFailCallback = (): void => {
+    public loadFailCallback = (): void => {
         this.statusInternal = OperationStatus.Fail;
     }
     /**
      * Calls {@link Pager.reset} method and clears {@link items} array. Calls {@link destroyAll} method for {@link items} array to perform optional destroy logic of the elements.
      * {@see destroyAll}
      */
-    protected clearData(): void {
+    public clearData(): void {
         this.pager.reset();
         destroyAll(this.items);
         this.items = [];

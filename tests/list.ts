@@ -60,11 +60,11 @@ describe('List', () => {
     describe('ctor', () => {
         it('sets stateServices array with passed service', () => {
             list = new List(asyncSubscriber, null, sortingsService, filtersService);
-            expect((list as any).stateServices).empty;
+            expect(list.stateServices).empty;
             list = new List(asyncSubscriber, firstStubStateService, sortingsService, filtersService);
-            expect((list as any).stateServices).eql([firstStubStateService]);
+            expect(list.stateServices).eql([firstStubStateService]);
             list = new List(asyncSubscriber, [firstStubStateService, secondStubStateService], sortingsService, filtersService);
-            expect((list as any).stateServices).eql([firstStubStateService, secondStubStateService]);
+            expect(list.stateServices).eql([firstStubStateService, secondStubStateService]);
         });
         it('inits pager as NullObjectPager', () => {
             expect(list.pager).instanceof(NullObjectPager);
@@ -137,15 +137,15 @@ describe('List', () => {
     });
     describe('state services', () => {
         it('adds state services to stateServices collection on registerStateService call', () => {
-            expect((list as any).stateServices).to.eql([]);
+            expect(list.stateServices).to.eql([]);
             list.registerStateService(firstStubStateService, secondStubStateService);
-            expect((list as any).stateServices).to.eql([firstStubStateService, secondStubStateService]);
+            expect(list.stateServices).to.eql([firstStubStateService, secondStubStateService]);
         });
         it('removes state service from stateServices collection on removeStateService call', () => {
             list.registerStateService(firstStubStateService, secondStubStateService);
-            expect((list as any).stateServices).to.eql([firstStubStateService, secondStubStateService]);
+            expect(list.stateServices).to.eql([firstStubStateService, secondStubStateService]);
             list.removeStateService(firstStubStateService);
-            expect((list as any).stateServices).to.eql([secondStubStateService]);
+            expect(list.stateServices).to.eql([secondStubStateService]);
         });
         it('doesn\'t throw if not registered service unregistered', () => {
             list.registerStateService(firstStubStateService);
@@ -295,7 +295,7 @@ describe('List', () => {
             list.init();
             list.loadData();
             expect(attachSpy.calledOnce).true;
-            expect(attachSpy.calledWith(observable, (list as any).loadSuccessCallback, (list as any).loadFailCallback)).true;
+            expect(attachSpy.calledWith(observable, list.loadSuccessCallback, list.loadFailCallback)).true;
         });
         it('returns without request if list status is equal to OperationStatus.Progress', () => {
             const observable = Observable.create((observer: any) => {
