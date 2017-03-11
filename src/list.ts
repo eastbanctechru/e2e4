@@ -108,7 +108,7 @@ export class List {
     /**
      * Performs data loading by calling specified {@link fetchMethod} delegate.
      */
-    public loadData(): void {
+    public loadData(): any {
         if (this.busy) {
             return;
         }
@@ -121,6 +121,7 @@ export class List {
         }
         this.asyncSubscriber.attach(subscribable, this.loadSuccessCallback, this.loadFailCallback);
         this.stateServices.forEach((service: StateService) => service.persistState(this.filtersService));
+        return subscribable;
     }
     /**
      * Resets paging parameters and performs data loading by calling {@link loadData}.
