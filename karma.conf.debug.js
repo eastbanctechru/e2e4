@@ -13,6 +13,7 @@ module.exports = function (config) {
             'tests/**/*.ts': ['webpack', 'sourcemap']
         },
         singleRun: false,
+        mime: { 'text/x-typescript': ['ts','tsx'] },
         webpack: {
             devtool: 'inline-source-map',
             module: {

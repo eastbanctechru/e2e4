@@ -12,6 +12,7 @@ import { cloneAsLiteral } from './utilities';
  *        defaultValue: undefined,
  *        emptyIsNull: false,
  *        ignoreOnAutoMap: false,
+ *        omitIfNullOrUndefined: false,
  *        parameterName: <value of 'propertyName' parameter>,
  *        parseFormatter: undefined,
  *        propertyName: <value of 'propertyName' parameter>,
@@ -24,6 +25,7 @@ export let DefaultFilterConfig = {
     defaultValue: undefined,
     emptyIsNull: false,
     ignoreOnAutoMap: false,
+    omitIfNullOrUndefined: false,
     parseFormatter: undefined,
     serializeFormatter: undefined
 } as FilterConfig;

@@ -183,7 +183,10 @@ export class FiltersService {
                 config = Object.assign({}, config);
                 const proposedVal = target[config.propertyName];
                 if (filterFn ? filterFn(config, proposedVal, target) : true) {
-                    result[config.parameterName] = FiltersService.buildFilterValue(target, proposedVal, config);
+                    const resultValue = FiltersService.buildFilterValue(target, proposedVal, config);
+                    if (!config.omitIfNullOrUndefined || (resultValue !== null && resultValue !== undefined)) {
+                        result[config.parameterName] = resultValue;
+                    }
                 }
             }
         });

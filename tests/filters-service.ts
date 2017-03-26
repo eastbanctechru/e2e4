@@ -207,7 +207,7 @@ describe('FiltersService', () => {
         });
     });
     describe('get...State', () => {
-        it('includes all filters to requestState', () => {
+        it('includes all filters to requestState by default', () => {
             class TargetType {
                 @filter({ coerce: false } as FilterConfig)
                 public first: string = 'first';
@@ -289,6 +289,21 @@ describe('FiltersService', () => {
             expect(requestState.nullProperty).null;
             expect(requestState.undefinedProperty).null;
             expect(requestState.falseProperty).null;
+        });
+        it('doesn\'t add property to result if it\'s null or undefined and omitIfNullOrUndefined is setted to \'true\'', () => {
+            class TargetType {
+                @filter({ omitIfNullOrUndefined: true } as FilterConfig)
+                public normalProperty: string = 'value';
+
+                @filter({ omitIfNullOrUndefined: true } as FilterConfig)
+                public nullProperty: string = null;
+            }
+            const target = new TargetType();
+            const filtersService = new FiltersService(target);
+
+            const requestState = filtersService.getRequestState();
+            expect(requestState.normalProperty).equal(target.normalProperty);
+            expect(requestState.hasOwnProperty('nullProperty')).false;
         });
         it('handles arrays', () => {
             const toRequestSpy = sinon.spy(() => 'first');

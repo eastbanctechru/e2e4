@@ -52,6 +52,10 @@ export interface FilterConfig {
      */
     emptyIsNull?: boolean;
     /**
+     * Specifies that property will be omitted by {@link FiltersService.getRequestState} method if it has `null` or `undefined` value.
+     */
+    omitIfNullOrUndefined?: boolean;
+    /**
      * Specifies that {@link FiltersService} must coerce values when serializing or parsing data.
      *
      * For example, 'null' string will be converted to null, 'true' string will be converted to boolean `true`, '1.0' string will be converted to 1.0 number etc.
