@@ -21,9 +21,20 @@ export class NullObjectPager implements Pager {
     /**
      * @inheritdoc
      */
-    public processResponse(response: ListResponse<any>): void {
-        this.loadedCount = response.loadedCount || (response.items && response.items.length ? response.items.length : 0);
-        this.totalCount = response.totalCount || 0;
+    public processResponse(response: ListResponse<any> | any[]): void {
+        let alignedResponse: ListResponse<any>;
+        if (Array.isArray(response)) {
+            alignedResponse = {
+                items: response,
+                loadedCount: response.length,
+                totalCount: response.length
+            } as ListResponse<any>;
+        } else {
+            alignedResponse = response;
+        }
+
+        this.loadedCount = alignedResponse.loadedCount || (alignedResponse.items && alignedResponse.items.length ? alignedResponse.items.length : 0);
+        this.totalCount = alignedResponse.totalCount || 0;
     }
     /**
      * @inheritdoc

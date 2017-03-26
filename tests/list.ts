@@ -392,7 +392,7 @@ describe('List', () => {
                 expect(processSpy.calledOnce).true;
                 expect(processSpy.calledWith(response)).true;
             });
-            it('calls pager.processResponse with constructed response if simple array was returned as response', () => {
+            it('calls pager.processResponse with array of records if simple array was returned as response', () => {
                 const processSpy = sinon.spy(list.pager, 'processResponse');
                 const response = [1, 2, 3, 4, 5];
                 list.fetchMethod = () => Observable.create((observer: any) => {
@@ -405,7 +405,7 @@ describe('List', () => {
                 expect(processSpy.notCalled).true;
                 clock.tick(delay);
                 expect(processSpy.calledOnce).true;
-                expect(processSpy.args[0][0]).eql({ totalCount: response.length, loadedCount: response.length, items: response });
+                expect(processSpy.args[0][0]).eql(response);
             });
             it('concats items array with loaded data', () => {
                 list.pager.appendedOnLoad = true;

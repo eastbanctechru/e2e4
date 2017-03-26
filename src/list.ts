@@ -191,16 +191,9 @@ export class List {
     /**
      * Callback which is executed if {@link fetchMethod} execution finished successfully.
      */
-    public loadSuccessCallback = (result: ListResponse<any> | any[]): object => {
-        if (Array.isArray(result)) {
-            result = {
-                items: result,
-                loadedCount: result.length,
-                totalCount: result.length
-            } as ListResponse<any>;
-        }
-        this.items = this.items.concat(result.items);
-
+    public loadSuccessCallback = (result: ListResponse<any> | any[]): ListResponse<any> | any[] => {
+        const items = Array.isArray(result) ? result : result.items;
+        this.items = this.items.concat(items);
         this.pager.processResponse(result);
         // In case when filter changed from last request and there's no data now
         if (this.pager.totalCount === 0) {

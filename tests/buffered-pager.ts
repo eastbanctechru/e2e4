@@ -32,6 +32,15 @@ describe('BufferedPager', () => {
             expect(pager.skip).eq(response.loadedCount);
         });
 
+        it('handles array of records as full response', () => {
+            const pager = new BufferedPager();
+            const responseArray = [1, 2, 3, 4, 5];
+            pager.processResponse(responseArray);
+            expect(pager.totalCount).eq(responseArray.length);
+            expect(pager.loadedCount).eq(responseArray.length);
+            expect(pager.skip).eq(responseArray.length);
+        });
+
         it('increments skip on each load callback execution', () => {
             const pager = new BufferedPager();
             const response = toResponseObject();

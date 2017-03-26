@@ -36,6 +36,15 @@ describe('PagedPager', () => {
             expect(pager.loadedCount).eq(response.loadedCount);
         });
 
+        it('handles array of records as full response', () => {
+            const pager = new PagedPager();
+            const response = [1, 2, 3, 4, 5];
+            pager.processResponse(response);
+
+            expect(pager.totalCount).eq(response.length);
+            expect(pager.loadedCount).eq(response.length);
+        });
+
         it('process incorrect totalCount as 0', () => {
             const pager = new PagedPager();
             const response = toResponseObject();

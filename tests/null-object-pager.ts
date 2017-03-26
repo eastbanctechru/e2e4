@@ -25,6 +25,13 @@ describe('NullObjectPager', () => {
         expect(pager.totalCount).eq(response.totalCount);
         expect(pager.loadedCount).eq(response.loadedCount);
     });
+    it('handles array of records as full response', () => {
+        const pager = new NullObjectPager();
+        const responseArray = [1, 2, 3, 4, 5];
+        pager.processResponse(responseArray);
+        expect(pager.totalCount).eq(responseArray.length);
+        expect(pager.loadedCount).eq(responseArray.length);
+    });
 
     it('process incorrect totalCount as 0', () => {
         const pager = new NullObjectPager();

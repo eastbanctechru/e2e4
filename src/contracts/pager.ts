@@ -28,5 +28,5 @@ export interface Pager {
      *
      * @param response server response to process.
      */
-    processResponse(response: ListResponse<any>): void;
+    processResponse(response: ListResponse<any> | any[]): void;
 }
