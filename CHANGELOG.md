@@ -1,3 +1,19 @@
+<a name="2.0.0-rc.5"></a>
+# [2.0.0-rc.5](https://github.com/eastbanctechru/e2e4/compare/v2.0.0-rc.4...v2.0.0-rc.5) (2017-03-26)
+
+
+### Bug Fixes
+
+* **buffered pager:** `BufferedPager` sets `canLoadMore` now behaves correctly ([3306391](https://github.com/eastbanctechru/e2e4/commit/3306391))
+
+
+### Features
+
+* **filters:** `omitIfNullOrUndefined` config property added ([c5bd22c](https://github.com/eastbanctechru/e2e4/commit/c5bd22c))
+* **filters:** introduce `DefaultFilterConfig` object to globally change filter configs defaults ([6d1e28a](https://github.com/eastbanctechru/e2e4/commit/6d1e28a))
+
+
+
 <a name="2.0.0-rc.4"></a>
 # [2.0.0-rc.4](https://github.com/eastbanctechru/e2e4/compare/v2.0.0-rc.3...v2.0.0-rc.4) (2017-03-11)
 
