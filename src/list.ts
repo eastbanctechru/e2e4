@@ -167,19 +167,19 @@ export class List {
      * Registers passed object(s) as filter targets in underlying {@link FiltersService} to include their configured properties as parameters to the data request.
      * @see {@link FiltersService.registerFilterTarget}
      */
-    public registerFilterTarget(...targets: Object[]): void {
+    public registerFilterTarget(...targets: Array<object>): void {
         this.filtersService.registerFilterTarget(...targets);
     }
     /**
      * @see {@link FiltersService.removeFilterTarget}
      */
-    public removeFilterTarget(...targets: Object[]): void {
+    public removeFilterTarget(...targets: Array<object>): void {
         this.filtersService.removeFilterTarget(...targets);
     }
     /**
      * @see {@link FiltersService.getRequestState}
      */
-    public getRequestState(filterFn?: (config: FilterConfig, proposedValue: any, targetObject: Object) => boolean): any {
+    public getRequestState(filterFn?: (config: FilterConfig, proposedValue: any, targetObject: object) => boolean): any {
         return this.filtersService.getRequestState(filterFn);
     }
     /**
@@ -191,7 +191,7 @@ export class List {
     /**
      * Callback which is executed if {@link fetchMethod} execution finished successfully.
      */
-    public loadSuccessCallback = (result: ListResponse<any> | any[]): Object => {
+    public loadSuccessCallback = (result: ListResponse<any> | any[]): object => {
         if (Array.isArray(result)) {
             result = {
                 items: result,

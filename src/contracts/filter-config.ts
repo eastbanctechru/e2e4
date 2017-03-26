@@ -28,7 +28,7 @@ export interface FilterConfig {
      * If this option wasn't specified, {@link FiltersService} uses the value of `target property` which was assigned to it at the moment of first call
      * of {@link FiltersService.resetValues}, {@link FiltersService.applyParams} or {@link FiltersService.getRequestState}.
      */
-    defaultValue?: Object;
+    defaultValue?: any;
     /**
      * Name of `target property` in `target type` which will be used by {@link FiltersService} to read and write values.
      *
@@ -62,11 +62,11 @@ export interface FilterConfig {
     /**
      * Optional function to serialize `target property` value when {@link FiltersService.getRequestState} method builds resulting state object.
      */
-    serializeFormatter?: (value: Object) => Object;
+    serializeFormatter?: (value: any) => any;
     /**
      * Optional function that will be called by {@link FiltersService.applyParams} to parse raw value before writing it to `target property`.
      *
      * Also, when this function is specified, it will be called by {@link FiltersService.resetValues} since {@link FiltersService.resetValues} clones default values as literals and resulting value can require parsing.
      */
-    parseFormatter?: (rawValue: Object, allValues?: Object) => Object;
+    parseFormatter?: (rawValue: any, allValues?: object) => any;
 }

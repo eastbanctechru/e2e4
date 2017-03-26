@@ -45,7 +45,7 @@ export class FiltersService {
      * @param targetType type definition that contains specified property declaration.
      * @param propertyConfig configuration for property as a filter.
      */
-    public static registerFilterConfig(targetType: Object, propertyConfig: FilterConfig): void {
+    public static registerFilterConfig(targetType: object, propertyConfig: FilterConfig): void {
         const typeConfigs = FiltersService.filterPropertiesMap.has(targetType) ? FiltersService.filterPropertiesMap.get(targetType) : new Array<FilterConfig>();
         typeConfigs.push(propertyConfig);
         FiltersService.filterPropertiesMap.set(targetType, typeConfigs);
@@ -70,7 +70,7 @@ export class FiltersService {
      * @param value raw value of `target property`.
      * @param config filter configuration for `target property`.
      */
-    protected static buildFilterValue(target: Object, value: any, config: FilterConfig): Object {
+    protected static buildFilterValue(target: object, value: any, config: FilterConfig): object {
         if (config && config.serializeFormatter) {
             return config.serializeFormatter.call(target, value);
         }
@@ -92,7 +92,7 @@ export class FiltersService {
     /**
      * Internal implementation of {@link appliedFiltersMap}
      */
-    protected appliedFiltersMapInternal: Map<Object, FilterConfig[]> = new Map<Object, FilterConfig[]>();
+    protected appliedFiltersMapInternal: Map<object, FilterConfig[]> = new Map<object, FilterConfig[]>();
     /**
      * Specifies was {@link appliedFiltersMap} already constructed or not.
      */
@@ -100,7 +100,7 @@ export class FiltersService {
     /**
      * @param target `target object` that will be registered with {@link registerFilterTarget} method.
      */
-    constructor(target?: Object) {
+    constructor(target?: object) {
         if (target) {
             this.registerFilterTarget(target);
         }
@@ -119,7 +119,7 @@ export class FiltersService {
      *
      * This collection is "lazy" and will be filled up on first call of {@link resetValues}, {@link applyParams} or {@link getRequestState} method.
      */
-    public get appliedFiltersMap(): Map<Object, FilterConfig[]> {
+    public get appliedFiltersMap(): Map<object, FilterConfig[]> {
         if (!this.filtersMapBuilded) {
             this.buildFiltersMap();
         }
@@ -142,7 +142,7 @@ export class FiltersService {
     public resetValues(): void {
         this.appliedFiltersMap.forEach((targetConfig: FilterConfig[], target: { [id: string]: any }) => {
             for (const config of targetConfig) {
-                const defaultValue = (typeof config.defaultValue === 'function') ? (config.defaultValue as Function).call(target) : config.defaultValue;
+                const defaultValue = (typeof config.defaultValue === 'function') ? (config.defaultValue as () => any).call(target) : config.defaultValue;
                 const clonedObject = cloneAsLiteral({ defaultValue });
                 target[config.propertyName] = config.parseFormatter ? config.parseFormatter.call(target, clonedObject.defaultValue) : clonedObject.defaultValue;
             }
@@ -176,7 +176,7 @@ export class FiltersService {
      * @param filterFn - optional function to filter applied values.
      * @returns resulted object literal.
      */
-    public getRequestState(filterFn?: (config: FilterConfig, proposedValue: any, targetObject: Object) => boolean): any {
+    public getRequestState(filterFn?: (config: FilterConfig, proposedValue: any, targetObject: object) => boolean): any {
         const result: { [id: string]: any } = {};
         this.appliedFiltersMap.forEach((targetConfig: FilterConfig[], target: { [id: string]: any }) => {
             for (let config of targetConfig) {
@@ -197,8 +197,8 @@ export class FiltersService {
      * {@link applyParams} and {@link resetValues} methods processes registered objects that were registered by this method.
      * @param targets object(s) to register as `target object`.
      */
-    public registerFilterTarget(...targets: Object[]): void {
-        targets.forEach((target: Object) => {
+    public registerFilterTarget(...targets: Array<object>): void {
+        targets.forEach((target: object) => {
             this.appliedFiltersMapInternal.set(target, null);
             if (this.filtersMapBuilded) {
                 this.buildFilterTargetMap(target);
@@ -211,8 +211,8 @@ export class FiltersService {
      * This means that {@link getRequestState}, {@link applyParams} and {@link resetValues} methods stops to process this objects.
      * @param targets object(s) to remove from collection of `target object`.
      */
-    public removeFilterTarget(...targets: Object[]): void {
-        targets.forEach((target: Object) => {
+    public removeFilterTarget(...targets: Array<object>): void {
+        targets.forEach((target: object) => {
             this.appliedFiltersMapInternal.delete(target);
         });
     }
@@ -222,7 +222,7 @@ export class FiltersService {
      * This method is called automatically before first usage of {@link appliedFiltersMap}.
      */
     private buildFiltersMap(): void {
-        this.appliedFiltersMapInternal.forEach((targetConfig: FilterConfig[], target: Object) => {
+        this.appliedFiltersMapInternal.forEach((targetConfig: FilterConfig[], target: object) => {
             this.buildFilterTargetMap(target);
         });
         this.filtersMapBuilded = true;

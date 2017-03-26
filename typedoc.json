@@ -1,7 +1,8 @@
 {
     "includeDeclarations": false,
     "excludePrivate": true,
-    "exclude": "tests/*.*",
+    "excludeExternals": true,
+    "externalPattern": "**/+(node_modules|tests)/**/*.ts",
     "ignoreCompilerErrors": true,
     "gaID": "UA-47538916-3",
     "mode": "file",

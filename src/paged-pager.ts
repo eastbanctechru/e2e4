@@ -85,7 +85,7 @@ export class PagedPager implements Pager {
             const pageSize = !allValues || isNaN(allValues.take) || !allValues.take ? this.defaultPageSize : allValues.take * 1;
             return skip % pageSize === 0 ? (skip / pageSize + 1) : 1;
         },
-        serializeFormatter(this: PagedPager, value: Object): number {
+        serializeFormatter(this: PagedPager, value: object): number {
             return (this.pageNumber - 1) * this.pageSize;
         }
     } as FilterConfig)

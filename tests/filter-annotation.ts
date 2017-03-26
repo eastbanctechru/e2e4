@@ -5,8 +5,8 @@ import { FiltersService } from '../src/filters-service';
 
 import { expect } from 'chai';
 
-function parseStub(value: Object): Object { return value; }
-function serializeStub(rawValue: Object): Object { return rawValue; }
+function parseStub(value: object): object { return value; }
+function serializeStub(rawValue: object): object { return rawValue; }
 function checkConfigsEquality(expected: FilterConfig, actual: FilterConfig): void {
     expect(actual.coerce).eql(expected.coerce);
     expect(actual.defaultValue).eql(expected.defaultValue);

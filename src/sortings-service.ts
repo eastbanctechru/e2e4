@@ -42,10 +42,10 @@ export class SortingsService {
     @filter({
         defaultValue(this: SortingsService): SortParameter[] { return this.cloneDefaultSortings(); },
         parameterName: 'sortings',
-        parseFormatter(rawValue: any): Object[] {
+        parseFormatter(rawValue: any): Array<object> {
             return Array.isArray(rawValue) ? rawValue.map((sort: SortParameter) => ({ direction: sort.direction * 1, fieldName: sort.fieldName })) : [];
         },
-        serializeFormatter(this: SortingsService): Object {
+        serializeFormatter(this: SortingsService): object {
             return this.sortings.map((sort: SortParameter) => ({
                 direction: sort.direction, fieldName: sort.fieldName
             }));

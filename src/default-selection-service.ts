@@ -217,7 +217,7 @@ export class DefaultSelectionService implements SelectionService {
     /**
      * @inheritdoc
      */
-    public getSelectedElements(): Object[] {
+    public getSelectedElements(): Array<object> {
         return this.selectionsList.map((selectionItem: SelectionTuple) => selectionItem.item);
     }
     /**

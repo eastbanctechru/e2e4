@@ -39,7 +39,7 @@ export function getDefaultFilterConfig(propertyName: string): FilterConfig {
  * @see {@link FilterConfig}
  */
 export function filter(targetOrNameOrConfig?: string | FilterConfig, key?: string): any {
-    const decorateWithConfig = (target: Object, key2: string): void => {
+    const decorateWithConfig = (target: object, key2: string): void => {
         const config = getDefaultFilterConfig(key2);
         if (typeof targetOrNameOrConfig === 'string') {
             config.parameterName = targetOrNameOrConfig;
@@ -52,7 +52,7 @@ export function filter(targetOrNameOrConfig?: string | FilterConfig, key?: strin
     if (key) {
         const targetTemp = targetOrNameOrConfig;
         targetOrNameOrConfig = null;
-        return decorateWithConfig(targetTemp, key);
+        return decorateWithConfig(targetTemp as object, key);
     }
     return decorateWithConfig;
 }
