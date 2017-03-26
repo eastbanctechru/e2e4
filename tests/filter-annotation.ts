@@ -1,6 +1,6 @@
 // tslint:disable:max-classes-per-file
 import { FilterConfig } from '../src/contracts/filter-config';
-import { filter, getDefaultFilterConfig } from '../src/filter-annotation';
+import { DefaultFilterConfig, filter, getDefaultFilterConfig } from '../src/filter-annotation';
 import { FiltersService } from '../src/filters-service';
 
 import { expect } from 'chai';
@@ -18,6 +18,36 @@ function checkConfigsEquality(expected: FilterConfig, actual: FilterConfig): voi
     expect(actual.serializeFormatter).eql(expected.serializeFormatter);
 }
 
+describe('getDefaultFilterConfig', () => {
+    it('builds config based on DefaultFilterConfig with applied propertyName', () => {
+        const actualConfig = getDefaultFilterConfig('requestProperty');
+
+        const expectedConfig = {
+            coerce: DefaultFilterConfig.coerce,
+            defaultValue: DefaultFilterConfig.defaultValue,
+            emptyIsNull: DefaultFilterConfig.emptyIsNull,
+            ignoreOnAutoMap: DefaultFilterConfig.ignoreOnAutoMap,
+            parameterName: 'requestProperty',
+            parseFormatter: DefaultFilterConfig.parseFormatter,
+            propertyName: 'requestProperty',
+            serializeFormatter: DefaultFilterConfig.serializeFormatter
+        } as FilterConfig;
+
+        checkConfigsEquality(actualConfig, expectedConfig);
+    });
+    it('When DefaultFilterConfig properties are changed it builds config with corresponding value', () => {
+        let config = getDefaultFilterConfig('requestProperty');
+        expect(config.coerce).equal(DefaultFilterConfig.coerce);
+
+        DefaultFilterConfig.coerce = !DefaultFilterConfig.coerce;
+        config = getDefaultFilterConfig('requestProperty');
+        expect(config.coerce).equal(DefaultFilterConfig.coerce);
+
+        DefaultFilterConfig.coerce = !DefaultFilterConfig.coerce;
+        config = getDefaultFilterConfig('requestProperty');
+        expect(config.coerce).equal(DefaultFilterConfig.coerce);
+    });
+});
 describe('filterAnnotation', () => {
     it('registers config in filtersService', () => {
         class RequestObject {

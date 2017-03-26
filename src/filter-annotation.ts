@@ -1,7 +1,11 @@
 import { FilterConfig } from './contracts/filter-config';
 import { FiltersService } from './filters-service';
+import { cloneAsLiteral } from './utilities';
+
 /**
- * Returns object literal that implements {@link FilterConfig} contract with next values:
+ * Object literal used by {@link getDefaultFilterConfig} function to build filter configuration.
+ * This object can be used to change default values of filter configs globally.
+ * By default it has next values:
  * ```Javascript
  * {
  *        coerce: true,
@@ -14,20 +18,27 @@ import { FiltersService } from './filters-service';
  *        serializeFormatter: undefined
  * }
  * ```
+ */
+export let DefaultFilterConfig = {
+    coerce: true,
+    defaultValue: undefined,
+    emptyIsNull: false,
+    ignoreOnAutoMap: false,
+    parseFormatter: undefined,
+    serializeFormatter: undefined
+} as FilterConfig;
+
+/**
+ * Returns filter configuration based on {@link DefaultFilterConfig} values with applied `parameterName` and `propertyName` properties values.
  * @param propertyName name of the property in `target type`, for which configuration is created. This value will be used to set {@link FilterConfig.propertyName} and {@link FilterConfig.parameterName} values.
  * @see {@link FilterConfig}
  */
 export function getDefaultFilterConfig(propertyName: string): FilterConfig {
-    return {
-        coerce: true,
-        defaultValue: undefined,
-        emptyIsNull: false,
-        ignoreOnAutoMap: false,
+
+    return Object.assign({
         parameterName: propertyName,
-        parseFormatter: undefined,
-        propertyName,
-        serializeFormatter: undefined
-    } as FilterConfig;
+        propertyName
+    }, cloneAsLiteral(DefaultFilterConfig)) as FilterConfig;
 }
 /**
  * Annotation that can be used to configure type property as filter to use with {@link FiltersService}
