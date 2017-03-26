@@ -222,5 +222,13 @@ describe('BufferedPager', () => {
             pager.skip = pager.totalCount;
             expect(pager.canLoadMore).false;
         });
+        it('canLoadMore is true for flat responses while full chunk of data loaded', () => {
+            const pager = new BufferedPager();
+            pager.takeRowCount = 5;
+            pager.processResponse([1, 2, 3, 4, 5]);
+            expect(pager.canLoadMore).true;
+            pager.processResponse([6, 7, 8]);
+            expect(pager.canLoadMore).false;
+        });
     });
 });

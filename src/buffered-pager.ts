@@ -68,7 +68,6 @@ export class BufferedPager implements Pager {
         parseFormatter(): number { return 0; }
     } as FilterConfig)
     public skip: number = 0;
-
     /**
      * Internal implementation of {@link takeRowCount}.
      */
@@ -84,7 +83,8 @@ export class BufferedPager implements Pager {
         }
     } as FilterConfig)
     protected takeRowCountInternal: number = BufferedPager.settings.defaultRowCount;
-
+    private handlesFlatResponse: boolean = false;
+    private lastChunkRecieved: boolean = null;
     /**
      * This property is applied to the server request and it specifies how many rows must be loaded on next request.
      * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
@@ -116,7 +116,7 @@ export class BufferedPager implements Pager {
      * Returns `true` if it's possible to load more records (e.g. currently not all records loaded to the list).
      */
     public get canLoadMore(): boolean {
-        return this.totalCount !== 0 && this.skip < this.totalCount;
+        return this.totalCount !== 0 && this.handlesFlatResponse ? !this.lastChunkRecieved : this.skip < this.totalCount;
     }
     /**
      * @inheritdoc
@@ -124,17 +124,22 @@ export class BufferedPager implements Pager {
     public processResponse(response: ListResponse<any> | any[]): void {
         let alignedResponse: ListResponse<any>;
         if (Array.isArray(response)) {
+            this.handlesFlatResponse = true;
             alignedResponse = {
                 items: response,
                 loadedCount: response.length,
                 totalCount: response.length
             } as ListResponse<any>;
         } else {
+            this.handlesFlatResponse = false;
             alignedResponse = response;
         }
         this.totalCount = alignedResponse.totalCount || 0;
-        const loadedCount = alignedResponse.loadedCount || (alignedResponse.items && alignedResponse.items.length ? alignedResponse.items.length : 0);
-        this.skip = loadedCount === 0 ? 0 : this.skip + loadedCount;
+        const lastLoadedCount = alignedResponse.loadedCount || (alignedResponse.items && alignedResponse.items.length ? alignedResponse.items.length : 0);
+
+        this.lastChunkRecieved = lastLoadedCount !== this.takeRowCountInternal;
+
+        this.skip = lastLoadedCount === 0 ? 0 : this.skip + lastLoadedCount;
         this.loadedCount = this.skip;
     }
     /**
