@@ -167,13 +167,13 @@ export class List {
      * Registers passed object(s) as filter targets in underlying {@link FiltersService} to include their configured properties as parameters to the data request.
      * @see {@link FiltersService.registerFilterTarget}
      */
-    public registerFilterTarget(...targets: Array<object>): void {
+    public registerFilterTarget(...targets: object[]): void {
         this.filtersService.registerFilterTarget(...targets);
     }
     /**
      * @see {@link FiltersService.removeFilterTarget}
      */
-    public removeFilterTarget(...targets: Array<object>): void {
+    public removeFilterTarget(...targets: object[]): void {
         this.filtersService.removeFilterTarget(...targets);
     }
     /**

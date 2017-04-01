@@ -1,4 +1,3 @@
-﻿
 import { Operation } from './operation';
 import { OperationStatus } from './operation-status';
 
@@ -115,5 +114,5 @@ export class StatusTrackingService {
                 }
             }
         }, StatusTrackingService.elementVisibilityInterval);
-    };
+    }
 }

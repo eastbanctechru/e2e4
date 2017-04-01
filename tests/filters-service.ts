@@ -15,7 +15,7 @@ describe('FiltersService', () => {
     describe('configs registration', () => {
 
         it('registers filter config for type', () => {
-            class TargetType { };
+            class TargetType { }
             const config = getDefaultFilterConfig('propertyName');
             FiltersService.registerFilterConfig(TargetType, config);
             expect(FiltersService.filterPropertiesMap.has(TargetType)).true;
@@ -23,7 +23,7 @@ describe('FiltersService', () => {
 
         });
         it('registers multiple filter configs for type', () => {
-            class TargetType { };
+            class TargetType { }
             const config = getDefaultFilterConfig('propertyName');
             const anotherConfig = getDefaultFilterConfig('anotherPropertyName');
 

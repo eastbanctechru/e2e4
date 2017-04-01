@@ -116,7 +116,7 @@ export interface SelectionService {
      * Returns all elements from {@link items} collection which are marked as selected.
      * @returns collection of selected elements.
      */
-    getSelectedElements(): Array<object>;
+    getSelectedElements(): object[];
     /**
      * Returns indexes of all elements from {@link items} collection which are marked as selected.
      * @returns collection of selected elements indexes in {@link items} collection.

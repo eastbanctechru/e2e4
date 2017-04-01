@@ -200,7 +200,7 @@ export class FiltersService {
      * {@link applyParams} and {@link resetValues} methods processes registered objects that were registered by this method.
      * @param targets object(s) to register as `target object`.
      */
-    public registerFilterTarget(...targets: Array<object>): void {
+    public registerFilterTarget(...targets: object[]): void {
         targets.forEach((target: object) => {
             this.appliedFiltersMapInternal.set(target, null);
             if (this.filtersMapBuilded) {
@@ -214,7 +214,7 @@ export class FiltersService {
      * This means that {@link getRequestState}, {@link applyParams} and {@link resetValues} methods stops to process this objects.
      * @param targets object(s) to remove from collection of `target object`.
      */
-    public removeFilterTarget(...targets: Array<object>): void {
+    public removeFilterTarget(...targets: object[]): void {
         targets.forEach((target: object) => {
             this.appliedFiltersMapInternal.delete(target);
         });
