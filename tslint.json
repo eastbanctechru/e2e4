@@ -6,7 +6,7 @@
             true,
             "never-prefix"
         ],
-        "linebreak-style": [true, "CRLF"],
+        "linebreak-style": [true, "LF"],
         "max-line-length": [
             true,
             240
@@ -18,7 +18,7 @@
         "no-mergeable-namespace": true,
         "no-require-imports": true,
         "no-switch-case-fall-through": true,
-        "no-use-before-declare": true,
+        "no-use-before-declare": false,
         "no-unused-expression": false,
         "one-variable-per-declaration": [
             true

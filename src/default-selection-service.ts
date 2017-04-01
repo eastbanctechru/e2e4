@@ -50,7 +50,7 @@ export class DefaultSelectionService implements SelectionService {
      * @inheritdoc
      */
     public checkSelection(): void {
-        if (this.items !== null && this.items !== undefined) {
+        if (this.items !== null && typeof this.items !== 'undefined') {
             for (let i = this.selectionsList.length - 1; i >= 0; i--) {
                 const tuple = this.selectionsList[i];
                 const trackFn = this.trackByFn || this.trackByIdentity;
@@ -72,7 +72,7 @@ export class DefaultSelectionService implements SelectionService {
      * @returns `true` if index is valid.
      */
     public isIndexAcceptable(index: number): boolean {
-        return index !== null && index !== undefined && index >= 0 && this.items && this.items.length > index;
+        return index !== null && typeof index !== 'undefined' && index >= 0 && this.items && this.items.length > index;
     }
     /**
      * @inheritdoc

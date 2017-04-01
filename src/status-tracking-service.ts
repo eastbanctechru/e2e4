@@ -103,7 +103,7 @@ export class StatusTrackingService {
             const undone = this.operationsList.find((item: Operation) => {
                 return item.status === OperationStatus.Progress;
             });
-            if (undone === undefined) {
+            if (typeof undone === 'undefined') {
                 this.operationsList.length = 0;
                 this.status = OperationStatus.Done;
             } else {

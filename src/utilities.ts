@@ -11,7 +11,7 @@ export function cloneAsLiteral(value: any): any {
     if (value === null) {
         return null;
     }
-    if (value === undefined) {
+    if (typeof value === 'undefined') {
         return undefined;
     }
     if (Array.isArray(value)) {
@@ -49,7 +49,7 @@ export function coerceValue(value: any): any {
     if (value === null) {
         return null;
     }
-    if (value === undefined) {
+    if (typeof value === 'undefined') {
         return undefined;
     }
     if (typeof value === 'object' || Array.isArray(value)) {
@@ -62,7 +62,7 @@ export function coerceValue(value: any): any {
         value = +value;
     } else if (value === 'undefined') {
         value = undefined;
-    } else if (coerceTypes[value] !== undefined) {
+    } else if (typeof coerceTypes[value] !== 'undefined') {
         value = coerceTypes[value];
     }
     return value;

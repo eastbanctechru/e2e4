@@ -184,7 +184,7 @@ export class FiltersService {
                 const proposedVal = target[config.propertyName];
                 if (filterFn ? filterFn(config, proposedVal, target) : true) {
                     const resultValue = FiltersService.buildFilterValue(target, proposedVal, config);
-                    if (!config.omitIfNullOrUndefined || (resultValue !== null && resultValue !== undefined)) {
+                    if (!config.omitIfNullOrUndefined || (resultValue !== null && typeof resultValue !== 'undefined')) {
                         result[config.parameterName] = resultValue;
                     }
                 }
@@ -240,7 +240,7 @@ export class FiltersService {
             if (target instanceof type) {
                 targetConfig = targetConfig.concat(typeConfig);
                 for (const config of targetConfig) {
-                    if (config.defaultValue === undefined) {
+                    if (typeof config.defaultValue === 'undefined') {
                         config.defaultValue = cloneAsLiteral({ defaultValue: target[config.propertyName] }).defaultValue;
                     }
                 }
