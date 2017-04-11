@@ -179,25 +179,112 @@ describe('List', () => {
             list.cancelRequests();
             expect(spy.notCalled).true;
         });
+        it('destroys items even if they was keeped on load', () => {
+            list.init();
+            list.keepRecordsOnLoad = true;
+            list.items = [1, 2, 3, 4, 5];
+            list.loadData();
+            expect(list.items).eql([1, 2, 3, 4, 5]);
+            list.cancelRequests();
+            expect(list.items).eql([]);
+        });
     });
     describe('reloadData', () => {
-        it('calls clearData and loadData methods', () => {
-            const clearSpy = sinon.spy(list, 'clearData');
-            const loadSpy = sinon.spy(list, 'loadData');
+        it('sets list status to Progress', () => {
+            list.init();
+            expect(list.status).not.eql(OperationStatus.Progress);
+            list.reloadData();
+            expect(list.status).eql(OperationStatus.Progress);
+        });
+        it('calls specified fetchMethod with FiltersService.getRequestState value as parameter', () => {
+            const fetchSpy = sinon.spy(list, 'fetchMethod');
             list.init();
             list.reloadData();
-            expect(clearSpy.called).true;
-            expect(loadSpy.called).true;
+            expect(fetchSpy.calledOnce).true;
+            expect(fetchSpy.args[0][0]).eql(filtersService.getRequestState());
         });
-        it('calls clearData method only if list is ready', () => {
-            const clearSpy = sinon.spy(list, 'clearData');
-            const loadSpy = sinon.spy(list, 'loadData');
+        it('doesn\'t destroy items array if \'keepRecordsOnLoad\' setted to \'true\'', () => {
+            list.init();
+            list.items = [1, 2, 3, 4, 5];
+            list.keepRecordsOnLoad = true;
+            list.reloadData();
+            expect(list.items).eql([1, 2, 3, 4, 5]);
+        });
+        it('destroys items array if \'keepRecordsOnLoad\' setted to \'false\'', () => {
+            list.init();
+            list.items = [1, 2, 3, 4, 5];
+            list.keepRecordsOnLoad = false;
+            list.reloadData();
+            expect(list.items).eql([]);
+        });
+        it('calls attach method of asyncSubscriber to listen observable', () => {
+            const observable = Observable.create((observer: any) => {
+                setTimeout(() => {
+                    observer.next([]);
+                }, delay);
+            });
+            list.fetchMethod = () => observable;
+            const attachSpy = sinon.spy(asyncSubscriber, 'attach');
+            list.init();
+            list.reloadData();
+            expect(attachSpy.calledOnce).true;
+            expect(attachSpy.calledWith(observable, (list as any).reloadDataSuccessCallback, (list as any).reloadDataFailCallback)).true;
+        });
+        it('returns without request if list status is equal to OperationStatus.Progress', () => {
+            const observable = Observable.create((observer: any) => {
+                setTimeout(() => {
+                    observer.next([]);
+                }, delay);
+            });
+            list.fetchMethod = () => observable;
+            const attachSpy = sinon.spy(asyncSubscriber, 'attach');
             list.init();
             (list as any).statusInternal = OperationStatus.Progress;
             list.reloadData();
-            expect(clearSpy.notCalled).true;
-            expect(loadSpy.notCalled).true;
+            expect(attachSpy.notCalled).true;
         });
+        it('calls registered state service persistState method', () => {
+            const spy = sinon.spy(firstStubStateService, 'persistState');
+            list.registerStateService(firstStubStateService);
+            expect(spy.notCalled).true;
+            list.init();
+            expect(spy.notCalled).true;
+            list.loadData();
+            expect(spy.calledOnce).true;
+            expect(spy.calledWith(filtersService)).true;
+            clock.tick(delay);
+            list.reloadData();
+            expect(spy.calledTwice).true;
+        });
+        it('clears data on error if \'keepRecordsOnLoad\' is \'true\' and \'pager.appendedOnLoad\' is \'false\'', () => {
+            list.fetchMethod = () => Observable.create((observer: any) => {
+                setTimeout(() => {
+                    observer.error();
+                }, delay);
+            });
+            list.pager.appendedOnLoad = false;
+            list.keepRecordsOnLoad = true;
+            list.items = [1, 2, 3, 4, 5];
+            list.reloadData();
+            expect(list.items).eql([1, 2, 3, 4, 5]);
+            clock.tick(delay);
+            expect(list.items).eql([]);
+        });
+        it('clears data on success if \'keepRecordsOnLoad\' is \'true\' and \'pager.appendedOnLoad\' is \'false\'', () => {
+            list.fetchMethod = () => Observable.create((observer: any) => {
+                setTimeout(() => {
+                    observer.next([6, 7, 8]);
+                }, delay);
+            });
+            list.pager.appendedOnLoad = false;
+            list.keepRecordsOnLoad = true;
+            list.items = [1, 2, 3, 4, 5];
+            list.reloadData();
+            expect(list.items).eql([1, 2, 3, 4, 5]);
+            clock.tick(delay);
+            expect(list.items).eql([6, 7, 8]);
+        });
+
     });
     describe('init', () => {
         it('sets inited flag to true', () => {
@@ -311,7 +398,7 @@ describe('List', () => {
             list.init();
             list.loadData();
             expect(attachSpy.calledOnce).true;
-            expect(attachSpy.calledWith(observable, list.loadSuccessCallback, list.loadFailCallback)).true;
+            expect(attachSpy.calledWith(observable, (list as any).loadDataSuccessCallback, (list as any).loadDataFailCallback)).true;
         });
         it('returns without request if list status is equal to OperationStatus.Progress', () => {
             const observable = Observable.create((observer: any) => {
@@ -339,6 +426,34 @@ describe('List', () => {
             list.loadData();
             expect(spy.calledTwice).true;
         });
+        it('clears data on error if \'keepRecordsOnLoad\' is \'true\' and \'pager.appendedOnLoad\' is \'false\'', () => {
+            list.fetchMethod = () => Observable.create((observer: any) => {
+                setTimeout(() => {
+                    observer.error();
+                }, delay);
+            });
+            list.pager.appendedOnLoad = false;
+            list.keepRecordsOnLoad = true;
+            list.items = [1, 2, 3, 4, 5];
+            list.loadData();
+            expect(list.items).eql([1, 2, 3, 4, 5]);
+            clock.tick(delay);
+            expect(list.items).eql([]);
+        });
+        it('clears data on success if \'keepRecordsOnLoad\' is \'true\' and \'pager.appendedOnLoad\' is \'false\'', () => {
+            list.fetchMethod = () => Observable.create((observer: any) => {
+                setTimeout(() => {
+                    observer.next([6, 7, 8]);
+                }, delay);
+            });
+            list.pager.appendedOnLoad = false;
+            list.keepRecordsOnLoad = true;
+            list.items = [1, 2, 3, 4, 5];
+            list.loadData();
+            expect(list.items).eql([1, 2, 3, 4, 5]);
+            clock.tick(delay);
+            expect(list.items).eql([6, 7, 8]);
+        });
     });
     describe('loadData callbacks', () => {
         describe('loadFailCallback', () => {
@@ -352,20 +467,6 @@ describe('List', () => {
                 clock.tick(delay);
                 expect(list.status).eq(OperationStatus.Fail);
             });
-            it('clears data if \'keepRecordsOnLoad\' is \'true\' and \'pager.appendedOnLoad\' is \'false\'', () => {
-                list.fetchMethod = () => Observable.create((observer: any) => {
-                    setTimeout(() => {
-                        observer.error();
-                    }, delay);
-                });
-                list.pager.appendedOnLoad = false;
-                list.keepRecordsOnLoad = true;
-                list.items = [1, 2, 3, 4, 5];
-                list.loadData();
-                expect(list.items).eql([1, 2, 3, 4, 5]);
-                clock.tick(delay);
-                expect(list.items).eql([]);
-            });
         });
         describe('loadSuccessCallback', () => {
             it('sets status to NoData if async returns empty array', () => {
@@ -377,20 +478,6 @@ describe('List', () => {
                 list.loadData();
                 clock.tick(delay);
                 expect(list.status).eq(OperationStatus.NoData);
-            });
-            it('clears data if \'keepRecordsOnLoad\' is \'true\' and \'pager.appendedOnLoad\' is \'false\'', () => {
-                list.fetchMethod = () => Observable.create((observer: any) => {
-                    setTimeout(() => {
-                        observer.next([6, 7, 8]);
-                    }, delay);
-                });
-                list.pager.appendedOnLoad = false;
-                list.keepRecordsOnLoad = true;
-                list.items = [1, 2, 3, 4, 5];
-                list.loadData();
-                expect(list.items).eql([1, 2, 3, 4, 5]);
-                clock.tick(delay);
-                expect(list.items).eql([6, 7, 8]);
             });
             it('sets status to Done data returned', () => {
                 list.fetchMethod = () => Observable.create((observer: any) => {

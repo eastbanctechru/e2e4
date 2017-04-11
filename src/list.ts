@@ -130,14 +130,12 @@ export class List {
      * @return result of {@link fetchMethod} execution.
      */
     public loadData(): any {
-        if (this.busy) {
+        const subscribable = this.beginRequest();
+        if (subscribable == null) {
             return null;
         }
-        this.statusInternal = OperationStatus.Progress;
-        const requestState = this.filtersService.getRequestState();
-        const subscribable = this.fetchMethod(requestState);
-        this.tryCleanItemsOnRequest(false);
-        this.asyncSubscriber.attach(subscribable, this.loadSuccessCallback, this.loadFailCallback);
+        this.tryCleanItemsOnLoad(false);
+        this.asyncSubscriber.attach(subscribable, this.loadDataSuccessCallback, this.loadDataFailCallback);
         this.stateServices.forEach((service: StateService) => service.persistState(this.filtersService));
         return subscribable;
     }
@@ -146,12 +144,15 @@ export class List {
      * @return result of {@link fetchMethod} if it was called. `null` otherwise.
      */
     public reloadData(): any {
-        if (this.busy) {
+        const subscribable = this.beginRequest();
+        if (subscribable == null) {
             return null;
         }
-        this.clearData();
         this.pager.reset();
-        return this.loadData();
+        this.tryCleanItemsOnReload(false);
+        this.asyncSubscriber.attach(subscribable, this.reloadDataSuccessCallback, this.reloadDataFailCallback);
+        this.stateServices.forEach((service: StateService) => service.persistState(this.filtersService));
+        return subscribable;
     }
     /**
      * Cancels the request executed at the moment.
@@ -160,6 +161,7 @@ export class List {
         if (this.busy) {
             this.asyncSubscriber.detach();
             this.statusInternal = OperationStatus.Cancelled;
+            this.clearData();
         }
     }
     /**
@@ -206,11 +208,19 @@ export class List {
     public resetSettings(): void {
         this.filtersService.resetValues();
     }
+
+    /**
+     * Clears {@link items} array. Calls {@link destroyAll} method for {@link items} array to perform optional destroy logic of the elements.
+     * {@see destroyAll}
+     */
+    public clearData(): void {
+        destroyAll(this.items);
+        this.items = [];
+    }
     /**
      * Callback which is executed if {@link fetchMethod} execution finished successfully.
      */
     public loadSuccessCallback = (result: ListResponse<any> | any[]): ListResponse<any> | any[] => {
-        this.tryCleanItemsOnRequest(true);
         const items = Array.isArray(result) ? result : result.items;
         this.items = this.items.concat(items);
         this.pager.processResponse(result);
@@ -226,20 +236,41 @@ export class List {
      * Callback which is executed if {@link fetchMethod} execution finished with error.
      */
     public loadFailCallback = (): void => {
-        this.tryCleanItemsOnRequest(true);
+        this.tryCleanItemsOnLoad(true);
         this.statusInternal = OperationStatus.Fail;
     }
-    /**
-     * Clears {@link items} array. Calls {@link destroyAll} method for {@link items} array to perform optional destroy logic of the elements.
-     * {@see destroyAll}
-     */
-    public clearData(): void {
-        destroyAll(this.items);
-        this.items = [];
+    private loadDataSuccessCallback = (result: ListResponse<any> | any[]): ListResponse<any> | any[] => {
+        this.tryCleanItemsOnLoad(true);
+        return this.loadSuccessCallback(result);
     }
-    public tryCleanItemsOnRequest(requestCompleted: boolean): void {
+    private loadDataFailCallback = (): void => {
+        this.tryCleanItemsOnLoad(true);
+        this.loadFailCallback();
+    }
+    private reloadDataSuccessCallback = (result: ListResponse<any> | any[]): ListResponse<any> | any[] => {
+        this.tryCleanItemsOnReload(true);
+        return this.loadSuccessCallback(result);
+    }
+    private reloadDataFailCallback = (): void => {
+        this.tryCleanItemsOnReload(true);
+        this.loadFailCallback();
+    }
+    private tryCleanItemsOnLoad(requestCompleted: boolean): void {
         if (this.keepRecordsOnLoad === requestCompleted && this.pager.appendedOnLoad === false) {
             this.clearData();
         }
+    }
+    private tryCleanItemsOnReload(requestCompleted: boolean): void {
+        if (this.keepRecordsOnLoad === requestCompleted) {
+            this.clearData();
+        }
+    }
+    private beginRequest(): any {
+        if (this.busy) {
+            return null;
+        }
+        this.statusInternal = OperationStatus.Progress;
+        const requestState = this.filtersService.getRequestState();
+        return this.fetchMethod(requestState);
     }
 }
