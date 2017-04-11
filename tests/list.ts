@@ -186,8 +186,8 @@ describe('List', () => {
             const loadSpy = sinon.spy(list, 'loadData');
             list.init();
             list.reloadData();
-            expect(clearSpy.calledOnce).true;
-            expect(loadSpy.calledOnce).true;
+            expect(clearSpy.called).true;
+            expect(loadSpy.called).true;
         });
         it('calls clearData method only if list is ready', () => {
             const clearSpy = sinon.spy(list, 'clearData');
@@ -357,8 +357,6 @@ describe('List', () => {
                 expect(list.status).eq(OperationStatus.Done);
             });
             it('calls Pager.reset and List.clearData if empty array returned', () => {
-                const resetSpy = sinon.spy(list.pager, 'reset');
-                const clearSpy = sinon.spy(list, 'clearData');
                 const data = [1];
                 list.fetchMethod = () => Observable.create((observer: any) => {
                     setTimeout(() => {
@@ -367,6 +365,8 @@ describe('List', () => {
                 });
 
                 list.loadData();
+                const resetSpy = sinon.spy(list.pager, 'reset');
+                const clearSpy = sinon.spy(list, 'clearData');
                 clock.tick(delay);
                 expect(resetSpy.notCalled).true;
                 expect(clearSpy.notCalled).true;

@@ -117,8 +117,7 @@ export class List {
         const requestState = this.filtersService.getRequestState();
         const subscribable = this.fetchMethod(requestState);
         if (this.pager.appendedOnLoad === false) {
-            destroyAll(this.items);
-            this.items = [];
+            this.clearData();
         }
         this.asyncSubscriber.attach(subscribable, this.loadSuccessCallback, this.loadFailCallback);
         this.stateServices.forEach((service: StateService) => service.persistState(this.filtersService));
@@ -131,6 +130,7 @@ export class List {
     public reloadData(): any {
         if (this.ready) {
             this.clearData();
+            this.pager.reset();
             return this.loadData();
         }
         return null;
@@ -210,11 +210,10 @@ export class List {
         this.statusInternal = OperationStatus.Fail;
     }
     /**
-     * Calls {@link Pager.reset} method and clears {@link items} array. Calls {@link destroyAll} method for {@link items} array to perform optional destroy logic of the elements.
+     * Clears {@link items} array. Calls {@link destroyAll} method for {@link items} array to perform optional destroy logic of the elements.
      * {@see destroyAll}
      */
     public clearData(): void {
-        this.pager.reset();
         destroyAll(this.items);
         this.items = [];
     }
