@@ -131,7 +131,7 @@ export class List {
      */
     public loadData(): any {
         if (this.busy) {
-            return;
+            return null;
         }
         this.statusInternal = OperationStatus.Progress;
         const requestState = this.filtersService.getRequestState();
@@ -146,12 +146,12 @@ export class List {
      * @return result of {@link fetchMethod} if it was called. `null` otherwise.
      */
     public reloadData(): any {
-        if (this.ready) {
-            this.clearData();
-            this.pager.reset();
-            return this.loadData();
+        if (this.busy) {
+            return null;
         }
-        return null;
+        this.clearData();
+        this.pager.reset();
+        return this.loadData();
     }
     /**
      * Cancels the request executed at the moment.
