@@ -1,3 +1,18 @@
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/eastbanctechru/e2e4/compare/v2.0.0-rc.5...v2.0.0) (2017-04-11)
+
+
+### Bug Fixes
+
+* **list:** remove `pager.reset` call from `clearData` method ([774cf9e](https://github.com/eastbanctechru/e2e4/commit/774cf9e))
+
+
+### Features
+
+* **list:** `keepRecordsOnLoad` option implemented ([20f72c3](https://github.com/eastbanctechru/e2e4/commit/20f72c3))
+
+
+
 <a name="2.0.0-rc.5"></a>
 # [2.0.0-rc.5](https://github.com/eastbanctechru/e2e4/compare/v2.0.0-rc.4...v2.0.0-rc.5) (2017-03-26)
 
