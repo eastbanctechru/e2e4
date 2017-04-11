@@ -1,3 +1,14 @@
+<a name="2.0.1"></a>
+## [2.0.1](https://github.com/eastbanctechru/e2e4/compare/v2.0.0...v2.0.1) (2017-04-11)
+
+
+### Bug Fixes
+
+* **list:** `keepRecordsOnLoad` works for `reloadData` also ([fac240a](https://github.com/eastbanctechru/e2e4/commit/fac240a))
+* **list:** consistent return values for `loadData` and `reloadData` ([8e27916](https://github.com/eastbanctechru/e2e4/commit/8e27916))
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/eastbanctechru/e2e4/compare/v2.0.0-rc.5...v2.0.0) (2017-04-11)
 
