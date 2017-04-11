@@ -11,6 +11,26 @@ import { destroyAll } from './utilities';
 
 export class List {
     /**
+     * Global settings of list..
+     *
+     * These settings are static and their values are copied to the properties of the same name for each instance of {@link List} type.
+     *
+     * So, changing of this settings will affect all instances of {@link List} type that will be created after such changes.
+     * If you want to change settings of concrete object you can use it the same name properties.
+     */
+    // tslint:disable-next-line: typedef
+    public static settings =
+    {
+        /**
+         * @see {@link List.keepRecordsOnLoad}
+         */
+        keepRecordsOnLoad: false
+    };
+    /**
+     * Specifies that list must destroy previously loaded records immediately or keep them until data request is completed.
+     */
+    public keepRecordsOnLoad: boolean = List.settings.keepRecordsOnLoad;
+    /**
      * Method for getting data. This parameter is required and its configuration is necessary.
      *
      * This method get one parameter with the settings of the request implementing {@link ListRequest} contract for the simple lists and {@link PagedListRequest} one for the paged lists.
@@ -116,9 +136,7 @@ export class List {
         this.statusInternal = OperationStatus.Progress;
         const requestState = this.filtersService.getRequestState();
         const subscribable = this.fetchMethod(requestState);
-        if (this.pager.appendedOnLoad === false) {
-            this.clearData();
-        }
+        this.tryCleanItemsOnRequest(false);
         this.asyncSubscriber.attach(subscribable, this.loadSuccessCallback, this.loadFailCallback);
         this.stateServices.forEach((service: StateService) => service.persistState(this.filtersService));
         return subscribable;
@@ -192,6 +210,7 @@ export class List {
      * Callback which is executed if {@link fetchMethod} execution finished successfully.
      */
     public loadSuccessCallback = (result: ListResponse<any> | any[]): ListResponse<any> | any[] => {
+        this.tryCleanItemsOnRequest(true);
         const items = Array.isArray(result) ? result : result.items;
         this.items = this.items.concat(items);
         this.pager.processResponse(result);
@@ -207,6 +226,7 @@ export class List {
      * Callback which is executed if {@link fetchMethod} execution finished with error.
      */
     public loadFailCallback = (): void => {
+        this.tryCleanItemsOnRequest(true);
         this.statusInternal = OperationStatus.Fail;
     }
     /**
@@ -216,5 +236,10 @@ export class List {
     public clearData(): void {
         destroyAll(this.items);
         this.items = [];
+    }
+    public tryCleanItemsOnRequest(requestCompleted: boolean): void {
+        if (this.keepRecordsOnLoad === requestCompleted && this.pager.appendedOnLoad === false) {
+            this.clearData();
+        }
     }
 }
