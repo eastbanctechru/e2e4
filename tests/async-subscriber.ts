@@ -1,4 +1,4 @@
-import { AsyncSubscriber } from './../src/async-subscriber';
+import { AsyncSubscriber } from '../index';
 
 import { expect } from 'chai';
 import { Observable } from 'rxjs/Observable';

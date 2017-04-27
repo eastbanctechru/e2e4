@@ -1,6 +1,4 @@
-import { BufferedPager } from '../src/buffered-pager';
-import { ListResponse } from '../src/contracts/list-response';
-import { FiltersService } from '../src/filters-service';
+import { BufferedPager, FiltersService, ListResponse } from '../index';
 
 import { expect } from 'chai';
 

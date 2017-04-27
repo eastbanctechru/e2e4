@@ -1,6 +1,4 @@
-import { SelectionItem } from '../src/contracts/selection-service';
-import { DefaultSelectionService } from '../src/default-selection-service';
-import { KeyCodes, MouseButtons, SelectionEventsHelper } from '../src/selection-events-helper';
+import { DefaultSelectionService, KeyCodes, MouseButtons, SelectionEventsHelper, SelectionItem } from '../index';
 
 import { expect } from 'chai';
 import * as sinon from 'sinon';

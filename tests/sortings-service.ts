@@ -1,7 +1,5 @@
 // tslint:disable:max-classes-per-file
-import { SortDirection, SortParameter } from '../src/contracts/sort-parameter';
-import { FiltersService } from '../src/filters-service';
-import { SortingsService } from '../src/sortings-service';
+import { FiltersService, SortDirection, SortingsService, SortParameter } from '../index';
 
 import { expect } from 'chai';
 

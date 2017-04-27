@@ -1,5 +1,4 @@
-import { SelectionItem } from '../src/contracts/selection-service';
-import { DefaultSelectionService } from '../src/default-selection-service';
+import { DefaultSelectionService, SelectionItem } from '../index';
 
 import { assert, expect } from 'chai';
 import * as sinon from 'sinon';

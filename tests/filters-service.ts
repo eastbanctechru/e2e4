@@ -1,8 +1,5 @@
 // tslint:disable:max-classes-per-file
-import { FilterConfig } from '../src/contracts/filter-config';
-import { filter, getDefaultFilterConfig } from '../src/filter-annotation';
-import { FiltersService } from '../src/filters-service';
-import { cloneAsLiteral, coerceValue } from '../src/utilities';
+import { cloneAsLiteral, coerceValue, filter, FilterConfig, FiltersService, getDefaultFilterConfig } from '../index';
 
 import { expect } from 'chai';
 import * as sinon from 'sinon';

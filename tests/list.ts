@@ -1,12 +1,5 @@
 // tslint:disable:max-classes-per-file
-import { AsyncSubscriber } from './../src/async-subscriber';
-import { OperationStatus } from './../src/contracts/operation-status';
-import { FiltersService } from './../src/filters-service';
-import { List } from './../src/list';
-import { NullObjectPager } from './../src/null-object-pager';
-import { PagedPager } from './../src/paged-pager';
-import { SortingsService } from './../src/sortings-service';
-import { StateService } from './../src/state-service';
+import { AsyncSubscriber, FiltersService, List, NullObjectPager, OperationStatus, PagedPager, SortingsService, StateService } from '../index';
 
 import { expect } from 'chai';
 import { Observable } from 'rxjs/Observable';

@@ -1,5 +1,4 @@
-import { ListResponse } from '../src/contracts/list-response';
-import { NullObjectPager } from '../src/null-object-pager';
+import { ListResponse, NullObjectPager } from '../index';
 
 import { expect } from 'chai';
 

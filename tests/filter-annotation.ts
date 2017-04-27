@@ -1,7 +1,5 @@
 // tslint:disable:max-classes-per-file
-import { FilterConfig } from '../src/contracts/filter-config';
-import { DefaultFilterConfig, filter, getDefaultFilterConfig } from '../src/filter-annotation';
-import { FiltersService } from '../src/filters-service';
+import { DefaultFilterConfig, filter, FilterConfig, FiltersService, getDefaultFilterConfig } from '../index';
 
 import { expect } from 'chai';
 

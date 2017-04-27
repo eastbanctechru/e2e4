@@ -1,5 +1,5 @@
 // tslint:disable:max-classes-per-file
-import { cloneAsLiteral, coerceValue, destroyAll } from '../src/utilities';
+import { cloneAsLiteral, coerceValue, destroyAll } from '../index';
 
 import { expect } from 'chai';
 import * as sinon from 'sinon';

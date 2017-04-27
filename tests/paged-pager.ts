@@ -1,6 +1,4 @@
-import { ListResponse } from '../src/contracts/list-response';
-import { FiltersService } from '../src/filters-service';
-import { PagedPager } from '../src/paged-pager';
+import { FiltersService, ListResponse, PagedPager } from '../index';
 
 import { expect } from 'chai';
 
