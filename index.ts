@@ -3,15 +3,17 @@
  * You can read docs here - http://eastbanctechru.github.io/e2e4
  */
 
-export * from './src/operation-status';
 export * from './src/utilities';
 
 export * from './src/contracts/filter-config';
 export * from './src/contracts/list-request';
+export * from './src/contracts/operation-status';
 export * from './src/contracts/paged-list-request';
 export * from './src/contracts/list-response';
 export * from './src/contracts/pager';
 export * from './src/contracts/selection-service';
+export * from './src/contracts/sort-parameter';
+export * from './src/contracts/operation-status';
 
 export * from './src/async-subscriber';
 export * from './src/buffered-pager';

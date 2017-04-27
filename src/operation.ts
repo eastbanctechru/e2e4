@@ -1,4 +1,4 @@
-import { OperationStatus } from './operation-status';
+import { OperationStatus } from './contracts/operation-status';
 
 /**
  * Represents status of operation that must be displayed on UI inside {@link StatusTrackingService}.

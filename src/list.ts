@@ -1,10 +1,10 @@
 import { AsyncSubscriber } from './async-subscriber';
 import { FilterConfig } from './contracts/filter-config';
 import { ListResponse } from './contracts/list-response';
+import { OperationStatus } from './contracts/operation-status';
 import { Pager } from './contracts/pager';
 import { FiltersService } from './filters-service';
 import { NullObjectPager } from './null-object-pager';
-import { OperationStatus } from './operation-status';
 import { SortingsService } from './sortings-service';
 import { StateService } from './state-service';
 import { destroyAll } from './utilities';

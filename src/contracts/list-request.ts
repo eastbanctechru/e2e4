@@ -1,4 +1,4 @@
-import { SortParameter } from '../sortings-service';
+import { SortParameter } from './sort-parameter';
 /**
  * Represents parameters of request to the server to retrieve list data.
  *

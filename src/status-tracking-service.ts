@@ -1,5 +1,5 @@
+import { OperationStatus } from './contracts/operation-status';
 import { Operation } from './operation';
-import { OperationStatus } from './operation-status';
 
 /**
  * Used to manage operations which description must be displayed on UI.
