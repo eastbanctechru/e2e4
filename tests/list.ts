@@ -454,6 +454,26 @@ describe('List', () => {
             clock.tick(delay);
             expect(list.items).eql([6, 7, 8]);
         });
+
+        it('Can handle stream of values', () => {
+            list.fetchMethod = () => Observable.create((observer: any) => {
+                setTimeout(() => {
+                    observer.next([6, 7, 8]);
+                    setTimeout(() => {
+                        observer.next([9, 10, 11]);
+                    }, delay);
+                }, delay);
+            });
+            list.pager.appendedOnLoad = false;
+            list.keepRecordsOnLoad = true;
+            list.items = [1, 2, 3, 4, 5];
+            list.loadData();
+            expect(list.items).eql([1, 2, 3, 4, 5]);
+            clock.tick(delay);
+            expect(list.items).eql([6, 7, 8]);
+            clock.tick(delay);
+            expect(list.items).eql([9, 10, 11]);
+        });
     });
     describe('loadData callbacks', () => {
         describe('loadFailCallback', () => {
