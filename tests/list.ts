@@ -468,6 +468,91 @@ describe('List', () => {
             expect(list.items).eql([9, 10, 11]);
         });
     });
+    describe('Response interception', () => {
+        it('Intercepts Cancellation response with call of \'cancelRequests\'', () => {
+            const cancelRequestsSpy = sinon.spy(list, 'cancelRequests');
+            list.fetchMethod = () => Observable.create((observer: any) => {
+                setTimeout(() => {
+                    observer.next({
+                        items: [],
+                        status: OperationStatus.Cancelled,
+                        totalCount: 0
+                    });
+                }, delay);
+            });
+            list.loadData();
+            clock.tick(delay);
+            expect(cancelRequestsSpy.calledOnce).eql(true);
+            list.reloadData();
+            clock.tick(delay);
+            expect(cancelRequestsSpy.calledTwice).eql(true);
+        });
+        it('Intercepts Fail response with call of \'reloadDataFailCallback\'', () => {
+            const failCallbackSpy = sinon.spy(list, 'reloadDataFailCallback');
+            list.fetchMethod = () => Observable.create((observer: any) => {
+                setTimeout(() => {
+                    observer.next({
+                        items: [],
+                        status: OperationStatus.Fail,
+                        totalCount: 0
+                    });
+                }, delay);
+            });
+            list.loadData();
+            clock.tick(delay);
+            expect(failCallbackSpy.calledOnce).eql(true);
+            list.reloadData();
+            clock.tick(delay);
+            expect(failCallbackSpy.calledTwice).eql(true);
+        });
+        it('Intercepts Progress response but do nothing until loading completed', () => {
+            const interceptSpy = sinon.spy(list, 'tryInterceptStatusResponse');
+            list.fetchMethod = () => Observable.create((observer: any) => {
+                setTimeout(() => {
+                    observer.next({
+                        items: [],
+                        status: OperationStatus.Progress,
+                        totalCount: 0
+                    });
+                    setTimeout(() => {
+                        observer.next([1, 2, 3]);
+                    }, delay);
+                }, delay);
+            });
+            list.loadData();
+            expect(list.items).eql([]);
+            clock.tick(delay);
+            expect(interceptSpy.calledOnce).eql(true);
+            expect(interceptSpy.returnValues[0]).eql(true);
+            expect(list.status).eql(OperationStatus.Progress);
+            expect(list.items).eql([]);
+            interceptSpy.reset();
+
+            clock.tick(delay);
+            expect(interceptSpy.calledOnce).eql(true);
+            expect(interceptSpy.returnValues[0]).eql(false);
+            expect(list.status).eql(OperationStatus.Done);
+            expect(list.items).eql([1, 2, 3]);
+
+            interceptSpy.reset();
+
+            list.reloadData();
+            expect(list.items).eql([]);
+            clock.tick(delay);
+            expect(interceptSpy.calledOnce).eql(true);
+            expect(interceptSpy.returnValues[0]).eql(true);
+            expect(list.status).eql(OperationStatus.Progress);
+            expect(list.items).eql([]);
+            interceptSpy.reset();
+
+            clock.tick(delay);
+            expect(interceptSpy.calledOnce).eql(true);
+            expect(interceptSpy.returnValues[0]).eql(false);
+            expect(list.status).eql(OperationStatus.Done);
+            expect(list.items).eql([1, 2, 3]);
+        });
+    });
+
     describe('loadData callbacks', () => {
         describe('loadFailCallback', () => {
             it('sets status to failed', () => {

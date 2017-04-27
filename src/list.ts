@@ -46,7 +46,6 @@ export class List {
      * Array of registered {@link StateService} instances.
      */
     public stateServices: StateService[] = new Array<StateService>();
-
     protected pagerInternal: Pager;
     protected statusInternal: OperationStatus = OperationStatus.Initial;
     protected destroyedInternal: boolean = false;
@@ -126,45 +125,6 @@ export class List {
         this.destroyedInternal = true;
     }
     /**
-     * Performs data loading by calling specified {@link fetchMethod} delegate.
-     * @return result of {@link fetchMethod} execution.
-     */
-    public loadData(): any {
-        const subscribable = this.beginRequest();
-        if (subscribable == null) {
-            return null;
-        }
-        this.tryCleanItemsOnLoad(false);
-        this.asyncSubscriber.attach(subscribable, this.loadDataSuccessCallback, this.loadDataFailCallback);
-        this.stateServices.forEach((service: StateService) => service.persistState(this.filtersService));
-        return subscribable;
-    }
-    /**
-     * Resets paging parameters and performs data loading by calling {@link loadData} if list not in {@link OperationStatus.Progress} state.
-     * @return result of {@link fetchMethod} if it was called. `null` otherwise.
-     */
-    public reloadData(): any {
-        const subscribable = this.beginRequest();
-        if (subscribable == null) {
-            return null;
-        }
-        this.pager.reset();
-        this.tryCleanItemsOnReload(false);
-        this.asyncSubscriber.attach(subscribable, this.reloadDataSuccessCallback, this.reloadDataFailCallback);
-        this.stateServices.forEach((service: StateService) => service.persistState(this.filtersService));
-        return subscribable;
-    }
-    /**
-     * Cancels the request executed at the moment.
-     */
-    public cancelRequests(): void {
-        if (this.busy) {
-            this.asyncSubscriber.detach();
-            this.statusInternal = OperationStatus.Cancelled;
-            this.clearData();
-        }
-    }
-    /**
      * Registers passed object(s) as state service to manage the list state.
      */
     public registerStateService(...services: StateService[]): void {
@@ -208,6 +168,16 @@ export class List {
     public resetSettings(): void {
         this.filtersService.resetValues();
     }
+    /**
+     * Cancels the request executed at the moment.
+     */
+    public cancelRequests(): void {
+        if (this.busy) {
+            this.asyncSubscriber.detach();
+            this.statusInternal = OperationStatus.Cancelled;
+            this.clearData();
+        }
+    }
 
     /**
      * Clears {@link items} array. Calls {@link destroyAll} method for {@link items} array to perform optional destroy logic of the elements.
@@ -217,20 +187,50 @@ export class List {
         destroyAll(this.items);
         this.items = [];
     }
+
+    /**
+     * Performs data loading by calling specified {@link fetchMethod} delegate.
+     * @return result of {@link fetchMethod} execution.
+     */
+    public loadData(): any {
+        const subscribable = this.beginRequest();
+        if (subscribable == null) {
+            return null;
+        }
+        this.tryCleanItemsOnLoad(false);
+        this.asyncSubscriber.attach(subscribable, this.loadDataSuccessCallback, this.loadDataFailCallback);
+        this.stateServices.forEach((service: StateService) => service.persistState(this.filtersService));
+        return subscribable;
+    }
+    /**
+     * Resets paging parameters and performs data loading by calling {@link loadData} if list not in {@link OperationStatus.Progress} state.
+     * @return result of {@link fetchMethod} if it was called. `null` otherwise.
+     */
+    public reloadData(): any {
+        const subscribable = this.beginRequest();
+        if (subscribable == null) {
+            return null;
+        }
+        this.pager.reset();
+        this.tryCleanItemsOnReload(false);
+        this.asyncSubscriber.attach(subscribable, this.reloadDataSuccessCallback, this.reloadDataFailCallback);
+        this.stateServices.forEach((service: StateService) => service.persistState(this.filtersService));
+        return subscribable;
+    }
     /**
      * Callback which is executed if {@link fetchMethod} execution finished successfully.
      */
-    public loadSuccessCallback = (result: ListResponse<any> | any[]): ListResponse<any> | any[] => {
-        const items = Array.isArray(result) ? result : result.items;
+    public loadSuccessCallback = (response: ListResponse<any> | any[]): ListResponse<any> | any[] => {
+        const items = Array.isArray(response) ? response : response.items;
         this.items = this.items.concat(items);
-        this.pager.processResponse(result);
+        this.pager.processResponse(response);
         // In case when filter changed from last request and there's no data now
         if (this.pager.totalCount === 0) {
             this.clearData();
             this.pager.reset();
         }
         this.statusInternal = this.pager.totalCount === 0 ? OperationStatus.NoData : OperationStatus.Done;
-        return result;
+        return response;
     }
     /**
      * Callback which is executed if {@link fetchMethod} execution finished with error.
@@ -239,17 +239,39 @@ export class List {
         this.tryCleanItemsOnLoad(true);
         this.statusInternal = OperationStatus.Fail;
     }
-    private loadDataSuccessCallback = (result: ListResponse<any> | any[]): ListResponse<any> | any[] => {
+
+    private loadDataSuccessCallback = (response: ListResponse<any> | any[]): ListResponse<any> | any[] => {
+        if (this.tryInterceptStatusResponse(response)) {
+            return response;
+        }
         this.tryCleanItemsOnLoad(true);
-        return this.loadSuccessCallback(result);
+        return this.loadSuccessCallback(response as ListResponse<any> | any[]);
+    }
+    private reloadDataSuccessCallback = (response: ListResponse<any> | any[]): ListResponse<any> | any[] => {
+        if (this.tryInterceptStatusResponse(response)) {
+            return response;
+        }
+        this.tryCleanItemsOnReload(true);
+        return this.loadSuccessCallback(response as ListResponse<any> | any[]);
     }
     private loadDataFailCallback = (): void => {
         this.tryCleanItemsOnLoad(true);
         this.loadFailCallback();
     }
-    private reloadDataSuccessCallback = (result: ListResponse<any> | any[]): ListResponse<any> | any[] => {
-        this.tryCleanItemsOnReload(true);
-        return this.loadSuccessCallback(result);
+    private tryInterceptStatusResponse(response: any): boolean {
+        if (this.responseHasStatus(response)) {
+            switch (response.status) {
+                case OperationStatus.Fail:
+                    this.reloadDataFailCallback();
+                    return true;
+                case OperationStatus.Cancelled:
+                    this.cancelRequests();
+                    return true;
+                case OperationStatus.Progress:
+                    return true;
+            }
+        }
+        return false;
     }
     private reloadDataFailCallback = (): void => {
         this.tryCleanItemsOnReload(true);
@@ -272,5 +294,8 @@ export class List {
         this.statusInternal = OperationStatus.Progress;
         const requestState = this.filtersService.getRequestState();
         return this.fetchMethod(requestState);
+    }
+    private responseHasStatus(response: ListResponse<any> | any[]): boolean {
+        return (response as ListResponse<any>).status !== null && typeof (response as ListResponse<any>).status !== 'undefined';
     }
 }

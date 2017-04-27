@@ -1,8 +1,10 @@
+import { OperationStatus } from './operation-status';
 /**
  * Represents server response which is returned on list data request.
  *
  * You can use this contract in your end-user code for better code completion.
  */
+
 export interface ListResponse<TItem> {
     /**
      * Returned collection of records.
@@ -19,4 +21,17 @@ export interface ListResponse<TItem> {
      * Typically it's equal to `items.length` value. But it can differ for grouped lists, for example, so it's placed to a separate property.
      */
     loadedCount?: number;
+
+    /**
+     * Optional value of type {@link OperationStatus}.
+     *
+     * If value of this field is presented, response evaluated by {@link List} as intermediate.
+     *
+     * This field can be used to perform data loading using async actions with tools like redux or ngrx.
+     *
+     * Usually, start action returns response of this type with `status` field equal to {@link OperationStatus.Progress}
+     *
+     * Later, when data loading is completed, regular {@link ListResponse<TItem>} can be passed via same stream to complete loading operation.
+     */
+    status?: OperationStatus;
 }
