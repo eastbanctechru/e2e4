@@ -6,7 +6,6 @@
             true,
             "never-prefix"
         ],
-        "linebreak-style": [true, "LF"],
         "max-line-length": [
             true,
             240
