@@ -1,3 +1,14 @@
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/eastbanctechru/e2e4/compare/v2.0.1...v2.1.0) (2017-04-28)
+
+
+### Features
+
+* **all:** Typescript version updated to 2.3.1 ([0f74374](https://github.com/eastbanctechru/e2e4/commit/0f74374))
+* **list:** Add ability to pass request execution status via primary `loadData` stream ([f5e27e2](https://github.com/eastbanctechru/e2e4/commit/f5e27e2))
+
+
+
 <a name="2.0.1"></a>
 ## [2.0.1](https://github.com/eastbanctechru/e2e4/compare/v2.0.0...v2.0.1) (2017-04-11)
 

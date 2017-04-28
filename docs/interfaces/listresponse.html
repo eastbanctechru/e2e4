@@ -97,6 +97,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="listresponse.html#items" class="tsd-kind-icon">items</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="listresponse.html#loadedcount" class="tsd-kind-icon">loaded<wbr>Count</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="listresponse.html#status" class="tsd-kind-icon">status</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="listresponse.html#totalcount" class="tsd-kind-icon">total<wbr>Count</a></li>
 							</ul>
 						</section>
@@ -111,7 +112,7 @@
 					<div class="tsd-signature tsd-kind-icon">items<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">TItem</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/fac240a/src/contracts/list-response.ts#L10">src/contracts/list-response.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/0f74374/src/contracts/list-response.ts#L12">src/contracts/list-response.ts:12</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -126,7 +127,7 @@
 					<div class="tsd-signature tsd-kind-icon">loaded<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/fac240a/src/contracts/list-response.ts#L21">src/contracts/list-response.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/0f74374/src/contracts/list-response.ts#L23">src/contracts/list-response.ts:23</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -137,12 +138,31 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="status" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> status</h3>
+					<div class="tsd-signature tsd-kind-icon">status<span class="tsd-signature-symbol">:</span> <a href="../enums/operationstatus.html" class="tsd-signature-type">OperationStatus</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/0f74374/src/contracts/list-response.ts#L36">src/contracts/list-response.ts:36</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Optional value of type <a href="../enums/operationstatus.html">OperationStatus</a>.</p>
+						</div>
+						<p>If value of this field is presented, response evaluated by <a href="../classes/list.html">List</a> as intermediate.</p>
+						<p>This field can be used to perform data loading using async actions with tools like redux or ngrx.</p>
+						<p>Usually, start action returns response of this type with <code>status</code> field equal to <a href="../enums/operationstatus.html#progress">OperationStatus.Progress</a></p>
+						<p>Later, when data loading is completed, regular {@link ListResponse<TItem>} can be passed via same stream to complete loading operation.</p>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="totalcount" class="tsd-anchor"></a>
 					<h3>total<wbr>Count</h3>
 					<div class="tsd-signature tsd-kind-icon">total<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/fac240a/src/contracts/list-response.ts#L15">src/contracts/list-response.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/0f74374/src/contracts/list-response.ts#L17">src/contracts/list-response.ts:17</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -234,6 +254,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="listresponse.html#loadedcount" class="tsd-kind-icon">loaded<wbr>Count</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="listresponse.html#status" class="tsd-kind-icon">status</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="listresponse.html#totalcount" class="tsd-kind-icon">total<wbr>Count</a>
