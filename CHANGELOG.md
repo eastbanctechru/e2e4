@@ -1,3 +1,13 @@
+<a name="2.1.1"></a>
+## [2.1.1](https://github.com/eastbanctechru/e2e4/compare/v2.1.0...v2.1.1) (2017-05-16)
+
+
+### Bug Fixes
+
+* **pager:** `pager.pageSize` property resetted correctly ([976cda7](https://github.com/eastbanctechru/e2e4/commit/976cda7))
+
+
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/eastbanctechru/e2e4/compare/v2.0.1...v2.1.0) (2017-04-28)
 
