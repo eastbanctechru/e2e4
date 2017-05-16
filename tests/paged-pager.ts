@@ -194,6 +194,17 @@ describe('PagedPager', () => {
             expect(pager.pageSize).eq(5);
             expect(PagedPager.settings.defaultPageSize).not.eq(pager.defaultPageSize);
         });
+
+        it('skips validation on pageSize reset', () => {
+            const pager = new PagedPager();
+            const filtersService = new FiltersService(pager);
+            pager.totalCount = 1;
+            pager.pageSize = pager.defaultPageSize;
+            expect(pager.pageSize).not.eq(pager.defaultPageSize);
+            expect(pager.pageSize).eq(pager.totalCount);
+            filtersService.resetValues();
+            expect(pager.pageSize).eq(pager.defaultPageSize);
+        });
     });
     describe('internal state', () => {
         describe('pageSize', () => {

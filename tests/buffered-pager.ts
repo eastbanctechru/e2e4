@@ -161,6 +161,17 @@ describe('BufferedPager', () => {
             expect(BufferedPager.settings.defaultRowCount).not.eq(pager.defaultRowCount);
         });
 
+        it('skips validation on rowCount reset', () => {
+            const pager = new BufferedPager();
+            const filtersService = new FiltersService(pager);
+            pager.totalCount = 1;
+            pager.takeRowCount = pager.defaultRowCount;
+            expect(pager.takeRowCount).not.eq(pager.defaultRowCount);
+            expect(pager.takeRowCount).eq(pager.totalCount);
+            filtersService.resetValues();
+            expect(pager.takeRowCount).eq(pager.defaultRowCount);
+        });
+
     });
     describe('internal state', () => {
         it('sets rowCount to maxRowCount when try to set bigger value', () => {

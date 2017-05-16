@@ -73,6 +73,13 @@ export class PagedPager implements Pager {
     /**
      * Internal implementation of {@link pageSize}.
      */
+    @filter({
+        defaultValue(this: PagedPager): number { return this.defaultPageSize; },
+        parameterName: 'take',
+        parseFormatter(this: PagedPager, rawValue: any): number {
+            return isNaN(rawValue) || !rawValue ? this.defaultPageSize : rawValue;
+        }
+    })
     protected pageSizeInternal: number = PagedPager.settings.defaultPageSize;
     /**
      * Internal implementation of {@link pageNumber}.
@@ -127,13 +134,6 @@ export class PagedPager implements Pager {
      * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
      * @see {@link PagedListRequest.pageSize}
      */
-    @filter({
-        defaultValue(this: PagedPager): number { return this.defaultPageSize; },
-        parameterName: 'take',
-        parseFormatter(this: PagedPager, rawValue: any): number {
-            return isNaN(rawValue) || !rawValue ? this.defaultPageSize : rawValue;
-        }
-    })
     public get pageSize(): number {
         return this.pageSizeInternal;
     }
