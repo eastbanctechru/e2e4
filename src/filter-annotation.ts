@@ -37,10 +37,9 @@ export let DefaultFilterConfig = {
  */
 export function getDefaultFilterConfig(propertyName: string): FilterConfig {
 
-    return Object.assign({
+    return {
         parameterName: propertyName,
-        propertyName
-    }, cloneAsLiteral(DefaultFilterConfig)) as FilterConfig;
+        propertyName, ...cloneAsLiteral(DefaultFilterConfig)} as FilterConfig;
 }
 /**
  * Annotation that can be used to configure type property as filter to use with {@link FiltersService}

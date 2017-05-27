@@ -180,7 +180,7 @@ export class FiltersService {
         const result: { [id: string]: any } = {};
         this.appliedFiltersMap.forEach((targetConfig: FilterConfig[], target: { [id: string]: any }) => {
             for (let config of targetConfig) {
-                config = Object.assign({}, config);
+                config = {...config};
                 const proposedVal = target[config.propertyName];
                 if (filterFn ? filterFn(config, proposedVal, target) : true) {
                     const resultValue = FiltersService.buildFilterValue(target, proposedVal, config);
