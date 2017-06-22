@@ -2,6 +2,7 @@
 import { AsyncSubscriber, FiltersService, List, NullObjectPager, OperationStatus, PagedPager, SortingsService, StateService } from '../index';
 
 import { expect } from 'chai';
+import 'rxjs/add/observable/from';
 import { Observable } from 'rxjs/Observable';
 import * as sinon from 'sinon';
 
@@ -276,6 +277,20 @@ describe('List', () => {
             expect(list.items).eql([1, 2, 3, 4, 5]);
             clock.tick(delay);
             expect(list.items).eql([6, 7, 8]);
+        });
+
+        it('resets pager state before performing request', () => {
+            const spy = sinon.spy(() => Observable.from([]));
+            list.fetchMethod = spy;
+            const pager = new PagedPager();
+            list.pager = pager;
+            pager.appendedOnLoad = false;
+            pager.pageSize = pager.defaultPageSize / 2;
+            list.items = [1, 2, 3, 4, 5];
+            expect(pager.pageSize).eql(pager.defaultPageSize / 2);
+            list.reloadData();
+            expect(pager.pageSize).eql(pager.defaultPageSize);
+            expect(spy.calledWith({ skip: 0, take: pager.defaultPageSize })).true;
         });
 
     });

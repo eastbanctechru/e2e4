@@ -193,10 +193,10 @@ export class List {
      * @return result of {@link fetchMethod} execution.
      */
     public loadData(): any {
-        const subscribable = this.beginRequest();
-        if (subscribable == null) {
+        if (this.busy) {
             return null;
         }
+        const subscribable = this.beginRequest();
         this.tryCleanItemsOnLoad(false);
         this.asyncSubscriber.attach(subscribable, this.loadDataSuccessCallback, this.loadDataFailCallback);
         this.stateServices.forEach((service: StateService) => service.persistState(this.filtersService));
@@ -207,11 +207,11 @@ export class List {
      * @return result of {@link fetchMethod} if it was called. `null` otherwise.
      */
     public reloadData(): any {
-        const subscribable = this.beginRequest();
-        if (subscribable == null) {
+        if (this.busy) {
             return null;
         }
         this.pager.reset();
+        const subscribable = this.beginRequest();
         this.tryCleanItemsOnReload(false);
         this.asyncSubscriber.attach(subscribable, this.reloadDataSuccessCallback, this.reloadDataFailCallback);
         this.stateServices.forEach((service: StateService) => service.persistState(this.filtersService));
@@ -288,9 +288,6 @@ export class List {
         }
     }
     private beginRequest(): any {
-        if (this.busy) {
-            return null;
-        }
         this.statusInternal = OperationStatus.Progress;
         const requestState = this.filtersService.getRequestState();
         return this.fetchMethod(requestState);
