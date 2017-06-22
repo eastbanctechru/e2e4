@@ -1,3 +1,13 @@
+<a name="2.1.2"></a>
+## [2.1.2](https://github.com/eastbanctechru/e2e4/compare/v2.1.1...v2.1.2) (2017-06-22)
+
+
+### Bug Fixes
+
+* **list:** reset pager before data request execution ([4e8ecad](https://github.com/eastbanctechru/e2e4/commit/4e8ecad))
+
+
+
 <a name="2.1.1"></a>
 ## [2.1.1](https://github.com/eastbanctechru/e2e4/compare/v2.1.0...v2.1.1) (2017-05-16)
 
