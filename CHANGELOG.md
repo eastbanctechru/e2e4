@@ -1,3 +1,13 @@
+<a name="2.1.3"></a>
+## [2.1.3](https://github.com/eastbanctechru/e2e4/compare/v2.1.2...v2.1.3) (2017-06-26)
+
+
+### Bug Fixes
+
+* **BufferedPager:** Исправлен пересчет счетчика skip ([7cf9f4d](https://github.com/eastbanctechru/e2e4/commit/7cf9f4d))
+
+
+
 <a name="2.1.2"></a>
 ## [2.1.2](https://github.com/eastbanctechru/e2e4/compare/v2.1.1...v2.1.2) (2017-06-22)
 
