@@ -139,7 +139,7 @@ export class BufferedPager implements Pager {
 
         this.lastChunkRecieved = lastLoadedCount !== this.takeRowCountInternal;
 
-        this.skip = lastLoadedCount === 0 ? 0 : this.skip + lastLoadedCount;
+        this.skip = this.skip + lastLoadedCount;
         this.loadedCount = this.skip;
     }
     /**
