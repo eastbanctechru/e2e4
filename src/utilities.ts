@@ -11,16 +11,16 @@ export function cloneAsLiteral(value: any): any {
     if (value === null) {
         return null;
     }
-    if (typeof value === 'undefined') {
+    if (typeof value === "undefined") {
         return undefined;
     }
     if (Array.isArray(value)) {
         return value.map((i: any) => cloneAsLiteral(i));
     }
-    if (typeof value === 'object') {
+    if (typeof value === "object") {
         const result: { [id: string]: any } = {};
         for (const index in value) {
-            if (value.hasOwnProperty(index) && (typeof value[index] !== 'function')) {
+            if (value.hasOwnProperty(index) && typeof value[index] !== "function") {
                 result[index] = cloneAsLiteral(value[index]);
             }
         }
@@ -33,7 +33,7 @@ export function cloneAsLiteral(value: any): any {
  * Set of key-value pairs which is used by {@link coerceValue} method to coerce specific values.
  */
 // tslint:disable-next-line: object-literal-key-quotes
-export let coerceTypes: any = { 'true': !0, 'false': !1, 'null': null };
+export let coerceTypes: any = { true: !0, false: !1, null: null };
 
 /**
  * Coerce type of passed value.
@@ -49,10 +49,10 @@ export function coerceValue(value: any): any {
     if (value === null) {
         return null;
     }
-    if (typeof value === 'undefined') {
+    if (typeof value === "undefined") {
         return undefined;
     }
-    if (typeof value === 'object' || Array.isArray(value)) {
+    if (typeof value === "object" || Array.isArray(value)) {
         for (const index in value) {
             if (value.hasOwnProperty(index)) {
                 value[index] = coerceValue(value[index]);
@@ -60,9 +60,9 @@ export function coerceValue(value: any): any {
         }
     } else if (value && !isNaN(value)) {
         value = +value;
-    } else if (value === 'undefined') {
+    } else if (value === "undefined") {
         value = undefined;
-    } else if (typeof coerceTypes[value] !== 'undefined') {
+    } else if (typeof coerceTypes[value] !== "undefined") {
         value = coerceTypes[value];
     }
     return value;
@@ -89,7 +89,6 @@ export function destroyAll(collection: any[], async: boolean = true): void {
             });
             items = null;
         }, 0);
-
     } else {
         items.forEach((item: any) => {
             if (item && item.destroy) {

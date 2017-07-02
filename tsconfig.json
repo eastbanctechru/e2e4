@@ -21,10 +21,7 @@
         "noImplicitThis": true,
         "suppressExcessPropertyErrors": false,
         "suppressImplicitAnyIndexErrors": false,
-        "lib": [
-            "dom",
-            "es2016"
-        ],
+        "lib": ["dom", "es2016"],
         "types": []
     }
 }

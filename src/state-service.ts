@@ -1,4 +1,4 @@
-import { FiltersService } from './filters-service';
+import { FiltersService } from "./filters-service";
 /**
  * Base contract for state management services.
  */

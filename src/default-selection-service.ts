@@ -1,4 +1,4 @@
-import { SelectionService } from './contracts/selection-service';
+import { SelectionService } from "./contracts/selection-service";
 
 /**
  * Internal contract for {@link DefaultSelectionService}.
@@ -50,14 +50,16 @@ export class DefaultSelectionService implements SelectionService {
      * @inheritdoc
      */
     public checkSelection(): void {
-        if (this.items !== null && typeof this.items !== 'undefined') {
+        if (this.items !== null && typeof this.items !== "undefined") {
             for (let i = this.selectionsList.length - 1; i >= 0; i--) {
                 const tuple = this.selectionsList[i];
                 const trackFn = this.trackByFn || this.trackByIdentity;
-                if (this.isIndexAcceptable(tuple.index) && trackFn(tuple.index, this.items[tuple.index]) === trackFn(tuple.index, tuple.item)) {
+                if (
+                    this.isIndexAcceptable(tuple.index) &&
+                    trackFn(tuple.index, this.items[tuple.index]) === trackFn(tuple.index, tuple.item)
+                ) {
                     tuple.item = this.items[tuple.index];
                     this.selectItem(tuple, true);
-
                 } else {
                     this.deselectItem(tuple);
                 }
@@ -72,7 +74,7 @@ export class DefaultSelectionService implements SelectionService {
      * @returns `true` if index is valid.
      */
     public isIndexAcceptable(index: number): boolean {
-        return index !== null && typeof index !== 'undefined' && index >= 0 && this.items && this.items.length > index;
+        return index !== null && typeof index !== "undefined" && index >= 0 && this.items && this.items.length > index;
     }
     /**
      * @inheritdoc
@@ -131,7 +133,11 @@ export class DefaultSelectionService implements SelectionService {
             return true;
         }
         const orderedIndexes = this.selectionsList.map((tuple: SelectionTuple) => tuple.index).sort();
-        return (1 + to - from === orderedIndexes.length) && (orderedIndexes[0] === from) && (orderedIndexes[orderedIndexes.length - 1] === to);
+        return (
+            1 + to - from === orderedIndexes.length &&
+            orderedIndexes[0] === from &&
+            orderedIndexes[orderedIndexes.length - 1] === to
+        );
     }
     /**
      * @inheritdoc
@@ -154,7 +160,7 @@ export class DefaultSelectionService implements SelectionService {
     public getMinSelectedIndex(): number {
         let minIndex = -1;
         this.selectionsList.forEach((item: SelectionTuple) => {
-            minIndex = (minIndex === -1 || item.index < minIndex) ? item.index : minIndex;
+            minIndex = minIndex === -1 || item.index < minIndex ? item.index : minIndex;
         });
         return minIndex;
     }
@@ -164,7 +170,7 @@ export class DefaultSelectionService implements SelectionService {
     public getMaxSelectedIndex(): number {
         let maxIndex = -1;
         this.selectionsList.forEach((item: SelectionTuple) => {
-            maxIndex = (maxIndex === -1 || item.index > maxIndex) ? item.index : maxIndex;
+            maxIndex = maxIndex === -1 || item.index > maxIndex ? item.index : maxIndex;
         });
         return maxIndex;
     }
@@ -208,7 +214,10 @@ export class DefaultSelectionService implements SelectionService {
             return;
         }
         const tuple = this.getSelectionTuple(index);
-        if (this.isIndexSelected(index) && (this.selectionsList.length === 1 || (this.selectionsList.length > 1 && savePrevious))) {
+        if (
+            this.isIndexSelected(index) &&
+            (this.selectionsList.length === 1 || (this.selectionsList.length > 1 && savePrevious))
+        ) {
             this.deselectItem(tuple);
             return;
         }
@@ -238,7 +247,7 @@ export class DefaultSelectionService implements SelectionService {
      * Current implementation sets {@link selected} propery of element (if it's defined).
      */
     protected processSelection(tuple: SelectionTuple, selected: boolean): void {
-        if (Object.prototype.hasOwnProperty.call(tuple.item, 'selected')) {
+        if (Object.prototype.hasOwnProperty.call(tuple.item, "selected")) {
             tuple.item.selected = selected;
         }
     }
@@ -246,7 +255,9 @@ export class DefaultSelectionService implements SelectionService {
      * Internal method that used to perform item selection.
      */
     protected deselectItem(selectionTuple: SelectionTuple): void {
-        const index = this.selectionsList.findIndex((selectedItem: SelectionTuple) => (selectedItem.item === selectionTuple.item));
+        const index = this.selectionsList.findIndex(
+            (selectedItem: SelectionTuple) => selectedItem.item === selectionTuple.item
+        );
         if (index !== -1) {
             this.selectionsList.splice(index, 1);
         }
@@ -258,7 +269,9 @@ export class DefaultSelectionService implements SelectionService {
      */
     protected selectItem(selectionTuple: SelectionTuple, savePrevious: boolean = false): void {
         if (savePrevious) {
-            const index = this.selectionsList.findIndex((selectedItem: SelectionTuple) => (selectedItem.item === selectionTuple.item));
+            const index = this.selectionsList.findIndex(
+                (selectedItem: SelectionTuple) => selectedItem.item === selectionTuple.item
+            );
             if (index !== -1) {
                 this.selectionsList.splice(index, 1);
             }
@@ -266,7 +279,9 @@ export class DefaultSelectionService implements SelectionService {
             this.processSelection(selectionTuple, true);
         } else {
             const list = this.selectionsList.splice(0, this.selectionsList.length);
-            list.forEach((selectedItem: SelectionTuple) => { this.processSelection(selectedItem, false); });
+            list.forEach((selectedItem: SelectionTuple) => {
+                this.processSelection(selectedItem, false);
+            });
             this.selectionsList.push(selectionTuple);
             this.processSelection(selectionTuple, true);
         }

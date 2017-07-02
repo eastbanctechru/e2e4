@@ -1,5 +1,5 @@
-import { OperationStatus } from './contracts/operation-status';
-import { Operation } from './operation';
+import { OperationStatus } from "./contracts/operation-status";
+import { Operation } from "./operation";
 
 /**
  * Used to manage operations which description must be displayed on UI.
@@ -25,8 +25,7 @@ export class StatusTrackingService {
      * If you want to change settings of concrete object you can use it the same name properties.
      */
     // tslint:disable-next-line: typedef
-    public static settings =
-    {
+    public static settings = {
         /**
          * @see {@link StatusTrackingService.elementVisibilityInterval}
          */
@@ -103,7 +102,7 @@ export class StatusTrackingService {
             const undone = this.operationsList.find((item: Operation) => {
                 return item.status === OperationStatus.Progress;
             });
-            if (typeof undone === 'undefined') {
+            if (typeof undone === "undefined") {
                 this.operationsList.length = 0;
                 this.status = OperationStatus.Done;
             } else {

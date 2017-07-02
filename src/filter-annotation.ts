@@ -1,6 +1,6 @@
-import { FilterConfig } from './contracts/filter-config';
-import { FiltersService } from './filters-service';
-import { cloneAsLiteral } from './utilities';
+import { FilterConfig } from "./contracts/filter-config";
+import { FiltersService } from "./filters-service";
+import { cloneAsLiteral } from "./utilities";
 
 /**
  * Object literal used by {@link getDefaultFilterConfig} function to build filter configuration.
@@ -36,10 +36,11 @@ export let DefaultFilterConfig = {
  * @see {@link FilterConfig}
  */
 export function getDefaultFilterConfig(propertyName: string): FilterConfig {
-
     return {
         parameterName: propertyName,
-        propertyName, ...cloneAsLiteral(DefaultFilterConfig)} as FilterConfig;
+        propertyName,
+        ...cloneAsLiteral(DefaultFilterConfig)
+    } as FilterConfig;
 }
 /**
  * Annotation that can be used to configure type property as filter to use with {@link FiltersService}
@@ -53,7 +54,7 @@ export function getDefaultFilterConfig(propertyName: string): FilterConfig {
 export function filter(targetOrNameOrConfig?: string | FilterConfig, key?: string): any {
     const decorateWithConfig = (target: object, key2: string): void => {
         const config = getDefaultFilterConfig(key2);
-        if (typeof targetOrNameOrConfig === 'string') {
+        if (typeof targetOrNameOrConfig === "string") {
             config.parameterName = targetOrNameOrConfig;
         } else {
             Object.assign(config, targetOrNameOrConfig);

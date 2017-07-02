@@ -1,4 +1,4 @@
-import { OperationStatus } from './contracts/operation-status';
+import { OperationStatus } from "./contracts/operation-status";
 
 /**
  * Represents status of operation that must be displayed on UI inside {@link StatusTrackingService}.
@@ -13,15 +13,15 @@ export class Operation {
         /**
          * Name of css class that corresponds to {@link OperationStatus.Done}.
          */
-        statusDoneClassName: 'status-done',
+        statusDoneClassName: "status-done",
         /**
          * Name of css class that corresponds to {@link OperationStatus.Fail}.
          */
-        statusFailClassName: 'status-fail',
+        statusFailClassName: "status-fail",
         /**
          * Name of css class that corresponds to {@link OperationStatus.Progress}.
          */
-        statusProgressClassName: 'status-progress'
+        statusProgressClassName: "status-progress"
     };
     /**
      * Identifier that was returned by `setTimeout` method.
@@ -56,7 +56,7 @@ export class Operation {
             case OperationStatus.Fail:
                 return Operation.settings.statusFailClassName;
             default:
-                return '';
+                return "";
         }
     }
 }

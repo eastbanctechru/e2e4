@@ -1,5 +1,5 @@
-import { FilterConfig } from './contracts/filter-config';
-import { cloneAsLiteral, coerceValue } from './utilities';
+import { FilterConfig } from "./contracts/filter-config";
+import { cloneAsLiteral, coerceValue } from "./utilities";
 /**
  * Used for declarative building of objects which represent valuable state of `target object`.
  *
@@ -46,7 +46,9 @@ export class FiltersService {
      * @param propertyConfig configuration for property as a filter.
      */
     public static registerFilterConfig(targetType: object, propertyConfig: FilterConfig): void {
-        const typeConfigs = FiltersService.filterPropertiesMap.has(targetType) ? FiltersService.filterPropertiesMap.get(targetType) : new Array<FilterConfig>();
+        const typeConfigs = FiltersService.filterPropertiesMap.has(targetType)
+            ? FiltersService.filterPropertiesMap.get(targetType)
+            : new Array<FilterConfig>();
         typeConfigs.push(propertyConfig);
         FiltersService.filterPropertiesMap.set(targetType, typeConfigs);
     }
@@ -142,9 +144,14 @@ export class FiltersService {
     public resetValues(): void {
         this.appliedFiltersMap.forEach((targetConfig: FilterConfig[], target: { [id: string]: any }) => {
             for (const config of targetConfig) {
-                const defaultValue = (typeof config.defaultValue === 'function') ? (config.defaultValue as () => any).call(target) : config.defaultValue;
+                const defaultValue =
+                    typeof config.defaultValue === "function"
+                        ? (config.defaultValue as () => any).call(target)
+                        : config.defaultValue;
                 const clonedObject = cloneAsLiteral({ defaultValue });
-                target[config.propertyName] = config.parseFormatter ? config.parseFormatter.call(target, clonedObject.defaultValue) : clonedObject.defaultValue;
+                target[config.propertyName] = config.parseFormatter
+                    ? config.parseFormatter.call(target, clonedObject.defaultValue)
+                    : clonedObject.defaultValue;
             }
         });
     }
@@ -160,9 +167,13 @@ export class FiltersService {
         this.appliedFiltersMap.forEach((targetConfig: FilterConfig[], target: { [id: string]: any }) => {
             for (const config of targetConfig) {
                 if (params && params.hasOwnProperty(config.parameterName) && false === config.ignoreOnAutoMap) {
-                    let proposedVal = config.emptyIsNull ? params[config.parameterName] || null : params[config.parameterName];
+                    let proposedVal = config.emptyIsNull
+                        ? params[config.parameterName] || null
+                        : params[config.parameterName];
                     proposedVal = config.coerce ? coerceValue(proposedVal) : proposedVal;
-                    target[config.propertyName] = config.parseFormatter ? config.parseFormatter.call(target, proposedVal, params) : proposedVal;
+                    target[config.propertyName] = config.parseFormatter
+                        ? config.parseFormatter.call(target, proposedVal, params)
+                        : proposedVal;
                 }
             }
         });
@@ -176,15 +187,17 @@ export class FiltersService {
      * @param filterFn - optional function to filter applied values.
      * @returns resulted object literal.
      */
-    public getRequestState(filterFn?: (config: FilterConfig, proposedValue: any, targetObject: object) => boolean): any {
+    public getRequestState(
+        filterFn?: (config: FilterConfig, proposedValue: any, targetObject: object) => boolean
+    ): any {
         const result: { [id: string]: any } = {};
         this.appliedFiltersMap.forEach((targetConfig: FilterConfig[], target: { [id: string]: any }) => {
             for (let config of targetConfig) {
-                config = {...config};
+                config = { ...config };
                 const proposedVal = target[config.propertyName];
                 if (filterFn ? filterFn(config, proposedVal, target) : true) {
                     const resultValue = FiltersService.buildFilterValue(target, proposedVal, config);
-                    if (!config.omitIfNullOrUndefined || (resultValue !== null && typeof resultValue !== 'undefined')) {
+                    if (!config.omitIfNullOrUndefined || (resultValue !== null && typeof resultValue !== "undefined")) {
                         result[config.parameterName] = resultValue;
                     }
                 }
@@ -240,8 +253,10 @@ export class FiltersService {
             if (target instanceof type) {
                 targetConfig = targetConfig.concat(typeConfig);
                 for (const config of targetConfig) {
-                    if (typeof config.defaultValue === 'undefined') {
-                        config.defaultValue = cloneAsLiteral({ defaultValue: target[config.propertyName] }).defaultValue;
+                    if (typeof config.defaultValue === "undefined") {
+                        config.defaultValue = cloneAsLiteral({
+                            defaultValue: target[config.propertyName]
+                        }).defaultValue;
                     }
                 }
             }

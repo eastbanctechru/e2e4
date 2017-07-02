@@ -17,5 +17,8 @@
         "**/esm": true,
         "**/coverage": true
     },
-"typescript.tsdk": "./node_modules/typescript/lib"
+    "editor.formatOnSave": true,
+    "prettier.tabWidth": 4,
+    "prettier.printWidth": 120,
+    "typescript.tsdk": "./node_modules/typescript/lib"
 }

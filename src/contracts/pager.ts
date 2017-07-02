@@ -1,4 +1,4 @@
-import { ListResponse } from './list-response';
+import { ListResponse } from "./list-response";
 /**
  * Base contract of pager.
  */

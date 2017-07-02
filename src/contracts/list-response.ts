@@ -1,4 +1,4 @@
-import { OperationStatus } from './operation-status';
+import { OperationStatus } from "./operation-status";
 /**
  * Represents server response which is returned on list data request.
  *

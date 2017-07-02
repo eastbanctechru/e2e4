@@ -1,13 +1,13 @@
-import { AsyncSubscriber } from './async-subscriber';
-import { FilterConfig } from './contracts/filter-config';
-import { ListResponse } from './contracts/list-response';
-import { OperationStatus } from './contracts/operation-status';
-import { Pager } from './contracts/pager';
-import { FiltersService } from './filters-service';
-import { NullObjectPager } from './null-object-pager';
-import { SortingsService } from './sortings-service';
-import { StateService } from './state-service';
-import { destroyAll } from './utilities';
+import { AsyncSubscriber } from "./async-subscriber";
+import { FilterConfig } from "./contracts/filter-config";
+import { ListResponse } from "./contracts/list-response";
+import { OperationStatus } from "./contracts/operation-status";
+import { Pager } from "./contracts/pager";
+import { FiltersService } from "./filters-service";
+import { NullObjectPager } from "./null-object-pager";
+import { SortingsService } from "./sortings-service";
+import { StateService } from "./state-service";
+import { destroyAll } from "./utilities";
 
 export class List {
     /**
@@ -19,8 +19,7 @@ export class List {
      * If you want to change settings of concrete object you can use it the same name properties.
      */
     // tslint:disable-next-line: typedef
-    public static settings =
-    {
+    public static settings = {
         /**
          * @see {@link List.keepRecordsOnLoad}
          */
@@ -91,10 +90,15 @@ export class List {
     public get ready(): boolean {
         return this.status !== OperationStatus.Progress;
     }
-    constructor(protected asyncSubscriber: AsyncSubscriber, stateServices: StateService | StateService[], protected sortingsService: SortingsService, protected filtersService: FiltersService) {
+    constructor(
+        protected asyncSubscriber: AsyncSubscriber,
+        stateServices: StateService | StateService[],
+        protected sortingsService: SortingsService,
+        protected filtersService: FiltersService
+    ) {
         if (stateServices != null) {
             if (Array.isArray(stateServices)) {
-                this.stateServices.push(...stateServices as StateService[]);
+                this.stateServices.push(...(stateServices as StateService[]));
             } else {
                 this.stateServices.push(stateServices);
             }
@@ -159,7 +163,9 @@ export class List {
     /**
      * @see {@link FiltersService.getRequestState}
      */
-    public getRequestState(filterFn?: (config: FilterConfig, proposedValue: any, targetObject: object) => boolean): any {
+    public getRequestState(
+        filterFn?: (config: FilterConfig, proposedValue: any, targetObject: object) => boolean
+    ): any {
         return this.filtersService.getRequestState(filterFn);
     }
     /**
@@ -231,14 +237,14 @@ export class List {
         }
         this.statusInternal = this.pager.totalCount === 0 ? OperationStatus.NoData : OperationStatus.Done;
         return response;
-    }
+    };
     /**
      * Callback which is executed if {@link fetchMethod} execution finished with error.
      */
     public loadFailCallback = (): void => {
         this.tryCleanItemsOnLoad(true);
         this.statusInternal = OperationStatus.Fail;
-    }
+    };
 
     private loadDataSuccessCallback = (response: ListResponse<any> | any[]): ListResponse<any> | any[] => {
         if (this.tryInterceptStatusResponse(response)) {
@@ -246,18 +252,18 @@ export class List {
         }
         this.tryCleanItemsOnLoad(true);
         return this.loadSuccessCallback(response as ListResponse<any> | any[]);
-    }
+    };
     private reloadDataSuccessCallback = (response: ListResponse<any> | any[]): ListResponse<any> | any[] => {
         if (this.tryInterceptStatusResponse(response)) {
             return response;
         }
         this.tryCleanItemsOnReload(true);
         return this.loadSuccessCallback(response as ListResponse<any> | any[]);
-    }
+    };
     private loadDataFailCallback = (): void => {
         this.tryCleanItemsOnLoad(true);
         this.loadFailCallback();
-    }
+    };
     private tryInterceptStatusResponse(response: any): boolean {
         if (this.responseHasStatus(response)) {
             switch (response.status) {
@@ -276,7 +282,7 @@ export class List {
     private reloadDataFailCallback = (): void => {
         this.tryCleanItemsOnReload(true);
         this.loadFailCallback();
-    }
+    };
     private tryCleanItemsOnLoad(requestCompleted: boolean): void {
         if (this.keepRecordsOnLoad === requestCompleted && this.pager.appendedOnLoad === false) {
             this.clearData();
@@ -293,6 +299,9 @@ export class List {
         return this.fetchMethod(requestState);
     }
     private responseHasStatus(response: ListResponse<any> | any[]): boolean {
-        return (response as ListResponse<any>).status !== null && typeof (response as ListResponse<any>).status !== 'undefined';
+        return (
+            (response as ListResponse<any>).status !== null &&
+            typeof (response as ListResponse<any>).status !== "undefined"
+        );
     }
 }

@@ -1,10 +1,14 @@
 // tslint:disable:max-classes-per-file
-import { DefaultFilterConfig, filter, FilterConfig, FiltersService, getDefaultFilterConfig } from '../index';
+import { DefaultFilterConfig, filter, FilterConfig, FiltersService, getDefaultFilterConfig } from "../index";
 
-import { expect } from 'chai';
+import { expect } from "chai";
 
-function parseStub(value: object): object { return value; }
-function serializeStub(rawValue: object): object { return rawValue; }
+function parseStub(value: object): object {
+    return value;
+}
+function serializeStub(rawValue: object): object {
+    return rawValue;
+}
 function checkConfigsEquality(expected: FilterConfig, actual: FilterConfig): void {
     expect(actual.coerce).eql(expected.coerce);
     expect(actual.defaultValue).eql(expected.defaultValue);
@@ -16,77 +20,76 @@ function checkConfigsEquality(expected: FilterConfig, actual: FilterConfig): voi
     expect(actual.serializeFormatter).eql(expected.serializeFormatter);
 }
 
-describe('getDefaultFilterConfig', () => {
-    it('builds config based on DefaultFilterConfig with applied propertyName', () => {
-        const actualConfig = getDefaultFilterConfig('requestProperty');
+describe("getDefaultFilterConfig", () => {
+    it("builds config based on DefaultFilterConfig with applied propertyName", () => {
+        const actualConfig = getDefaultFilterConfig("requestProperty");
 
         const expectedConfig = {
             coerce: DefaultFilterConfig.coerce,
             defaultValue: DefaultFilterConfig.defaultValue,
             emptyIsNull: DefaultFilterConfig.emptyIsNull,
             ignoreOnAutoMap: DefaultFilterConfig.ignoreOnAutoMap,
-            parameterName: 'requestProperty',
+            parameterName: "requestProperty",
             parseFormatter: DefaultFilterConfig.parseFormatter,
-            propertyName: 'requestProperty',
+            propertyName: "requestProperty",
             serializeFormatter: DefaultFilterConfig.serializeFormatter
         } as FilterConfig;
 
         checkConfigsEquality(actualConfig, expectedConfig);
     });
-    it('When DefaultFilterConfig properties are changed it builds config with corresponding value', () => {
-        let config = getDefaultFilterConfig('requestProperty');
+    it("When DefaultFilterConfig properties are changed it builds config with corresponding value", () => {
+        let config = getDefaultFilterConfig("requestProperty");
         expect(config.coerce).equal(DefaultFilterConfig.coerce);
 
         DefaultFilterConfig.coerce = !DefaultFilterConfig.coerce;
-        config = getDefaultFilterConfig('requestProperty');
+        config = getDefaultFilterConfig("requestProperty");
         expect(config.coerce).equal(DefaultFilterConfig.coerce);
 
         DefaultFilterConfig.coerce = !DefaultFilterConfig.coerce;
-        config = getDefaultFilterConfig('requestProperty');
+        config = getDefaultFilterConfig("requestProperty");
         expect(config.coerce).equal(DefaultFilterConfig.coerce);
     });
 });
-describe('filterAnnotation', () => {
-    it('registers config in filtersService', () => {
+describe("filterAnnotation", () => {
+    it("registers config in filtersService", () => {
         class RequestObject {
-            @filter()
-            public requestProperty: string;
+            @filter() public requestProperty: string;
         }
         expect(FiltersService.filterPropertiesMap.has(RequestObject)).true;
         expect(FiltersService.filterPropertiesMap.get(RequestObject).length).equal(1);
     });
-    it('registers default config if no args', () => {
+    it("registers default config if no args", () => {
         class RequestObject {
-            @filter()
-            public requestProperty: string;
+            @filter() public requestProperty: string;
         }
         const actualConfig = FiltersService.filterPropertiesMap.get(RequestObject)[0];
-        const expectedConfig = getDefaultFilterConfig('requestProperty');
+        const expectedConfig = getDefaultFilterConfig("requestProperty");
         checkConfigsEquality(actualConfig, expectedConfig);
     });
 
-    it('registers default config with custom parameter name when gets string param', () => {
+    it("registers default config with custom parameter name when gets string param", () => {
         class RequestObject {
-            @filter('changedName')
-            public requestProperty: string;
+            @filter("changedName") public requestProperty: string;
         }
         const actualConfig = FiltersService.filterPropertiesMap.get(RequestObject)[0];
-        const expectedConfig = getDefaultFilterConfig('requestProperty');
-        expectedConfig.parameterName = 'changedName';
+        const expectedConfig = getDefaultFilterConfig("requestProperty");
+        expectedConfig.parameterName = "changedName";
         checkConfigsEquality(actualConfig, expectedConfig);
     });
-    it('registers custom config with object parameter', () => {
+    it("registers custom config with object parameter", () => {
         class RequestObject {
-            @filter({
-                coerce: false,
-                defaultValue: 1,
-                emptyIsNull: true,
-                ignoreOnAutoMap: true,
-                parameterName: 'customName',
-                parseFormatter: parseStub,
-                propertyName: 'customName',
-                serializeFormatter: serializeStub
-            } as FilterConfig)
+            @filter(
+                {
+                    coerce: false,
+                    defaultValue: 1,
+                    emptyIsNull: true,
+                    ignoreOnAutoMap: true,
+                    parameterName: "customName",
+                    parseFormatter: parseStub,
+                    propertyName: "customName",
+                    serializeFormatter: serializeStub
+                } as FilterConfig
+            )
             public requestProperty: string;
         }
 
@@ -96,28 +99,26 @@ describe('filterAnnotation', () => {
             defaultValue: 1,
             emptyIsNull: true,
             ignoreOnAutoMap: true,
-            parameterName: 'customName',
+            parameterName: "customName",
             parseFormatter: parseStub,
-            propertyName: 'customName',
+            propertyName: "customName",
             serializeFormatter: serializeStub
         };
         checkConfigsEquality(actualConfig, expectedConfig);
     });
-    it('overrides all properties on create', () => {
-
-        const config = getDefaultFilterConfig('propertyName');
+    it("overrides all properties on create", () => {
+        const config = getDefaultFilterConfig("propertyName");
         config.coerce = !config.coerce;
-        config.defaultValue = 'defaultValue';
+        config.defaultValue = "defaultValue";
         config.emptyIsNull = !config.emptyIsNull;
         config.ignoreOnAutoMap = !config.ignoreOnAutoMap;
-        config.parameterName = 'parameterName';
+        config.parameterName = "parameterName";
         config.parseFormatter = (proposedValue: any) => proposedValue;
-        config.propertyName = 'propertyName';
-        config.serializeFormatter = () => '';
+        config.propertyName = "propertyName";
+        config.serializeFormatter = () => "";
 
         class RequestObject {
-            @filter(config)
-            public requestProperty: string;
+            @filter(config) public requestProperty: string;
         }
 
         const actualConfig = FiltersService.filterPropertiesMap.get(RequestObject)[0];

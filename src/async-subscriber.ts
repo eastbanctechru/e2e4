@@ -37,7 +37,9 @@ export class PushBasedSubscriptionProxy implements SubscriptionProxy {
     /**
      * @inheritdoc
      */
-    public detach(subscription: any): void { subscription.unsubscribe(); }
+    public detach(subscription: any): void {
+        subscription.unsubscribe();
+    }
 }
 
 /**
@@ -55,20 +57,25 @@ export class PromiseSubscriptionProxy implements SubscriptionProxy {
      * @inheritdoc
      */
     public attach(target: Promise<any>, completeAction: (value: any) => any, errorAction?: (error: any) => any): any {
-        return target.then((value: any) => {
-            if (this.isAlive) {
-                completeAction(value);
+        return target.then(
+            (value: any) => {
+                if (this.isAlive) {
+                    completeAction(value);
+                }
+            },
+            (error: any) => {
+                if (this.isAlive) {
+                    errorAction(error);
+                }
             }
-        }, (error: any) => {
-            if (this.isAlive) {
-                errorAction(error);
-            }
-        });
+        );
     }
     /**
      * @inheritdoc
      */
-    public detach(subscription: any): void { this.isAlive = false; }
+    public detach(subscription: any): void {
+        this.isAlive = false;
+    }
 }
 
 /**
@@ -104,7 +111,9 @@ export class AsyncSubscriber {
     /**
      * @see {@link SubscriptionProxy.detach}
      */
-    public detach(): void { this.proxy.detach(this.subscription); }
+    public detach(): void {
+        this.proxy.detach(this.subscription);
+    }
     private getProxy(target: any): SubscriptionProxy {
         if (PromiseSubscriptionProxy.isAcceptable(target)) {
             return new PromiseSubscriptionProxy();
@@ -112,6 +121,6 @@ export class AsyncSubscriber {
         if (PushBasedSubscriptionProxy.isAcceptable(target)) {
             return new PushBasedSubscriptionProxy();
         }
-        throw new Error('Can\'t subscribe to passed object');
+        throw new Error("Can't subscribe to passed object");
     }
 }

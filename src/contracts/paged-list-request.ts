@@ -1,4 +1,4 @@
-import { ListRequest } from './list-request';
+import { ListRequest } from "./list-request";
 /**
  * Represents parameters of request to the server to retrieve list data.
  *

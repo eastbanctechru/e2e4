@@ -1,7 +1,7 @@
-import { FilterConfig } from './contracts/filter-config';
-import { ListResponse } from './contracts/list-response';
-import { Pager } from './contracts/pager';
-import { filter } from './filter-annotation';
+import { FilterConfig } from "./contracts/filter-config";
+import { ListResponse } from "./contracts/list-response";
+import { Pager } from "./contracts/pager";
+import { filter } from "./filter-annotation";
 
 /**
  * Implements {@link Pager} contract and represents buffered list behavior.
@@ -17,8 +17,7 @@ export class BufferedPager implements Pager {
      * If you want to change settings of concrete object you can use it the same name properties.
      */
     // tslint:disable-next-line: typedef
-    public static settings =
-    {
+    public static settings = {
         /**
          * @see {@link BufferedPager.defaultRowCount}
          */
@@ -62,26 +61,34 @@ export class BufferedPager implements Pager {
      * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
      * @see {@link BufferedListRequest.skip}
      */
-    @filter({
-        defaultValue: 0,
-        parameterName: 'skip',
-        parseFormatter(): number { return 0; }
-    } as FilterConfig)
+    @filter(
+        {
+            defaultValue: 0,
+            parameterName: "skip",
+            parseFormatter(): number {
+                return 0;
+            }
+        } as FilterConfig
+    )
     public skip: number = 0;
     /**
      * Internal implementation of {@link takeRowCount}.
      */
-    @filter({
-        defaultValue(this: BufferedPager): number { return this.defaultRowCount; },
-        parameterName: 'take',
-        parseFormatter(this: BufferedPager, rawValue: any, allValues: any): number {
-            let result;
-            if (allValues && !isNaN(allValues.skip) && !isNaN(allValues.take)) {
-                result = (allValues.skip || 0) + (allValues.take || 0);
+    @filter(
+        {
+            defaultValue(this: BufferedPager): number {
+                return this.defaultRowCount;
+            },
+            parameterName: "take",
+            parseFormatter(this: BufferedPager, rawValue: any, allValues: any): number {
+                let result;
+                if (allValues && !isNaN(allValues.skip) && !isNaN(allValues.take)) {
+                    result = (allValues.skip || 0) + (allValues.take || 0);
+                }
+                return result || this.defaultRowCount;
             }
-            return result || this.defaultRowCount;
-        }
-    } as FilterConfig)
+        } as FilterConfig
+    )
     protected takeRowCountInternal: number = BufferedPager.settings.defaultRowCount;
     private handlesFlatResponse: boolean = false;
     private lastChunkRecieved: boolean = null;
@@ -97,7 +104,7 @@ export class BufferedPager implements Pager {
      * Executes several checks. For example, it doesn't accept values bigger than {@link maxRowCount}.
      */
     public set takeRowCount(value: number) {
-        const valueStr = (value + '').replace(/[^0-9]/g, '');
+        const valueStr = (value + "").replace(/[^0-9]/g, "");
         let rowCount = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : this.defaultRowCount;
         if (rowCount < this.minRowCount) {
             rowCount = this.defaultRowCount;
@@ -116,7 +123,9 @@ export class BufferedPager implements Pager {
      * Returns `true` if it's possible to load more records (e.g. currently not all records loaded to the list).
      */
     public get canLoadMore(): boolean {
-        return this.totalCount !== 0 && this.handlesFlatResponse ? !this.lastChunkRecieved : this.skip < this.totalCount;
+        return this.totalCount !== 0 && this.handlesFlatResponse
+            ? !this.lastChunkRecieved
+            : this.skip < this.totalCount;
     }
     /**
      * @inheritdoc
@@ -135,7 +144,9 @@ export class BufferedPager implements Pager {
             alignedResponse = response;
         }
         this.totalCount = alignedResponse.totalCount || 0;
-        const lastLoadedCount = alignedResponse.loadedCount || (alignedResponse.items && alignedResponse.items.length ? alignedResponse.items.length : 0);
+        const lastLoadedCount =
+            alignedResponse.loadedCount ||
+            (alignedResponse.items && alignedResponse.items.length ? alignedResponse.items.length : 0);
 
         this.lastChunkRecieved = lastLoadedCount !== this.takeRowCountInternal;
 
