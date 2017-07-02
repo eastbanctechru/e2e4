@@ -1,6 +1,7 @@
 {
     "extends": "tslint:latest",
     "rules": {
+        "arrow-parens": [true, "ban-single-arg-parens"],
         "jsdoc-format": true,
         "semicolon": [false],
         "interface-name": [true, "never-prefix"],
