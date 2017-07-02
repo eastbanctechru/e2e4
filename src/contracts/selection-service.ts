@@ -1,15 +1,4 @@
 /**
- * Represents element which can be processed as selected/deselected by any implementation of {@link SelectionService}.
- */
-export interface SelectionItem {
-    /**
-     * Specifies if item is selected or not.
-     * If defined, this property will be updated by {@link SelectionService} implementation.
-     */
-    selected?: boolean;
-}
-
-/**
  * Represents possible operations with selection model.
  *
  * Default implementation in this library is {@link DefaultSelectionService}, but you can extend it or replace with your own implementation.
@@ -18,7 +7,7 @@ export interface SelectionService {
     /**
      * Collection of elements for selection.
      */
-    items: SelectionItem[];
+    items: any[];
     /**
      * Optional function which can be used to compare {@link items} elements.
      *

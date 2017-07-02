@@ -1,4 +1,4 @@
-import { SelectionItem, SelectionService } from './contracts/selection-service';
+import { SelectionService } from './contracts/selection-service';
 
 /**
  * Internal contract for {@link DefaultSelectionService}.
@@ -11,7 +11,7 @@ export interface SelectionTuple {
     /**
      * Element from {@link DefaultSelectionService.items} collection.
      */
-    item: SelectionItem;
+    item: any;
 }
 /**
  * Default implementation of {@link SelectionService}.
@@ -28,7 +28,7 @@ export class DefaultSelectionService implements SelectionService {
     /**
      * @inheritdoc
      */
-    public items: SelectionItem[];
+    public items: any[];
 
     /**
      * Collection of {@link SelectionTuple} elements which represents currently selected items in {@link items} collection.
@@ -145,8 +145,8 @@ export class DefaultSelectionService implements SelectionService {
     /**
      * @inheritdoc
      */
-    public getItemIndex(item: SelectionItem): number {
-        return this.items.findIndex((value: SelectionItem) => value === item);
+    public getItemIndex(item: any): number {
+        return this.items.findIndex((value: any) => value === item);
     }
     /**
      * @inheritdoc
@@ -218,13 +218,13 @@ export class DefaultSelectionService implements SelectionService {
      * @inheritdoc
      */
     public getSelectedElements(): object[] {
-        return this.selectionsList.map((selectionItem: SelectionTuple) => selectionItem.item);
+        return this.selectionsList.map((selectionTuple: SelectionTuple) => selectionTuple.item);
     }
     /**
      * @inheritdoc
      */
     public getSelectedIndexes(): number[] {
-        return this.selectionsList.map((selectionItem: SelectionTuple) => selectionItem.index);
+        return this.selectionsList.map((selectionTuple: SelectionTuple) => selectionTuple.index);
     }
     /**
      * Default tracking function that will be used if nothing was specified for {@link trackByFn}.
@@ -235,7 +235,7 @@ export class DefaultSelectionService implements SelectionService {
     /**
      * Performs final processing of selection/deselection of element.
      *
-     * Current implementation just sets {@link SelectionItem.selected} (if it's defined) but it can be extended in derived classes.
+     * Current implementation sets {@link selected} propery of element (if it's defined).
      */
     protected processSelection(tuple: SelectionTuple, selected: boolean): void {
         if (Object.prototype.hasOwnProperty.call(tuple.item, 'selected')) {

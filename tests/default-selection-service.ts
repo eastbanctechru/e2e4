@@ -1,4 +1,4 @@
-import { DefaultSelectionService, SelectionItem } from '../index';
+import { DefaultSelectionService } from '../index';
 
 import { assert, expect } from 'chai';
 import * as sinon from 'sinon';
@@ -11,8 +11,9 @@ interface SelectionableObject {
     selectionService: DefaultSelectionService;
 }
 
-interface Item extends SelectionItem {
+interface Item {
     name: string;
+    selected: boolean;
 }
 function toItem(name: string): Item {
     return { name, selected: false };
@@ -418,7 +419,7 @@ describe('SelectionService', () => {
                 {
                     name: 'cadabra',
                     selected: false
-                } as SelectionItem)).eq(-1);
+                })).eq(-1);
         });
     });
     describe('checkSelection', () => {

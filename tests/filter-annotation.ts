@@ -57,7 +57,7 @@ describe('filterAnnotation', () => {
     });
     it('registers default config if no args', () => {
         class RequestObject {
-            @filter
+            @filter()
             public requestProperty: string;
         }
         const actualConfig = FiltersService.filterPropertiesMap.get(RequestObject)[0];

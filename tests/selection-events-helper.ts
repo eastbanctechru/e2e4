@@ -1,4 +1,4 @@
-import { DefaultSelectionService, KeyCodes, MouseButtons, SelectionEventsHelper, SelectionItem } from '../index';
+import { DefaultSelectionService, KeyCodes, MouseButtons, SelectionEventsHelper } from '../index';
 
 import { expect } from 'chai';
 import * as sinon from 'sinon';
@@ -11,11 +11,11 @@ const pressedCtrl = true;
 function toSelectionService(): DefaultSelectionService {
     const selectionService = new DefaultSelectionService();
     selectionService.items = [
-        { selected: false, title: 'one' } as SelectionItem,
-        { selected: false, title: 'two' } as SelectionItem,
-        { selected: false, title: 'three' } as SelectionItem,
-        { selected: false, title: 'four' } as SelectionItem,
-        { selected: false, title: 'five' } as SelectionItem
+        { selected: false, title: 'one' },
+        { selected: false, title: 'two' },
+        { selected: false, title: 'three' },
+        { selected: false, title: 'four' },
+        { selected: false, title: 'five' }
     ];
 
     return selectionService;

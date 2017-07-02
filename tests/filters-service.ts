@@ -33,7 +33,7 @@ describe('FiltersService', () => {
 
         it('builds filters map for target object', () => {
             class TargetType {
-                @filter
+                @filter()
                 public first: string = 'first';
             }
             const target = new TargetType();
@@ -44,7 +44,7 @@ describe('FiltersService', () => {
 
         it('builds filters map for registered object even after map was builted', () => {
             class TargetType {
-                @filter
+                @filter()
                 public first: string = 'first';
             }
             const target = new TargetType();
@@ -59,7 +59,7 @@ describe('FiltersService', () => {
 
         it('can remove filter target', () => {
             class TargetType {
-                @filter
+                @filter()
                 public first: string = 'first';
             }
             const target = new TargetType();
@@ -85,9 +85,9 @@ describe('FiltersService', () => {
 
         it('builds filters map for target object with multiple filters', () => {
             class TargetType {
-                @filter
+                @filter()
                 public first: string = 'first';
-                @filter
+                @filter()
                 public second: string = 'second';
             }
             const target = new TargetType();
@@ -98,11 +98,11 @@ describe('FiltersService', () => {
 
         it('builds filters map for inheritant objects', () => {
             class TargetTypeParent {
-                @filter
+                @filter()
                 public parent: string = 'parent property';
             }
             class TargetTypeChild extends TargetTypeParent {
-                @filter
+                @filter()
                 public child: string = 'child property';
             }
             const target = new TargetTypeChild();
@@ -115,11 +115,11 @@ describe('FiltersService', () => {
 
         it('can compose additional objects in filters map', () => {
             class TargetType {
-                @filter
+                @filter()
                 public property: string = 'property';
             }
             class AnotherTargetType {
-                @filter
+                @filter()
                 public anotherProperty: string = 'another property';
             }
             const target = new TargetType();
@@ -137,11 +137,11 @@ describe('FiltersService', () => {
 
         it('applies default values on registration', () => {
             class TargetType {
-                @filter
+                @filter()
                 public property: string = 'property';
             }
             class AnotherTargetType {
-                @filter
+                @filter()
                 public anotherProperty: string = 'another property';
             }
 
@@ -156,7 +156,7 @@ describe('FiltersService', () => {
 
         it('clones default values on registrtaion', () => {
             class TargetType {
-                @filter
+                @filter()
                 public property: string[] = ['one', 'two', 'three'];
             }
 
@@ -168,7 +168,7 @@ describe('FiltersService', () => {
 
         it('handles multiple registrations of same target', () => {
             class TargetType {
-                @filter
+                @filter()
                 public first: 'first';
             }
             const target = new TargetType();
@@ -193,7 +193,7 @@ describe('FiltersService', () => {
 
         it('clears targets on destroy', () => {
             class TargetType {
-                @filter
+                @filter()
                 public first: 'first';
             }
             const target = new TargetType();
@@ -208,7 +208,7 @@ describe('FiltersService', () => {
             class TargetType {
                 @filter({ coerce: false } as FilterConfig)
                 public first: string = 'first';
-                @filter
+                @filter()
                 public second: string = 'second';
             }
             const target = new TargetType();
@@ -221,7 +221,7 @@ describe('FiltersService', () => {
             class TargetType {
                 @filter({ coerce: false } as FilterConfig)
                 public first: string = 'first';
-                @filter
+                @filter()
                 public second: string = 'second';
             }
             const target = new TargetType();
@@ -319,15 +319,15 @@ describe('FiltersService', () => {
     describe('applyParams', () => {
         it('apply coerced values by default', () => {
             class TargetType {
-                @filter
+                @filter()
                 public booleanProperty: any;
-                @filter
+                @filter()
                 public nullProperty: any;
-                @filter
+                @filter()
                 public numberProperty: number;
-                @filter
+                @filter()
                 public stringProperty: string;
-                @filter
+                @filter()
                 public undefinedProperty: any;
             }
 
@@ -377,7 +377,7 @@ describe('FiltersService', () => {
             class TargetType {
                 @filter({ ignoreOnAutoMap: true } as FilterConfig)
                 public ignoredProperty: 'old value';
-                @filter
+                @filter()
                 public mappedProperty: 'old value';
             }
 
