@@ -1,3 +1,13 @@
+<a name="2.2.1"></a>
+## [2.2.1](https://github.com/eastbanctechru/e2e4/compare/v2.2.0...v2.2.1) (2017-07-12)
+
+
+### Bug Fixes
+
+* **list:** prevent pager reset for flat responses ([34cb8cb](https://github.com/eastbanctechru/e2e4/commit/34cb8cb))
+
+
+
 <a name="2.2.0"></a>
 # [2.2.0](https://github.com/eastbanctechru/e2e4/compare/v2.1.3...v2.2.0) (2017-07-02)
 
