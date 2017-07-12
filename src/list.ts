@@ -231,7 +231,8 @@ export class List {
         this.items = this.items.concat(items);
         this.pager.processResponse(response);
         // In case when filter changed from last request and there's no data now
-        if (this.pager.totalCount === 0) {
+        // Don't do this for flat responses since we don't know real count items
+        if (!Array.isArray(response) && this.pager.totalCount === 0) {
             this.clearData();
             this.pager.reset();
         }

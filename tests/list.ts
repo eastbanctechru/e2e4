@@ -639,8 +639,36 @@ describe("List", () => {
                 clock.tick(delay);
                 expect(list.status).eq(OperationStatus.Done);
             });
-            it("calls Pager.reset and List.clearData if empty array returned", () => {
+            it("calls Pager.reset and List.clearData if empty complex response returned", () => {
+                const response = {
+                    items: [1],
+                    totalCount: 1
+                };
+                list.pager.appendedOnLoad = true;
+                list.fetchMethod = () =>
+                    Observable.create((observer: any) => {
+                        setTimeout(() => {
+                            observer.next(response);
+                        }, delay);
+                    });
+
+                const resetSpy = sinon.spy(list.pager, "reset");
+                const clearSpy = sinon.spy(list, "clearData");
+                list.loadData();
+                clock.tick(delay);
+                expect(resetSpy.notCalled).true;
+                expect(clearSpy.notCalled).true;
+
+                response.items.length = 0;
+                response.totalCount = 0;
+                list.loadData();
+                clock.tick(delay);
+                expect(resetSpy.called).true;
+                expect(clearSpy.called).true;
+            });
+            it("doesn't call Pager.reset and List.clearData if empty flat array returned", () => {
                 const data = [1];
+                list.pager.appendedOnLoad = true;
                 list.fetchMethod = () =>
                     Observable.create((observer: any) => {
                         setTimeout(() => {
@@ -654,12 +682,11 @@ describe("List", () => {
                 clock.tick(delay);
                 expect(resetSpy.notCalled).true;
                 expect(clearSpy.notCalled).true;
-
                 data.length = 0;
                 list.loadData();
                 clock.tick(delay);
-                expect(resetSpy.called).true;
-                expect(clearSpy.called).true;
+                expect(resetSpy.notCalled).true;
+                expect(clearSpy.notCalled).true;
             });
             it("calls pager.processResponse with returned response object", () => {
                 const processSpy = sinon.spy(list.pager, "processResponse");
