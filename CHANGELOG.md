@@ -1,3 +1,13 @@
+<a name="2.2.2"></a>
+## [2.2.2](https://github.com/eastbanctechru/e2e4/compare/v2.2.1...v2.2.2) (2017-07-12)
+
+
+### Bug Fixes
+
+* **list:** correct list status for flat responses ([3bd322b](https://github.com/eastbanctechru/e2e4/commit/3bd322b))
+
+
+
 <a name="2.2.1"></a>
 ## [2.2.1](https://github.com/eastbanctechru/e2e4/compare/v2.2.0...v2.2.1) (2017-07-12)
 
