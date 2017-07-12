@@ -236,7 +236,8 @@ export class List {
             this.clearData();
             this.pager.reset();
         }
-        this.statusInternal = this.pager.totalCount === 0 ? OperationStatus.NoData : OperationStatus.Done;
+        this.statusInternal =
+            this.pager.totalCount === 0 && this.items.length === 0 ? OperationStatus.NoData : OperationStatus.Done;
         return response;
     };
     /**
