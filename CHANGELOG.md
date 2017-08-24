@@ -1,3 +1,8 @@
+<a name="2.2.3"></a>
+## [2.2.3](https://github.com/eastbanctechru/e2e4/compare/v2.2.2...v2.2.3) (2017-08-24)
+
+
+
 <a name="2.2.2"></a>
 ## [2.2.2](https://github.com/eastbanctechru/e2e4/compare/v2.2.1...v2.2.2) (2017-07-12)
 
