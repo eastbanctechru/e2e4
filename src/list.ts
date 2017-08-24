@@ -226,7 +226,7 @@ export class List {
     /**
      * Callback which is executed if {@link fetchMethod} execution finished successfully.
      */
-    public loadSuccessCallback = (response: ListResponse<any> | any[]): ListResponse<any> | any[] => {
+    public loadSuccessCallback(response: ListResponse<any> | any[]): ListResponse<any> | any[] {
         const items = Array.isArray(response) ? response : response.items;
         this.items = this.items.concat(items);
         this.pager.processResponse(response);
@@ -239,14 +239,14 @@ export class List {
         this.statusInternal =
             this.pager.totalCount === 0 && this.items.length === 0 ? OperationStatus.NoData : OperationStatus.Done;
         return response;
-    };
+    }
     /**
      * Callback which is executed if {@link fetchMethod} execution finished with error.
      */
-    public loadFailCallback = (): void => {
+    public loadFailCallback(): void {
         this.tryCleanItemsOnLoad(true);
         this.statusInternal = OperationStatus.Fail;
-    };
+    }
 
     private loadDataSuccessCallback = (response: ListResponse<any> | any[]): ListResponse<any> | any[] => {
         if (this.tryInterceptStatusResponse(response)) {
