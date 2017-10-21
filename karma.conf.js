@@ -2,7 +2,18 @@ var webpack = require("webpack");
 var path = require("path");
 module.exports = function(config) {
     config.set({
-        browsers: ["PhantomJS"],
+        browsers: ["ChromeNoSandboxHeadless"],
+        customLaunchers: {
+            ChromeNoSandboxHeadless: {
+                base: "Chrome",
+                flags: [
+                    "--no-sandbox",
+                    "--headless",
+                    // Without a remote debugging port, Google Chrome exits immediately.
+                    " --remote-debugging-port=9222"
+                ]
+            }
+        },
         coverageReporter: {
             dir: "./",
             reporters: [{ type: "lcov", subdir: "coverage" }]
@@ -15,6 +26,9 @@ module.exports = function(config) {
         },
         reporters: ["spec", "coverage"],
         singleRun: true,
+        mime: {
+            "text/x-typescript": ["ts", "tsx"]
+        },
         webpack: {
             devtool: "inline-source-map",
             module: {
