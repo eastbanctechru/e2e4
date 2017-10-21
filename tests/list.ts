@@ -535,7 +535,7 @@ describe("List", () => {
             expect(cancelRequestsSpy.calledTwice).eql(true);
         });
         it("Intercepts Fail response with call of 'reloadDataFailCallback'", () => {
-            const failCallbackSpy = sinon.spy(list, "reloadDataFailCallback");
+            const failCallbackSpy = sinon.spy(list as any, "reloadDataFailCallback");
             list.fetchMethod = () =>
                 Observable.create((observer: any) => {
                     setTimeout(() => {
@@ -554,7 +554,7 @@ describe("List", () => {
             expect(failCallbackSpy.calledTwice).eql(true);
         });
         it("Intercepts Progress response but do nothing until loading completed", () => {
-            const interceptSpy = sinon.spy(list, "tryInterceptStatusResponse");
+            const interceptSpy = sinon.spy(list as any, "tryInterceptStatusResponse");
             list.fetchMethod = () =>
                 Observable.create((observer: any) => {
                     setTimeout(() => {

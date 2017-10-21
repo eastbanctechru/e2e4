@@ -33,13 +33,13 @@ describe("SelectionEventsHelper", () => {
     describe("keyboard", () => {
         it("calls trySelectNextItem for Tab key", () => {
             const helper = toDefaultSelectionHelper();
-            const trySelectNextItemSpy = sinon.spy(helper, "trySelectNextItem");
+            const trySelectNextItemSpy = sinon.spy(helper as any, "trySelectNextItem");
             helper.keyboardHandler(notPressedCtrl, notPressedShift, KeyCodes.Tab);
             expect(trySelectNextItemSpy.calledOnce).true;
         });
         it("calls trySelectPreviousItem for Shift+Tab key", () => {
             const helper = toDefaultSelectionHelper();
-            const trySelectPreviousItemSpy = sinon.spy(helper, "trySelectPreviousItem");
+            const trySelectPreviousItemSpy = sinon.spy(helper as any, "trySelectPreviousItem");
             helper.keyboardHandler(notPressedCtrl, pressedShift, KeyCodes.Tab);
             expect(trySelectPreviousItemSpy.calledOnce).true;
         });
@@ -68,7 +68,7 @@ describe("SelectionEventsHelper", () => {
         it("Doesn't handle Ctrl+A combination if multiple is false", () => {
             const helper = toDefaultSelectionHelper();
             helper.multiple = false;
-            const trySelectAllSpy = sinon.spy(helper, "trySelectAll");
+            const trySelectAllSpy = sinon.spy(helper as any, "trySelectAll");
             helper.keyboardHandler(pressedCtrl, notPressedShift, KeyCodes.A);
             expect(trySelectAllSpy.calledOnce).true;
             expect(trySelectAllSpy.returnValues[0]).false;
@@ -78,7 +78,7 @@ describe("SelectionEventsHelper", () => {
         describe("horizontal behavior", () => {
             it("calls onPreviousKey for ArrowUp or horizontal and ArrowLeft", () => {
                 const helper = toDefaultSelectionHelper();
-                const onPreviousKeySpy = sinon.spy(helper, "onPreviousKey");
+                const onPreviousKeySpy = sinon.spy(helper as any, "onPreviousKey");
 
                 helper.keyboardHandler(notPressedCtrl, notPressedShift, KeyCodes.ArrowUp);
                 expect(onPreviousKeySpy.called).true;
@@ -96,7 +96,7 @@ describe("SelectionEventsHelper", () => {
             });
             it("calls onNextKey for ArrowDown or horizontal and ArrowRight", () => {
                 const helper = toDefaultSelectionHelper();
-                const onNextKeySpy = sinon.spy(helper, "onNextKey");
+                const onNextKeySpy = sinon.spy(helper as any, "onNextKey");
 
                 helper.keyboardHandler(notPressedCtrl, notPressedShift, KeyCodes.ArrowDown);
                 expect(onNextKeySpy.called).true;
