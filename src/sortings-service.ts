@@ -12,28 +12,26 @@ export class SortingsService {
      *
      * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
      */
-    @filter(
-        {
-            defaultValue(this: SortingsService): SortParameter[] {
-                return this.cloneDefaultSortings();
-            },
-            parameterName: "sortings",
-            parseFormatter(rawValue: any): object[] {
-                return Array.isArray(rawValue)
-                    ? rawValue.map((sort: SortParameter) => ({
-                          direction: sort.direction * 1,
-                          fieldName: sort.fieldName
-                      }))
-                    : [];
-            },
-            serializeFormatter(this: SortingsService): object {
-                return this.sortings.map((sort: SortParameter) => ({
-                    direction: sort.direction,
-                    fieldName: sort.fieldName
-                }));
-            }
-        } as FilterConfig
-    )
+    @filter({
+        defaultValue(this: SortingsService): SortParameter[] {
+            return this.cloneDefaultSortings();
+        },
+        parameterName: "sortings",
+        parseFormatter(rawValue: any): object[] {
+            return Array.isArray(rawValue)
+                ? rawValue.map((sort: SortParameter) => ({
+                      direction: sort.direction * 1,
+                      fieldName: sort.fieldName
+                  }))
+                : [];
+        },
+        serializeFormatter(this: SortingsService): object {
+            return this.sortings.map((sort: SortParameter) => ({
+                direction: sort.direction,
+                fieldName: sort.fieldName
+            }));
+        }
+    } as FilterConfig)
     public sortings: SortParameter[] = new Array<SortParameter>();
     /**
      * Internal implementation of {@link defaultSortings}.
@@ -80,6 +78,17 @@ export class SortingsService {
         } else {
             this.sortings.length = 0;
             this.sortings.push(newSort);
+        }
+    }
+    /**
+     * Removes sort with specified field name  from {@link sortings} array.
+     * @param fieldName name of the sort to remove.
+     */
+    public removeSort(fieldName: string): void {
+        for (let i = 0; i < this.sortings.length; i++) {
+            if (this.sortings[i].fieldName === fieldName) {
+                this.sortings.splice(i, 1)[0];
+            }
         }
     }
     /**

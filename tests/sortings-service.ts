@@ -46,13 +46,28 @@ describe("SortingsService", () => {
             expect(sortingsService.sortings[0].fieldName).eql("id");
             expect(sortingsService.sortings[0].direction).eql(SortDirection.Desc);
         });
-
         it("can add sorting", () => {
             const target = toTarget();
             const { sortingsService } = target;
             sortingsService.setSort("id", doNotSavePrevious);
             expect(sortingsService.sortings[0].fieldName).eql("id");
             expect(sortingsService.sortings[0].direction).eql(SortDirection.Asc);
+        });
+        it("can remove sorting", () => {
+            const target = toTarget();
+            const { sortingsService } = target;
+            sortingsService.setSort("id", doNotSavePrevious);
+            expect(sortingsService.sortings[0].fieldName).eql("id");
+            expect(sortingsService.sortings[0].direction).eql(SortDirection.Asc);
+            sortingsService.removeSort("id");
+            expect(sortingsService.sortings).empty;
+        });
+        it("doesn't throw if try to remove unexisted sort", () => {
+            const target = toTarget();
+            const { sortingsService } = target;
+            expect(sortingsService.sortings).empty;
+            sortingsService.removeSort("id");
+            expect(sortingsService.sortings).empty;
         });
 
         it("change empty sortings to setted default sortings", () => {
