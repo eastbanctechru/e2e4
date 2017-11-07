@@ -32,12 +32,13 @@
         "postversion": "git push && git push --tags && npm run conventional-github-releaser -- -p angular",
         "build": "npm run clean:src && npm run compile:cjs && npm run compile:esm",
         "ci": "npm run lint && npm run build && npm run test",
-        "precommit": "npm run rimraf -- esm coverage && npm run clean:src && npm run clean:tests && npm run lint && npm run build && npm run test",
+        "precommit":
+            "npm run rimraf -- esm coverage && npm run clean:src && npm run clean:tests && npm run lint && npm run build && npm run test",
         "clean:src": "npm run rimraf -- \"src/**/*.+(js|js.map|d.ts)\" ",
         "clean:tests": "npm run rimraf -- \"tests/**/*.+(js|js.map|d.ts)\" ",
         "compile:cjs": "npm run tsc -- -p tsconfig.json",
         "compile:esm": "npm run tsc -- -p tsconfig.esm.json",
-        "docs": "npm run rimraf -- docs && typedoc --options typedoc.json src/",
+        "docs": "npm run rimraf -- docs && typedoc --out docs --readme none --gaID UA-47538916-3 src/",
         "lint": "npm run tslint -- --project tsconfig.json",
         "test": "npm run clean:tests && karma start karma.conf.js",
         "test:watch": "npm run clean:tests && karma start karma.conf.debug.js"
@@ -80,15 +81,13 @@
         "ts-loader": "^3.1.1",
         "tslib": "^1.8.0",
         "tslint": "^5.7.0",
-        "typedoc": "^0.7.1",
+        "typedoc": "^0.9.0",
         "typescript": "^2.5.2",
         "wallaby-webpack": "^0.0.45",
         "webpack": "^3.8.1"
     },
     "dependencies": {},
     "greenkeeper": {
-        "ignore": [
-            "istanbul-instrumenter-loader"
-        ]
+        "ignore": ["istanbul-instrumenter-loader"]
     }
 }
