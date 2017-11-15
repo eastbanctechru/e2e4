@@ -38,7 +38,7 @@
         "clean:tests": "npm run rimraf -- \"tests/**/*.+(js|js.map|d.ts)\" ",
         "compile:cjs": "npm run tsc -- -p tsconfig.json",
         "compile:esm": "npm run tsc -- -p tsconfig.esm.json",
-        "docs": "npm run rimraf -- docs && typedoc --out docs --readme none --gaID UA-47538916-3 src/",
+        "docs": "npm run rimraf -- docs && typedoc --options typedoc.json src/",
         "lint": "npm run tslint -- --project tsconfig.json",
         "test": "npm run clean:tests && karma start karma.conf.js",
         "test:watch": "npm run clean:tests && karma start karma.conf.debug.js"
@@ -81,7 +81,7 @@
         "ts-loader": "^3.1.1",
         "tslib": "^1.8.0",
         "tslint": "^5.7.0",
-        "typedoc": "^0.9.0",
+        "typedoc": "0.7.1",
         "typescript": "^2.5.2",
         "wallaby-webpack": "^0.0.45",
         "webpack": "^3.8.1"
