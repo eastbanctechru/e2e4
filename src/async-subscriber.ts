@@ -23,12 +23,6 @@ export interface SubscriptionProxy {
  */
 export class PushBasedSubscriptionProxy implements SubscriptionProxy {
     /**
-     * Returns `true` if this proxy type can subscribe to passed object. `false` otherwise.
-     */
-    public static isAcceptable(target: any): boolean {
-        return !!target.subscribe;
-    }
-    /**
      * @inheritdoc
      */
     public attach(target: any, completeAction: any, errorAction?: (error: any) => any): any {
@@ -40,18 +34,18 @@ export class PushBasedSubscriptionProxy implements SubscriptionProxy {
     public detach(subscription: any): void {
         subscription.unsubscribe();
     }
+    /**
+     * Returns `true` if this proxy type can subscribe to passed object. `false` otherwise.
+     */
+    public static isAcceptable(target: any): boolean {
+        return !!target.subscribe;
+    }
 }
 
 /**
  * Implementation of {@link SubscriptionProxy} which works with Promise and adds ability to unsubscribe from it.
  */
 export class PromiseSubscriptionProxy implements SubscriptionProxy {
-    /**
-     * Returns `true` if this proxy type can subscribe to passed object. `false` otherwise.
-     */
-    public static isAcceptable(target: any): boolean {
-        return target instanceof Promise;
-    }
     private isAlive: boolean = true;
     /**
      * @inheritdoc
@@ -75,6 +69,12 @@ export class PromiseSubscriptionProxy implements SubscriptionProxy {
      */
     public detach(subscription: any): void {
         this.isAlive = false;
+    }
+    /**
+     * Returns `true` if this proxy type can subscribe to passed object. `false` otherwise.
+     */
+    public static isAcceptable(target: any): boolean {
+        return target instanceof Promise;
     }
 }
 

@@ -1,1 +1,1 @@
-import {} from "mocha";
+import {} from 'mocha';

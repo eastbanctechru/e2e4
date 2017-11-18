@@ -1,10 +1,11 @@
-import { AsyncSubscriber } from "../index";
+// tslint:disable:no-unused-expression no-inferred-empty-object-type
+import { AsyncSubscriber } from '../index';
 
-import { expect } from "chai";
-import { Observable } from "rxjs/Observable";
-import * as sinon from "sinon";
+import { expect } from 'chai';
+import { Observable } from 'rxjs/Observable';
+import * as sinon from 'sinon';
 
-describe("AsyncSubscriber", () => {
+describe('AsyncSubscriber', () => {
     let clock: sinon.SinonFakeTimers;
     const delay = 100;
     const resolveValue = 5;
@@ -22,10 +23,12 @@ describe("AsyncSubscriber", () => {
         clock.restore();
     });
     it("destroys successfully even if there's no subscriptions created", () => {
-        expect(() => subscriber.destroy()).not.throw();
+        expect(() => {
+            subscriber.destroy();
+        }).not.throw();
     });
-    describe("Promise", () => {
-        it("handles resolve", (done: any) => {
+    describe('Promise', () => {
+        it('handles resolve', (done: any) => {
             const promise = new Promise((resolve: any) => {
                 setTimeout(() => resolve(resolveValue), delay);
             });
@@ -39,7 +42,7 @@ describe("AsyncSubscriber", () => {
             });
         });
 
-        it("handles reject", (done: any) => {
+        it('handles reject', (done: any) => {
             const promise = new Promise((resolve: any, reject: any) => {
                 setTimeout(() => reject(rejectValue), delay);
             });
@@ -53,8 +56,8 @@ describe("AsyncSubscriber", () => {
             });
         });
 
-        it("handles detach and does not call resolve callback", (done: any) => {
-            const promise = new Promise((resolve: any, reject: any) => {
+        it('handles detach and does not call resolve callback', (done: any) => {
+            const promise = new Promise((resolve: any) => {
                 setTimeout(() => resolve(resolveValue), delay);
             });
             subscriber.attach(promise, successSpy, failureSpy);
@@ -67,7 +70,7 @@ describe("AsyncSubscriber", () => {
             promise.then(testFn, testFn);
         });
 
-        it("handles detach and does not call reject callback", (done: any) => {
+        it('handles detach and does not call reject callback', (done: any) => {
             const promise = new Promise((resolve: any, reject: any) => {
                 setTimeout(() => reject(rejectValue), delay);
             });
@@ -81,8 +84,8 @@ describe("AsyncSubscriber", () => {
             promise.then(testFn, testFn);
         });
 
-        it("handles destroy and does not call resolve or reject callbacks", (done: any) => {
-            const promise = new Promise((resolve: any, reject: any) => {
+        it('handles destroy and does not call resolve or reject callbacks', (done: any) => {
+            const promise = new Promise((resolve: any) => {
                 setTimeout(() => resolve(resolveValue), delay);
             });
             subscriber.attach(promise, successSpy, failureSpy);
@@ -95,11 +98,11 @@ describe("AsyncSubscriber", () => {
             };
             promise.then(testFn, testFn);
         });
-        it("resets previous subscription on new subscribe", () => {
-            const promise = new Promise((resolve: any, reject: any) => {
+        it('resets previous subscription on new subscribe', () => {
+            const promise = new Promise((resolve: any) => {
                 setTimeout(() => resolve(resolveValue), delay);
             });
-            const anotherPromise = new Promise((resolve: any, reject: any) => {
+            const anotherPromise = new Promise((resolve: any) => {
                 setTimeout(() => resolve(resolveValue), delay);
             });
             subscriber.attach(promise, successSpy, failureSpy);
@@ -108,8 +111,8 @@ describe("AsyncSubscriber", () => {
             expect(successSpy.notCalled).true;
         });
     });
-    describe("Observable", () => {
-        it("handles resolve", () => {
+    describe('Observable', () => {
+        it('handles resolve', () => {
             const observable = Observable.create((observer: any) => {
                 setTimeout(() => {
                     observer.next(resolveValue);
@@ -121,7 +124,7 @@ describe("AsyncSubscriber", () => {
             expect(successSpy.calledOnce).true;
             expect(successSpy.calledWith(resolveValue)).true;
         });
-        it("handles reject", (done: any) => {
+        it('handles reject', (done: any) => {
             const observable = Observable.create((observer: any) => {
                 setTimeout(() => {
                     observer.error(rejectValue);
@@ -136,7 +139,7 @@ describe("AsyncSubscriber", () => {
             done();
         });
 
-        it("handles detach and does not call resolve callbacks", (done: any) => {
+        it('handles detach and does not call resolve callbacks', (done: any) => {
             const observable = Observable.create((observer: any) => {
                 setTimeout(() => {
                     observer.next(resolveValue);
@@ -151,7 +154,7 @@ describe("AsyncSubscriber", () => {
             done();
         });
 
-        it("handles detach and does not call reject callbacks", (done: any) => {
+        it('handles detach and does not call reject callbacks', (done: any) => {
             const observable = Observable.create((observer: any) => {
                 setTimeout(() => {
                     observer.error(rejectValue);
@@ -166,7 +169,7 @@ describe("AsyncSubscriber", () => {
             done();
         });
 
-        it("handles destroy and does not call resolve or reject callbacks", (done: any) => {
+        it('handles destroy and does not call resolve or reject callbacks', (done: any) => {
             const observable = Observable.create((observer: any) => {
                 setTimeout(() => {
                     observer.error(rejectValue);
@@ -181,7 +184,7 @@ describe("AsyncSubscriber", () => {
             expect(failureSpy.notCalled).true;
             done();
         });
-        it("resets previous subscription on new subscribe", () => {
+        it('resets previous subscription on new subscribe', () => {
             const observable = Observable.create((observer: any) => {
                 setTimeout(() => {
                     observer.next(resolveValue);
@@ -200,10 +203,12 @@ describe("AsyncSubscriber", () => {
             expect(successSpy.notCalled).true;
         });
     });
-    describe("Other", () => {
-        it("throws error", () => {
+    describe('Other', () => {
+        it('throws error', () => {
             const target = {};
-            expect(() => subscriber.attach(target, successSpy, failureSpy)).throws("Can't subscribe to passed object");
+            expect(() => {
+                subscriber.attach(target, successSpy, failureSpy);
+            }).throws("Can't subscribe to passed object");
         });
     });
 });

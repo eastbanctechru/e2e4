@@ -1,4 +1,4 @@
-import { SelectionService } from "./contracts/selection-service";
+import { SelectionService } from './contracts/selection-service';
 
 /**
  * Internal contract for {@link DefaultSelectionService}.
@@ -50,7 +50,7 @@ export class DefaultSelectionService implements SelectionService {
      * @inheritdoc
      */
     public checkSelection(): void {
-        if (this.items !== null && typeof this.items !== "undefined") {
+        if (this.items !== null && typeof this.items !== 'undefined') {
             for (let i = this.selectionsList.length - 1; i >= 0; i--) {
                 const tuple = this.selectionsList[i];
                 const trackFn = this.trackByFn || this.trackByIdentity;
@@ -74,7 +74,7 @@ export class DefaultSelectionService implements SelectionService {
      * @returns `true` if index is valid.
      */
     public isIndexAcceptable(index: number): boolean {
-        return index !== null && typeof index !== "undefined" && index >= 0 && this.items && this.items.length > index;
+        return index !== null && typeof index !== 'undefined' && index >= 0 && this.items && this.items.length > index;
     }
     /**
      * @inheritdoc
@@ -247,7 +247,7 @@ export class DefaultSelectionService implements SelectionService {
      * Current implementation sets {@link selected} propery of element (if it's defined).
      */
     protected processSelection(tuple: SelectionTuple, selected: boolean): void {
-        if (Object.prototype.hasOwnProperty.call(tuple.item, "selected")) {
+        if (Object.prototype.hasOwnProperty.call(tuple.item, 'selected')) {
             tuple.item.selected = selected;
         }
     }

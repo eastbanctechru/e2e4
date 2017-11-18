@@ -1,6 +1,6 @@
-import { FilterConfig } from "./contracts/filter-config";
-import { SortDirection, SortParameter } from "./contracts/sort-parameter";
-import { filter } from "./filter-annotation";
+import { FilterConfig } from './contracts/filter-config';
+import { SortDirection, SortParameter } from './contracts/sort-parameter';
+import { filter } from './filter-annotation';
 
 /**
  * Provides sorting functionality.
@@ -16,7 +16,7 @@ export class SortingsService {
         defaultValue(this: SortingsService): SortParameter[] {
             return this.cloneDefaultSortings();
         },
-        parameterName: "sortings",
+        parameterName: 'sortings',
         parseFormatter(rawValue: any): object[] {
             return Array.isArray(rawValue)
                 ? rawValue.map((sort: SortParameter) => ({
@@ -87,7 +87,7 @@ export class SortingsService {
     public removeSort(fieldName: string): void {
         for (let i = 0; i < this.sortings.length; i++) {
             if (this.sortings[i].fieldName === fieldName) {
-                this.sortings.splice(i, 1)[0];
+                this.sortings.splice(i, 1);
             }
         }
     }

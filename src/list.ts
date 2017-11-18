@@ -1,13 +1,13 @@
-import { AsyncSubscriber } from "./async-subscriber";
-import { FilterConfig } from "./contracts/filter-config";
-import { ListResponse } from "./contracts/list-response";
-import { OperationStatus } from "./contracts/operation-status";
-import { Pager } from "./contracts/pager";
-import { FiltersService } from "./filters-service";
-import { NullObjectPager } from "./null-object-pager";
-import { SortingsService } from "./sortings-service";
-import { StateService } from "./state-service";
-import { destroyAll } from "./utilities";
+import { AsyncSubscriber } from './async-subscriber';
+import { FilterConfig } from './contracts/filter-config';
+import { ListResponse } from './contracts/list-response';
+import { OperationStatus } from './contracts/operation-status';
+import { Pager } from './contracts/pager';
+import { FiltersService } from './filters-service';
+import { NullObjectPager } from './null-object-pager';
+import { SortingsService } from './sortings-service';
+import { StateService } from './state-service';
+import { destroyAll } from './utilities';
 
 export class List {
     /**
@@ -98,7 +98,7 @@ export class List {
     ) {
         if (stateServices != null) {
             if (Array.isArray(stateServices)) {
-                this.stateServices.push(...(stateServices as StateService[]));
+                this.stateServices.push(...(stateServices));
             } else {
                 this.stateServices.push(stateServices);
             }
@@ -205,7 +205,9 @@ export class List {
         const subscribable = this.beginRequest();
         this.tryCleanItemsOnLoad(false);
         this.asyncSubscriber.attach(subscribable, this.loadDataSuccessCallback, this.loadDataFailCallback);
-        this.stateServices.forEach((service: StateService) => service.persistState(this.filtersService));
+        this.stateServices.forEach((service: StateService) => {
+            service.persistState(this.filtersService);
+        });
         return subscribable;
     }
     /**
@@ -220,7 +222,9 @@ export class List {
         const subscribable = this.beginRequest();
         this.tryCleanItemsOnReload(false);
         this.asyncSubscriber.attach(subscribable, this.reloadDataSuccessCallback, this.reloadDataFailCallback);
-        this.stateServices.forEach((service: StateService) => service.persistState(this.filtersService));
+        this.stateServices.forEach((service: StateService) => {
+            service.persistState(this.filtersService);
+        });
         return subscribable;
     }
     /**
@@ -253,19 +257,19 @@ export class List {
             return response;
         }
         this.tryCleanItemsOnLoad(true);
-        return this.loadSuccessCallback(response as ListResponse<any> | any[]);
-    };
+        return this.loadSuccessCallback(response);
+    }
     private reloadDataSuccessCallback = (response: ListResponse<any> | any[]): ListResponse<any> | any[] => {
         if (this.tryInterceptStatusResponse(response)) {
             return response;
         }
         this.tryCleanItemsOnReload(true);
-        return this.loadSuccessCallback(response as ListResponse<any> | any[]);
-    };
+        return this.loadSuccessCallback(response);
+    }
     private loadDataFailCallback = (): void => {
         this.tryCleanItemsOnLoad(true);
         this.loadFailCallback();
-    };
+    }
     private tryInterceptStatusResponse(response: any): boolean {
         if (this.responseHasStatus(response)) {
             switch (response.status) {
@@ -284,7 +288,7 @@ export class List {
     private reloadDataFailCallback = (): void => {
         this.tryCleanItemsOnReload(true);
         this.loadFailCallback();
-    };
+    }
     private tryCleanItemsOnLoad(requestCompleted: boolean): void {
         if (this.keepRecordsOnLoad === requestCompleted && this.pager.appendedOnLoad === false) {
             this.clearData();
@@ -303,7 +307,7 @@ export class List {
     private responseHasStatus(response: ListResponse<any> | any[]): boolean {
         return (
             (response as ListResponse<any>).status !== null &&
-            typeof (response as ListResponse<any>).status !== "undefined"
+            typeof (response as ListResponse<any>).status !== 'undefined'
         );
     }
 }

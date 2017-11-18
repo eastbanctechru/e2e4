@@ -1,25 +1,25 @@
-var wallabyWebpack = require("wallaby-webpack");
+var wallabyWebpack = require('wallaby-webpack');
 var webpackPostprocessor = wallabyWebpack({});
 
 module.exports = function(wallaby) {
     return {
         files: [
-            { pattern: "node_modules/es6-shim/es6-shim.js", instrument: false, load: true },
-            { pattern: "src/**/*.ts", load: false },
-            { pattern: "src/**/*.d.ts", ignore: true }
+            { pattern: 'node_modules/es6-shim/es6-shim.js', instrument: false, load: true },
+            { pattern: 'src/**/*.ts', load: false },
+            { pattern: 'src/**/*.d.ts', ignore: true }
         ],
 
-        tests: [{ pattern: "tests/**/*.ts", load: false }],
+        tests: [{ pattern: 'tests/**/*.ts', load: false }],
 
         postprocessor: webpackPostprocessor,
         env: {
-            type: "browser",
+            type: 'browser',
             params: {
-                runner: "--web-security=false"
+                runner: '--web-security=false'
             }
         },
 
-        testFramework: "mocha@4.0.1",
+        testFramework: 'mocha@4.0.1',
 
         bootstrap: function() {
             window.__moduleBundler.loadTests();

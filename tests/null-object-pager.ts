@@ -1,6 +1,6 @@
-import { ListResponse, NullObjectPager } from "../index";
+import { ListResponse, NullObjectPager } from '../index';
 
-import { expect } from "chai";
+import { expect } from 'chai';
 
 function toResponseObject(): ListResponse<any> {
     return {
@@ -9,21 +9,21 @@ function toResponseObject(): ListResponse<any> {
         totalCount: 100
     };
 }
-describe("NullObjectPager", () => {
-    it("created with good state", () => {
+describe('NullObjectPager', () => {
+    it('created with good state', () => {
         const pager = new NullObjectPager();
         expect(pager.totalCount).eq(0);
         expect(pager.loadedCount).eq(0);
     });
 
-    it("process response values", () => {
+    it('process response values', () => {
         const pager = new NullObjectPager();
         const response = toResponseObject();
         pager.processResponse(response);
         expect(pager.totalCount).eq(response.totalCount);
         expect(pager.loadedCount).eq(response.loadedCount);
     });
-    it("handles array of records as full response", () => {
+    it('handles array of records as full response', () => {
         const pager = new NullObjectPager();
         const responseArray = [1, 2, 3, 4, 5];
         pager.processResponse(responseArray);
@@ -31,14 +31,14 @@ describe("NullObjectPager", () => {
         expect(pager.loadedCount).eq(responseArray.length);
     });
 
-    it("process incorrect totalCount as 0", () => {
+    it('process incorrect totalCount as 0', () => {
         const pager = new NullObjectPager();
         const response = toResponseObject();
         response.totalCount = null;
         pager.processResponse(response);
         expect(pager.totalCount).eq(0);
     });
-    it("can calculate loadedCount from items array", () => {
+    it('can calculate loadedCount from items array', () => {
         const pager = new NullObjectPager();
         const response = toResponseObject();
         response.loadedCount = null;
@@ -47,7 +47,7 @@ describe("NullObjectPager", () => {
         expect(pager.loadedCount).eq(response.items.length);
     });
 
-    it("sets loadedCount to 0 if it not specified in response and items array is empty", () => {
+    it('sets loadedCount to 0 if it not specified in response and items array is empty', () => {
         const pager = new NullObjectPager();
         const response = toResponseObject();
         response.loadedCount = null;
@@ -56,7 +56,7 @@ describe("NullObjectPager", () => {
         expect(pager.loadedCount).eq(0);
     });
 
-    it("resets contract properties", () => {
+    it('resets contract properties', () => {
         const pager = new NullObjectPager();
         const response = toResponseObject();
         pager.processResponse(response);

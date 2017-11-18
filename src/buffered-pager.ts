@@ -1,7 +1,7 @@
-import { FilterConfig } from "./contracts/filter-config";
-import { ListResponse } from "./contracts/list-response";
-import { Pager } from "./contracts/pager";
-import { filter } from "./filter-annotation";
+import { FilterConfig } from './contracts/filter-config';
+import { ListResponse } from './contracts/list-response';
+import { Pager } from './contracts/pager';
+import { filter } from './filter-annotation';
 
 /**
  * Implements {@link Pager} contract and represents buffered list behavior.
@@ -61,34 +61,30 @@ export class BufferedPager implements Pager {
      * @note This property is ready to use with {@link FiltersService} since it has {@link filter} annotation.
      * @see {@link BufferedListRequest.skip}
      */
-    @filter(
-        {
-            defaultValue: 0,
-            parameterName: "skip",
-            parseFormatter(): number {
-                return 0;
-            }
-        } as FilterConfig
-    )
+    @filter({
+        defaultValue: 0,
+        parameterName: 'skip',
+        parseFormatter(): number {
+            return 0;
+        }
+    } as FilterConfig)
     public skip: number = 0;
     /**
      * Internal implementation of {@link takeRowCount}.
      */
-    @filter(
-        {
-            defaultValue(this: BufferedPager): number {
-                return this.defaultRowCount;
-            },
-            parameterName: "take",
-            parseFormatter(this: BufferedPager, rawValue: any, allValues: any): number {
-                let result;
-                if (allValues && !isNaN(allValues.skip) && !isNaN(allValues.take)) {
-                    result = (allValues.skip || 0) + (allValues.take || 0);
-                }
-                return result || this.defaultRowCount;
+    @filter({
+        defaultValue(this: BufferedPager): number {
+            return this.defaultRowCount;
+        },
+        parameterName: 'take',
+        parseFormatter(this: BufferedPager, rawValue: any, allValues: any): number {
+            let result;
+            if (allValues && !isNaN(allValues.skip) && !isNaN(allValues.take)) {
+                result = (allValues.skip || 0) + (allValues.take || 0);
             }
-        } as FilterConfig
-    )
+            return result || this.defaultRowCount;
+        }
+    } as FilterConfig)
     protected takeRowCountInternal: number = BufferedPager.settings.defaultRowCount;
     private handlesFlatResponse: boolean = false;
     private lastChunkRecieved: boolean = null;
@@ -104,7 +100,7 @@ export class BufferedPager implements Pager {
      * Executes several checks. For example, it doesn't accept values bigger than {@link maxRowCount}.
      */
     public set takeRowCount(value: number) {
-        const valueStr = (value + "").replace(/[^0-9]/g, "");
+        const valueStr = (value + '').replace(/[^0-9]/g, '');
         let rowCount = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : this.defaultRowCount;
         if (rowCount < this.minRowCount) {
             rowCount = this.defaultRowCount;

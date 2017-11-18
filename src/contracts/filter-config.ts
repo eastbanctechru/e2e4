@@ -66,11 +66,11 @@ export interface FilterConfig {
     /**
      * Optional function to serialize `target property` value when {@link FiltersService.getRequestState} method builds resulting state object.
      */
-    serializeFormatter?: (value: any) => any;
+    serializeFormatter?(value: any): any;
     /**
      * Optional function that will be called by {@link FiltersService.applyParams} to parse raw value before writing it to `target property`.
      *
      * Also, when this function is specified, it will be called by {@link FiltersService.resetValues} since {@link FiltersService.resetValues} clones default values as literals and resulting value can require parsing.
      */
-    parseFormatter?: (rawValue: any, allValues?: object) => any;
+    parseFormatter?(rawValue: any, allValues?: object): any;
 }

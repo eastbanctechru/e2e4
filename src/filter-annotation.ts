@@ -1,6 +1,6 @@
-import { FilterConfig } from "./contracts/filter-config";
-import { FiltersService } from "./filters-service";
-import { cloneAsLiteral } from "./utilities";
+import { FilterConfig } from './contracts/filter-config';
+import { FiltersService } from './filters-service';
+import { cloneAsLiteral } from './utilities';
 
 /**
  * Object literal used by {@link getDefaultFilterConfig} function to build filter configuration.
@@ -54,18 +54,20 @@ export function getDefaultFilterConfig(propertyName: string): FilterConfig {
 export function filter(targetOrNameOrConfig?: string | FilterConfig, key?: string): any {
     const decorateWithConfig = (target: object, key2: string): void => {
         const config = getDefaultFilterConfig(key2);
-        if (typeof targetOrNameOrConfig === "string") {
+        if (typeof targetOrNameOrConfig === 'string') {
             config.parameterName = targetOrNameOrConfig;
         } else {
             Object.assign(config, targetOrNameOrConfig);
         }
-        return FiltersService.registerFilterConfig(target.constructor, config);
+        FiltersService.registerFilterConfig(target.constructor, config);
     };
 
     if (key) {
         const targetTemp = targetOrNameOrConfig;
+        // tslint:disable-next-line:no-parameter-reassignment
         targetOrNameOrConfig = null;
-        return decorateWithConfig(targetTemp as object, key);
+        decorateWithConfig(targetTemp as object, key);
+        return;
     }
     return decorateWithConfig;
 }

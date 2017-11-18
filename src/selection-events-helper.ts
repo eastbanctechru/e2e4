@@ -1,4 +1,4 @@
-import { SelectionService } from "./contracts/selection-service";
+import { SelectionService } from './contracts/selection-service';
 /**
  * Used by {@link SelectionEventsHelper} to determine which key was pressed on keyboard.
  */
@@ -67,6 +67,7 @@ export class SelectionEventsHelper {
      * {@link KeyCodes.Tab} and {@link KeyCodes.A}.
      * @returns `true` if any of executed commands was applied.
      */
+    // tslint:disable-next-line:cyclomatic-complexity
     public keyboardHandler(ctrlKeyPressed: boolean, shiftKeyPressed: boolean, keyCode: KeyCodes): boolean {
         switch (keyCode) {
             case KeyCodes.ArrowUp:

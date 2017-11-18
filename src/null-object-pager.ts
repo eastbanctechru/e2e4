@@ -1,5 +1,5 @@
-import { ListResponse } from "./contracts/list-response";
-import { Pager } from "./contracts/pager";
+import { ListResponse } from './contracts/list-response';
+import { Pager } from './contracts/pager';
 /**
  * Implements {@link Pager} contract and represents list without any paging mechanics.
  * @note This type is configured to use with {@link FiltersService}.

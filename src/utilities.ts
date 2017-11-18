@@ -11,16 +11,16 @@ export function cloneAsLiteral(value: any): any {
     if (value === null) {
         return null;
     }
-    if (typeof value === "undefined") {
+    if (typeof value === 'undefined') {
         return undefined;
     }
     if (Array.isArray(value)) {
-        return value.map((i: any) => cloneAsLiteral(i));
+        return value.map(cloneAsLiteral);
     }
-    if (typeof value === "object") {
+    if (typeof value === 'object') {
         const result: { [id: string]: any } = {};
         for (const index in value) {
-            if (value.hasOwnProperty(index) && typeof value[index] !== "function") {
+            if (value.hasOwnProperty(index) && typeof value[index] !== 'function') {
                 result[index] = cloneAsLiteral(value[index]);
             }
         }
@@ -46,26 +46,27 @@ export let coerceTypes: any = { true: !0, false: !1, null: null };
  * @see {@link coerceTypes}
  */
 export function coerceValue(value: any): any {
-    if (value === null) {
+    let result = value;
+    if (result === null) {
         return null;
     }
-    if (typeof value === "undefined") {
+    if (typeof result === 'undefined') {
         return undefined;
     }
-    if (typeof value === "object" || Array.isArray(value)) {
-        for (const index in value) {
-            if (value.hasOwnProperty(index)) {
-                value[index] = coerceValue(value[index]);
+    if (typeof result === 'object' || Array.isArray(result)) {
+        for (const index in result) {
+            if (result.hasOwnProperty(index)) {
+                result[index] = coerceValue(result[index]);
             }
         }
-    } else if (value && !isNaN(value)) {
-        value = +value;
-    } else if (value === "undefined") {
-        value = undefined;
-    } else if (typeof coerceTypes[value] !== "undefined") {
-        value = coerceTypes[value];
+    } else if (result && !isNaN(result)) {
+        result = +result;
+    } else if (result === 'undefined') {
+        result = undefined;
+    } else if (typeof coerceTypes[result] !== 'undefined') {
+        result = coerceTypes[result];
     }
-    return value;
+    return result;
 }
 /**
  * Cleaning up passed array by calling `splice` function.

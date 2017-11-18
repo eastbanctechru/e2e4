@@ -9,6 +9,10 @@ export interface SelectionService {
      */
     items: any[];
     /**
+     * Index of last selected/deselected element in {@link items} collection.
+     */
+    lastProcessedIndex: number;
+    /**
      * Optional function which can be used to compare {@link items} elements.
      *
      * This function can be used by {@link checkSelection}.
@@ -17,11 +21,7 @@ export interface SelectionService {
      * @param index index of element in {@link items} collection.
      * @param actual element from {@link items} collection.
      */
-    trackByFn: (index: number, item: any) => any;
-    /**
-     * Index of last selected/deselected element in {@link items} collection.
-     */
-    lastProcessedIndex: number;
+    trackByFn(index: number, item: any): any;
     /**
      * Performs check that every selected element is actually selected.
      *

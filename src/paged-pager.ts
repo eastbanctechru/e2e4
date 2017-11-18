@@ -1,7 +1,7 @@
-import { FilterConfig } from "./contracts/filter-config";
-import { ListResponse } from "./contracts/list-response";
-import { Pager } from "./contracts/pager";
-import { filter } from "./filter-annotation";
+import { FilterConfig } from './contracts/filter-config';
+import { ListResponse } from './contracts/list-response';
+import { Pager } from './contracts/pager';
+import { filter } from './filter-annotation';
 
 /**
  * Implements {@link Pager} contract and represents behavior of list with pages.
@@ -76,7 +76,7 @@ export class PagedPager implements Pager {
         defaultValue(this: PagedPager): number {
             return this.defaultPageSize;
         },
-        parameterName: "take",
+        parameterName: 'take',
         parseFormatter(this: PagedPager, rawValue: any): number {
             return isNaN(rawValue) || !rawValue ? this.defaultPageSize : rawValue;
         }
@@ -85,21 +85,19 @@ export class PagedPager implements Pager {
     /**
      * Internal implementation of {@link pageNumber}.
      */
-    @filter(
-        {
-            defaultValue: 0,
-            parameterName: "skip",
-            parseFormatter(this: PagedPager, rawValue: any, allValues: any): number {
-                const skip = isNaN(rawValue) || !rawValue ? 0 : rawValue;
-                const pageSize =
-                    !allValues || isNaN(allValues.take) || !allValues.take ? this.defaultPageSize : allValues.take * 1;
-                return skip % pageSize === 0 ? skip / pageSize + 1 : 1;
-            },
-            serializeFormatter(this: PagedPager, value: object): number {
-                return (this.pageNumber - 1) * this.pageSize;
-            }
-        } as FilterConfig
-    )
+    @filter({
+        defaultValue: 0,
+        parameterName: 'skip',
+        parseFormatter(this: PagedPager, rawValue: any, allValues: any): number {
+            const skip = isNaN(rawValue) || !rawValue ? 0 : rawValue;
+            const pageSize =
+                !allValues || isNaN(allValues.take) || !allValues.take ? this.defaultPageSize : allValues.take * 1;
+            return skip % pageSize === 0 ? skip / pageSize + 1 : 1;
+        },
+        serializeFormatter(this: PagedPager): number {
+            return (this.pageNumber - 1) * this.pageSize;
+        }
+    } as FilterConfig)
     protected pageNumberInternal: number = 1;
 
     /**
@@ -122,7 +120,7 @@ export class PagedPager implements Pager {
      * Executes several checks. For example, it doesn't accept values bigger than {@link pageCount}.
      */
     public set pageNumber(value: number) {
-        const valueStr = (value + "").replace(/[^0-9]/g, "");
+        const valueStr = (value + '').replace(/[^0-9]/g, '');
         let pageNumber = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : 1;
         if (pageNumber > this.pageCount) {
             pageNumber = this.pageCount;
@@ -145,7 +143,7 @@ export class PagedPager implements Pager {
      * Executes several checks. For example, it doesn't accept values bigger than {@link maxPageSize}.
      */
     public set pageSize(value: number) {
-        const valueStr = (value + "").replace(/[^0-9]/g, "");
+        const valueStr = (value + '').replace(/[^0-9]/g, '');
         let pageSize = parseInt(valueStr, 10) ? parseInt(valueStr, 10) : this.defaultPageSize;
 
         if (this.totalCount !== 0) {
