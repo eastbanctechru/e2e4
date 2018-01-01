@@ -75,7 +75,7 @@ export class StatusTrackingService {
      * @returns identifier of `setTimeout` on elapsing of which operation will be added to {@link operationsList}
      */
     public trackStatus(title: string): number {
-        const sid = setTimeout(() => {
+        const sid = window.setTimeout(() => {
             this.status = OperationStatus.Progress;
             const status = new Operation(OperationStatus.Progress, title);
             status.sid = sid;

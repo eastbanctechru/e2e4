@@ -19,7 +19,7 @@ module.exports = function(wallaby) {
             }
         },
 
-        testFramework: 'mocha@4.0.1',
+        testFramework: 'mocha@4.1.0',
 
         bootstrap: function() {
             window.__moduleBundler.loadTests();
