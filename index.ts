@@ -2,7 +2,6 @@
  * e2e4 library by EastBanc Technologies
  * You can read docs here - http://eastbanctechru.github.io/e2e4
  */
-
 export * from './src/utilities';
 
 export * from './src/contracts/filter-config';
