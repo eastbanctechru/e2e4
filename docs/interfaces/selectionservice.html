@@ -38,6 +38,8 @@
 							</div>
 							<input type="checkbox" id="tsd-filter-inherited" checked />
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
 							<input type="checkbox" id="tsd-filter-only-exported" />
 							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
@@ -95,7 +97,6 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="selectionservice.html#items" class="tsd-kind-icon">items</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="selectionservice.html#lastprocessedindex" class="tsd-kind-icon">last<wbr>Processed<wbr>Index</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="selectionservice.html#trackbyfn" class="tsd-kind-icon">track<wbr>ByFn</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -119,6 +120,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="selectionservice.html#selectlast" class="tsd-kind-icon">select<wbr>Last</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="selectionservice.html#selectrange" class="tsd-kind-icon">select<wbr>Range</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="selectionservice.html#toggleselection" class="tsd-kind-icon">toggle<wbr>Selection</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="selectionservice.html#trackbyfn" class="tsd-kind-icon">track<wbr>ByFn</a></li>
 							</ul>
 						</section>
 					</div>
@@ -132,7 +134,7 @@
 					<div class="tsd-signature tsd-kind-icon">items<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/contracts/selection-service.ts#L10">src/contracts/selection-service.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/contracts/selection-service.ts#L10">contracts/selection-service.ts:10</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -147,62 +149,13 @@
 					<div class="tsd-signature tsd-kind-icon">last<wbr>Processed<wbr>Index<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/contracts/selection-service.ts#L24">src/contracts/selection-service.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/contracts/selection-service.ts#L14">contracts/selection-service.ts:14</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>Index of last selected/deselected element in <a href="selectionservice.html#items">items</a> collection.</p>
 						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="trackbyfn" class="tsd-anchor"></a>
-					<h3>track<wbr>ByFn</h3>
-					<div class="tsd-signature tsd-kind-icon">track<wbr>ByFn<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/contracts/selection-service.ts#L20">src/contracts/selection-service.ts:20</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Optional function which can be used to compare <a href="selectionservice.html#items">items</a> elements.</p>
-						</div>
-						<p>This function can be used by <a href="selectionservice.html#checkselection">checkSelection</a>.</p>
-						<p>Also it&#39;s reasonable to use this function for <a href="selectionservice.html#getitemindex">getItemIndex</a>.</p>
-						<dl class="tsd-comment-tags">
-							<dt>param</dt>
-							<dd><p>index of element in <a href="selectionservice.html#items">items</a> collection.</p>
-							</dd>
-							<dt>param</dt>
-							<dd><p>element from <a href="selectionservice.html#items">items</a> collection.</p>
-							</dd>
-						</dl>
-					</div>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-siganture">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, item<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-								</ul>
-								<ul class="tsd-descriptions">
-									<li class="tsd-description">
-										<h4 class="tsd-parameters-title">Parameters</h4>
-										<ul class="tsd-parameters">
-											<li>
-												<h5>index: <span class="tsd-signature-type">number</span></h5>
-											</li>
-											<li>
-												<h5>item: <span class="tsd-signature-type">any</span></h5>
-											</li>
-										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
-									</li>
-								</ul>
-							</li>
-						</ul>
 					</div>
 				</section>
 			</section>
@@ -218,7 +171,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/contracts/selection-service.ts#L29">src/contracts/selection-service.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/contracts/selection-service.ts#L29">contracts/selection-service.ts:29</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -240,7 +193,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/contracts/selection-service.ts#L33">src/contracts/selection-service.ts:33</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/contracts/selection-service.ts#L33">contracts/selection-service.ts:33</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -262,7 +215,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/contracts/selection-service.ts#L97">src/contracts/selection-service.ts:97</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/contracts/selection-service.ts#L97">contracts/selection-service.ts:97</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -293,7 +246,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/contracts/selection-service.ts#L117">src/contracts/selection-service.ts:117</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/contracts/selection-service.ts#L117">contracts/selection-service.ts:117</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -315,7 +268,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/contracts/selection-service.ts#L78">src/contracts/selection-service.ts:78</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/contracts/selection-service.ts#L78">contracts/selection-service.ts:78</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -352,7 +305,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/contracts/selection-service.ts#L71">src/contracts/selection-service.ts:71</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/contracts/selection-service.ts#L71">contracts/selection-service.ts:71</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -375,7 +328,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/contracts/selection-service.ts#L66">src/contracts/selection-service.ts:66</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/contracts/selection-service.ts#L66">contracts/selection-service.ts:66</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -398,7 +351,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/contracts/selection-service.ts#L108">src/contracts/selection-service.ts:108</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/contracts/selection-service.ts#L108">contracts/selection-service.ts:108</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -421,7 +374,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/contracts/selection-service.ts#L113">src/contracts/selection-service.ts:113</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/contracts/selection-service.ts#L113">contracts/selection-service.ts:113</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -444,7 +397,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/contracts/selection-service.ts#L55">src/contracts/selection-service.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/contracts/selection-service.ts#L55">contracts/selection-service.ts:55</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -467,7 +420,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/contracts/selection-service.ts#L61">src/contracts/selection-service.ts:61</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/contracts/selection-service.ts#L61">contracts/selection-service.ts:61</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -499,7 +452,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/contracts/selection-service.ts#L50">src/contracts/selection-service.ts:50</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/contracts/selection-service.ts#L50">contracts/selection-service.ts:50</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -531,7 +484,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/contracts/selection-service.ts#L37">src/contracts/selection-service.ts:37</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/contracts/selection-service.ts#L37">contracts/selection-service.ts:37</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -553,7 +506,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/contracts/selection-service.ts#L82">src/contracts/selection-service.ts:82</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/contracts/selection-service.ts#L82">contracts/selection-service.ts:82</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -575,7 +528,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/contracts/selection-service.ts#L92">src/contracts/selection-service.ts:92</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/contracts/selection-service.ts#L92">contracts/selection-service.ts:92</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -612,7 +565,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/contracts/selection-service.ts#L86">src/contracts/selection-service.ts:86</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/contracts/selection-service.ts#L86">contracts/selection-service.ts:86</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -634,7 +587,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/contracts/selection-service.ts#L43">src/contracts/selection-service.ts:43</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/contracts/selection-service.ts#L43">contracts/selection-service.ts:43</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -671,7 +624,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/contracts/selection-service.ts#L103">src/contracts/selection-service.ts:103</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/contracts/selection-service.ts#L103">contracts/selection-service.ts:103</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -695,6 +648,42 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="trackbyfn" class="tsd-anchor"></a>
+					<h3>track<wbr>ByFn</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">track<wbr>ByFn<span class="tsd-signature-symbol">(</span>index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, item<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/contracts/selection-service.ts#L24">contracts/selection-service.ts:24</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Optional function which can be used to compare <a href="selectionservice.html#items">items</a> elements.</p>
+								</div>
+								<p>This function can be used by <a href="selectionservice.html#checkselection">checkSelection</a>.</p>
+								<p>Also it&#39;s reasonable to use this function for <a href="selectionservice.html#getitemindex">getItemIndex</a>.</p>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>index: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>index of element in <a href="selectionservice.html#items">items</a> collection.</p>
+									</div>
+								</li>
+								<li>
+									<h5>item: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -790,9 +779,6 @@
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="selectionservice.html#lastprocessedindex" class="tsd-kind-icon">last<wbr>Processed<wbr>Index</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="selectionservice.html#trackbyfn" class="tsd-kind-icon">track<wbr>ByFn</a>
-							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="selectionservice.html#checkselection" class="tsd-kind-icon">check<wbr>Selection</a>
 							</li>
@@ -846,6 +832,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="selectionservice.html#toggleselection" class="tsd-kind-icon">toggle<wbr>Selection</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="selectionservice.html#trackbyfn" class="tsd-kind-icon">track<wbr>ByFn</a>
 							</li>
 						</ul>
 					</li>

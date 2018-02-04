@@ -38,6 +38,8 @@
 							</div>
 							<input type="checkbox" id="tsd-filter-inherited" checked />
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
 							<input type="checkbox" id="tsd-filter-only-exported" />
 							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
@@ -99,6 +101,8 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="bufferedpager.html#appendedonload" class="tsd-kind-icon">appended<wbr>OnLoad</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="bufferedpager.html#defaultrowcount" class="tsd-kind-icon">default<wbr>Row<wbr>Count</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="bufferedpager.html#handlesflatresponse" class="tsd-kind-icon">handles<wbr>Flat<wbr>Response</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="bufferedpager.html#lastchunkrecieved" class="tsd-kind-icon">last<wbr>Chunk<wbr>Recieved</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="bufferedpager.html#loadedcount" class="tsd-kind-icon">loaded<wbr>Count</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="bufferedpager.html#maxrowcount" class="tsd-kind-icon">max<wbr>Row<wbr>Count</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="bufferedpager.html#minrowcount" class="tsd-kind-icon">min<wbr>Row<wbr>Count</a></li>
@@ -139,7 +143,7 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/pager.html">Pager</a>.<a href="../interfaces/pager.html#appendedonload">appendedOnLoad</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/buffered-pager.ts#L37">src/buffered-pager.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/buffered-pager.ts#L37">buffered-pager.ts:37</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -154,7 +158,7 @@
 					<div class="tsd-signature tsd-kind-icon">default<wbr>Row<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;BufferedPager.settings.defaultRowCount</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/buffered-pager.ts#L49">src/buffered-pager.ts:49</a></li>
+							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/buffered-pager.ts#L49">buffered-pager.ts:49</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -163,6 +167,26 @@
 						</div>
 					</div>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="handlesflatresponse" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> handles<wbr>Flat<wbr>Response</h3>
+					<div class="tsd-signature tsd-kind-icon">handles<wbr>Flat<wbr>Response<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/buffered-pager.ts#L89">buffered-pager.ts:89</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
+					<a name="lastchunkrecieved" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> last<wbr>Chunk<wbr>Recieved</h3>
+					<div class="tsd-signature tsd-kind-icon">last<wbr>Chunk<wbr>Recieved<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;null</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/buffered-pager.ts#L90">buffered-pager.ts:90</a></li>
+						</ul>
+					</aside>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="loadedcount" class="tsd-anchor"></a>
 					<h3>loaded<wbr>Count</h3>
@@ -170,7 +194,7 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/pager.html">Pager</a>.<a href="../interfaces/pager.html#loadedcount">loadedCount</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/buffered-pager.ts#L45">src/buffered-pager.ts:45</a></li>
+							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/buffered-pager.ts#L45">buffered-pager.ts:45</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -190,7 +214,7 @@
 					<div class="tsd-signature tsd-kind-icon">max<wbr>Row<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;BufferedPager.settings.maxRowCount</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/buffered-pager.ts#L57">src/buffered-pager.ts:57</a></li>
+							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/buffered-pager.ts#L57">buffered-pager.ts:57</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -205,7 +229,7 @@
 					<div class="tsd-signature tsd-kind-icon">min<wbr>Row<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;BufferedPager.settings.minRowCount</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/buffered-pager.ts#L53">src/buffered-pager.ts:53</a></li>
+							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/buffered-pager.ts#L53">buffered-pager.ts:53</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -220,7 +244,7 @@
 					<div class="tsd-signature tsd-kind-icon">skip<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;0</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/buffered-pager.ts#L73">src/buffered-pager.ts:73</a></li>
+							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/buffered-pager.ts#L71">buffered-pager.ts:71</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -243,7 +267,7 @@
 					<div class="tsd-signature tsd-kind-icon">take<wbr>Row<wbr>Count<wbr>Internal<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;BufferedPager.settings.defaultRowCount</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/buffered-pager.ts#L92">src/buffered-pager.ts:92</a></li>
+							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/buffered-pager.ts#L88">buffered-pager.ts:88</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -259,7 +283,7 @@
 					<aside class="tsd-sources">
 						<p>Implementation of <a href="../interfaces/pager.html">Pager</a>.<a href="../interfaces/pager.html#totalcount">totalCount</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/buffered-pager.ts#L41">src/buffered-pager.ts:41</a></li>
+							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/buffered-pager.ts#L41">buffered-pager.ts:41</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -286,7 +310,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/buffered-pager.ts#L125">src/buffered-pager.ts:125</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/buffered-pager.ts#L121">buffered-pager.ts:121</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -309,7 +333,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/buffered-pager.ts#L100">src/buffered-pager.ts:100</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/buffered-pager.ts#L96">buffered-pager.ts:96</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -330,7 +354,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/buffered-pager.ts#L106">src/buffered-pager.ts:106</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/buffered-pager.ts#L102">buffered-pager.ts:102</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -362,7 +386,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/pager.html">Pager</a>.<a href="../interfaces/pager.html#processresponse">processResponse</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/buffered-pager.ts#L133">src/buffered-pager.ts:133</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/buffered-pager.ts#L129">buffered-pager.ts:129</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -391,7 +415,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/pager.html">Pager</a>.<a href="../interfaces/pager.html#reset">reset</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/buffered-pager.ts#L159">src/buffered-pager.ts:159</a></li>
+									<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/buffered-pager.ts#L155">buffered-pager.ts:155</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -412,7 +436,7 @@
 					<div class="tsd-signature tsd-kind-icon">settings<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/buffered-pager.ts#L20">src/buffered-pager.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/buffered-pager.ts#L20">buffered-pager.ts:20</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -429,7 +453,7 @@
 						<div class="tsd-signature tsd-kind-icon">default<wbr>Row<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;20</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/buffered-pager.ts#L24">src/buffered-pager.ts:24</a></li>
+								<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/buffered-pager.ts#L24">buffered-pager.ts:24</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -446,7 +470,7 @@
 						<div class="tsd-signature tsd-kind-icon">max<wbr>Row<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;200</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/buffered-pager.ts#L28">src/buffered-pager.ts:28</a></li>
+								<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/buffered-pager.ts#L28">buffered-pager.ts:28</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -463,7 +487,7 @@
 						<div class="tsd-signature tsd-kind-icon">min<wbr>Row<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;1</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/7bdffe2/src/buffered-pager.ts#L32">src/buffered-pager.ts:32</a></li>
+								<li>Defined in <a href="https://github.com/eastbanctechru/e2e4/blob/a8c13e1/src/buffered-pager.ts#L32">buffered-pager.ts:32</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-comment tsd-typography">
@@ -512,6 +536,12 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="bufferedpager.html#defaultrowcount" class="tsd-kind-icon">default<wbr>Row<wbr>Count</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="bufferedpager.html#handlesflatresponse" class="tsd-kind-icon">handles<wbr>Flat<wbr>Response</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
+								<a href="bufferedpager.html#lastchunkrecieved" class="tsd-kind-icon">last<wbr>Chunk<wbr>Recieved</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="bufferedpager.html#loadedcount" class="tsd-kind-icon">loaded<wbr>Count</a>
