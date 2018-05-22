@@ -84,12 +84,12 @@ describe('SelectionEventsHelper', () => {
                 helper.keyboardHandler(notPressedCtrl, notPressedShift, KeyCodes.ArrowUp);
                 expect(onPreviousKeySpy.called).true;
 
-                onPreviousKeySpy.reset();
+                onPreviousKeySpy.resetHistory();
                 helper.keyboardHandler(notPressedCtrl, notPressedShift, KeyCodes.ArrowLeft);
                 expect(onPreviousKeySpy.notCalled).true;
 
                 helper.horizontal = true;
-                onPreviousKeySpy.reset();
+                onPreviousKeySpy.resetHistory();
                 helper.keyboardHandler(notPressedCtrl, notPressedShift, KeyCodes.ArrowUp);
                 expect(onPreviousKeySpy.notCalled).true;
                 helper.keyboardHandler(notPressedCtrl, notPressedShift, KeyCodes.ArrowLeft);
@@ -102,12 +102,12 @@ describe('SelectionEventsHelper', () => {
                 helper.keyboardHandler(notPressedCtrl, notPressedShift, KeyCodes.ArrowDown);
                 expect(onNextKeySpy.called).true;
 
-                onNextKeySpy.reset();
+                onNextKeySpy.resetHistory();
                 helper.keyboardHandler(notPressedCtrl, notPressedShift, KeyCodes.ArrowRight);
                 expect(onNextKeySpy.notCalled).true;
 
                 helper.horizontal = true;
-                onNextKeySpy.reset();
+                onNextKeySpy.resetHistory();
                 helper.keyboardHandler(notPressedCtrl, notPressedShift, KeyCodes.ArrowDown);
                 expect(onNextKeySpy.notCalled).true;
                 helper.keyboardHandler(notPressedCtrl, notPressedShift, KeyCodes.ArrowRight);
@@ -145,7 +145,7 @@ describe('SelectionEventsHelper', () => {
                 expect(selectAllSpy.calledOnce).true;
                 expect(selectAllSpy.calledWith(helper.selectionService.items.length - 1, 0)).true;
 
-                selectAllSpy.reset();
+                selectAllSpy.resetHistory();
                 helper.selectionService.selectIndex(2);
                 helper.keyboardHandler(pressedCtrl, pressedShift, KeyCodes.ArrowUp);
                 expect(selectAllSpy.calledOnce).true;
@@ -255,7 +255,7 @@ describe('SelectionEventsHelper', () => {
                 expect(selectAllSpy.calledOnce).true;
                 expect(selectAllSpy.calledWith(0, helper.selectionService.items.length - 1)).true;
 
-                selectAllSpy.reset();
+                selectAllSpy.resetHistory();
                 helper.selectionService.selectIndex(2);
                 helper.keyboardHandler(pressedCtrl, pressedShift, KeyCodes.ArrowDown);
                 expect(selectAllSpy.calledOnce).true;

@@ -2,7 +2,7 @@
 import { AsyncSubscriber } from '../index';
 
 import { expect } from 'chai';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import * as sinon from 'sinon';
 
 describe('AsyncSubscriber', () => {

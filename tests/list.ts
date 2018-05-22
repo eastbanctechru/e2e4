@@ -11,8 +11,7 @@ import {
 } from '../index';
 
 import { expect } from 'chai';
-import 'rxjs/add/observable/from';
-import { Observable } from 'rxjs/Observable';
+import { from, Observable } from 'rxjs';
 import * as sinon from 'sinon';
 
 class FirstStubStateService implements StateService {
@@ -305,7 +304,7 @@ describe('List', () => {
         });
 
         it('resets pager state before performing request', () => {
-            const spy = sinon.spy(() => Observable.from([]));
+            const spy = sinon.spy(() => from([]));
             list.fetchMethod = spy;
             const pager = new PagedPager();
             list.pager = pager;
@@ -577,7 +576,7 @@ describe('List', () => {
             expect(interceptSpy.returnValues[0]).eql(true);
             expect(list.status).eql(OperationStatus.Progress);
             expect(list.items).eql([]);
-            interceptSpy.reset();
+            interceptSpy.resetHistory();
 
             clock.tick(delay);
             expect(interceptSpy.calledOnce).eql(true);
@@ -585,7 +584,7 @@ describe('List', () => {
             expect(list.status).eql(OperationStatus.Done);
             expect(list.items).eql([1, 2, 3]);
 
-            interceptSpy.reset();
+            interceptSpy.resetHistory();
 
             list.reloadData();
             expect(list.items).eql([]);
@@ -594,7 +593,7 @@ describe('List', () => {
             expect(interceptSpy.returnValues[0]).eql(true);
             expect(list.status).eql(OperationStatus.Progress);
             expect(list.items).eql([]);
-            interceptSpy.reset();
+            interceptSpy.resetHistory();
 
             clock.tick(delay);
             expect(interceptSpy.calledOnce).eql(true);

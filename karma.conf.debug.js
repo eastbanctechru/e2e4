@@ -13,6 +13,8 @@ module.exports = function(config) {
         mime: { 'text/x-typescript': ['ts', 'tsx'] },
         webpack: {
             devtool: 'inline-source-map',
+            mode: 'development',
+            performance: { hints: false },
             module: {
                 rules: [
                     {
