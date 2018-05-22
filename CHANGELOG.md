@@ -1,3 +1,13 @@
+<a name="2.4.0"></a>
+# [2.4.0](https://github.com/eastbanctechru/e2e4/compare/v2.3.0...v2.4.0) (2018-05-22)
+
+
+### Features
+
+* **all:** typescript version updated to 2.8.3 ([0d93004](https://github.com/eastbanctechru/e2e4/commit/0d93004))
+
+
+
 <a name="2.3.0"></a>
 # [2.3.0](https://github.com/eastbanctechru/e2e4/compare/v2.2.3...v2.3.0) (2017-10-21)
 
