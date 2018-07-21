@@ -2,15 +2,14 @@ var webpack = require('webpack');
 var path = require('path');
 module.exports = function(config) {
     config.set({
-        browsers: ['ChromeNoSandboxHeadless'],
+        browsers: ['ChromeHeadlessNoSandbox'],
         customLaunchers: {
-            ChromeNoSandboxHeadless: {
-                base: 'Chrome',
+            ChromeHeadlessNoSandbox: {
+                base: 'ChromeHeadless',
                 flags: [
-                    '--no-sandbox',
-                    '--headless',
-                    // Without a remote debugging port, Google Chrome exits immediately.
-                    ' --remote-debugging-port=9222'
+                    '--no-sandbox', // required to run without privileges in Docker
+                    '--disable-web-security',
+                    '--enable-gpu'
                 ]
             }
         },
