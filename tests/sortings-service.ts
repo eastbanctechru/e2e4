@@ -62,6 +62,15 @@ describe('SortingsService', () => {
             sortingsService.removeSort('id');
             expect(sortingsService.sortings).empty;
         });
+        it('can remove all sortings', () => {
+            const target = toTarget();
+            const { sortingsService } = target;
+            sortingsService.setSort('id', doNotSavePrevious);
+            sortingsService.setSort('тфьу', savePrevious);
+            expect(sortingsService.sortings.length).eql(2);
+            sortingsService.removeAllSortings();
+            expect(sortingsService.sortings).empty;
+        });
         it("doesn't throw if try to remove unexisted sort", () => {
             const target = toTarget();
             const { sortingsService } = target;

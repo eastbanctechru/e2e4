@@ -92,6 +92,12 @@ export class SortingsService {
         }
     }
     /**
+     * Removes all sortings from {@link sortings} array.
+     */
+    public removeAllSortings(): void {
+        this.sortings.length = 0;
+    }
+    /**
      * Performs service destroy.
      */
     public destroy(): void {
