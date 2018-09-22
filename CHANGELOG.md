@@ -1,3 +1,13 @@
+<a name="2.5.0"></a>
+# [2.5.0](https://github.com/eastbanctechru/e2e4/compare/v2.4.0...v2.5.0) (2018-09-22)
+
+
+### Features
+
+* **sort:** Add ability to remove all sortings ([132d2af](https://github.com/eastbanctechru/e2e4/commit/132d2af))
+
+
+
 <a name="2.4.0"></a>
 # [2.4.0](https://github.com/eastbanctechru/e2e4/compare/v2.3.0...v2.4.0) (2018-05-22)
 
